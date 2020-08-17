@@ -15,6 +15,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
           :autosave    => true,
           :dependent   => :destroy
 
+  delegate :cloud_volumes, :to => :storage_manager
+
   before_create :ensure_managers
   before_update :ensure_managers_zone
 

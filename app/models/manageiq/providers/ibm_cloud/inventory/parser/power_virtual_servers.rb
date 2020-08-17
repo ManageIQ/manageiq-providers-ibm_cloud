@@ -5,6 +5,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
 
   attr_reader :img_to_os, :subnet_to_ext_ports
 
+  OS_MIQ_NAMES_MAP = {
+    'aix'    => 'unix_aix',
+    'ibmi'   => 'ibm_i',
+    'redhat' => 'linux_redhat',
+    'sles'   => 'linux_suse'
+  }.freeze
+
   def initialize
     @img_to_os           = {}
     @subnet_to_ext_ports = {}
@@ -22,22 +29,22 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     collector.vms.each do |instance|
       # saving general VMI information
       ps_vmi = persister.vms.build(
-        :description       => "IBM Cloud Server",
-        :ems_ref           => instance["pvmInstanceID"],
-        :flavor            => "",
-        :location          => "unknown",
-        :name              => instance["serverName"],
-        :vendor            => "ibm",
-        :connection_state  => "connected",
-        :raw_power_state   => instance["status"],
-        :uid_ems           => instance["pvmInstanceID"],
+        :description      => "IBM Cloud Server",
+        :ems_ref          => instance["pvmInstanceID"],
+        :flavor           => "",
+        :location         => "unknown",
+        :name             => instance["serverName"],
+        :vendor           => "ibm",
+        :connection_state => "connected",
+        :raw_power_state  => instance["status"],
+        :uid_ems          => instance["pvmInstanceID"]
       )
 
       # saving hardware information (CPU, Memory, etc.)
       ps_hw = persister.hardwares.build(
         :vm_or_template  => ps_vmi,
         :cpu_total_cores => Float(instance["processors"]).ceil,
-        :memory_mb       => Integer(instance["memory"]) * 1024,
+        :memory_mb       => Integer(instance["memory"]) * 1024
       )
 
       # saving instance disk information
@@ -59,7 +66,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       os = img_to_os[instance['imageID']] || pub_img_os(instance['imageID'])
       persister.operating_systems.build(
         :vm_or_template => ps_vmi,
-        :product_name   => os
+        :product_name   => OS_MIQ_NAMES_MAP[os]
       )
 
       # saving exteral network ports
@@ -67,7 +74,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       external_ports.each do |ext_port|
         net_id = ext_port['networkID']
         subnet_to_ext_ports[net_id] ||= []
-        subnet_to_ext_ports[net_id]  << ext_port
+        subnet_to_ext_ports[net_id] << ext_port
       end
 
       # saving processor type and amount
@@ -107,7 +114,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :connection_state   => "connected",
         :raw_power_state    => "never",
         :template           => true,
-        :publicly_available => true,
+        :publicly_available => true
       )
     end
   end
