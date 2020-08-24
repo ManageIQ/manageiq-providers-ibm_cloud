@@ -1,0 +1,22 @@
+---
+dist: xenial
+language: ruby
+rvm:
+- 2.5.7
+- 2.6.5
+sudo: required
+cache: bundler
+env:
+  global:
+  - RUBY_GC_HEAP_GROWTH_MAX_SLOTS=300000
+  - RUBY_GC_HEAP_INIT_SLOTS=600000
+  - RUBY_GC_HEAP_GROWTH_FACTOR=1.25
+services:
+  - postgresql
+addons:
+  postgresql: "10"
+  apt:
+    update: true
+    packages:
+    - libcurl4-gnutls-dev
+install: bin/setup

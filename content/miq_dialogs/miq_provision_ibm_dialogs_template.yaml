@@ -1,0 +1,124 @@
+---
+:name: miq_provision_ibm_dialogs_template
+:description: Sample VM Provisioning Dialog
+:dialog_type: MiqProvisionWorkflow
+:content:
+  :buttons:
+  - :submit
+  - :cancel
+  :dialogs:
+    :requester:
+      :description: Request
+      :fields: {}
+      :display: :hide
+
+    :customize:
+      :fields: {}
+      :description: Extra
+      :display: :hide
+
+    :environment:
+      :description: Environment
+      :fields: {}
+      :display: :hide
+
+    :schedule:
+      :description: Schedule
+      :fields: {}
+      :display: :hide
+
+    :purpose:
+      :description: Purpose
+      :fields: {}
+      :display: :hide
+
+    :service:
+      :description: General
+      :fields:
+        :number_of_vms:
+          :values:
+            1: 1
+            2: 2
+            3: 3
+            4: 4
+            5: 5
+          :description: Number of Instances
+          :required: false
+          :display: :edit
+          :default: 1
+          :data_type: :integer
+        :vm_name:
+          :description: Instance Name
+          :required_method: :validate_regex
+          :required_regex: !ruby/regexp /^[a-zA-Z]+$/
+          :required: true
+          :display: :edit
+          :data_type: :string
+          :min_length: 1
+          :max_length: 30
+      :display: :show
+
+    :hardware:
+      :description: Profile
+      :fields:
+        :number_of_sockets:
+          :values:
+            1: 1
+            2: 2
+            4: 4
+            8: 8
+          :description: Cores (CPUs)
+          :required: true
+          :display: :edit
+          :default: 1
+          :data_type: :integer
+        :instance_type:
+          :values:
+            1: "capped"
+            2: "uncapped"
+            3: "dedicated"
+          :description: Processor
+          :required: true
+          :display: :edit
+          :default: 1
+          :data_type: :integer
+        :vm_memory:
+          :values:
+            2:  2
+            4:  4
+            8:  8
+            16: 16
+            32: 32
+            64: 64
+          :description: Memory (GB)
+          :required: true
+          :display: :edit
+          :default: 2
+          :data_type: :integer
+      :display: :show
+
+    :network:
+      :description: Network
+      :fields:
+        :vlan:
+          :values_from:
+            :options:
+              :dvs: false
+              :vlans: false
+            :method: :allowed_subnets
+          :description: Network Interfaces
+          :required: true
+          :display: :edit
+          :data_type: :string
+      :display: :show
+
+  :dialog_order:
+  - :service
+  - :hardware
+  - :network
+
+  - :purpose     # unused
+  - :requester   # unused
+  - :environment # unused
+  - :customize   # unused
+  - :schedule    # unused

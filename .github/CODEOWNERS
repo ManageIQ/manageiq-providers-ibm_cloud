@@ -1,0 +1,6 @@
+# Default owners
+*                                                                 @agrare @jaywcarman @blancett
+
+# Power Systems Virtual Servers
+/app/models/manageiq/providers/ibm_cloud/power_virtual_servers/   @agrare @jaywcarman @iv1111 @Kuldip-Nanda
+/spec/models/manageiq/providers/ibm_cloud/power_virtual_servers/  @agrare @jaywcarman @iv1111 @Kuldip-Nanda
