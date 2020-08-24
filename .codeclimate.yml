@@ -28,9 +28,3 @@ plugins:
   rubocop:
     enabled: true
     config: ".rubocop_cc.yml"
-exclude_patterns:
-- node_modules/
-- spec/
-- test/
-- tmp/
-- vendor/

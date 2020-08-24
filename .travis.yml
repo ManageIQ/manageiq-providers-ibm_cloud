@@ -1,22 +1,21 @@
 ---
-dist: xenial
 language: ruby
+cache: bundler
 rvm:
 - 2.5.7
 - 2.6.5
-sudo: required
-cache: bundler
-env:
-  global:
-  - RUBY_GC_HEAP_GROWTH_MAX_SLOTS=300000
-  - RUBY_GC_HEAP_INIT_SLOTS=600000
-  - RUBY_GC_HEAP_GROWTH_FACTOR=1.25
-services:
-  - postgresql
-addons:
-  postgresql: "10"
-  apt:
-    update: true
-    packages:
-    - libcurl4-gnutls-dev
+before_install:
+- 'echo ''gem: --no-ri --no-rdoc --no-document'' > ~/.gemrc'
+- gem install bundler
+- DATABASE_URL="postgresql://postgres:@localhost:5432/manageiq_providers_ibm_cloud_production?encoding=utf8&pool=5&wait_timeout=5"
 install: bin/setup
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
+- bundle exec rake db:create db:migrate
+after_script:
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+addons:
+  postgresql: '10'

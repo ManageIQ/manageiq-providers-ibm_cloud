@@ -1,13 +1,11 @@
 # manageiq-providers-ibm_cloud
 
-[![Gem Version](https://badge.fury.io/rb/manageiq-providers-ibm_cloud.svg)](http://badge.fury.io/rb/manageiq-providers-ibm)
-[![Build Status](https://travis-ci.org/ManageIQ/manageiq-providers-ibm_cloud.svg?branch=master)](https://travis-ci.org/ManageIQ/manageiq-providers-ibm_cloud)
-[![Code Climate](https://codeclimate.com/github/ManageIQ/manageiq-providers-ibm_cloud.svg)](https://codeclimate.com/github/ManageIQ/manageiq-providers-ibm_cloud)
-[![Test Coverage](https://codeclimate.com/github/ManageIQ/manageiq-providers-ibm_cloud/badges/coverage.svg)](https://codeclimate.com/github/ManageIQ/manageiq-providers-ibm_cloud/coverage)
+[![Build Status](https://travis-ci.com/ManageIQ/manageiq-providers-ibm_cloud.svg?branch=master)](https://travis-ci.com/ManageIQ/manageiq-providers-ibm_cloud))
+[![Maintainability](https://api.codeclimate.com/v1/badges/41e71ad240a79b0be9d9/maintainability)](https://codeclimate.com/github/ManageIQ/manageiq-providers-ibm_cloud/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/41e71ad240a79b0be9d9/test_coverage)](https://codeclimate.com/github/ManageIQ/manageiq-providers-ibm_cloud/test_coverage)
 [![Security](https://hakiri.io/github/ManageIQ/manageiq-providers-ibm_cloud/master.svg)](https://hakiri.io/github/ManageIQ/manageiq-providers-ibm_cloud/master)
 
 [![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ManageIQ/manageiq-providers-ibm_cloud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![License](http://img.shields.io/badge/license-APACHE2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ## ManageIQ plugin for the IBM Cloud provider
 
