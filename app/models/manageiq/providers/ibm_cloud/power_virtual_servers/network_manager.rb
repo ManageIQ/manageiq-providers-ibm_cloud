@@ -36,7 +36,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
   end
 
   def self.ems_type
-    @ems_type ||= "ibm_cloud_networks".freeze
+    @ems_type ||= "ibm_cloud_network".freeze
   end
 
   def self.description
