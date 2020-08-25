@@ -1,7 +1,5 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageIQ::Providers::CloudManager
   require_nested :AuthKeyPair
-  require_nested :MetricsCapture
-  require_nested :MetricsCollectorWorker
   require_nested :Refresher
   require_nested :RefreshWorker
   require_nested :Provision
@@ -21,6 +19,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   before_create :ensure_managers_zone
 
   supports :provisioning
+
+  def image_name
+    "ibm_cloud_powervs"
+  end
 
   def ensure_managers
     ensure_managers_zone
