@@ -55,6 +55,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   end
 
   def self.description
-    @description ||= "IBM Cloud".freeze
+    @description ||= "IBM Power Systems Virtual Servers".freeze
   end
 end
