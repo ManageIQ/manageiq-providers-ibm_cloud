@@ -25,6 +25,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
            :to        => :parent_manager,
            :allow_nil => true
 
+  def image_name
+    "ibm"
+  end
+
   def self.validate_authentication_args(params)
     # return args to be used in raw_connect
     [params[:default_userid], ManageIQ::Password.encrypt(params[:default_password])]

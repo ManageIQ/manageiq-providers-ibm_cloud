@@ -23,6 +23,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
            :to        => :parent_manager,
            :allow_nil => true
 
+  def image_name
+    "ibm"
+  end
+
   def self.ems_type
     @ems_type ||= "ibm_cloud_storage".freeze
   end

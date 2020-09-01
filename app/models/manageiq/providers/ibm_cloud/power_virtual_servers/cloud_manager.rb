@@ -21,7 +21,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   supports :provisioning
 
   def image_name
-    "ibm_cloud_powervs"
+    "ibm"
   end
 
   def ensure_managers
