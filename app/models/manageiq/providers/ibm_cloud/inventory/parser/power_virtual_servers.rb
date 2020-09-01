@@ -113,14 +113,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   def volumes
     collector.volumes.each do |vol|
       persister.cloud_volumes.build(
-        :ems_ref           => vol['volumeID'],
-        :name              => vol['name'],
-        :status            => vol['state'],
-        :bootable          => vol['bootable'],
-        :creation_time     => vol['creationDate'],
-        :description       => 'IBM Cloud Block-Storage Volume',
-        :volume_type       => vol['diskType'],
-        :size              => vol['size'],
+        :ems_ref       => vol['volumeID'],
+        :name          => vol['name'],
+        :status        => vol['state'],
+        :bootable      => vol['bootable'],
+        :creation_time => vol['creationDate'],
+        :description   => 'IBM Cloud Block-Storage Volume',
+        :volume_type   => vol['diskType'],
+        :size          => vol['size']&.gigabytes
       )
     end
   end
