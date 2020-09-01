@@ -16,7 +16,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
           :dependent   => :destroy
 
   before_create :ensure_managers
-  before_create :ensure_managers_zone
+  before_update :ensure_managers_zone
 
   supports :provisioning
 
@@ -25,9 +25,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   end
 
   def ensure_managers
-    ensure_managers_zone
     ensure_network_manager
     ensure_storage_manager
+    ensure_managers_zone
   end
 
   def ensure_managers_zone
