@@ -13,13 +13,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
           :foreign_key => :parent_ems_id,
           :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager",
           :autosave    => true,
-          :dependent   => :destroy
+          :dependent   => :destroy,
+          :inverse_of  => :parent_manager
 
   has_one :storage_manager,
           :foreign_key => :parent_ems_id,
           :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager",
           :autosave    => true,
-          :dependent   => :destroy
+          :dependent   => :destroy,
+          :inverse_of  => :parent_manager
 
   before_create :ensure_managers
 
