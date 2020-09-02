@@ -12,7 +12,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   has_one :network_manager,
           :foreign_key => :parent_ems_id,
           :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager",
-          :autosave    => true
+          :autosave    => true,
           :dependent   => :destroy
 
   has_one :storage_manager,
@@ -30,15 +30,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   end
 
   def ensure_managers
-    ensure_network_manager
-    ensure_storage_manager
-  end
-
-  def ensure_network_manager
     build_network_manager unless network_manager
-  end
-
-  def ensure_storage_manager
     build_storage_manager unless storage_manager
   end
 
