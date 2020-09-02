@@ -44,12 +44,12 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       instance["volumeIDs"].each do |vol_id|
         persister.disks.build(
           :hardware        => ps_hw,
-          :device_name     => vol_id,
-          :device_type     => "block",
+          :device_name     => collector.volume(vol_id)["name"],
+          :device_type     => collector.volume(vol_id)["diskType"],
           :controller_type => "ibm",
           :backing         => persister.cloud_volumes.find(vol_id),
           :location        => vol_id,
-          :size            => 20
+          :size            => collector.volume(vol_id)["size"]&.gigabytes
         )
       end
 
