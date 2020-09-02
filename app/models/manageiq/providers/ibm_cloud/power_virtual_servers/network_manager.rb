@@ -47,6 +47,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
     @description ||= "IBM Cloud Networks".freeze
   end
 
+  def name
+    "Network-Manager of '#{parent_manager&.name}'"
+  end
+
   def create_cloud_subnet(options)
     raw_create_cloud_subnet(self, options)
   end

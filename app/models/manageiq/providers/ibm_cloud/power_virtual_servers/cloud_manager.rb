@@ -43,12 +43,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
 
   def ensure_network_manager
     build_network_manager unless network_manager
-    network_manager.name = "Network-Manager of '#{name}'"
   end
 
   def ensure_storage_manager
     build_storage_manager unless storage_manager
-    storage_manager.name = "Storage-Manager of '#{name}'"
   end
 
   def self.hostname_required?

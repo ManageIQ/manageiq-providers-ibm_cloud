@@ -38,4 +38,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
   def self.hostname_required?
     false
   end
+
+  def name
+    "Storage-Manager of '#{parent_manager&.name}'"
+  end
 end
