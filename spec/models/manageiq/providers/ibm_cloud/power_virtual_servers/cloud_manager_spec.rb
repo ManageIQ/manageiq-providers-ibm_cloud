@@ -43,63 +43,61 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager do
   end
 
   describe ".create_from_params" do
-    let(:zone)         { FactoryBot.create(:zone) }
-    let(:powervs_guid) { SecureRandom.uuid }
+    let(:zone)           { FactoryBot.create(:zone) }
+    let(:powervs_guid)   { SecureRandom.uuid }
+    let(:params)         { {:zone => zone, :name => "IBM Cloud", :uid_ems => powervs_guid} }
+    let(:authentication) { {"authtype" => "default", "auth_key" => "authkey"} }
+    let!(:cloud_manager) { described_class.create_from_params(params, [], [authentication]) }
 
     it "creates cloud manager" do
-      params = {:zone => zone, :name => "IBM Cloud PowerVS", :uid_ems => powervs_guid}
-      authentication = {"authtype" => "default", "auth_key" => "authkey"}
-
-      cloud_manager = described_class.create_from_params(params, [], [authentication])
-
       expect(cloud_manager.uid_ems).to eq(powervs_guid)
-      expect(cloud_manager.name).to eq("IBM Cloud PowerVS")
+      expect(cloud_manager.name).to eq("IBM Cloud Power Virtual Servers")
     end
 
     it "creates child managers" do
-      params = {:zone => zone, :name => "IBM Cloud PowerVS", :uid_ems => powervs_guid}
-      authentication = {"authtype" => "default", "auth_key" => "authkey"}
-
-      cloud_manager = described_class.create_from_params(params, [], [authentication])
-
-      expect(cloud_manager.network_manager.name).to eq("Network-Manager of 'IBM Cloud PowerVS'")
-      expect(cloud_manager.storage_manager.name).to eq("Storage-Manager of 'IBM Cloud PowerVS'")
+      expect(cloud_manager.network_manager.name).to eq("Network-Manager of 'IBM Cloud Power Virtual Servers'")
+      expect(cloud_manager.storage_manager.name).to eq("Storage-Manager of 'IBM Cloud Power Virtual Servers'")
 
       expect(cloud_manager.network_manager.zone).to eq(cloud_manager.zone)
       expect(cloud_manager.storage_manager.zone).to eq(cloud_manager.zone)
     end
+
+    it "creates the parent provider" do
+      expect(cloud_manager.provider).not_to be_nil
+      expect(cloud_manager.provider.name).to eq("IBM Cloud")
+      expect(cloud_manager.provider.power_virtual_servers_cloud_managers.first).to eq(cloud_manager)
+    end
   end
 
   describe ".edit_with_params" do
-    let(:zone)          { FactoryBot.build(:zone) }
-    let(:new_zone)      { FactoryBot.build(:zone) }
-    let(:cloud_manager) { FactoryBot.build(:ems_ibm_cloud_power_virtual_servers_cloud, :name => "IBM Cloud PowerVS", :zone => zone) }
+    let(:zone)           { FactoryBot.build(:zone) }
+    let(:new_zone)       { FactoryBot.build(:zone) }
+    let(:cloud_manager)  { FactoryBot.build(:ems_ibm_cloud_power_virtual_servers_cloud, :name => "IBM Cloud PowerVS", :zone => zone) }
+    let(:params)         { {:zone => new_zone, :name => "IBM Cloud 2"} }
+    let(:authentication) { {"authtype" => "default", "auth_key" => "authkey"} }
+
+    before do
+      cloud_manager.edit_with_params(params, [], [authentication])
+      cloud_manager.reload
+    end
 
     it "changing the name and zone updates the cloud manager" do
-      params = {:zone => new_zone, :name => "IBM Cloud PowerVS 2"}
-      authentication = {"authtype" => "default", "auth_key" => "authkey"}
-
-      cloud_manager.edit_with_params(params, [], [authentication])
-
-      cloud_manager.reload
-
-      expect(cloud_manager.name).to eq("IBM Cloud PowerVS 2")
+      expect(cloud_manager.name).to eq("IBM Cloud 2 Power Virtual Servers")
       expect(cloud_manager.zone).to eq(new_zone)
+      expect(cloud_manager.provider).not_to be_nil
     end
 
     it "changing the name and zone updates the child managers" do
-      params = {:zone => new_zone, :name => "IBM Cloud PowerVS 2"}
-      authentication = {"authtype" => "default", "auth_key" => "authkey"}
-
-      cloud_manager.edit_with_params(params, [], [authentication])
-
-      cloud_manager.reload
-
-      expect(cloud_manager.network_manager.name).to eq("Network-Manager of 'IBM Cloud PowerVS 2'")
-      expect(cloud_manager.storage_manager.name).to eq("Storage-Manager of 'IBM Cloud PowerVS 2'")
+      expect(cloud_manager.network_manager.name).to eq("Network-Manager of 'IBM Cloud 2 Power Virtual Servers'")
+      expect(cloud_manager.storage_manager.name).to eq("Storage-Manager of 'IBM Cloud 2 Power Virtual Servers'")
 
       expect(cloud_manager.network_manager.zone).to eq(new_zone)
       expect(cloud_manager.storage_manager.zone).to eq(new_zone)
+    end
+
+    it "chaning the name and zone changes the provider name" do
+      expect(cloud_manager.provider.name).to eq("IBM Cloud 2")
+      expect(cloud_manager.provider.zone).to eq(new_zone)
     end
   end
 end

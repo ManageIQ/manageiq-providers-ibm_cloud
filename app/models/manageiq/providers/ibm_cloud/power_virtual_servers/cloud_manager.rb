@@ -23,17 +23,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
 
   before_create :ensure_managers
 
-  belongs_to :provider, :class_name => "ManageIQ::Providers::IbmCloud::Provider", :autosave => true
+  belongs_to :provider, :class_name => "ManageIQ::Providers::IbmCloud::Provider", :inverse_of => :power_virtual_servers_cloud_managers
 
   supports :provisioning
 
   def image_name
     "ibm"
-  end
-
-  def ensure_managers
-    build_network_manager unless network_manager
-    build_storage_manager unless storage_manager
   end
 
   def self.hostname_required?
@@ -48,4 +43,46 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   def self.description
     @description ||= "IBM Power Systems Virtual Servers".freeze
   end
+
+  def self.create_from_params(params, endpoints, authentications)
+    new(params).tap do |ems|
+      endpoints.each { |endpoint| ems.assign_nested_endpoint(endpoint) }
+      authentications.each { |authentication| ems.assign_nested_authentication(authentication) }
+
+      ems.provider.save!
+      ems.save!
+    end
+  end
+
+  def edit_with_params(params, endpoints, authentications)
+    tap do |ems|
+      transaction do
+        # Remove endpoints/attributes that are not arriving in the arguments above
+        ems.endpoints.where.not(:role => nil).where.not(:role => endpoints.map { |ep| ep['role'] }).delete_all
+        ems.authentications.where.not(:authtype => nil).where.not(:authtype => authentications.map { |au| au['authtype'] }).delete_all
+
+        ems.assign_attributes(params)
+        ems.endpoints = endpoints.map(&method(:assign_nested_endpoint))
+        ems.authentications = authentications.map(&method(:assign_nested_authentication))
+
+        ems.provider.save!
+        ems.save!
+      end
+    end
+  end
+
+  def ensure_managers
+    build_network_manager unless network_manager
+    build_storage_manager unless storage_manager
+  end
+
+  def provider
+    super || build_provider
+  end
+
+  def name
+    "#{provider.name} Power Virtual Servers"
+  end
+
+  delegate :name=, :zone, :zone=, :zone_id, :zone_id=, :to => :provider
 end
