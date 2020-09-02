@@ -14,6 +14,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
            :authentications,
            :authentication_for_summary,
            :zone,
+           :zone_id,
+           :zone=,
+           :zone_id=,
            :connect,
            :verify_credentials,
            :with_provider_connection,
@@ -22,8 +25,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
            :hostname,
            :default_endpoint,
            :endpoints,
-           :to        => :parent_manager,
-           :allow_nil => true
+           :to => :parent_manager
 
   def image_name
     "ibm"
@@ -48,7 +50,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
   end
 
   def name
-    "Network-Manager of '#{parent_manager&.name}'"
+    "Network-Manager of '#{parent_manager.name}'"
   end
 
   def create_cloud_subnet(options)
