@@ -9,6 +9,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
 
   include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
 
+  has_one :network_manager,
+          :foreign_key => :parent_ems_id,
+          :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager",
+          :autosave    => true
+          :dependent   => :destroy
+
   has_one :storage_manager,
           :foreign_key => :parent_ems_id,
           :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager",
@@ -36,7 +42,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   end
 
   def ensure_network_manager
-    build_network_manager(:type => 'ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager') unless network_manager
+    build_network_manager unless network_manager
     network_manager.name = "Network-Manager of '#{name}'"
   end
 
