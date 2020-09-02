@@ -25,7 +25,18 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
 
   before_create :ensure_managers
 
-  belongs_to :provider, :class_name => "ManageIQ::Providers::IbmCloud::Provider", :inverse_of => :power_virtual_servers_cloud_managers
+  belongs_to :provider,
+             :class_name => "ManageIQ::Providers::IbmCloud::Provider",
+             :inverse_of => :power_virtual_servers_cloud_managers
+
+  delegate :name=,
+           :zone,
+           :zone=,
+           :zone_id,
+           :zone_id=,
+           :authentications,
+           :authentications=,
+           :to => :provider
 
   supports :provisioning
 
@@ -85,6 +96,4 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   def name
     "#{provider.name} Power Virtual Servers"
   end
-
-  delegate :name=, :zone, :zone=, :zone_id, :zone_id=, :to => :provider
 end

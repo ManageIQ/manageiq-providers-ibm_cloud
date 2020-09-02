@@ -67,6 +67,10 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager do
       expect(cloud_manager.provider.name).to eq("IBM Cloud")
       expect(cloud_manager.provider.power_virtual_servers_cloud_managers.first).to eq(cloud_manager)
     end
+
+    it "delegates authentications to the parent provider" do
+      expect(cloud_manager.provider.authentications.count).to eq(1)
+    end
   end
 
   describe ".edit_with_params" do
