@@ -104,4 +104,19 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager do
       expect(cloud_manager.provider.zone).to eq(new_zone)
     end
   end
+
+  context "#destroy" do
+    let(:zone)          { FactoryBot.build(:zone) }
+    let(:cloud_manager) { FactoryBot.build(:ems_ibm_cloud_power_virtual_servers_cloud, :name => "IBM Cloud PowerVS", :zone => zone) }
+
+    it "destroys child managers" do
+      cloud_manager.destroy!
+      expect(ExtManagementSystem.count).to eq(0)
+    end
+
+    it "destroys the parent provider" do
+      cloud_manager.destroy!
+      expect(Provider.count).to eq(0)
+    end
+  end
 end
