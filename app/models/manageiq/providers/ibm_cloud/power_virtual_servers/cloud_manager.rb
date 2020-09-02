@@ -23,6 +23,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
 
   before_create :ensure_managers
 
+  belongs_to :provider, :class_name => "ManageIQ::Providers::IbmCloud::Provider", :autosave => true
+
   supports :provisioning
 
   def image_name
