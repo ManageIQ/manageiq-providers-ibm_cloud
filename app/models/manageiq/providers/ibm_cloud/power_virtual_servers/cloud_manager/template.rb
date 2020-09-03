@@ -7,8 +7,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     end
   end
 
-  def provider_object(connection = nil)
-    connection ||= ext_management_system.connect
+  def provider_object(_connection = nil)
+    ext_management_system.connect
   end
 
   def destroy
