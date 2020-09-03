@@ -74,9 +74,9 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager do
   end
 
   describe ".edit_with_params" do
-    let(:zone)           { FactoryBot.build(:zone) }
-    let(:new_zone)       { FactoryBot.build(:zone) }
-    let(:cloud_manager)  { FactoryBot.build(:ems_ibm_cloud_power_virtual_servers_cloud, :name => "IBM Cloud PowerVS", :zone => zone) }
+    let(:zone)           { FactoryBot.create(:zone) }
+    let(:new_zone)       { FactoryBot.create(:zone) }
+    let(:cloud_manager)  { FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud, :name => "IBM Cloud PowerVS", :zone => zone) }
     let(:params)         { {:zone => new_zone, :name => "IBM Cloud 2"} }
     let(:authentication) { {"authtype" => "default", "auth_key" => "authkey"} }
 
@@ -106,8 +106,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager do
   end
 
   context "#destroy" do
-    let(:zone)          { FactoryBot.build(:zone) }
-    let(:cloud_manager) { FactoryBot.build(:ems_ibm_cloud_power_virtual_servers_cloud, :name => "IBM Cloud PowerVS", :zone => zone) }
+    let(:zone)          { FactoryBot.create(:zone) }
+    let(:cloud_manager) { FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud, :name => "IBM Cloud PowerVS", :zone => zone) }
 
     it "destroys child managers" do
       cloud_manager.destroy!
