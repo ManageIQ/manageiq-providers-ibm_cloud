@@ -11,10 +11,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     connection.get_pvm_instances
   end
 
-  def networks
-    connection.get_networks
-  end
-
   def image(img_id)
     connection.get_image(img_id)
   end
