@@ -28,7 +28,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   belongs_to :provider,
              :class_name => "ManageIQ::Providers::IbmCloud::Provider",
              :inverse_of => :power_virtual_servers_cloud_managers,
-             :dependent  => :destroy
+             :dependent  => :destroy,
+             :autosave   => true
 
   delegate :name=,
            :zone,
