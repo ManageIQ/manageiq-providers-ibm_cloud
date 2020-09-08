@@ -38,6 +38,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
            :zone_id=,
            :authentications,
            :authentications=,
+           :authentication_check,
+           :authentication_status,
+           :authentication_status_ok?,
+           :verify_credentials,
            :to => :provider
 
   supports :provisioning

@@ -101,6 +101,19 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager do
     end
   end
 
+  context "#authentications" do
+    let!(:cloud_manager) do
+      FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud, :name => "IBM Cloud PowerVS", :zone => FactoryBot.create(:zone)) do |ems|
+        ems.authentications << FactoryBot.create(:authentication, :authtype => "default", :status => "Valid", :userid => "abcd")
+      end
+    end
+
+    it "delegates authentications to provider" do
+      expect(cloud_manager.authentication_status).to eq("Valid")
+      expect(cloud_manager.authentication_status_ok?).to be_truthy
+    end
+  end
+
   context "#destroy" do
     let(:zone)          { FactoryBot.create(:zone) }
     let(:cloud_manager) { FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud, :name => "IBM Cloud PowerVS", :zone => zone) }
