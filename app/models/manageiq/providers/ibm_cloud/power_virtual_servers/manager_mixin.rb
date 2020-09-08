@@ -35,17 +35,19 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
           {
             :component  => "text-field",
             :name       => "uid_ems",
+            :id         => "uid_ems",
             :label      => _("PowerVS Service GUID"),
             :isRequired => true,
-            :validate   => [{:type => "required-validator"}],
+            :validate   => [{:type => "required"}],
           },
           {
             :component  => "password-field",
             :name       => "authentications.default.auth_key",
+            :id         => "authentications.default.auth_key",
             :label      => _("IBM Cloud API Key"),
             :type       => "password",
             :isRequired => true,
-            :validate   => [{:type => "required-validator"}]
+            :validate   => [{:type => "required"}]
           },
         ],
       }.freeze
