@@ -96,16 +96,16 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
     auth_key = MiqPassword.try_decrypt(auth_key)
     auth_key ||= find(args["id"]).authentication_token('default')
 
-    !!raw_connect(auth_key, pcloud_guid)
+    !!raw_connect_power_iaas(auth_key, pcloud_guid)
   end
 
-  def self.raw_connect(api_key, pcloud_guid)
+  def self.raw_connect_power_iaas(api_key, pcloud_guid)
     raise MiqException::MiqInvalidCredentialsError, _("Missing credentials") if pcloud_guid.blank?
 
     token              = ManageIQ::Providers::IbmCloud::Provider.raw_connect(api_key)
     power_iaas_service = IBM::Cloud::SDK::ResourceController.new(token).get_resource(pcloud_guid)
 
-    {:token => token, :guid => pcloud_guid, :crn => power_iaas_service.crn, :region => power_iaas_service.region_id, :tenant => power_iaas_service.account_id}
+    IBM::Cloud::SDK::PowerIaas.new(power_iaas_service.region_id, pcloud_guid, token, power_iaas_service.crn, power_iaas_service.account_id)
   end
 
   def self.create_from_params(params, endpoints, authentications)
@@ -136,18 +136,14 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   end
 
   def connect(options = {})
-    auth_key = authentication_key(options[:auth_type])
-    creds = self.class.raw_connect(auth_key, uid_ems)
+    service = options[:service]&.underscore || "power_iaas"
+    meth    = "raw_connect_#{service}"
 
-    options[:service] ||= "PowerIaas"
-    case options[:service]
-    when "PowerIaas"
-      region, guid, token, crn, tenant = creds.values_at(:region, :guid, :token, :crn, :tenant)
-      IBM::Cloud::SDK::PowerIaas.new(region, guid, token, crn, tenant)
-    else
-      raise ArgumentError, "Unknown target API set: '#{options[:service]}''"
-    end
+    raise ArgumentError, "Invalid service #{service}" unless respond_to?(meth)
+    send(meth, authentication_key(options[:auth_type]), uid_ems)
   end
+
+  delegate :raw_connect_power_iaas, :to => :class
 
   def verify_credentials(_auth_type = nil, options = {})
     connect(options)

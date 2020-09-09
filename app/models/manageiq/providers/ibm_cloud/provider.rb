@@ -37,6 +37,10 @@ class ManageIQ::Providers::IbmCloud::Provider < ::Provider
     iam.get_identity_token
   end
 
+  def verify_credentials(auth_type = nil, options = {})
+    !!self.class.raw_connect(authentication_key(auth_type))
+  end
+
   def required_credential_fields(_type)
     [:auth_key]
   end
