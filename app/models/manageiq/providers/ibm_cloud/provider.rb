@@ -6,7 +6,7 @@ class ManageIQ::Providers::IbmCloud::Provider < ::Provider
            :dependent   => :destroy
 
   def self.params_for_create
-    @params_for_create ||= {
+    {
       :fields => [
         {
           :component  => "password-field",
@@ -16,9 +16,22 @@ class ManageIQ::Providers::IbmCloud::Provider < ::Provider
           :type       => "password",
           :isRequired => true,
           :validate   => [{:type => "required"}]
+        },
+        {
+          :component   => "select",
+          :id          => "provider_id",
+          :name        => "provider_id",
+          :label       => _("IBM Cloud Provider"),
+          :isClearable => true,
+          :options     => Rbac.filtered(ManageIQ::Providers::IbmCloud::Provider.all).pluck(:name, :id).map do |name, id|
+            {
+              :label => name,
+              :value => id.to_s,
+            }
+          end
         }
       ],
-    }.freeze
+    }
   end
 
   def self.verify_credentials(args)
@@ -37,7 +50,7 @@ class ManageIQ::Providers::IbmCloud::Provider < ::Provider
     iam.get_identity_token
   end
 
-  def verify_credentials(auth_type = nil, options = {})
+  def verify_credentials(auth_type = nil, _options = {})
     !!self.class.raw_connect(authentication_key(auth_type))
   end
 

@@ -68,7 +68,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   end
 
   def self.params_for_create
-    @params_for_create ||= ManageIQ::Providers::IbmCloud::Provider.params_for_create.dup.tap do |params|
+    ManageIQ::Providers::IbmCloud::Provider.params_for_create.dup.tap do |params|
       params[:fields] << {
         :component  => "text-field",
         :name       => "uid_ems",
@@ -77,7 +77,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
         :isRequired => true,
         :validate   => [{:type => "required"}],
       }
-    end.freeze
+    end
   end
 
   # Verify Credentials
@@ -140,6 +140,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
     meth    = "raw_connect_#{service}"
 
     raise ArgumentError, "Invalid service #{service}" unless respond_to?(meth)
+
     send(meth, authentication_key(options[:auth_type]), uid_ems)
   end
 
