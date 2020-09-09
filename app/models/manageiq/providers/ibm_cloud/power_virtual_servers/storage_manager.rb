@@ -2,7 +2,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
   require_nested :CloudVolume
   require_nested :Refresher
 
-  include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
   include ManageIQ::Providers::StorageManager::BlockMixin
 
   delegate :authentication_check,

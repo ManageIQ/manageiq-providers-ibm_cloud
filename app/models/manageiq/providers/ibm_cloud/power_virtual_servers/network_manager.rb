@@ -6,8 +6,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
   require_nested :CloudSubnet
   require_nested :NetworkPort
 
-  include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
-
   delegate :authentication_check,
            :authentication_status,
            :authentication_status_ok?,
