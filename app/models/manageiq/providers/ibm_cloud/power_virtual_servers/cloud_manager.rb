@@ -36,10 +36,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
            :zone_id=,
            :authentications,
            :authentications=,
-           :authentication_check,
            :authentication_status,
            :authentication_status_ok?,
-           :verify_credentials,
            :to => :provider
 
   supports :provisioning
@@ -70,27 +68,16 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   end
 
   def self.params_for_create
-    @params_for_create ||= {
-      :fields => [
-        {
-          :component  => "text-field",
-          :name       => "uid_ems",
-          :id         => "uid_ems",
-          :label      => _("PowerVS Service GUID"),
-          :isRequired => true,
-          :validate   => [{:type => "required"}],
-        },
-        {
-          :component  => "password-field",
-          :name       => "authentications.default.auth_key",
-          :id         => "authentications.default.auth_key",
-          :label      => _("IBM Cloud API Key"),
-          :type       => "password",
-          :isRequired => true,
-          :validate   => [{:type => "required"}]
-        },
-      ],
-    }.freeze
+    @params_for_create ||= ManageIQ::Providers::IbmCloud::Provider.params_for_create.dup.tap do |params|
+      params[:fields] << {
+        :component  => "text-field",
+        :name       => "uid_ems",
+        :id         => "uid_ems",
+        :label      => _("PowerVS Service GUID"),
+        :isRequired => true,
+        :validate   => [{:type => "required"}],
+      }
+    end.freeze
   end
 
   # Verify Credentials
@@ -113,13 +100,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   end
 
   def self.raw_connect(api_key, pcloud_guid)
-    if api_key.blank? || pcloud_guid.blank?
-      raise MiqException::MiqInvalidCredentialsError, _("Missing credentials")
-    end
+    raise MiqException::MiqInvalidCredentialsError, _("Missing credentials") if pcloud_guid.blank?
 
-    require "ibm-cloud-sdk"
-    iam = IBM::Cloud::SDK::IAM.new(api_key)
-    token = iam.get_identity_token
+    token              = ManageIQ::Providers::IbmCloud::Provider.raw_connect(api_key)
     power_iaas_service = IBM::Cloud::SDK::ResourceController.new(token).get_resource(pcloud_guid)
 
     {:token => token, :guid => pcloud_guid, :crn => power_iaas_service.crn, :region => power_iaas_service.region_id, :tenant => power_iaas_service.account_id}
