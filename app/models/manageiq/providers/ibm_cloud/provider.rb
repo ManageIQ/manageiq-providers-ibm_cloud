@@ -9,15 +9,6 @@ class ManageIQ::Providers::IbmCloud::Provider < ::Provider
     {
       :fields => [
         {
-          :component  => "password-field",
-          :name       => "authentications.default.auth_key",
-          :id         => "authentications.default.auth_key",
-          :label      => _("IBM Cloud API Key"),
-          :type       => "password",
-          :isRequired => true,
-          :validate   => [{:type => "required"}]
-        },
-        {
           :component   => "select",
           :id          => "provider_id",
           :name        => "provider_id",
@@ -29,6 +20,19 @@ class ManageIQ::Providers::IbmCloud::Provider < ::Provider
               :value => id.to_s,
             }
           end
+        },
+        {
+          :component  => "password-field",
+          :name       => "authentications.default.auth_key",
+          :id         => "authentications.default.auth_key",
+          :label      => _("IBM Cloud API Key (if not using an existing provider)"),
+          :type       => "password",
+          :isRequired => true,
+          :condition  => {
+            :when    => "provider_id",
+            :isEmpty => true
+          },
+          :validate   => [{:type => "required"}]
         }
       ],
     }
