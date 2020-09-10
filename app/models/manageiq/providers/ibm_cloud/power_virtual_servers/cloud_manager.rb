@@ -29,8 +29,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
              :dependent  => :destroy,
              :autosave   => true
 
-  delegate :name=,
-           :zone,
+  delegate :zone,
            :zone=,
            :zone_id,
            :zone_id=,
@@ -157,10 +156,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   end
 
   def provider
-    super || build_provider
-  end
-
-  def name
-    "#{provider.name} Power Virtual Servers"
+    super || build_provider(:name => name)
   end
 end
