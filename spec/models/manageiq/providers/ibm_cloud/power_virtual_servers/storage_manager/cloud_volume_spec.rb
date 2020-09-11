@@ -1,5 +1,4 @@
 describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudVolume do
-
   let(:ems_cloud) { FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud) }
   let(:ems_storage) { FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_storage, :parent_ems_id => ems_cloud.id) }
   let(:cloud_volume) { FactoryBot.create(:cloud_volume_ibm_cloud_power_virtual_servers, :ext_management_system => ems_storage ) }
