@@ -40,11 +40,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
   end
 
   def self.ems_type
-    @ems_type ||= "ibm_cloud_network".freeze
+    @ems_type ||= "ibm_cloud_power_virtual_servers_network".freeze
   end
 
   def self.description
-    @description ||= "IBM Cloud Networks".freeze
+    @description ||= "IBM Power Systems Virtual Servers Network".freeze
   end
 
   def create_cloud_subnet(options)
