@@ -50,10 +50,42 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     Hash[cloud_volumes || {}]
   end
 
-  def validate_entitled_processors(_field, values, _dlg, _fld, value)
+  def set_request_values(values)
+    values[:new_volumes] = parse_new_volumes_fields(values)
+    super
+  end
+
+  def parse_new_volumes_fields(values)
+    stop = false
+    new_volumes = []
+
+    while not stop
+      new_volume = {}
+
+      %w(name size diskType shareable).map do |fld|
+        cnt = new_volumes.length+1
+        key = (:"#{fld}_#{cnt}").to_sym
+        new_volume[fld.to_sym] = values[key] if values.key?(key)
+      end
+
+      stop = new_volume.empty?
+
+      if not stop
+        new_volume[:name] = nil if new_volume[:name].blank?
+        new_volume[:diskType] = nil if new_volume[:diskType].blank?
+        new_volume[:size] = new_volume[:size].blank? ? nil : new_volume[:size].to_i
+        new_volume[:shareable] = ['null', nil].exclude?(new_volume[:shareable])
+        new_volumes << new_volume
+      end
+    end
+
+    new_volumes
+  end
+
+  def validate_entitled_processors(field, values, dlg, fld, value)
     dedicated = values[:instance_type][1] == 'dedicated'
 
-    fval = /^\s*[\d]*(\.[\d]+)?\s*$/.match?(value) ? value.strip.to_f : 0
+    fval = value.match(/^\s*[\d]+(\.[\d]+)?\s*$/) ? value.strip.to_f : 0
     return "Entitled Processors field does not contain a well-formed positive number" unless fval > 0
 
     if dedicated

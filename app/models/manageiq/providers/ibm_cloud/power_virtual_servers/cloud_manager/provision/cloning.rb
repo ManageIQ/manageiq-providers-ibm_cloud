@@ -5,7 +5,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
   def prepare_for_clone_task
     specs = {
-      'serverName' => get_option(:vm_target_name),
+      'serverName' => get_option(:vm_target_name) ,
       'imageID'    => get_option_last(:src_vm_id),
       'processors' => get_option_last(:entitled_processors).to_f,
       'procType'   => get_option_last(:instance_type),
@@ -24,15 +24,16 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     chosen_storage_type = get_option_last(:storage_type)
     specs['storageType'] = chosen_storage_type unless chosen_storage_type == 'None'
 
-    chosen_volumes = options[:cloud_volumes]
-    specs['volumeIDs'] = chosen_volumes unless chosen_volumes.compact.empty?
-
     chosen_key_pair = get_option_last(:guest_access_key_pair)
     specs['keyPairName'] = chosen_key_pair unless chosen_key_pair == 'None'
 
     user_script_text = options[:user_script_text]
     user_script_text64 = Base64.encode64(user_script_text) unless user_script_text.nil?
     specs['userData'] = user_script_text64 unless user_script_text64.nil?
+
+    attached_volumes = options[:cloud_volumes] || []
+    attached_volumes.concat(phase_context[:new_volumes]).compact!
+    specs['volumeIDs'] = attached_volumes unless attached_volumes.empty?
 
     specs
   end
