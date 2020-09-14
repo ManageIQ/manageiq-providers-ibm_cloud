@@ -28,11 +28,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
   end
 
   def self.ems_type
-    @ems_type ||= "ibm_cloud_storage".freeze
+    @ems_type ||= "ibm_cloud_power_virtual_servers_storage".freeze
   end
 
   def self.description
-    @description ||= "IBM Cloud Storage".freeze
+    @description ||= "IBM Power Systems Virtual Servers Storage".freeze
   end
 
   def self.hostname_required?
