@@ -1,5 +1,6 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < ManageIQ::Providers::CloudManager::Vm
   supports     :reboot_guest
+  supports     :terminate
   supports_not :suspend
 
   def raw_start
@@ -21,6 +22,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
       power_iaas.reboot_pvm_instance(ems_ref)
     end
     update!(:raw_power_state => "off")
+  end
+
+  def raw_destroy
+    with_provider_connection({:target => 'PowerIaas'}) do |power_iaas|
+      power_iaas.delete_pvm_instance(ems_ref)
+    end
   end
 
   def self.calculate_power_state(raw_power_state)
