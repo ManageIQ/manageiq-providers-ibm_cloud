@@ -1,6 +1,5 @@
 # coding: utf-8
-
-lib = File.expand_path('lib', __dir__)
+lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'manageiq/providers/ibm_cloud/version'
 
@@ -9,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = ManageIQ::Providers::IbmCloud::VERSION
   spec.authors       = ["ManageIQ Authors"]
 
-  spec.summary       = "Ibm Cloud plugin for ManageIQ"
-  spec.description   = "Ibm Cloud plugin for ManageIQ"
+  spec.summary       = "ManageIQ plugin for the IBM Cloud provider."
+  spec.description   = "ManageIQ plugin for the IBM Cloud provider."
   spec.homepage      = "https://github.com/ManageIQ/manageiq-providers-ibm_cloud"
   spec.license       = "Apache-2.0"
 
@@ -20,5 +19,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "ibm-cloud-sdk", "~> 0.1"
+
   spec.add_development_dependency "simplecov"
 end

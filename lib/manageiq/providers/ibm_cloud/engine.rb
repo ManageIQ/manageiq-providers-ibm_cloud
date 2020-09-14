@@ -11,7 +11,7 @@ module ManageIQ
         end
 
         def self.plugin_name
-          _('ManageIQ Providers Ibm Cloud')
+          _('IBM Cloud Provider')
         end
       end
     end
