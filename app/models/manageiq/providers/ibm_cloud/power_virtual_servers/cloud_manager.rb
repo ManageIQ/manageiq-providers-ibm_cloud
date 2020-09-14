@@ -68,7 +68,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
 
   def self.params_for_create
     ManageIQ::Providers::IbmCloud::Provider.params_for_create.dup.tap do |params|
-      params[:fields] << {
+      endpoints_tabs = params[:fields].detect { |f| f[:name] == "endpoints-subform" }[:fields].detect { |f| f[:name] == "tabs" }
+      default_tab    = endpoints_tabs[:fields].detect { |f| f[:name] == "default-tab" }
+      verify_form    = default_tab[:fields].detect { |f| f[:name] == "endpoints.default.valid" }
+
+      verify_form[:validationDependencies] << "uid_ems"
+      verify_form[:fields] << {
         :component  => "text-field",
         :name       => "uid_ems",
         :id         => "uid_ems",

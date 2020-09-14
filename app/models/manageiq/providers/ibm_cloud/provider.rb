@@ -22,17 +22,42 @@ class ManageIQ::Providers::IbmCloud::Provider < ::Provider
           end
         },
         {
-          :component  => "password-field",
-          :name       => "authentications.default.auth_key",
-          :id         => "authentications.default.auth_key",
-          :label      => _("IBM Cloud API Key (if not using an existing provider)"),
-          :type       => "password",
-          :isRequired => true,
-          :condition  => {
-            :when    => "provider_id",
-            :isEmpty => true
-          },
-          :validate   => [{:type => "required"}]
+          :component => 'sub-form',
+          :id        => 'endpoints-subform',
+          :name      => 'endpoints-subform',
+          :title     => _("Endpoints"),
+          :fields    => [
+            :component => 'tabs',
+            :name      => 'tabs',
+            :fields    => [
+              {
+                :component => 'tab-item',
+                :id        => 'default-tab',
+                :name      => 'default-tab',
+                :title     => _('Default'),
+                :fields    => [
+                  {
+                    :component              => 'validate-provider-credentials',
+                    :id                     => 'endpoints.default.valid',
+                    :name                   => 'endpoints.default.valid',
+                    :skipSubmit             => true,
+                    :validationDependencies => %w[type zone_id provider_id],
+                    :fields                 => [
+                      {
+                        :component  => "password-field",
+                        :name       => "authentications.default.auth_key",
+                        :id         => "authentications.default.auth_key",
+                        :label      => _("IBM Cloud API Key (if not using an existing provider)"),
+                        :type       => "password",
+                        :isRequired => true,
+                        :validate   => [{:type => "required"}]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          ]
         }
       ],
     }
