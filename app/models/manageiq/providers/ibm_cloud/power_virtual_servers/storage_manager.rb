@@ -2,7 +2,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
   require_nested :CloudVolume
   require_nested :Refresher
 
-  include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
   include ManageIQ::Providers::StorageManager::BlockMixin
 
   delegate :authentication_check,
@@ -11,6 +10,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
            :authentications,
            :authentication_for_summary,
            :zone,
+           :zone_id,
+           :zone=,
+           :zone_id=,
            :connect,
            :verify_credentials,
            :with_provider_connection,
@@ -20,8 +22,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
            :default_endpoint,
            :endpoints,
            :key_pairs,
-           :to        => :parent_manager,
-           :allow_nil => true
+           :to => :parent_manager
 
   def image_name
     "ibm"
@@ -37,5 +38,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
 
   def self.hostname_required?
     false
+  end
+
+  def name
+    "Storage-Manager of '#{parent_manager.name}'"
   end
 end

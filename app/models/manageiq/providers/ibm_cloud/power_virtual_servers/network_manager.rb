@@ -6,14 +6,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
   require_nested :CloudSubnet
   require_nested :NetworkPort
 
-  include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
-
   delegate :authentication_check,
            :authentication_status,
            :authentication_status_ok?,
            :authentications,
            :authentication_for_summary,
            :zone,
+           :zone_id,
+           :zone=,
+           :zone_id=,
            :connect,
            :verify_credentials,
            :with_provider_connection,
@@ -22,8 +23,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
            :hostname,
            :default_endpoint,
            :endpoints,
-           :to        => :parent_manager,
-           :allow_nil => true
+           :to => :parent_manager
 
   def image_name
     "ibm"
@@ -45,6 +45,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
 
   def self.description
     @description ||= "IBM Power Systems Virtual Servers Network".freeze
+  end
+
+  def name
+    "Network-Manager of '#{parent_manager.name}'"
   end
 
   def create_cloud_subnet(options)
