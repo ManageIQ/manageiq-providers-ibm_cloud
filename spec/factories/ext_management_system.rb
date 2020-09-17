@@ -4,3 +4,9 @@ FactoryBot.define do
           :class   => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager",
           :parent  => :ems_cloud
 end
+
+FactoryBot.define do
+  factory :ems_ibm_cloud_vpc,
+          :class  => "ManageIQ::Providers::IbmCloud::VPC::CloudManager",
+          :parent => :ems_cloud
+end
