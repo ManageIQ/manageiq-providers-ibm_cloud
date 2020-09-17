@@ -91,10 +91,5 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
       require 'ibm-cloud-sdk'
       IBM::CloudSDK.new(api_key)
     end
-
-    def raw_tenant_id(creds)
-      plst = get_pvstenantid(creds[:token])
-      plst[0][:tenant_id]
-    end
   end
 end
