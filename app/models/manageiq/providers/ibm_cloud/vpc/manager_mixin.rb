@@ -12,8 +12,8 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   def connect(options = {})
     key = authentication_key(options[:auth_type])
     region = options[:provider_region] || provider_region
-    token = self.class.raw_connect(key)
-    IBM::Cloud::SDK::Vpc.new(region, token)
+    sdk = self.class.raw_connect(key)
+    sdk.vpc(region)
   end
 
   def verify_credentials(_auth_type = nil, options = {})
@@ -87,8 +87,9 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
       if api_key.blank?
         raise MiqException::MiqInvalidCredentialsError, _('Missing credentials')
       end
+
       require 'ibm-cloud-sdk'
-      IBM::Cloud::SDK::IAM.new(api_key).get_identity_token
+      IBM::CloudSDK.new(api_key)
     end
 
     def raw_tenant_id(creds)

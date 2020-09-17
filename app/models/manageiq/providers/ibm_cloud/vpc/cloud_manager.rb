@@ -1,8 +1,8 @@
 class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::CloudManager
+  require_nested :Template
   require_nested :Vm
 
   include ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
-
 
   def image_name
     'ibm'
