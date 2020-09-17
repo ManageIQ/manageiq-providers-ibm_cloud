@@ -35,7 +35,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
       persister_instance = persister.vms.build(
         :description      => "IBM Cloud Server",
         :ems_ref          => instance[:id],
-        :location         => instance&.dig(:zone, :name),
+        :location         => instance&.dig(:zone, :name) || "unknown",
         :genealogy_parent => persister.miq_templates.lazy_find(instance&.dig(:image, :id)),
         :name             => instance[:name],
         :vendor           => "ibm",
@@ -50,11 +50,15 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   end
 
   def instance_hardware(persister_instance, instance)
+    vcpu_count = instance&.dig(:vcpu, :count)
+    cpus = Float(vcpu_count).ceil if vcpu_count
+    memory = instance[:memory]
+    memory_mb = Integer(memory) * 1024 if memory
     persister.hardwares.build(
       :vm_or_template  => persister_instance,
-      :cpu_sockets     => Float(instance&.dig(:vcpu, :count)).ceil,
-      :cpu_total_cores => Float(instance&.dig(:vcpu, :count)).ceil,
-      :memory_mb       => Integer(instance[:memory]) * 1024
+      :cpu_sockets     => cpus,
+      :cpu_total_cores => cpus,
+      :memory_mb       => memory_mb
     )
   end
 

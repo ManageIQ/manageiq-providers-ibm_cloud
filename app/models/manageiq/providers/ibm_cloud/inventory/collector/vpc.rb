@@ -2,7 +2,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
   require_nested :CloudManager
 
   def connection
-    manager.connect
+    @connection ||= manager.connect
   end
 
   def vms
@@ -14,6 +14,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
   end
 
   def image(image_id)
-    connection.images.instance(image_id).details
+    connection.images.instance(image_id)&.details
   end
 end
