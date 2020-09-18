@@ -14,7 +14,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
       builder.add_default_values(:ems_id => ->(persister) { persister.cloud_manager.id })
     end
     add_cloud_collection(:hardwares)
+    add_cloud_collection(:availability_zones)
     add_cloud_collection(:operating_systems)
+    add_cloud_collection(:auth_key_pairs) do |builder|
+      builder.add_default_values(
+        :resource_id   => ->(persister) { persister.cloud_manager.id },
+        :resource_type => ->(persister) { persister.cloud_manager.class.base_class }
+      )
+    end
     add_cloud_collection(:miq_templates) do |builder|
       builder.add_properties(:model_class => ::ManageIQ::Providers::IbmCloud::VPC::CloudManager::Template)
       builder.add_default_values(:ems_id => ->(persister) { persister.cloud_manager.id })

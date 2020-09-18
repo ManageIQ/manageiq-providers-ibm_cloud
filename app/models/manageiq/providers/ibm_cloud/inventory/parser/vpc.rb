@@ -8,6 +8,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   end
 
   def parse
+    availability_zones
+    auth_key_pairs
     images
     instances
   end
@@ -33,15 +35,16 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   def instances
     collector.vms.each do |instance|
       persister_instance = persister.vms.build(
-        :description      => "IBM Cloud Server",
-        :ems_ref          => instance[:id],
-        :location         => instance&.dig(:zone, :name) || "unknown",
-        :genealogy_parent => persister.miq_templates.lazy_find(instance&.dig(:image, :id)),
-        :name             => instance[:name],
-        :vendor           => "ibm",
-        :connection_state => "connected",
-        :raw_power_state  => instance[:status],
-        :uid_ems          => instance[:id]
+        :description       => "IBM Cloud Server",
+        :ems_ref           => instance[:id],
+        :location          => instance&.dig(:zone, :name) || "unknown",
+        :genealogy_parent  => persister.miq_templates.lazy_find(instance&.dig(:image, :id)),
+        :availability_zone => persister.availability_zones.lazy_find(instance&.dig(:zone, :name)),
+        :name              => instance[:name],
+        :vendor            => "ibm",
+        :connection_state  => "connected",
+        :raw_power_state   => instance[:status],
+        :uid_ems           => instance[:id]
       )
 
       instance_hardware(persister_instance, instance)
@@ -69,6 +72,24 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
       :vm_or_template => persister_instance,
       :product_name   => os
     )
+  end
+
+  def auth_key_pairs
+    collector.keys.each do |key|
+      persister.auth_key_pairs.build(
+        :name        => key[:name],
+        :fingerprint => key[:fingerprint]
+      )
+    end
+  end
+
+  def availability_zones
+    collector.availability_zones.each do |az|
+      persister.availability_zones.build(
+        :ems_ref => az[:name],
+        :name    => az[:name]
+      )
+    end
   end
 
   def pub_img_os(image_id)
