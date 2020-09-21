@@ -16,7 +16,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
   end
 
   def start_clone(clone_options)
-    source.with_provider_object({:service => "PowerIaas"}) do |power_iaas|
+    source.with_provider_object(:service => "PowerIaas") do |power_iaas|
       power_iaas.create_pvm_instance(clone_options)[0]['pvmInstanceID']
     end
   end

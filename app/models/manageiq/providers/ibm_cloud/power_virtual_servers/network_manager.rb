@@ -69,7 +69,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
   end
 
   def raw_create_cloud_subnet(ext_management_system, options)
-    ext_management_system.with_provider_connection({:service => 'PowerIaas'}) do |power_iaas|
+    ext_management_system.with_provider_connection(:service => 'PowerIaas') do |power_iaas|
       type ||= 'vlan'
 
       subnet = {
