@@ -13,9 +13,46 @@
       :display: :hide
 
     :customize:
-      :fields: {}
-      :description: Extra
-      :display: :hide
+      :description: Customization
+      :fields:
+        :ip_addr:
+          :description: Specify an IPv4 address
+          :required_method: :validate_ip_address
+          :required: true
+          :display: :edit
+          :data_type: :string
+          :min_length: 8
+          :max_length: 16
+        :pin_policy:
+          :values:
+            1: "none"
+            2: "soft"
+            3: "hard"
+          :description: VM pinning
+          :required: true
+          :display: :edit
+          :default: 1
+          :data_type: :integer
+        :migratable:
+          :values:
+            false: 0
+            true: 1
+          :description: Migratable
+          :required: false
+          :display: :edit
+          :default: true
+          :data_type: :boolean
+        :user_script:
+          :description: Upload
+          :required: false
+          :display: :edit
+          :data_type: :string
+        :user_script_text:
+          :description: User Script
+          :required: false
+          :display: :edit
+          :data_type: :string
+      :display: :show
 
     :environment:
       :description: Environment
@@ -61,39 +98,64 @@
     :hardware:
       :description: Profile
       :fields:
-        :number_of_sockets:
-          :values:
-            1: 1
-            2: 2
-            4: 4
-            8: 8
-          :description: Cores (CPUs)
+        :entitled_processors:
+          :description: Entitled Processors
           :required: true
+          :required_method: :validate_entitled_processors
           :display: :edit
-          :default: 1
-          :data_type: :integer
+          :default: '0.25'
+          :data_type: :string
+          :min_length: 1
+          :max_length: 5
         :instance_type:
           :values:
-            1: "capped"
-            2: "uncapped"
-            3: "dedicated"
+            0: "capped"
+            1: "shared"
+            2: "dedicated"
           :description: Processor
           :required: true
           :display: :edit
-          :default: 1
+          :default: 0
           :data_type: :integer
-        :vm_memory:
-          :values:
-            2:  2
-            4:  4
-            8:  8
-            16: 16
-            32: 32
-            64: 64
-          :description: Memory (GB)
+        :sys_type:
+          :values_from:
+            :method: :allowed_sys_type
+          :description: Machine Type
           :required: true
           :display: :edit
-          :default: 2
+          :default: 0
+          :data_type: :integer
+        :storage_type:
+          :values_from:
+            :method: :allowed_storage_type
+          :description: Storage Type
+          :required: true
+          :display: :edit
+          :default: 0
+          :data_type: :integer
+        :vm_memory:
+          :description: Memory (GB)
+          :required_method: :validate_regex
+          :required_regex: !ruby/regexp /^\s*[0-9]+\s*$/
+          :required: true
+          :default: "2"
+          :data_type: :string
+          :display: :edit
+        :cloud_volumes:
+          :values_from:
+            :method: :allowed_cloud_volumes
+          :description: Attach Volumes
+          :required: false
+          :display: :edit
+          :auto_select_single: false
+          :data_type: :string
+        :guest_access_key_pair:
+          :values_from:
+            :method: :allowed_guest_access_key_pairs
+          :description: Key Pair
+          :required: true
+          :display: :edit
+          :default: 0
           :data_type: :integer
       :display: :show
 
@@ -116,9 +178,10 @@
   - :service
   - :hardware
   - :network
+  - :customize
 
   - :purpose     # unused
   - :requester   # unused
   - :environment # unused
-  - :customize   # unused
   - :schedule    # unused
+

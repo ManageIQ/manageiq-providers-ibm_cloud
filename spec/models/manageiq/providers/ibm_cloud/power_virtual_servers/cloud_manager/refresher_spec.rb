@@ -87,7 +87,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       )
 
       expect(vm.operating_system).to have_attributes(
-        :product_name => "aix"
+        :product_name => "unix_aix"
       )
 
       expect(vm.cloud_networks.pluck(:ems_ref))
@@ -161,7 +161,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :name        => "c91ad01c-23e0-4602-b605-8f8c259e8150",
         :mac_address => "fa:1f:a0:cd:36:20",
         :status      => "ACTIVE",
-        :device_ref  => "7effc17f-f708-48f0-862d-4177fabf62fe",
+        :device_ref  => "7effc17f-f708-48f0-862d-4177fabf62fe"
       )
 
       expect(network_port.cloud_subnets.count).to eq(2)

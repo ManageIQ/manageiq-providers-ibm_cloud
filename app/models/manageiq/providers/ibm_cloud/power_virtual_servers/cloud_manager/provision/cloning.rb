@@ -4,21 +4,49 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
   end
 
   def prepare_for_clone_task
-    {
-      'serverName' => get_option(:vm_target_name) ,
+    specs = {
+      'serverName' => get_option(:vm_target_name),
       'imageID'    => get_option_last(:src_vm_id),
-      'processors' => get_option_last(:number_of_sockets),
+      'processors' => get_option_last(:entitled_processors).to_f,
       'procType'   => get_option_last(:instance_type),
-      'memory'     => get_option_last(:vm_memory),
-      'networks'   => [{"networkID" => get_option(:vlan)}],
-      'replicants' => 1,
+      'memory'     => get_option_last(:vm_memory).to_i,
+      'sysType'    => get_option_last(:sys_type),
+      'pinPolicy'  => get_option_last(:pin_policy),
+      'migratable' => get_option_last(:migratable) == 1,
+      'networks'   => [{"networkID" => get_option(:vlan)}], # TODO: support multiple values
+      'replicants' => 1, # TODO: we have to use this field instead of what 'MIQ' does
     }
+
+    # TODO: support multiple values
+    ip_addr = get_option_last(:ip_addr)
+    specs['networks'][0]['ipAddress'] = ip_addr unless !ip_addr || ip_addr.strip.blank?
+
+    chosen_storage_type = get_option_last(:storage_type)
+    specs['storageType'] = chosen_storage_type unless chosen_storage_type == 'None'
+
+    chosen_volumes = options[:cloud_volumes]
+    specs['volumeIDs'] = chosen_volumes unless chosen_volumes.compact.empty?
+
+    chosen_key_pair = get_option_last(:guest_access_key_pair)
+    specs['keyPairName'] = chosen_key_pair unless chosen_key_pair == 'None'
+
+    user_script_text = options[:user_script_text]
+    user_script_text64 = Base64.encode64(user_script_text) unless user_script_text.nil?
+    specs['userData'] = user_script_text64 unless user_script_text64.nil?
+
+    specs
   end
 
   def start_clone(clone_options)
-    source.with_provider_object(:service => "PowerIaas") do |power_iaas|
-      power_iaas.create_pvm_instance(clone_options)[0]['pvmInstanceID']
+    begin
+      source.with_provider_object(:service => "PowerIaas") do |power_iaas|
+        power_iaas.create_pvm_instance(clone_options)[0]['pvmInstanceID']
+      end
+    rescue RestClient::ExceptionWithResponse => e
+      raise MiqException::MiqProvisionError, e.response.to_s
     end
+  rescue RestClient::ExceptionWithResponse => e
+    raise MiqException::MiqProvisionError, e.response.to_s
   end
 
   def do_clone_task_check(clone_task_ref)
