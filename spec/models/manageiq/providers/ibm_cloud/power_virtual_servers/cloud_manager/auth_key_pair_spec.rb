@@ -15,7 +15,6 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthK
   describe 'key pair create and delete' do
     it 'creates new key pair' do
       service = double
-      key_pairs = double
       allow(ExtManagementSystem).to receive(:find).with(ems.id).and_return(ems)
       allow(ems).to receive(:connect).with(:service => 'PowerIaas').and_return(service)
       expect(service).to receive(:create_key_pair).with("new-name", "public-key")
@@ -27,7 +26,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthK
       subject.name = 'key1'
       subject.resource = ems
       allow(ems).to receive(:connect).with(:service => 'PowerIaas').and_return(service)
-      expect(server).to receive(:delete_key_pair).with('key1')
+      expect(allow).to receive(:delete_key_pair).with('key1')
       subject.delete_key_pair
     end
   end
