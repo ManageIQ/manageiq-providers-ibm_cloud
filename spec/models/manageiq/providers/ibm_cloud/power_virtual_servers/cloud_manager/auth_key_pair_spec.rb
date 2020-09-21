@@ -18,7 +18,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthK
       key_pairs = double
       allow(ExtManagementSystem).to receive(:find).with(ems.id).and_return(ems)
       allow(ems).to receive(:connect).with(:service => 'PowerIaas').and_return(service)
-      allow(service).to receive(:key_pairs).and_return(key_pairs)
+      expect(service).to receive(:create_key_pair).with("new-name", "public-key")
+      described_class.create_key_pair(ems.id, :name => "new-name", :public_key => "public-key")
     end
 
     it 'deletes existing key pair' do
@@ -26,7 +27,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthK
       subject.name = 'key1'
       subject.resource = ems
       allow(ems).to receive(:connect).with(:service => 'PowerIaas').and_return(service)
-      allow(service).to receive(:delete_key_pair).with('key1')
+      expect(server).to receive(:delete_key_pair).with('key1')
       subject.delete_key_pair
     end
   end
