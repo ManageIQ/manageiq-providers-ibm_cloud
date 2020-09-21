@@ -39,7 +39,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
   end
 
   def raw_delete_image
-    ext_management_system.with_provider_connection(:target => 'PowerIaas') do |power_iaas|
+    ext_management_system.with_provider_connection(:service => 'PowerIaas') do |power_iaas|
       power_iaas.delete_image(ems_ref)
       _log.info("Deleting cloud image=[name: '#{name}', id: '#{ems_ref}']")
     end
