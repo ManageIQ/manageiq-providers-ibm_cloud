@@ -23,6 +23,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     instances
     networks
     sshkeys
+    systemtypes
+    storagetypes
   end
 
   def instances
@@ -202,6 +204,28 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
 
       # save the tenant instance
       persister.auth_key_pairs.build(:name => tenant_key[:name])
+    end
+  end
+
+  def systemtypes
+    collector.system_pool.each do |v|
+      persister.flavors.build(
+        :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType",
+        :ems_ref => v['type']
+      )
+    end
+  end
+
+  def storagetypes
+    # get only the active storage
+    collector.storage_types.each do |v|
+      next unless v['state'] == 'active'
+
+      persister.flavors.build(
+        :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::StorageType",
+        :ems_ref => v['type'],
+        :name    => v['description']
+      )
     end
   end
 end

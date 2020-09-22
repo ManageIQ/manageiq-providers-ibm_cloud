@@ -38,4 +38,16 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   def sshkeys
     connection.get_ssh_keys
   end
+
+  def system_pool
+    connection.get_system_pool.values
+  end
+
+  def storage_types
+    connection.get_storage_types[region]
+  end
+
+  def region
+    manager.provider_region || "us-south"
+  end
 end
