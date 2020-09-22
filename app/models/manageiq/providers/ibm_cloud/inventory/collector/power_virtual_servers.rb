@@ -44,10 +44,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   end
 
   def storage_types
-    connection.get_storage_types[region]
-  end
-
-  def region
-    manager.provider_region || "us-south"
+    connection.get_storage_types
   end
 end
