@@ -1,7 +1,8 @@
 describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
   let(:ems) do
-    FactoryBot.create(:ems_ibm_cloud_vpc, :zone => FactoryBot.create(:zone), :provider_region => "us-east").tap do |ems|
-      ems.authentications << FactoryBot.create(:authentication, :auth_key => "IBMCVS_API_KEY")
+    api_key = Rails.application.secrets.ibmcvs.try(:[], :api_key) || "IBMCVS_API_KEY"
+    FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "us-east").tap do |ems|
+      ems.authentications << FactoryBot.create(:authentication, :auth_key => api_key)
     end
   end
 
@@ -34,10 +35,11 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
   end
 
   def assert_specific_vm
-    vm = ems.vms[1]
+    vm = ems.vms.find_by(:ems_ref => "0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d")
+
     expect(vm.availability_zone.name).to eq('us-east-3')
     expect(vm.cpu_total_cores).to eq(2)
-    expect(vm.hardware.memory_mb).to eq(16 * 1024)
+    expect(vm.hardware.memory_mb).to eq(16_384)
     expect(vm.hardware.cpu_total_cores).to eq(2)
     expect(vm.hardware.cpu_sockets).to eq(2)
     expect(vm.operating_system[:product_name]).to eq('red-7-amd64')
