@@ -1,8 +1,13 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Providers::IbmCloud::Inventory::Persister
   require_nested :CloudManager
+  require_nested :NetworkManager
 
   def cloud_manager
     manager.kind_of?(EmsCloud) ? manager : manager.parent_manager
+  end
+
+  def network_manager
+    manager.kind_of?(EmsNetwork) ? manager : manager.network_manager
   end
 
   def self.provider_module
@@ -10,6 +15,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
   end
 
   def initialize_inventory_collections
+    initialize_cloud_inventory_collections
+    initialize_network_inventory_collections
+  end
+
+  def initialize_cloud_inventory_collections
     add_cloud_collection(:vms) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.cloud_manager.id })
     end
@@ -25,6 +35,27 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_cloud_collection(:miq_templates) do |builder|
       builder.add_properties(:model_class => ::ManageIQ::Providers::IbmCloud::VPC::CloudManager::Template)
       builder.add_default_values(:ems_id => ->(persister) { persister.cloud_manager.id })
+    end
+    add_cloud_collection(:flavors)
+    add_cloud_collection(:vm_and_miq_template_ancestry)
+  end
+
+  def initialize_network_inventory_collections
+    add_network_collection(:security_groups) do |builder|
+      builder.add_default_values(:ems_id => ->(persister) { persister.network_manager.id })
+    end
+    add_network_collection(:cloud_networks) do |builder|
+      builder.add_default_values(:ems_id => ->(persister) { persister.network_manager.id })
+    end
+    add_network_collection(:cloud_subnets) do |builder|
+      builder.add_default_values(:ems_id => ->(persister) { persister.network_manager.id })
+    end
+  end
+
+  def add_network_collection(name)
+    add_collection(network, name) do |builder|
+      builder.add_properties(:parent => network_manager)
+      yield builder if block_given?
     end
   end
 

@@ -1,5 +1,6 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Providers::IbmCloud::Inventory::Parser
   require_nested :CloudManager
+  require_nested :NetworkManager
 
   attr_reader :img_to_os
 
@@ -8,8 +9,12 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   end
 
   def parse
+    cloud_networks
+    cloud_subnets
+    security_groups
     availability_zones
     auth_key_pairs
+    flavors
     images
     instances
   end
@@ -40,6 +45,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :location          => instance&.dig(:zone, :name) || "unknown",
         :genealogy_parent  => persister.miq_templates.lazy_find(instance&.dig(:image, :id)),
         :availability_zone => persister.availability_zones.lazy_find(instance&.dig(:zone, :name)),
+        :flavor            => persister.flavors.lazy_find(instance&.dig(:profile, :name)),
+        :key_pairs         => instance_key_pairs(instance[:id]).compact,
         :name              => instance[:name],
         :vendor            => "ibm",
         :connection_state  => "connected",
@@ -74,6 +81,21 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     )
   end
 
+  def flavors
+    collector.flavors.each do |flavor|
+      memory = flavor&.dig(:memory, :value)
+      memory_mb = Integer(memory) * 1024 if memory
+      persister.flavors.build(
+        :ems_ref   => flavor[:name],
+        :name      => flavor[:name],
+        :cpus      => flavor&.dig(:vcpu_count, :value),
+        :cpu_cores => flavor&.dig(:vcpu_count, :value),
+        :memory    => memory_mb,
+        :enabled   => true
+      )
+    end
+  end
+
   def auth_key_pairs
     collector.keys.each do |key|
       persister.auth_key_pairs.build(
@@ -83,11 +105,54 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     end
   end
 
+  def instance_key_pairs(instance_id)
+    keys = []
+    collector.vm_key_pairs(instance_id)[:keys]&.each do |key|
+      keys << persister.auth_key_pairs.lazy_find(key[:name])
+    end
+    keys
+  end
+
   def availability_zones
     collector.availability_zones.each do |az|
       persister.availability_zones.build(
         :ems_ref => az[:name],
         :name    => az[:name]
+      )
+    end
+  end
+
+  def security_groups
+    collector.security_groups.each do |sg|
+      persister.security_groups.build(
+        :ems_ref => sg[:id],
+        :name    => sg[:name]
+      )
+    end
+  end
+
+  def cloud_networks
+    collector.cloud_networks.each do |cn|
+      persister.cloud_networks.build(
+        :ems_ref => cn[:id],
+        :name    => cn[:name],
+        :cidr    => "",
+        :enabled => true,
+        :status  => cn[:status]
+      )
+    end
+  end
+
+  def cloud_subnets
+    collector.cloud_subnets.each do |cs|
+      persister.cloud_subnets.build(
+        :cloud_network    => persister.cloud_networks.lazy_find(cs&.dig(:vpc, :id)),
+        :cidr             => cs[:ipv4_cidr_block],
+        :ems_ref          => cs[:id],
+        :name             => cs[:name],
+        :status           => "active",
+        :ip_version       => cs[:ip_version],
+        :network_protocol => cs[:ip_version]
       )
     end
   end
