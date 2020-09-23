@@ -211,7 +211,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     collector.system_pool.each do |v|
       persister.flavors.build(
         :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType",
-        :ems_ref => v['type']
+        :ems_ref => v['type'],
+        :name    => v['type']
       )
     end
   end
