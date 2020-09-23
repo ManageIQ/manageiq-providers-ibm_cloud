@@ -46,7 +46,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :genealogy_parent  => persister.miq_templates.lazy_find(instance&.dig(:image, :id)),
         :availability_zone => persister.availability_zones.lazy_find(instance&.dig(:zone, :name)),
         :flavor            => persister.flavors.lazy_find(instance&.dig(:profile, :name)),
-        :key_pairs         => instance_key_pairs(instance[:id]).compact,
+        :key_pairs         => instance_key_pairs(instance[:id]),
         :name              => instance[:name],
         :vendor            => "ibm",
         :connection_state  => "connected",
@@ -106,11 +106,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   end
 
   def instance_key_pairs(instance_id)
-    keys = []
-    collector.vm_key_pairs(instance_id)[:keys]&.each do |key|
-      keys << persister.auth_key_pairs.lazy_find(key[:name])
+    collector.vm_key_pairs(instance_id)[:keys].to_a.map do |key|
+      persister.auth_key_pairs.lazy_find(key[:name])
     end
-    keys
   end
 
   def availability_zones
