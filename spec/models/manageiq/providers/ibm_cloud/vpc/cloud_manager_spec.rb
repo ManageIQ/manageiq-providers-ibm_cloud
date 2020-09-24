@@ -1,5 +1,10 @@
 describe ManageIQ::Providers::IbmCloud::VPC::CloudManager do
   let(:api_key) { Rails.application.secrets.ibmcvs.try(:[], :api_key) || "IBMCVS_API_KEY" }
+  let(:ems) do
+    FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "us-east").tap do |ems|
+      ems.authentications << FactoryBot.create(:authentication, :auth_key => api_key)
+    end
+  end
 
   it ".ems_type" do
     expect(described_class.ems_type).to eq('ibm_vpc')

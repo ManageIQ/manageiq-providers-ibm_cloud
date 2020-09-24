@@ -8,7 +8,8 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm do
   end
 
   let(:vm) do
-    FactoryBot.create(:vm_ibm_cloud_vpc, :ext_management_system => ems)
+    ems_ref = SecureRandom.uuid
+    FactoryBot.create(:vm_ibm_cloud_vpc, :ext_management_system => ems, :ems_ref => ems_ref)
   end
 
   context "is_available?" do
@@ -38,54 +39,50 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm do
 
   describe 'power operations' do
     before(:each) do
-      allow(vm).to receive(:provider_object).and_return(instance)
+      require "ibm_cloud_sdk_core"
+      allow(vm).to receive(:with_provider_connection).and_yield(connection)
     end
 
-    let(:parent) do
-      vpc = double("IBM::Cloud::SDK::Vpc")
-      allow(vpc).to receive(:logger).and_return(Logger.new(nil))
-      allow(vpc).to receive_messages(:url => nil, :token => nil, :connection => nil)
-      vpc
-    end
-
-    let(:actions) do
-      require 'ibm-cloud-sdk'
-      actions = IBM::Cloud::SDK::VPC::INSTANCE::Actions.new(parent)
-      allow(actions).to receive(:create).and_return({:this => 'mock'})
-      actions
-    end
-
-    let(:instance) do
-      require 'ibm-cloud-sdk'
-      instance = IBM::Cloud::SDK::VPC::Instance.new(parent)
-      allow(instance).to receive(:refresh) { instance.merge!({:id => 'mock_id', :name => 'Test instance', :status => 'running'}) }
-      allow(instance).to receive(:actions).and_return(actions)
-      instance.refresh
-      instance
-    end
+    let(:connection) { double("IbmVpc::VpcV1") }
 
     it 'stops the virtual machine' do
-      allow(instance).to receive(:status).and_return('running', 'stopping', 'stopped')
+      expect(connection).to receive(:create_instance_action).with(:instance_id => vm.ems_ref, :type => "stop")
+
+      get_instance_response = IBMCloudSdkCore::DetailedResponse.new(:body => {"status" => "stopped"}, :status => 200, :headers => {})
+      expect(connection).to receive(:get_instance).with(:id => vm.ems_ref).and_return(get_instance_response)
+
       vm.raw_stop
-      expect(vm.power_state).to eq('off')
+      expect(vm.reload.power_state).to eq('off')
     end
 
     it 'starts the virtual machine' do
-      allow(instance).to receive(:status).and_return('stopped', 'starting', 'running')
+      expect(connection).to receive(:create_instance_action).with(:instance_id => vm.ems_ref, :type => "start")
+
+      get_instance_response = IBMCloudSdkCore::DetailedResponse.new(:body => {"status" => "running"}, :status => 200, :headers => {})
+      expect(connection).to receive(:get_instance).with(:id => vm.ems_ref).and_return(get_instance_response)
+
       vm.raw_start
-      expect(vm.power_state).to eq('on')
+      expect(vm.reload.power_state).to eq('on')
     end
 
     it 'reboots the virtual machine' do
-      allow(instance).to receive(:status).and_return('running', 'stopping', 'stopped', 'starting', 'running')
+      expect(connection).to receive(:create_instance_action).with(:instance_id => vm.ems_ref, :type => "reboot", :force => false)
+
+      get_instance_response = IBMCloudSdkCore::DetailedResponse.new(:body => {"status" => "running"}, :status => 200, :headers => {})
+      expect(connection).to receive(:get_instance).with(:id => vm.ems_ref).and_return(get_instance_response)
+
       vm.raw_reboot_guest
-      expect(vm.power_state).to eq('on')
+      expect(vm.reload.power_state).to eq('on')
     end
 
     it 'force reboot the virtual machine' do
-      allow(instance).to receive(:status).and_return('running', 'stopping', 'stopped', 'starting', 'running')
+      expect(connection).to receive(:create_instance_action).with(:instance_id => vm.ems_ref, :type => "reboot", :force => true)
+
+      get_instance_response = IBMCloudSdkCore::DetailedResponse.new(:body => {"status" => "running"}, :status => 200, :headers => {})
+      expect(connection).to receive(:get_instance).with(:id => vm.ems_ref).and_return(get_instance_response)
+
       vm.raw_reset
-      expect(vm.power_state).to eq('on')
+      expect(vm.reload.power_state).to eq('on')
     end
   end
 end

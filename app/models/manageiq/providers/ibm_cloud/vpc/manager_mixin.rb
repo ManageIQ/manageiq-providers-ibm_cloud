@@ -12,12 +12,14 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   def connect(options = {})
     key = authentication_key(options[:auth_type])
     region = options[:provider_region] || provider_region
-    sdk = self.class.raw_connect(key)
-    sdk.vpc(region)
+    token = self.class.raw_connect(key)
+
+    service_url = "https://#{region}.iaas.cloud.ibm.com/v1"
+    IbmVpc::VpcV1.new(:version => "2020-08-01", :authenticator => token, :service_url => service_url)
   end
 
   def verify_credentials(_auth_type = nil, options = {})
-    !!connect(options)&.token&.authorization_header
+    !!connect(options)
   end
 
   module ClassMethods
@@ -76,15 +78,8 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
       auth_key = args.dig('authentications', 'default', 'auth_key')
       auth_key = ManageIQ::Password.try_decrypt(auth_key)
       auth_key ||= find(args['id']).authentication_token('default')
-      !!raw_connect(auth_key)&.token&.authorization_header
-    rescue IBM::Cloud::SDKHTTP::Exceptions::HttpStatusError => err
-      if err.response.status == 400
-        err_msg = err.response.json[:errorMessage]
-        err_msg ||= 'Authentication failed.'
-        raise MiqException::MiqInvalidCredentialsError, _(err_msg)
-      else
-        raise
-      end
+
+      !!raw_connect(auth_key)
     end
 
     def raw_connect(api_key)
@@ -92,8 +87,12 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
         raise MiqException::MiqInvalidCredentialsError, _('Missing credentials')
       end
 
-      require 'ibm-cloud-sdk'
-      IBM::CloudSDK.new(api_key, :logger => $ibm_cloud_log)
+      require "ibm_cloud_iam"
+      iam_token_api = IbmCloudIam::TokenOperationsApi.new
+      token = iam_token_api.get_token_api_key("urn:ibm:params:oauth:grant-type:apikey", api_key)
+
+      require "ibm_vpc"
+      IbmVpc::Authenticators::BearerTokenAuthenticator.new(:bearer_token => token.access_token)
     end
   end
 end

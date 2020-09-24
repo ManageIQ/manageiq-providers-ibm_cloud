@@ -22,19 +22,11 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     n_('Instance (IBM)', 'Instances (IBM)', number)
   end
 
-  # Used in with_provider_object to scope SDK to this instance.
-  def provider_object(vpc)
-    vpc.instances.instance(ems_ref)
-  end
-
   # Send a start action to IBM Cloud. Wait for state to change to started, then update the raw_power_state.
   def raw_start
-    with_provider_object do |instance|
-      instance.actions.start
-      instance.wait_for! do
-        sdk_update_status(instance)
-        instance.started?
-      end
+    with_provider_connection do |vpc|
+      vpc.create_instance_action(:instance_id => ems_ref, :type => "start")
+      wait_for(vpc, "running")
     end
   rescue => e
     $ibm_cloud_log.error(e.to_s)
@@ -47,12 +39,9 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
 
   # Send a stop action to IBM Cloud. Wait for state to change to stopped, then update the raw_power_state.
   def raw_stop
-    with_provider_object do |instance|
-      instance.actions.stop
-      instance.wait_for! do
-        sdk_update_status(instance)
-        instance.stopped?
-      end
+    with_provider_connection do |vpc|
+      vpc.create_instance_action(:instance_id => ems_ref, :type => "stop")
+      wait_for(vpc, "stopped")
     end
   rescue => e
     $ibm_cloud_log.error(e.to_s)
@@ -73,13 +62,9 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
   # Gracefully reboot the quest.
   # @param force [Boolean] Ungracefully reboot VM.
   def raw_reboot_guest(force: false)
-    with_provider_object do |instance|
-      instance.actions.reboot(:force => force)
-      sleep 5 # Sleep for 5 seconds to allow for reboot sequence to start.
-      instance.wait_for! do
-        sdk_update_status(instance)
-        instance.started?
-      end
+    with_provider_connection do |vpc|
+      vpc.create_instance_action(:instance_id => ems_ref, :type => "reboot", :force => force)
+      wait_for(vpc, "running")
     end
   rescue => e
     $ibm_cloud_log.error(e.to_s)
@@ -100,10 +85,18 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
   private
 
   # Update the saved status based on the SDK returned status.
-  def sdk_update_status(instance)
-    if raw_power_state != instance.status
-      update!(:raw_power_state => instance.status) if raw_power_state != instance.status
-      $ibm_cloud_log.info("VM instance #{instance.id} state is #{raw_power_state}")
+  def wait_for(vpc, desired_status)
+    loop do
+      status = vpc.get_instance(:id => ems_ref)&.result&.dig("status")
+      sdk_update_status(status)
+      break if status == desired_status
+    end
+  end
+
+  def sdk_update_status(status)
+    if raw_power_state != status
+      update!(:raw_power_state => status) if raw_power_state != status
+      $ibm_cloud_log.info("VM instance #{ems_ref} state is #{raw_power_state}")
     end
   end
 end
