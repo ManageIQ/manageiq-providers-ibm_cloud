@@ -44,6 +44,8 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(vm.hardware.cpu_sockets).to eq(2)
     expect(vm.operating_system[:product_name]).to eq('red-7-amd64')
     expect(vm.flavor.name).to eq('mx2-2x16')
+    expect(vm.raw_power_state).to eq('running')
+    expect(vm.power_state).to eq('on')
 
     ## linking key pairs to vms
     expect(vm.key_pairs.count).to eq(1)
