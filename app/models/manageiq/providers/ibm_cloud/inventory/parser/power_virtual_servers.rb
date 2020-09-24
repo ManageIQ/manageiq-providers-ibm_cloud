@@ -45,8 +45,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       # saving hardware information (CPU, Memory, etc.)
       ps_hw = persister.hardwares.build(
         :vm_or_template  => ps_vmi,
-        :cpu_total_cores => Float(instance["processors"]).ceil,
-        :memory_mb       => Integer(instance["memory"]) * 1024
+        :cpu_total_cores => instance['virtualCores']['assigned'],
+        :memory_mb       => instance["memory"] * 1024
       )
 
       # saving instance disk information
