@@ -82,10 +82,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     new_volumes
   end
 
-  def validate_entitled_processors(field, values, dlg, fld, value)
+  def validate_entitled_processors(_field, values, _dlg, _fld, value)
     dedicated = values[:instance_type][1] == 'dedicated'
 
-    fval = value.match(/^\s*[\d]*(\.[\d]+)?\s*$/) ? value.strip.to_f : 0
+    fval = /^\s*[\d]*(\.[\d]+)?\s*$/.match?(value) ? value.strip.to_f : 0
     return "Entitled Processors field does not contain a well-formed positive number" unless fval > 0
 
     if dedicated

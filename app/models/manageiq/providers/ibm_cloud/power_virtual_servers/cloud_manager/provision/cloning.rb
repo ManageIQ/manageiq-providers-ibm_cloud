@@ -5,7 +5,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
   def prepare_for_clone_task
     specs = {
-      'serverName' => get_option(:vm_target_name) ,
+      'serverName' => get_option(:vm_target_name),
       'imageID'    => get_option_last(:src_vm_id),
       'processors' => get_option_last(:entitled_processors).to_f,
       'procType'   => get_option_last(:instance_type),
