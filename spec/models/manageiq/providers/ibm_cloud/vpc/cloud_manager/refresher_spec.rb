@@ -27,6 +27,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(ems.availability_zones.count).to eq(3)
 
     # Network Manager
+    expect(ems.floating_ips.count).to eq(2)
     expect(ems.security_groups.count).to eq(1)
     expect(ems.security_groups.first.name).to eq('nebulizer-bobtail-hacked-yield-linseed-sandpit')
     expect(ems.cloud_networks.count).to eq(1)

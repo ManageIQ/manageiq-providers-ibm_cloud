@@ -9,6 +9,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   end
 
   def parse
+    floating_ips
     cloud_networks
     cloud_subnets
     security_groups
@@ -151,6 +152,16 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :status           => "active",
         :ip_version       => cs[:ip_version],
         :network_protocol => cs[:ip_version]
+      )
+    end
+  end
+
+  def floating_ips
+    collector.floating_ips.each do |ip|
+      persister.floating_ips.build(
+        :ems_ref => ip[:id],
+        :address => ip[:address],
+        :status  => ip[:status]
       )
     end
   end

@@ -50,6 +50,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_network_collection(:cloud_subnets) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.network_manager.id })
     end
+    add_network_collection(:floating_ips) do |builder|
+      builder.add_default_values(:ems_id => ->(persister) { persister.network_manager.id })
+    end
   end
 
   def add_network_collection(name)
