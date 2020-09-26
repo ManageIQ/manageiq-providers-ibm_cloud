@@ -24,63 +24,65 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     flavors
     cloud_volume_types
     volumes
-    instances
+    pvm_instances
     networks
     sshkeys
   end
 
-  def instances
-    collector.vms.each do |instance|
+  def pvm_instances
+    collector.pvm_instances.each do |instance_reference|
+      instance = collector.pvm_instance(instance_reference.pvm_instance_id)
+
       # saving general VMI information
       ps_vmi = persister.vms.build(
         :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
         :description       => _("PVM Instance"),
-        :ems_ref           => instance["pvmInstanceID"],
-        :flavor            => persister.flavors.lazy_find(instance["sysType"]),
+        :ems_ref           => instance.pvm_instance_id,
+        :flavor            => persister.flavors.lazy_find(instance.sys_type),
         :location          => _("unknown"),
-        :name              => instance["serverName"],
+        :name              => instance.server_name,
         :vendor            => "ibm",
         :connection_state  => "connected",
-        :raw_power_state   => instance["status"],
-        :uid_ems           => instance["pvmInstanceID"],
-        :format            => instance["storageType"]
+        :raw_power_state   => instance.status,
+        :uid_ems           => instance.pvm_instance_id,
+        :format            => instance.storage_type
       )
 
       # saving hardware information (CPU, Memory, etc.)
       ps_hw = persister.hardwares.build(
         :vm_or_template  => ps_vmi,
-        :cpu_total_cores => instance['virtualCores']['assigned'],
-        :cpu_type        => img_to_arch[instance['imageID']],
-        :memory_mb       => instance["memory"] * 1024,
-        :guest_os        => OS_MIQ_NAMES_MAP[instance['osType']]
+        :cpu_total_cores => instance.virtual_cores&.assigned,
+        :cpu_type        => img_to_arch[instance.image_id],
+        :memory_mb       => instance.memory * 1024,
+        :guest_os        => OS_MIQ_NAMES_MAP[instance.os_type]
       )
 
       # saving instance disk information
-      instance["volumeIDs"].each do |vol_id|
+      instance.volume_i_ds.to_a.each do |vol_id|
         volume = collector.volume(vol_id)
-        name, disk_type, size = volume&.values_at("name", "diskType", "size")
+
         persister.disks.build(
           :hardware        => ps_hw,
-          :device_name     => name,
-          :device_type     => disk_type,
+          :device_name     => volume.name,
+          :device_type     => volume.disk_type,
           :controller_type => "ibm",
           :backing         => persister.cloud_volumes.find(vol_id),
           :location        => vol_id,
-          :size            => size&.gigabytes
+          :size            => volume.size&.gigabytes
         )
       end
 
       # saving OS information
       persister.operating_systems.build(
         :vm_or_template => ps_vmi,
-        :product_name   => OS_MIQ_NAMES_MAP[instance['osType']],
-        :version        => instance['operatingSystem']
+        :product_name   => OS_MIQ_NAMES_MAP[instance.os_type],
+        :version        => instance.operating_system
       )
 
       # saving exteral network ports
-      external_ports = instance["networks"].reject { |net| net["externalIP"].blank? }
+      external_ports = instance.networks.reject { |net| net.external_ip.blank? }
       external_ports.each do |ext_port|
-        net_id = ext_port['networkID']
+        net_id = ext_port.network_id
         subnet_to_ext_ports[net_id] ||= []
         subnet_to_ext_ports[net_id] << ext_port
       end
@@ -91,7 +93,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :name         => 'entitled_processors',
         :display_name => _('Entitled Processors'),
         :description  => _('The number of entitled processors assigned to the VM'),
-        :value        => instance['processors'],
+        :value        => instance.processors,
         :read_only    => true
       )
 
@@ -101,7 +103,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :name         => 'processor_type',
         :display_name => _('Processor type'),
         :description  => _('dedicated: Dedicated, shared: Uncapped shared, capped: Capped shared'),
-        :value        => instance['procType'],
+        :value        => instance.proc_type,
         :read_only    => true
       )
     end
@@ -109,9 +111,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
 
   def images
     collector.images.each do |ibm_image|
-      id = ibm_image['imageID']
-      arch = ibm_image['specifications']['architecture']
-      if ibm_image['specifications']['endianness'] == 'little-endian'
+      id = ibm_image.image_id
+      arch = ibm_image.specifications.architecture
+      if ibm_image.specifications.endianness == 'little-endian'
         arch << 'le'
       end
       img_to_arch[id] = arch
@@ -119,45 +121,49 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       ps_image = persister.miq_templates.build(
         :uid_ems            => id,
         :ems_ref            => id,
-        :name               => ibm_image['name'],
-        :description        => ibm_image['description'],
+        :name               => ibm_image.name,
+        :description        => ibm_image.description.presence,
         :location           => "unknown",
         :vendor             => "ibm",
         :raw_power_state    => "never",
         :template           => true,
-        :storage_profile_id => persister.cloud_volume_types.lazy_find(ibm_image["storageType"]),
-        :format             => ibm_image["storageType"]
+        :storage_profile_id => persister.cloud_volume_types.lazy_find(ibm_image.storage_type),
+        :format             => ibm_image.storage_type
       )
 
       persister.operating_systems.build(
         :vm_or_template => ps_image,
-        :product_name   => OS_MIQ_NAMES_MAP[ibm_image['specifications']['operatingSystem']]
+        :product_name   => OS_MIQ_NAMES_MAP[ibm_image.specifications.operating_system]
       )
     end
   end
 
   def volumes
-    collector.volumes.each do |vol|
+    collector.volumes.each do |volume_ref|
+      vol = collector.volume(volume_ref.volume_id)
+
       persister.cloud_volumes.build(
         :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
-        :ems_ref           => vol['volumeID'],
-        :name              => vol['name'],
-        :status            => vol['state'],
-        :bootable          => vol['bootable'],
-        :creation_time     => vol['creationDate'],
+        :ems_ref           => vol.volume_id,
+        :name              => vol.name,
+        :status            => vol.state,
+        :bootable          => vol.bootable,
+        :creation_time     => vol.creation_date,
         :description       => _('IBM Cloud Block-Storage Volume'),
-        :volume_type       => vol['diskType'],
-        :size              => vol['size']&.gigabytes,
-        :multi_attachment  => vol['shareable']
+        :volume_type       => vol.disk_type,
+        :size              => vol.size&.gigabytes,
+        :multi_attachment  => vol.shareable
       )
     end
   end
 
   def networks
-    collector.networks.each do |network|
+    collector.networks.each do |network_ref|
+      network = collector.network(network_ref.network_id)
+
       persister_cloud_networks = persister.cloud_networks.build(
-        :ems_ref => "#{network['networkID']}-#{network['type']}",
-        :name    => "#{network['name']}-#{network['type']}",
+        :ems_ref => "#{network.network_id}-#{network.type}",
+        :name    => "#{network.name}-#{network.type}",
         :cidr    => "",
         :enabled => true,
         :status  => 'active'
@@ -165,48 +171,48 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
 
       persister_cloud_subnet = persister.cloud_subnets.build(
         :cloud_network     => persister_cloud_networks,
-        :cidr              => network['cidr'],
-        :ems_ref           => network['networkID'],
-        :gateway           => network['gateway'],
-        :name              => network['name'],
+        :cidr              => network.cidr,
+        :ems_ref           => network.network_id,
+        :gateway           => network.gateway,
+        :name              => network.name,
         :status            => "active",
-        :dns_nameservers   => network['dnsServers'],
+        :dns_nameservers   => network.dns_servers,
         :ip_version        => '4',
         :network_protocol  => 'IPv4',
         :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
-        :network_type      => network['type']
+        :network_type      => network.type
       )
 
       mac_to_port = {}
 
-      collector.ports(network['networkID']).each do |port|
-        vmi_id = port.dig('pvmInstance', 'pvmInstanceID')
+      collector.ports(network.network_id).each do |port|
+        vmi_id = port.pvm_instance&.pvm_instance_id
 
         persister_network_port = persister.network_ports.build(
-          :name        => port['portID'],
-          :ems_ref     => port['portID'],
-          :status      => port['status'],
-          :mac_address => port['macAddress'],
+          :name        => port.port_id,
+          :ems_ref     => port.port_id,
+          :status      => port.status,
+          :mac_address => port.mac_address,
           :device_ref  => vmi_id,
           :device      => persister.vms.lazy_find(vmi_id)
         )
 
-        mac_to_port[port['macAddress']] = persister_network_port
+        mac_to_port[port.mac_address] = persister_network_port
 
         persister.cloud_subnet_network_ports.build(
           :network_port => persister_network_port,
-          :address      => port['ipAddress'],
+          :address      => port.ip_address,
           :cloud_subnet => persister_cloud_subnet
         )
       end
 
-      external_ports = subnet_to_ext_ports[network['networkID']] || []
+      external_ports = subnet_to_ext_ports[network.network_id] || []
       external_ports.each do |port|
-        port_ps = mac_to_port[port['macAddress']]
+        port_ps = mac_to_port[port.mac_address]
 
         persister.cloud_subnet_network_ports.build(
           :network_port => port_ps,
-          :address      => port['externalIP'],
+          :address      => port.external_ip,
           :cloud_subnet => persister_cloud_subnet
         )
       end
@@ -216,9 +222,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   def sshkeys
     collector.sshkeys.each do |tkey|
       tenant_key = {
-        :creationDate => tkey['creationDate'],
-        :name         => tkey['name'],
-        :sshKey       => tkey['sshKey'],
+        :creationDate => tkey.creation_date,
+        :name         => tkey.name,
+        :sshKey       => tkey.ssh_key,
       }
 
       # save the tenant instance
@@ -227,11 +233,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   end
 
   def flavors
-    collector.system_pool.each do |v|
+    collector.system_pools.each do |type|
       persister.flavors.build(
         :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType",
-        :ems_ref => v['type'],
-        :name    => v['type']
+        :ems_ref => type,
+        :name    => type
       )
     end
   end
@@ -239,13 +245,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   def cloud_volume_types
     # get only the active storage
     collector.storage_types.each do |v|
-      next unless v['state'] == 'active'
+      next unless v.state == 'active'
 
       persister.cloud_volume_types.build(
         :type        => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudVolumeType",
-        :ems_ref     => v['type'],
-        :name        => v['type'],
-        :description => v['description']
+        :ems_ref     => v.type,
+        :name        => v.type,
+        :description => v.description
       )
     end
   end

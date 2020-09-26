@@ -54,8 +54,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(CloudVolume.count).to eq(13)
       expect(CloudNetwork.count).to eq(3)
       expect(CloudSubnet.count).to eq(3)
-      expect(NetworkPort.count).to eq(4)
-      expect(CloudSubnetNetworkPort.count).to eq(6)
+      expect(NetworkPort.count).to eq(2)
+      expect(CloudSubnetNetworkPort.count).to eq(8)
     end
 
     def assert_ems_counts
@@ -65,7 +65,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(ems.key_pairs.count).to eq(9)
       expect(ems.network_manager.cloud_networks.count).to eq(3)
       expect(ems.network_manager.cloud_subnets.count).to eq(3)
-      expect(ems.network_manager.network_ports.count).to eq(4)
+      expect(ems.network_manager.network_ports.count).to eq(2)
     end
 
     def assert_specific_vm
@@ -92,17 +92,17 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       )
 
       expect(vm.cloud_networks.pluck(:ems_ref))
-        .to match_array(["339fc829-8c70-41dd-84c1-ca4b3a608b88-pub-vlan", "fe83beac-4c85-47a3-9aa5-4a7aecaca579-vlan"])
+        .to match_array(["339fc829-8c70-41dd-84c1-ca4b3a608b88-pub-vlan", "b074b7bc-a149-4122-8ef2-838e31c263fc-vlan", "fe83beac-4c85-47a3-9aa5-4a7aecaca579-vlan"])
 
       expect(vm.cloud_subnets.pluck(:ems_ref))
-        .to match_array(["339fc829-8c70-41dd-84c1-ca4b3a608b88", "fe83beac-4c85-47a3-9aa5-4a7aecaca579"])
+        .to match_array(["339fc829-8c70-41dd-84c1-ca4b3a608b88", "b074b7bc-a149-4122-8ef2-838e31c263fc", "fe83beac-4c85-47a3-9aa5-4a7aecaca579"])
       expect(vm.cloud_subnets.pluck(:name))
-        .to match_array(["Admin Network", "public-192_168_129_72-29-VLAN_2037"])
+        .to match_array(["Admin Network", "My Test Network", "public-192_168_129_72-29-VLAN_2037"])
 
       expect(vm.network_ports.pluck(:ems_ref))
-        .to match_array(["c91ad01c-23e0-4602-b605-8f8c259e8150", "e86a8bde-d728-43a6-bc8f-6697ffd9a7a0"])
+        .to match_array(["c91ad01c-23e0-4602-b605-8f8c259e8150"])
       expect(vm.network_ports.pluck(:mac_address))
-        .to match_array(["fa:1f:a0:cd:36:20", "fa:16:3e:41:ce:4a"])
+        .to match_array(["fa:1f:a0:cd:36:20"])
     end
 
     def assert_specific_template
@@ -166,9 +166,9 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :device_ref  => "7effc17f-f708-48f0-862d-4177fabf62fe"
       )
 
-      expect(network_port.cloud_subnets.count).to eq(2)
+      expect(network_port.cloud_subnets.count).to eq(4)
       expect(network_port.cloud_subnet_network_ports.pluck(:address))
-        .to match_array(["192.168.129.76", "52.117.38.76"])
+        .to match_array(["192.168.129.76", "192.168.129.76", "192.168.129.76", "52.117.38.76"])
     end
 
     def assert_specific_cloud_volume
@@ -188,7 +188,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def full_refresh(ems)
-      VCR.use_cassette(described_class.name.underscore) do
+      VCR.use_cassette(described_class.name.underscore, :allow_unused_http_interactions => true) do
         EmsRefresh.refresh(ems)
       end
     end
