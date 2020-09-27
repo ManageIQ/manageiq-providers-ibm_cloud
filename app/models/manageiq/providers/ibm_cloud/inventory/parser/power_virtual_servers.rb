@@ -24,7 +24,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     networks
     sshkeys
     systemtypes
-    storagetypes
+    cloud_volume_types
   end
 
   def instances
@@ -99,7 +99,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     collector.images.each do |ibm_image|
       id    = ibm_image['imageID']
       name  = ibm_image['name']
-
       os      = ibm_image['specifications']['operatingSystem']
       arch    = ibm_image['specifications']['architecture']
       endian  = ibm_image['specifications']['endianness']
@@ -217,15 +216,16 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     end
   end
 
-  def storagetypes
+  def cloud_volume_types
     # get only the active storage
     collector.storage_types.each do |v|
       next unless v['state'] == 'active'
 
-      persister.flavors.build(
-        :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::StorageType",
-        :ems_ref => v['type'],
-        :name    => v['description']
+      persister.cloud_volume_types.build(
+        :type        => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudVolumeType",
+        :ems_ref     => v['type'],
+        :name        => v['type'],
+        :description => v['description']
       )
     end
   end

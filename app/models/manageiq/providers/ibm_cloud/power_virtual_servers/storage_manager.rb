@@ -1,5 +1,6 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < ManageIQ::Providers::StorageManager
   require_nested :CloudVolume
+  require_nested :CloudVolumeType
   require_nested :Refresher
 
   include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
