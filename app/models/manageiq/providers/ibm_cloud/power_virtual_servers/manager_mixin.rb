@@ -52,6 +52,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
                       :id                     => 'endpoints.default.valid',
                       :name                   => 'endpoints.default.valid',
                       :skipSubmit             => true,
+                      :isRequired             => true,
                       :validationDependencies => %w[type zone_id uid_ems],
                       :fields                 => [
                         {
