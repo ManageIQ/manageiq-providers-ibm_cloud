@@ -9,6 +9,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
 
   include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
   delegate :cloud_volumes, :to => :storage_manager
+  delegate :cloud_volume_types, :to => :storage_manager
   has_one :storage_manager,
           :foreign_key => :parent_ems_id,
           :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager",
@@ -18,10 +19,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   has_many :system_types,
            :foreign_key => :ems_id,
            :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType"
-
-  has_many :storage_types,
-           :foreign_key => :ems_id,
-           :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::StorageType"
 
   before_create :ensure_managers
   before_update :ensure_managers_zone

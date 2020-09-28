@@ -65,6 +65,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::PowerVirtualServers <
     add_storage_collection(:cloud_volumes) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.storage_manager.id })
     end
+    add_storage_collection(:cloud_volume_types) do |builder|
+      builder.add_default_values(:ems_id => ->(persister) { persister.storage_manager.id })
+    end
   end
 
   def add_cloud_collection(name)
