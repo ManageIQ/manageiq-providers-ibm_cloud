@@ -45,4 +45,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
   def cloud_subnets
     connection.subnets.all
   end
+
+  def floating_ips
+    connection.floating_ips.all
+  end
 end

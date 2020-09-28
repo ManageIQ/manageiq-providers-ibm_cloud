@@ -768,4 +768,69 @@ http_interactions:
         '
     http_version:
   recorded_at: Wed, 23 Sep 2020 19:49:45 GMT
+- request:
+    method: get
+    uri: https://us-east.iaas.cloud.ibm.com/v1/floating_ips?generation=2&version=2020-08-01
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - Bearer eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiNmRkZDM1ZDQtNGIzYS00NWI1LTg5NzItOTFiNDNmMmRhNzgyIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDA4OTA1NzQsImV4cCI6MTYwMDg5NDE3NCwiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.OgETtmH5L5VN08xRXFJ8xG5TuGlEaJ3O9alDvGtoeAVRHKKZgXDx5sODI-YqORygGTSYH8nXjOeNBbPSA2WlPYiGqrrs2SYqxeRQmDtPmnDaP_T2wocAIR-Y1T9LOwYcqhci3KMoVFzDB1BjWxqKM_zKMdj8X_JXTao4P4UTv4vnXF8vIt0qX5Hj1p0Z7SR6dQ4nc5jtnuRrW5r1apKqhZ1b8tdzO96NXXt-KlHns2Zda667OxnfHg-ENecbgkWVFTHfpFIUn-rF_9eLQc5B4dO0ONrvLeJs7W6cDnoGl0O73AaSs_DTbP_Ejp6KRLujDWIN3u2l9r79zozbpFM4uA
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 23 Sep 2020 19:49:44 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - close
+      Set-Cookie:
+      - __cfduid=d40e8d912f442e569a07fab6de672e54c1600890584; expires=Fri, 23-Oct-20
+        19:49:44 GMT; path=/; domain=.iaas.cloud.ibm.com; HttpOnly; SameSite=Lax;
+        Secure
+      Cf-Ray:
+      - 5d76ca6b2e43eff9-EWR
+      Cache-Control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      Expires:
+      - "-1"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Vary:
+      - Accept-Encoding
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cf-Request-Id:
+      - 055e1cd6f70000eff9c1091200000001
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Pragma:
+      - no-cache
+      X-Content-Type-Options:
+      - nosniff
+      X-Request-Id:
+      - b06d276b-ac14-4e6d-b9e8-9bab4f42ab6c
+      X-Trace-Id:
+      - 6f80bf0da8ef8760
+      X-Xss-Protection:
+      - 1; mode=block
+      Server:
+      - cloudflare
+    body:
+      encoding: UTF-8
+      string: '{"limit":50,"first":{"href":"https://us-east.iaas.cloud.ibm.com/v1/floating_ips?limit=50"},"total_count":2,"floating_ips":[{"id":"r014-77e8e1e8-762e-43dd-8500-0a71e8fa8238","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::floating-ip:r014-77e8e1e8-762e-43dd-8500-0a71e8fa8238","href":"https://us-east.iaas.cloud.ibm.com/v1/floating_ips/r014-77e8e1e8-762e-43dd-8500-0a71e8fa8238","address":"52.117.120.14","name":"pgw-91367280-72f5-11ea-9ebe-bbb9ec18e692","status":"available","created_at":"2020-03-31T02:16:02Z","zone":{"name":"us-east-3","href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3"},"target":{"resource_type":"public_gateway","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::public-gateway:r014-1bdb4895-dd7d-4b15-a172-3d82c13428d4","name":"pgw-91367280-72f5-11ea-9ebe-bbb9ec18e692","id":"r014-1bdb4895-dd7d-4b15-a172-3d82c13428d4","href":"https://us-east.iaas.cloud.ibm.com/v1/public_gateways/r014-1bdb4895-dd7d-4b15-a172-3d82c13428d4"},"resource_group":{"id":"29b1dd25de2d40b5ae5bd5f719f30db8","href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/29b1dd25de2d40b5ae5bd5f719f30db8","name":"camc-test"}},{"id":"r014-9807d0f7-1598-442a-8501-5caa034460ef","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::floating-ip:r014-9807d0f7-1598-442a-8501-5caa034460ef","href":"https://us-east.iaas.cloud.ibm.com/v1/floating_ips/r014-9807d0f7-1598-442a-8501-5caa034460ef","address":"52.117.122.80","name":"cloudform","status":"available","created_at":"2020-03-31T02:23:13Z","zone":{"name":"us-east-3","href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3"},"target":{"resource_type":"network_interface","primary_ipv4_address":"10.241.128.4","name":"eth0","id":"0777-a967defa-4cc9-4872-b0ab-5d0c623abea3","href":"https://us-east.iaas.cloud.ibm.com/v1/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d/network_interfaces/0777-a967defa-4cc9-4872-b0ab-5d0c623abea3"},"resource_group":{"id":"345c433098294722ba52d9039133e8cf","href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","name":"default"}}]}
+
+        '
+    http_version:
+  recorded_at: Wed, 23 Sep 2020 19:49:45 GMT
 recorded_with: VCR 5.1.0
