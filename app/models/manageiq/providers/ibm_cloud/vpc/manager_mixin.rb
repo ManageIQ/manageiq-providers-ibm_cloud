@@ -47,6 +47,7 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
                 :component              => 'validate-provider-credentials',
                 :name                   => 'authentications.default.valid',
                 :skipSubmit             => true,
+                :isRequired             => true,
                 :validationDependencies => %w[type zone_id provider_region],
                 :fields                 => [
                   {
