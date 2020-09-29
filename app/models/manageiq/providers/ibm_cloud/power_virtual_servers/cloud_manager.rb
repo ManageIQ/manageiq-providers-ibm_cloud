@@ -8,8 +8,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   require_nested :Vm
 
   include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
-  delegate :cloud_volumes, :to => :storage_manager
-  delegate :cloud_volume_types, :to => :storage_manager
+
+  delegate :cloud_volumes,
+           :cloud_volume_types,
+           :to        => :storage_manager,
+           :allow_nil => true
+
   has_one :storage_manager,
           :foreign_key => :parent_ems_id,
           :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager",
@@ -24,6 +28,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   before_update :ensure_managers_zone
 
   supports :provisioning
+  supports_not :volume_availability_zones
 
   def image_name
     "ibm"
