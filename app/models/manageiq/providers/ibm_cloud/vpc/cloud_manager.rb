@@ -16,8 +16,8 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
 
   def ensure_managers
     ensure_network_manager
-    ensure_managers_zone
     ensure_storage_manager
+    ensure_managers_zone
   end
 
   def ensure_network_manager

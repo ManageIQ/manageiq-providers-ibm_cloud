@@ -168,6 +168,20 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     end
   end
 
+  def volumes
+    collector.volumes.each do |vol|
+      persister.cloud_volumes.build(
+        :ems_ref       => vol[:id],
+        :name          => vol[:name],
+        :status        => vol[:status],
+        :creation_time => vol[:created_at],
+        :description   => 'IBM Cloud Block-Storage Volume',
+        :volume_type   => vol[:type],
+        :size          => vol[:capacity]&.gigabytes
+      )
+    end
+  end
+
   def pub_img_os(image_id)
     collector.image(image_id)&.dig(:operating_system, :name)
   end
