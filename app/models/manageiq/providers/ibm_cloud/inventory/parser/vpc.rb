@@ -1,6 +1,7 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Providers::IbmCloud::Inventory::Parser
   require_nested :CloudManager
   require_nested :NetworkManager
+  require_nested :StorageManager
 
   attr_reader :img_to_os
 
@@ -18,6 +19,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     flavors
     images
     instances
+    volumes
   end
 
   def images

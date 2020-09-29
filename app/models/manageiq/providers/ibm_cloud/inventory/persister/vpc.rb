@@ -1,6 +1,7 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Providers::IbmCloud::Inventory::Persister
   require_nested :CloudManager
   require_nested :NetworkManager
+  require_nested :StorageManager
 
   def cloud_manager
     manager.kind_of?(EmsCloud) ? manager : manager.parent_manager
@@ -10,6 +11,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     manager.kind_of?(EmsNetwork) ? manager : manager.network_manager
   end
 
+  def storage_manager
+    manager.kind_of?(EmsStorage) ? manager : manager.storage_manager
+  end
+
   def self.provider_module
     "ManageIQ::Providers::IbmCloud::VPC"
   end
@@ -17,6 +22,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
   def initialize_inventory_collections
     initialize_cloud_inventory_collections
     initialize_network_inventory_collections
+    initialize_storage_inventory_collections
   end
 
   def initialize_cloud_inventory_collections
@@ -52,6 +58,19 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     end
     add_network_collection(:floating_ips) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.network_manager.id })
+    end
+  end
+
+  def initialize_storage_inventory_collections
+    add_storage_collection(:cloud_volumes) do |builder|
+      builder.add_default_values(:ems_id => ->(persister) { persister.storage_manager.id })
+    end
+  end
+
+  def add_storage_collection(name)
+    add_collection(storage, name) do |builder|
+      builder.add_properties(:parent => storage_manager)
+      yield builder if block_given?
     end
   end
 
