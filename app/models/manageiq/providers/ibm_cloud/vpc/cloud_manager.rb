@@ -6,7 +6,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
 
   include ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   delegate :cloud_volumes, :to => :storage_manager
-  has_one :storage_manager ,
+  has_one :storage_manager,
           :foreign_key => :parent_ems_id,
           :class_name  => "ManageIQ::Providers::IbmCloud::VPC::StorageManager",
           :autosave    => true,
