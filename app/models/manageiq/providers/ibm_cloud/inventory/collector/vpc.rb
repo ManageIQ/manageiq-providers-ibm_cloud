@@ -50,7 +50,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
   def floating_ips
     connection.floating_ips.all
   end
-  
+
   def volumes
     connection.volumes.all
   end
