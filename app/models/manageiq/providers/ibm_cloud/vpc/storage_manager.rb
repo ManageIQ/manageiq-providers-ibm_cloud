@@ -1,5 +1,4 @@
 class ManageIQ::Providers::IbmCloud::VPC::StorageManager < ManageIQ::Providers::StorageManager
-
   include ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   include ManageIQ::Providers::StorageManager::BlockMixin
 
