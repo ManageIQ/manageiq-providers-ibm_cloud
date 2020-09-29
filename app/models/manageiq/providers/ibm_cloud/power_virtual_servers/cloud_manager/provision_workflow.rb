@@ -18,6 +18,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     TIMEZONES
   end
 
+  def keys_for_volumes
+    [:name, :size, :diskType, :shareable]
+  end
+
   def allowed_sys_type(_options = {})
     # TODO: replace with api provided values, once issue '114' is solved and merged
     {0 => "s922", 1 => "e880"}
