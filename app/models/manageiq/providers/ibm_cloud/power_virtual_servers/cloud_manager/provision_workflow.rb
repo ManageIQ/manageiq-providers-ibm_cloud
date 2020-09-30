@@ -63,18 +63,18 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     stop = false
     new_volumes = []
 
-    while not stop
+    while !stop
       new_volume = {}
 
-      %w(name size diskType shareable).map do |fld|
-        cnt = new_volumes.length+1
-        key = (:"#{fld}_#{cnt}").to_sym
+      %w[name size diskType shareable].map do |fld|
+        cnt = new_volumes.length + 1
+        key = :"#{fld}_#{cnt}".to_sym
         new_volume[fld.to_sym] = values[key] if values.key?(key)
       end
 
       stop = new_volume.empty?
 
-      if not stop
+      if !stop
         new_volume[:name] = nil if new_volume[:name].blank?
         new_volume[:diskType] = nil if new_volume[:diskType].blank?
         new_volume[:size] = new_volume[:size].blank? ? nil : new_volume[:size].to_i
