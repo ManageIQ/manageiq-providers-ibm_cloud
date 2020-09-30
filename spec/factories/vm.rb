@@ -1,19 +1,11 @@
 FactoryBot.define do
-  factory :ems_ibm_cloud_power_virtual_servers_cloud,
-          :aliases => ["manageiq/providers/ibm_cloud_power_virtual_servers/cloud_manager"],
-          :class   => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager",
-          :parent  => :ems_cloud
-end
+  factory :vm_ibm_cloud_power_virtual_servers, :class => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm", :parent => :vm_cloud do
+    vendor { "ibm" }
 
-FactoryBot.define do
-  factory :ems_ibm_cloud_power_virtual_servers_storage,
-          :aliases => ["manageiq/providers/ibm_cloud_power_virtual_servers/storage_manager"],
-          :class   => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager",
-          :parent  => :ems_cloud
-end
-
-FactoryBot.define do
-  factory :ems_ibm_cloud_vpc,
-          :class  => "ManageIQ::Providers::IbmCloud::VPC::CloudManager",
-          :parent => :ems_cloud
+    trait :with_provider do
+      after(:create) do |x|
+        FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud, :vms => [x])
+      end
+    end
+  end
 end
