@@ -4,30 +4,28 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
   end
   let(:StorageManager) { FactoryBot.create(:ems_IbmCloud_StorageManager, :parent_ems_id => ems_cloud.id) }
   let(:cloud_volume) { FactoryBot.create(:cloud_volume_IbmCloud, :ext_management_system => StorageManager ) }
+  let(:ems_cloud) { FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud) }
+  let(:ems_storage) { FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_storage, :parent_ems_id => ems_cloud.id) }
+  let(:cloud_volume) { FactoryBot.create(:cloud_volume_ibm_cloud_power_virtual_servers, :ext_management_system => ems_storage ) }
 
-  describe "cloud volume operations" do
-    context "#delete_volume" do
-      it "deletes the cloud volume" do
-        def validate_delete_volume
-          msg = validate_volume
-          return {:available => msg[:available], :message => msg[:message]} unless msg[:available]
-          if status == "in-use"
-            return validation_failed("Delete Volume", "Can't delete volume that is in use.")
-          end
 
-          {:available => true, :message => nil}
-        end
-      end
+  context "#validate_delete_volume" do
+    it "status is in-use" do
+      expect(cloud_volume).to receive(:status).and_return("in-use")
+      validation = cloud_volume.validate_delete_volume
+      expect(validation[:available]).to be false
+    end
 
-      it "catches error from the provider" do
-        def raw_delete_volume
-          ext_management_system.with_provider_connection(:service => 'PowerIaas') do |power_iaas|
-            power_iaas.delete_volume(ems_ref)
-          end
-        rescue => e
-          _log.error("volume=[#{name}], error: #{e}")
-        end
-      end
+    it "status is available" do
+      expect(cloud_volume).to receive(:status).and_return("available")
+      validation = cloud_volume.validate_delete_volume
+      expect(validation[:available]).to be true
+    end
+
+    it "ems is missing" do
+      expect(cloud_volume).to receive(:ext_management_system).and_return(nil)
+      validation = cloud_volume.validate_delete_volume
+      expect(validation[:available]).to be false
     end
   end
 end
