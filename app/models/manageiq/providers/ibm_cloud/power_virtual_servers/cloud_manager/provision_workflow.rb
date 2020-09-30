@@ -19,8 +19,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_sys_type(_options = {})
-    # TODO: replace with api provided values, once issue '114' is solved and merged
-    {0 => "s922", 1 => "e880"}
+    ar_ems = ar_ems_get
+    ar_sys_types = ar_ems&.flavors
+    sys_types = ar_sys_types&.map&.with_index { |sys_type, i| [i + 1, sys_type['name']] }
+    Hash[sys_types || {}]
   end
 
   def allowed_storage_type(_options = {})
