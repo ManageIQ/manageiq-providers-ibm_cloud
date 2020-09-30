@@ -96,7 +96,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
     def verify_credentials(args)
       pcloud_guid = args["uid_ems"]
       auth_key = args.dig("authentications", "default", "auth_key")
-      auth_key = MiqPassword.try_decrypt(auth_key)
+      auth_key = ManageIQ::Password.try_decrypt(auth_key)
       auth_key ||= find(args["id"]).authentication_token('default')
 
       !!raw_connect(auth_key, pcloud_guid)
