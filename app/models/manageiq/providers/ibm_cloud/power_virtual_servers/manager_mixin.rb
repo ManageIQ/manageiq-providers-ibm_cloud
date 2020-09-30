@@ -108,6 +108,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
       end
 
       require "ibm-cloud-sdk"
+      IBM::Cloud::SDK.logger = $ibm_cloud_log
       iam = IBM::Cloud::SDK::IAM.new(api_key)
       token = iam.get_identity_token
       power_iaas_service = IBM::Cloud::SDK::ResourceController.new(token).get_resource(pcloud_guid)
