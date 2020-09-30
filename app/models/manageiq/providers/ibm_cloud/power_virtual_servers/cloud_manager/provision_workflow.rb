@@ -18,8 +18,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     TIMEZONES
   end
 
-  def keys_for_volumes
-    [:name, :size, :diskType, :shareable]
+  def volume_dialog_keys
+    %i[name size diskType shareable]
   end
 
   def allowed_sys_type(_options = {})
