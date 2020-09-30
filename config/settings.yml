@@ -13,6 +13,8 @@
     :password:
     :port:
     :user:
+:log:
+  :level_ibm_cloud: info
 :workers:
   :worker_base:
     :event_catcher:
