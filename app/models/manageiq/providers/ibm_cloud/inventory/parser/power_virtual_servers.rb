@@ -18,6 +18,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   end
 
   def parse
+    availability_zones
     images
     volumes
     instances
@@ -31,15 +32,16 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     collector.vms.each do |instance|
       # saving general VMI information
       ps_vmi = persister.vms.build(
-        :description      => "IBM Cloud Server",
-        :ems_ref          => instance["pvmInstanceID"],
-        :flavor           => "",
-        :location         => "unknown",
-        :name             => instance["serverName"],
-        :vendor           => "ibm",
-        :connection_state => "connected",
-        :raw_power_state  => instance["status"],
-        :uid_ems          => instance["pvmInstanceID"]
+        :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
+        :description       => "IBM Cloud Server",
+        :ems_ref           => instance["pvmInstanceID"],
+        :flavor            => "",
+        :location          => "unknown",
+        :name              => instance["serverName"],
+        :vendor            => "ibm",
+        :connection_state  => "connected",
+        :raw_power_state   => instance["status"],
+        :uid_ems           => instance["pvmInstanceID"]
       )
 
       # saving hardware information (CPU, Memory, etc.)
@@ -123,14 +125,15 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   def volumes
     collector.volumes.each do |vol|
       persister.cloud_volumes.build(
-        :ems_ref       => vol['volumeID'],
-        :name          => vol['name'],
-        :status        => vol['state'],
-        :bootable      => vol['bootable'],
-        :creation_time => vol['creationDate'],
-        :description   => 'IBM Cloud Block-Storage Volume',
-        :volume_type   => vol['diskType'],
-        :size          => vol['size']&.gigabytes
+        :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
+        :ems_ref           => vol['volumeID'],
+        :name              => vol['name'],
+        :status            => vol['state'],
+        :bootable          => vol['bootable'],
+        :creation_time     => vol['creationDate'],
+        :description       => 'IBM Cloud Block-Storage Volume',
+        :volume_type       => vol['diskType'],
+        :size              => vol['size']&.gigabytes
       )
     end
   end
@@ -228,5 +231,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :description => v['description']
       )
     end
+  end
+
+  def availability_zones
+    # Single availability zone per PowerVS Cloud Manager
+    persister.availability_zones.build(
+      :name    => persister.cloud_manager.name,
+      :ems_ref => persister.cloud_manager.uid_ems
+    )
   end
 end
