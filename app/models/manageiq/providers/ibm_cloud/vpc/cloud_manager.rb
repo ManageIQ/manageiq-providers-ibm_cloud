@@ -33,6 +33,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
 
   def ensure_managers_zone
     network_manager.zone_id = zone_id if network_manager
+    storage_manager.zone_id = zone_id if storage_manager
   end
 
   def image_name
