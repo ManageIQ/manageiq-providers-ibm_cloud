@@ -28,6 +28,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::PowerVirtualServers <
   private
 
   def initialize_cloud_inventory_collections
+    add_cloud_collection(:availability_zones)
     add_cloud_collection(:flavors)
     add_cloud_collection(:vms) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.cloud_manager.id })
