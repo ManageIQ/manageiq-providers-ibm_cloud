@@ -1,6 +1,7 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Providers::IbmCloud::Inventory::Parser
   require_nested :CloudManager
   require_nested :NetworkManager
+  require_nested :StorageManager
 
   attr_reader :img_to_os
 
@@ -18,6 +19,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     flavors
     images
     instances
+    volumes
   end
 
   def images
@@ -162,6 +164,20 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :ems_ref => ip[:id],
         :address => ip[:address],
         :status  => ip[:status]
+      )
+    end
+  end
+
+  def volumes
+    collector.volumes.each do |vol|
+      persister.cloud_volumes.build(
+        :ems_ref       => vol[:id],
+        :name          => vol[:name],
+        :status        => vol[:status],
+        :creation_time => vol[:created_at],
+        :description   => 'IBM Cloud Block-Storage Volume',
+        :volume_type   => vol[:type],
+        :size          => vol[:capacity]&.gigabytes
       )
     end
   end

@@ -15,7 +15,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager do
     ems = FactoryBot.create(:ems_ibm_cloud_vpc)
     same_ems = ExtManagementSystem.find(ems.id)
 
-    expect(ExtManagementSystem.count).to eq(2)
+    expect(ExtManagementSystem.count).to eq(3)
     ems.destroy
     expect(ExtManagementSystem.count).to eq(0)
 

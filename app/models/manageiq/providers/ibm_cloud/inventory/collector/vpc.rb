@@ -1,6 +1,7 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Providers::IbmCloud::Inventory::Collector
   require_nested :CloudManager
   require_nested :NetworkManager
+  require_nested :StorageManager
 
   def connection
     @connection ||= manager.connect
@@ -48,5 +49,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
 
   def floating_ips
     connection.floating_ips.all
+  end
+
+  def volumes
+    connection.volumes.all
+  end
+
+  def volume(volume_id)
+    connection.volumes.instance(volume_id)&.details
   end
 end

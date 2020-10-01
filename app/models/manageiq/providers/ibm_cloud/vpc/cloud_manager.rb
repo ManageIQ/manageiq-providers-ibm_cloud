@@ -5,12 +5,19 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   require_nested :Vm
 
   include ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
-
+  delegate :cloud_volumes, :to => :storage_manager
+  has_one :storage_manager,
+          :foreign_key => :parent_ems_id,
+          :class_name  => "ManageIQ::Providers::IbmCloud::VPC::StorageManager",
+          :autosave    => true,
+          :dependent   => :destroy,
+          :inverse_of  => :parent_manager
   before_create :ensure_managers
   before_update :ensure_managers_zone
 
   def ensure_managers
     ensure_network_manager
+    ensure_storage_manager
     ensure_managers_zone
   end
 
@@ -19,8 +26,14 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
     network_manager.name = "Network-Manager of '#{name}'"
   end
 
+  def ensure_storage_manager
+    build_storage_manager(:type => 'ManageIQ::Providers::IbmCloud::VPC::StorageManager') unless storage_manager
+    storage_manager.name = "Storage-Manager of '#{name}'"
+  end
+
   def ensure_managers_zone
     network_manager.zone_id = zone_id if network_manager
+    storage_manager.zone_id = zone_id if storage_manager
   end
 
   def image_name
