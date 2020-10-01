@@ -1,6 +1,7 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < ManageIQ::Providers::CloudManager::Vm
   supports     :reboot_guest
   supports     :terminate
+  supports     :reset
   supports_not :suspend
 
   def raw_start
