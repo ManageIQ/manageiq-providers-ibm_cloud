@@ -1,12 +1,13 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < ManageIQ::Providers::CloudManager::Vm
-  supports     :reboot_guest
-  supports     :terminate
-  supports     :reboot_guest do
+  supports :reboot_guest
+  supports :terminate
+  supports :reboot_guest do
     unsupported_reason_add(:reboot_guest, _("The VM is not powered on")) unless current_state == "on"
   end
-  supports     :reset do
+  supports :reset do
     unsupported_reason_add(:reset, _("The VM is not powered on")) unless current_state == "on"
   end
+
   supports_not :suspend
 
   def raw_start
