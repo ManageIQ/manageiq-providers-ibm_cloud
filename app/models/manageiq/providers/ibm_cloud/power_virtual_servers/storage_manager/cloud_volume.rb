@@ -1,5 +1,11 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudVolume < ::CloudVolume
   supports :create
+  supports_not :snapshot_create
+  supports_not :update
+
+  def available_vms
+    availability_zone.vms
+  end
 
   def self.validate_create_volume(ext_management_system)
     validate_volume(ext_management_system)
@@ -38,5 +44,31 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     end
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
+  end
+
+  def validate_attach_volume
+    validate_volume_available
+  end
+
+  def raw_attach_volume(vm_ems_ref, _device = nil)
+    ext_management_system.with_provider_connection(:service => 'PowerIaas') do |power_iaas|
+      power_iaas.attach_volume(vm_ems_ref, ems_ref)
+    end
+  rescue => e
+    _log.error("volume=[#{name}], error: #{e}")
+    raise MiqException::MiqVolumeAttachError, "Unable to attach volume: #{e.message}"
+  end
+
+  def validate_detach_volume
+    validate_volume_in_use
+  end
+
+  def raw_detach_volume(vm_ems_ref)
+    ext_management_system.with_provider_connection(:service => 'PowerIaas') do |power_iaas|
+      power_iaas.detach_volume(vm_ems_ref, ems_ref)
+    end
+  rescue => e
+    _log.error("volume=[#{name}], error: #{e}")
+    raise MiqException::MiqVolumeDetachError, "Unable to attach volume: #{e.message}"
   end
 end
