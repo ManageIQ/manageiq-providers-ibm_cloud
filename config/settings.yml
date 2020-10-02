@@ -1,14 +1,14 @@
 :ems:
-  :ems_ibm_cloud_virtual_servers:
+  :ems_ibm_cloud_power_virtual_servers:
     :blacklisted_event_names: []
     :event_handling:
       :event_groups:
         :power:
           :critical:
-            - IBM_CLOUD_VIRTUAL_SERVERS_instance_power_on
-            - IBM_CLOUD_VIRTUAL_SERVERS_instance_power_off
+            - IBM_CLOUD_POWER_VIRTUAL_SERVERS_instance_power_on
+            - IBM_CLOUD_POWER_VIRTUAL_SERVERS_instance_power_off
 :http_proxy:
-  :ibm_cloud_virtual_servers:
+  :ibm_cloud_power_virtual_servers:
     :host:
     :password:
     :port:
