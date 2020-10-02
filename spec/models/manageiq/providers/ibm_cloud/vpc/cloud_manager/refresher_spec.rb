@@ -41,6 +41,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
   def assert_specific_vm
     vm = ems.vms.find_by(:ems_ref => "0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d")
 
+    expect(vm.ipaddresses.count).to eq(1)
     expect(vm.availability_zone.name).to eq('us-east-3')
     expect(vm.cpu_total_cores).to eq(2)
     expect(vm.hardware.memory_mb).to eq(16_384)

@@ -44,6 +44,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     end
     add_cloud_collection(:flavors)
     add_cloud_collection(:vm_and_miq_template_ancestry)
+    add_cloud_collection(:networks)
   end
 
   def initialize_network_inventory_collections
@@ -59,6 +60,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_network_collection(:floating_ips) do |builder|
       builder.add_default_values(:ems_id => ->(persister) { persister.network_manager.id })
     end
+    add_network_collection(:network_ports) do |builder|
+      builder.add_default_values(:ems_id => ->(persister) { persister.network_manager.id })
+    end
+    add_network_collection(:cloud_subnet_network_ports)
   end
 
   def initialize_storage_inventory_collections

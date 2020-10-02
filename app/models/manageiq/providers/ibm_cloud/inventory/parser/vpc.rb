@@ -59,6 +59,24 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
       instance_hardware(persister_instance, instance)
       instance_operating_system(persister_instance, instance)
+      instance_network_interfaces(persister_instance, instance)
+    end
+  end
+
+  def instance_network_interfaces(persister_instance, instance)
+    instance[:network_interfaces].each do |nic|
+      persister_network_port = persister.network_ports.build(
+        :name       => nic[:name],
+        :ems_ref    => nic[:id],
+        :device_ref => instance[:id],
+        :device     => persister_instance
+      )
+
+      persister.cloud_subnet_network_ports.build(
+        :network_port => persister_network_port,
+        :address      => nic[:primary_ipv4_address],
+        :cloud_subnet => persister.cloud_subnets.lazy_find(nic&.dig(:subnet, :id))
+      )
     end
   end
 
@@ -67,12 +85,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     cpus = Float(vcpu_count).ceil if vcpu_count
     memory = instance[:memory]
     memory_mb = Integer(memory) * 1024 if memory
-    persister.hardwares.build(
+    persister_hardware = persister.hardwares.build(
       :vm_or_template  => persister_instance,
       :cpu_sockets     => cpus,
       :cpu_total_cores => cpus,
       :memory_mb       => memory_mb
     )
+
+    hardware_networks(persister_hardware, instance)
   end
 
   def instance_operating_system(persister_instance, instance)
@@ -82,6 +102,16 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
       :vm_or_template => persister_instance,
       :product_name   => os
     )
+  end
+
+  def hardware_networks(persister_hardware, instance)
+    instance[:network_interfaces].each do |nic|
+      persister.networks.build(
+        :hardware    => persister_hardware,
+        :description => "private",
+        :ipaddress   => nic[:primary_ipv4_address]
+      )
+    end
   end
 
   def flavors
