@@ -46,11 +46,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   def storage_types
     # TODO: The Power Cloud API does not yet have a call to retrieve
     # available storage types.
-    [
-      {"description" => "Tier 1", "state" => "active", "type" => "tier1"},
-      {"description" => "Tier 3", "state" => "active", "type" => "tier3"},
-      {"description" => "ssd", "state" => "active", "type" => "ssd-legacy"},
-      {"description" => "standard", "state" => "active", "type" => "standard-legacy"}
-    ]
+    ::Settings.ems_refresh.ibm_cloud_power_virtual_servers.storage_types
   end
 end
