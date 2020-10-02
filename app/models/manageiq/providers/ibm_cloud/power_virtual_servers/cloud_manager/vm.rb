@@ -21,21 +21,21 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
     with_provider_connection(:service => 'PowerIaas') do |power_iaas|
       power_iaas.stop_pvm_instance(ems_ref)
     end
-    update!(:raw_power_state => "INACTIVE")
+    update!(:raw_power_state => "SHUTOFF")
   end
 
   def raw_reboot_guest
     with_provider_connection(:service => 'PowerIaas') do |power_iaas|
       power_iaas.soft_reboot_pvm_instance(ems_ref)
     end
-    update!(:raw_power_state => "off")
+    update!(:raw_power_state => "SHUTOFF")
   end
 
   def raw_reset
     with_provider_connection(:service => 'PowerIaas') do |power_iaas|
       power_iaas.hard_reboot_pvm_instance(ems_ref)
     end
-    update!(:raw_power_state => "off")
+    update!(:raw_power_state => "SHUTOFF")
   end
 
   def raw_destroy

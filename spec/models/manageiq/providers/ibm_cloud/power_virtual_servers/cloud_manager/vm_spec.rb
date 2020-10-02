@@ -6,7 +6,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
 
   context "is_available?" do
     let(:power_state_on)        { "ACTIVE" }
-    let(:power_state_suspended) { "NOT_ACTIVE" }
+    let(:power_state_suspended) { "SHUTOFF" }
 
     context "with :start" do
       let(:state) { :start }
