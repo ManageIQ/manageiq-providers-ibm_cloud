@@ -6,7 +6,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
 
   context "is_available?" do
     let(:power_state_on)        { "ACTIVE" }
-    let(:power_state_suspended) { "NOT_ACTIVE" }
+    let(:power_state_suspended) { "SHUTOFF" }
 
     context "with :start" do
       let(:state) { :start }
@@ -28,9 +28,14 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
       include_examples "Vm operation is not available"
     end
 
+    context "with :reboot" do
+      let(:state) { :reboot }
+      include_examples "Vm operation is available when powered on"
+    end
+
     context "with :reset" do
       let(:state) { :reset }
-      include_examples "Vm operation is not available"
+      include_examples "Vm operation is available when powered on"
     end
   end
 end
