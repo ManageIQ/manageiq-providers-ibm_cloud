@@ -28,9 +28,14 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
       include_examples "Vm operation is not available"
     end
 
+    context "with :reboot" do
+      let(:state) { :reboot }
+      include_examples "Vm operation is available when powered on"
+    end
+
     context "with :reset" do
       let(:state) { :reset }
-      include_examples "Vm operation is not available"
+      include_examples "Vm operation is available when powered on"
     end
   end
 end

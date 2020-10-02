@@ -1,7 +1,12 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < ManageIQ::Providers::CloudManager::Vm
   supports     :reboot_guest
   supports     :terminate
-  supports     :reset
+  supports     :reboot_guest do
+    unsupported_reason_add(:reboot_guest, _("The VM is not powered on")) unless current_state == "on"
+  end
+  supports     :reset do
+    unsupported_reason_add(:reset, _("The VM is not powered on")) unless current_state == "on"
+  end
   supports_not :suspend
 
   def raw_start
@@ -36,6 +41,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
     with_provider_connection(:service => 'PowerIaas') do |power_iaas|
       power_iaas.delete_pvm_instance(ems_ref)
     end
+  end
+
+  def validate_reboot
+    validate_vm_control_powered_on
   end
 
   def self.calculate_power_state(raw_power_state)
