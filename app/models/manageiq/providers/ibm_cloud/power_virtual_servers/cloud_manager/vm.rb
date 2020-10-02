@@ -13,14 +13,14 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
     with_provider_connection(:service => 'PowerIaas') do |power_iaas|
       power_iaas.start_pvm_instance(ems_ref)
     end
-    update!(:raw_power_state => "on")
+    update!(:raw_power_state => "ACTIVE")
   end
 
   def raw_stop
     with_provider_connection(:service => 'PowerIaas') do |power_iaas|
       power_iaas.stop_pvm_instance(ems_ref)
     end
-    update!(:raw_power_state => "off")
+    update!(:raw_power_state => "INACTIVE")
   end
 
   def raw_reboot_guest
