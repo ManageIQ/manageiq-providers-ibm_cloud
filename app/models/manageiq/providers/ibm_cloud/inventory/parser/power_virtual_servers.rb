@@ -9,6 +9,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     'aix'    => 'unix_aix',
     'ibmi'   => 'ibm_i',
     'redhat' => 'linux_redhat',
+    'rhel'   => 'linux_redhat',
     'sles'   => 'linux_suse'
   }.freeze
 
