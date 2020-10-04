@@ -90,6 +90,16 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :value        => instance['processors'],
         :read_only    => true
       )
+
+      # saving processor type
+      persister.vms_and_templates_advanced_settings.build(
+        :resource     => ps_vmi,
+        :name         => 'processor_type'
+        :display_name => N_('Processor type'),
+        :description  => N_('Dedicated, Uncapped shared, or Capped shared'),
+        :value        => instance['procType'],
+        :read_only    => true
+      )
     end
   end
 
