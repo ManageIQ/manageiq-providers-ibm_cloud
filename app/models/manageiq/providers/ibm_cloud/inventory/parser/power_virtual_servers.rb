@@ -20,11 +20,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   def parse
     availability_zones
     images
+    flavors
     volumes
     instances
     networks
     sshkeys
-    systemtypes
     cloud_volume_types
   end
 
@@ -35,7 +35,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
         :description       => "IBM Cloud Server",
         :ems_ref           => instance["pvmInstanceID"],
-        :flavor            => "",
+        :flavor            => persister.flavors.lazy_find(instance["sysType"]),
         :location          => "unknown",
         :name              => instance["serverName"],
         :vendor            => "ibm",
@@ -219,7 +219,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     end
   end
 
-  def systemtypes
+  def flavors
     collector.system_pool.each do |v|
       persister.flavors.build(
         :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType",
