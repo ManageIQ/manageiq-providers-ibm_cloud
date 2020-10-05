@@ -19,8 +19,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_sys_type(_options = {})
-    ar_ems = ar_ems_get
-    ar_sys_types = ar_ems&.flavors
+    ar_sys_types = ar_ems.flavors
     sys_types = ar_sys_types&.map&.with_index(1) { |sys_type, i| [i, sys_type['name']] }
     Hash[sys_types || {}]
   end
@@ -31,23 +30,20 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_guest_access_key_pairs(_options = {})
-    ar_ems = ar_ems_get
-    ar_key_pairs = ar_ems&.key_pairs
+    ar_key_pairs = ar_ems.key_pairs
     key_pairs = ar_key_pairs&.map&.with_index(1) { |key_pair, i| [i, key_pair['name']] }
     none = [0, 'None']
     Hash[key_pairs&.insert(0, none) || none]
   end
 
   def allowed_subnets(_options = {})
-    ar_ems = ar_ems_get
-    ar_subnets = ar_ems&.cloud_subnets
+    ar_subnets = ar_ems.cloud_subnets
     subnets = ar_subnets&.collect { |subnet| [subnet[:ems_ref], subnet[:name]] }
     Hash[subnets || {}]
   end
 
   def allowed_cloud_volumes(_options = {})
-    ar_ems = ar_ems_get
-    ar_volumes = ar_ems&.cloud_volumes if ar_ems
+    ar_volumes = ar_ems.cloud_volumes if ar_ems
     cloud_volumes = ar_volumes&.map { |cloud_volume| [cloud_volume['ems_ref'], cloud_volume['name']] }
     Hash[cloud_volumes || {}]
   end
@@ -79,9 +75,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
 
   private
 
-  def ar_ems_get
-    ems = resources_for_ui[:ems]
-    ems ? load_ar_obj(ems) : nil
+  def ar_ems
+    rui = resources_for_ui[:ems]
+    ems = load_ar_obj(rui)
+    raise MiqException::MiqProvisionError, 'A server-side error occurred in the provisioning workflow' if ems.nil?
+    ems
   end
 
   def dialog_name_from_automate(_message = 'get_dialog_name')
