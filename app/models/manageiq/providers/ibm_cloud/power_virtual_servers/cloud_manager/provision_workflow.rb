@@ -60,30 +60,21 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def parse_new_volumes_fields(values)
-    stop = false
     new_volumes = []
 
-    while !stop
-      new_volume = {}
+    values.select { |k, _v| k =~ /(#{volume_dialog_keys.join("|")})_(\d+)/ }.each do |key, value|
+      field, cnt = key.to_s.split("_")
+      cnt = Integer(cnt)
 
-      %w[name size diskType shareable].map do |fld|
-        cnt = new_volumes.length + 1
-        key = :"#{fld}_#{cnt}".to_sym
-        new_volume[fld.to_sym] = values[key] if values.key?(key)
-      end
-
-      stop = new_volume.empty?
-
-      if !stop
-        new_volume[:name] = nil if new_volume[:name].blank?
-        new_volume[:diskType] = nil if new_volume[:diskType].blank?
-        new_volume[:size] = new_volume[:size].blank? ? nil : new_volume[:size].to_i
-        new_volume[:shareable] = ['null', nil].exclude?(new_volume[:shareable])
-        new_volumes << new_volume
-      end
+      new_volumes[cnt] ||= {}
+      new_volumes[cnt][field.to_sym] = value
     end
 
-    new_volumes
+    new_volumes.drop(1).map! do |new_volume|
+      new_volume[:size] = new_volume[:size].to_i
+      new_volume[:shareable] = [nil, 'null'].exclude?(new_volume[:shareable])
+      new_volume
+    end
   end
 
   def validate_entitled_processors(_field, values, _dlg, _fld, value)
