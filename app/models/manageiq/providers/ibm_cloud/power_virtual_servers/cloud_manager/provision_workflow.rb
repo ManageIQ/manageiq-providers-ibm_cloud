@@ -25,8 +25,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_storage_type(_options = {})
-    # TODO: replace with api provided values, once issue '115' is solved and merged
-    {0 => "None", 1 => "Tier 1", 2 => "Tier 3"}
+    ar_storage_types = ar_ems.cloud_volume_types
+    storage_types = ar_storage_types&.map&.with_index(1) { |storage_type, i| [i, storage_type['name']] }
+    none = [0, 'None']
+    Hash[storage_types&.insert(0, none) || none]
   end
 
   def allowed_guest_access_key_pairs(_options = {})
