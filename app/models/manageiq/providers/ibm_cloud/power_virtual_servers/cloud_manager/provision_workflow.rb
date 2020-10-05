@@ -1,12 +1,10 @@
 require 'ipaddr'
 
-require 'ipaddr'
-
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ProvisionWorkflow < ::MiqProvisionCloudWorkflow
   TIMEZONES =
-      {
-          '006' => '(UTC-07:00) US Mountain Standard Time',
-      }.freeze
+    {
+      '006' => '(UTC-07:00) US Mountain Standard Time',
+    }.freeze
 
   def self.provider_model
     ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager
