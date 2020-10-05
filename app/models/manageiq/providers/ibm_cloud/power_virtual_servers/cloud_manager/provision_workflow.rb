@@ -21,7 +21,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   def allowed_sys_type(_options = {})
     ar_ems = ar_ems_get
     ar_sys_types = ar_ems&.flavors
-    sys_types = ar_sys_types&.map&.with_index { |sys_type, i| [i + 1, sys_type['name']] }
+    sys_types = ar_sys_types&.map&.with_index(1) { |sys_type, i| [i, sys_type['name']] }
     Hash[sys_types || {}]
   end
 
@@ -33,7 +33,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   def allowed_guest_access_key_pairs(_options = {})
     ar_ems = ar_ems_get
     ar_key_pairs = ar_ems&.key_pairs
-    key_pairs = ar_key_pairs&.map&.with_index { |key_pair, i| [i + 1, key_pair['name']] }
+    key_pairs = ar_key_pairs&.map&.with_index(1) { |key_pair, i| [i, key_pair['name']] }
     none = [0, 'None']
     Hash[key_pairs&.insert(0, none) || none]
   end
