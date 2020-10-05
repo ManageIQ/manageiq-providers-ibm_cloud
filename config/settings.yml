@@ -1,14 +1,29 @@
 :ems:
-  :ems_ibm_cloud_virtual_servers:
+  :ems_ibm_cloud_power_virtual_servers:
     :blacklisted_event_names: []
     :event_handling:
       :event_groups:
         :power:
           :critical:
-            - IBM_CLOUD_VIRTUAL_SERVERS_instance_power_on
-            - IBM_CLOUD_VIRTUAL_SERVERS_instance_power_off
+          - IBM_CLOUD_POWER_VIRTUAL_SERVERS_instance_power_on
+          - IBM_CLOUD_POWER_VIRTUAL_SERVERS_instance_power_off
+:ems_refresh:
+  :ibm_cloud_power_virtual_servers:
+    :storage_types:
+    - :description: Tier 1
+      :state: active
+      :type: tier1
+    - :description: Tier 3
+      :state: active
+      :type: tier3
+    - :description: SSD
+      :state: active
+      :type: ssd-legacy
+    - :description: Standard
+      :state: active
+      :type: standard-legacy
 :http_proxy:
-  :ibm_cloud_virtual_servers:
+  :ibm_cloud_power_virtual_servers:
     :host:
     :password:
     :port:
