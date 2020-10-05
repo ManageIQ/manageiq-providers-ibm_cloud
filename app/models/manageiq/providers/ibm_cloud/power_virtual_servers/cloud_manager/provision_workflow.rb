@@ -1,10 +1,12 @@
 require 'ipaddr'
 
+require 'ipaddr'
+
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ProvisionWorkflow < ::MiqProvisionCloudWorkflow
   TIMEZONES =
-    {
-      '006' => '(UTC-07:00) US Mountain Standard Time',
-    }.freeze
+      {
+          '006' => '(UTC-07:00) US Mountain Standard Time',
+      }.freeze
 
   def self.provider_model
     ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager
@@ -25,9 +27,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_storage_type(_options = {})
-    ar_ems = ar_ems_get
-    ar_storage_types = ar_ems&.cloud_volume_types
-    storage_types = ar_storage_types&.map&.with_index { |storage_type, i| [i + 1, storage_type['name']] }
+    ar_storage_types = ar_ems.cloud_volume_types
+    storage_types = ar_storage_types&.map&.with_index(1) { |storage_type, i| [i, storage_type['name']] }
     none = [0, 'None']
     Hash[storage_types&.insert(0, none) || none]
   end
