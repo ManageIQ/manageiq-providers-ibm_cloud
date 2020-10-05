@@ -1,0 +1,25 @@
+---
+us-south:
+  :name: us-south
+  :hostname: us-south.iaas.cloud.ibm.com
+  :description: US South (Dallas)
+us-east:
+  :name: us-east
+  :hostname: us-east.iaas.cloud.ibm.com
+  :description: US East (Washington DC)
+eu-gb:
+  :name: eu-gb
+  :hostname: eu-gb.iaas.cloud.ibm.com
+  :description: United Kingdom (London)
+eu-de:
+  :name: eu-de
+  :hostname: eu-de.iaas.cloud.ibm.com
+  :description: EU Germany (Frankfurt)
+jp-tok:
+  :name: jp-tok
+  :hostname: jp-tok.iaas.cloud.ibm.com
+  :description: Japan (Tokyo)
+au-syd:
+  :name: au-syd
+  :hostname: au-syd.iaas.cloud.ibm.com
+  :description: Australia (Sydney)
