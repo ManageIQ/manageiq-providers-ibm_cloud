@@ -49,6 +49,18 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   end
 
   def self.description
-    @description ||= 'IBM Virtual Private Cloud'.freeze
+    @description ||= 'IBM Cloud VPC'.freeze
+  end
+
+  def self.provider_region_options
+    ManageIQ::Providers::IbmCloud::VPC::Regions
+      .all
+      .sort_by { |r| r[:description].downcase }
+      .map do |r|
+        {
+          :label => r[:description],
+          :value => r[:name]
+        }
+      end
   end
 end

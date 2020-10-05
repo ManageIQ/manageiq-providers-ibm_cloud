@@ -4,7 +4,11 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager do
   end
 
   it ".ems_description" do
-    expect(described_class.description).to eq('IBM Virtual Private Cloud')
+    expect(described_class.description).to eq('IBM Cloud VPC')
+  end
+
+  it "verifies regions options" do
+    expect(described_class.provider_region_options.count).to eq(6)
   end
 
   it "tests the verify credentials logic" do

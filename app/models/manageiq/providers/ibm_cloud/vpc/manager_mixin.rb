@@ -31,12 +31,7 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
             :label      => _("Region"),
             :isRequired => true,
             :validate   => [{:type => "required"}],
-            :options    => [
-              {
-                :value => "us-east",
-                :label => _("US East")
-              }
-            ]
+            :options    => provider_region_options
           },
           {
             :component => 'sub-form',
