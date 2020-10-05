@@ -77,9 +77,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
 
   def ar_ems
     rui = resources_for_ui[:ems]
-    ems = load_ar_obj(rui)
+    ems = load_ar_obj(rui) if rui
     raise MiqException::MiqProvisionError, 'A server-side error occurred in the provisioning workflow' if ems.nil?
-    
+
     ems
   end
 
