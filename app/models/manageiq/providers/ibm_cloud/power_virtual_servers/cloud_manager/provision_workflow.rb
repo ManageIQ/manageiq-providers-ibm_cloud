@@ -43,7 +43,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_cloud_volumes(_options = {})
-    ar_volumes = ar_ems.cloud_volumes if ar_ems
+    ar_volumes = ar_ems.cloud_volumes
     cloud_volumes = ar_volumes&.map { |cloud_volume| [cloud_volume['ems_ref'], cloud_volume['name']] }
     Hash[cloud_volumes || {}]
   end
