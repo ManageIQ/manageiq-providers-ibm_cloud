@@ -47,7 +47,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
     def assert_table_counts
       expect(Vm.count).to eq(2)
-      expect(OperatingSystem.count).to eq(2)
+      expect(OperatingSystem.count).to eq(7)
       expect(MiqTemplate.count).to eq(5)
       expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to eq(9)
       expect(CloudVolume.count).to eq(13)
@@ -60,7 +60,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     def assert_ems_counts
       expect(ems.vms.count).to eq(2)
       expect(ems.miq_templates.count).to eq(5)
-      expect(ems.operating_systems.count).to eq(2)
+      expect(ems.operating_systems.count).to eq(7)
       expect(ems.key_pairs.count).to eq(9)
       expect(ems.network_manager.cloud_networks.count).to eq(3)
       expect(ems.network_manager.cloud_subnets.count).to eq(3)
@@ -73,7 +73,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :uid_ems          => "7effc17f-f708-48f0-862d-4177fabf62fe",
         :ems_ref          => "7effc17f-f708-48f0-862d-4177fabf62fe",
         :name             => "power-vsi-2",
-        :description      => "IBM Cloud Server",
+        :description      => "PVM Instance",
         :vendor           => "ibm",
         :power_state      => "on",
         :raw_power_state  => "ACTIVE",
@@ -110,11 +110,11 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :uid_ems          => "b4ae82e3-51c2-49a3-9071-81f668232ed4",
         :ems_ref          => "b4ae82e3-51c2-49a3-9071-81f668232ed4",
         :name             => "7100-05-05",
-        :description      => "System: aix, Architecture: ppc64, Endianess: big-endian",
+        :description      => nil,
         :vendor           => "ibm",
         :power_state      => "never",
         :raw_power_state  => "never",
-        :connection_state => "connected",
+        :connection_state => nil,
         :type             => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template"
       )
     end

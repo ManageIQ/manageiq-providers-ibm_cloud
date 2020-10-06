@@ -95,7 +95,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::PowerVirtualServers <
   def add_advanced_settings
     add_collection(cloud, :vms_and_templates_advanced_settings) do |builder|
       builder.add_properties(
-        :manager_ref                  => %i[resource],
+        :manager_ref                  => %i[resource name],
         :model_class                  => ::AdvancedSetting,
         :parent_inventory_collections => %i[vms]
       )

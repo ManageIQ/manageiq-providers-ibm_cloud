@@ -3,29 +3,30 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   require_nested :NetworkManager
   require_nested :StorageManager
 
-  attr_reader :img_to_os, :subnet_to_ext_ports
+  attr_reader :img_to_arch, :subnet_to_ext_ports
 
   OS_MIQ_NAMES_MAP = {
     'aix'    => 'unix_aix',
     'ibmi'   => 'ibm_i',
     'redhat' => 'linux_redhat',
+    'rhel'   => 'linux_redhat',
     'sles'   => 'linux_suse'
   }.freeze
 
   def initialize
-    @img_to_os           = {}
+    @img_to_arch         = {}
     @subnet_to_ext_ports = {}
   end
 
   def parse
     availability_zones
     images
+    flavors
+    cloud_volume_types
     volumes
     instances
     networks
     sshkeys
-    systemtypes
-    cloud_volume_types
   end
 
   def instances
@@ -33,9 +34,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       # saving general VMI information
       ps_vmi = persister.vms.build(
         :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
-        :description       => "IBM Cloud Server",
+        :description       => "PVM Instance",
         :ems_ref           => instance["pvmInstanceID"],
-        :flavor            => "",
+        :flavor            => persister.flavors.lazy_find(instance["sysType"]),
         :location          => "unknown",
         :name              => instance["serverName"],
         :vendor            => "ibm",
@@ -48,7 +49,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       ps_hw = persister.hardwares.build(
         :vm_or_template  => ps_vmi,
         :cpu_total_cores => instance['virtualCores']['assigned'],
-        :memory_mb       => instance["memory"] * 1024
+        :cpu_type        => img_to_arch[instance['imageID']],
+        :memory_mb       => instance["memory"] * 1024,
+        :guest_os        => OS_MIQ_NAMES_MAP[instance['osType']]
       )
 
       # saving instance disk information
@@ -67,10 +70,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       end
 
       # saving OS information
-      os = img_to_os[instance['imageID']] || pub_img_os(instance['imageID'])
       persister.operating_systems.build(
         :vm_or_template => ps_vmi,
-        :product_name   => OS_MIQ_NAMES_MAP[os]
+        :product_name   => OS_MIQ_NAMES_MAP[instance['osType']],
+        :version        => instance['operatingSystem']
       )
 
       # saving exteral network ports
@@ -90,34 +93,43 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :value        => instance['processors'],
         :read_only    => true
       )
-    end
-  end
 
-  def pub_img_os(img_id)
-    collector.image(img_id)&.dig("specifications", "operatingSystem")
+      # saving processor type
+      persister.vms_and_templates_advanced_settings.build(
+        :resource     => ps_vmi,
+        :name         => 'processor_type',
+        :display_name => N_('Processor type'),
+        :description  => N_('dedicated: Dedicated, shared: Uncapped shared, capped: Capped shared'),
+        :value        => instance['procType'],
+        :read_only    => true
+      )
+    end
   end
 
   def images
     collector.images.each do |ibm_image|
-      id    = ibm_image['imageID']
-      name  = ibm_image['name']
-      os      = ibm_image['specifications']['operatingSystem']
-      arch    = ibm_image['specifications']['architecture']
-      endian  = ibm_image['specifications']['endianness']
-      desc    = "System: #{os}, Architecture: #{arch}, Endianess: #{endian}"
+      id = ibm_image['imageID']
+      arch = ibm_image['specifications']['architecture']
+      if ibm_image['specifications']['endianness'] == 'little-endian'
+        arch << 'le'
+      end
+      img_to_arch[id] = arch
 
-      img_to_os[id] = os
-      persister.miq_templates.build(
+      ps_image = persister.miq_templates.build(
         :uid_ems            => id,
         :ems_ref            => id,
-        :name               => name,
-        :description        => desc,
+        :name               => ibm_image['name'],
+        :description        => ibm_image['description'],
         :location           => "unknown",
         :vendor             => "ibm",
-        :connection_state   => "connected",
         :raw_power_state    => "never",
         :template           => true,
-        :publicly_available => true
+        :storage_profile_id => persister.cloud_volume_types.lazy_find(ibm_image["storageType"])
+      )
+
+      persister.operating_systems.build(
+        :vm_or_template => ps_image,
+        :product_name   => OS_MIQ_NAMES_MAP[ibm_image['specifications']['operatingSystem']]
       )
     end
   end
@@ -209,7 +221,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     end
   end
 
-  def systemtypes
+  def flavors
     collector.system_pool.each do |v|
       persister.flavors.build(
         :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType",
