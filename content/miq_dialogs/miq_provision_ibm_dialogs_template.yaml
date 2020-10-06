@@ -174,9 +174,42 @@
           :data_type: :string
       :display: :show
 
+    :volumes:
+      :description: New Volumes
+      :fields:
+        :name:
+          :description: Name
+          :required: false
+          :display: :edit
+          :data_type: :string
+          :min_length:
+          :max_length: 100
+        :size:
+          :description: Size (GB)
+          :required: false
+          :display: :edit
+          :data_type: :string
+          :min_length:
+          :max_length: 10
+        :shareable:
+          :description: Shareable
+          :required: false
+          :data_type: :boolean
+          :default: false
+          :display: :edit
+        :diskType:
+          :description: Disk type
+          :required: false
+          :data_type: :string
+          :min_length:
+          :max_length: 20
+          :display: :edit
+      :display: :show
+
   :dialog_order:
   - :service
   - :hardware
+  - :volumes
   - :network
   - :customize
 

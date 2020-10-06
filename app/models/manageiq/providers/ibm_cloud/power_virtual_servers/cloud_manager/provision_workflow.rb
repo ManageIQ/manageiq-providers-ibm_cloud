@@ -18,6 +18,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     TIMEZONES
   end
 
+  def volume_dialog_keys
+    %i[name size diskType shareable]
+  end
+
   def allowed_sys_type(_options = {})
     ar_sys_types = ar_ems.flavors
     sys_types = ar_sys_types&.map&.with_index(1) { |sys_type, i| [i, sys_type['name']] }
@@ -48,6 +52,29 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     ar_volumes = ar_ems.cloud_volumes
     cloud_volumes = ar_volumes&.map { |cloud_volume| [cloud_volume['ems_ref'], cloud_volume['name']] }
     Hash[cloud_volumes || {}]
+  end
+
+  def set_request_values(values)
+    values[:new_volumes] = parse_new_volumes_fields(values)
+    super
+  end
+
+  def parse_new_volumes_fields(values)
+    new_volumes = []
+
+    values.select { |k, _v| k =~ /(#{volume_dialog_keys.join("|")})_(\d+)/ }.each do |key, value|
+      field, cnt = key.to_s.split("_")
+      cnt = Integer(cnt)
+
+      new_volumes[cnt] ||= {}
+      new_volumes[cnt][field.to_sym] = value
+    end
+
+    new_volumes.drop(1).map! do |new_volume|
+      new_volume[:size] = new_volume[:size].to_i
+      new_volume[:shareable] = [nil, 'null'].exclude?(new_volume[:shareable])
+      new_volume
+    end
   end
 
   def validate_entitled_processors(_field, values, _dlg, _fld, value)
