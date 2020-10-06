@@ -8,4 +8,8 @@ FactoryBot.define do
       end
     end
   end
+
+  factory :template_ibm_cloud_power_virtual_servers, :class => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template", :parent => :template_cloud do
+    vendor { "ibm" }
+  end
 end
