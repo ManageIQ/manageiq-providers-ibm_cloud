@@ -115,25 +115,5 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
 
       {:token => token, :guid => pcloud_guid, :crn => power_iaas_service.crn, :region => power_iaas_service.region_id, :tenant => power_iaas_service.account_id}
     end
-
-    def raw_tenant_id(creds)
-      plst = get_pvstenantid(creds[:token])
-      plst[0][:tenant_id]
-    end
-
-    def api_rescue_block
-      _log.info("rescue")
-    end
-
-    def environment_for(region)
-      case region
-      when /germany/i
-        _log.info("germ")
-      when /usgov/i
-        _log.info("usa")
-      else
-        _log.info("else country")
-      end
-    end
   end
 end
