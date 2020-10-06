@@ -92,34 +92,34 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provi
       :size_4      => "",
       :diskType_4  => "ssd-legacy",
       :shareable_4 => true
-   }
-   expect(workflow.parse_new_volumes_fields(values))
-     .to match_array(
-       [
-         {
-           :name      => "disk_one",
-           :diskType  => "tier1",
-           :size      => 0,
-           :shareable => false
-         },
-         {
-           :size      => 2,
-           :diskType  => "standard-legacy",
-           :shareable => false
-         },
-         {
-           :name      => "disk_three",
-           :size      => 3,
-           :diskType  => "tier3",
-           :shareable => false
-         },
-         {
-           :name      => "disk_four",
-           :size      => 0,
-           :diskType  => "ssd-legacy",
-           :shareable => true
-         }
-       ]
-     )
+    }
+    expect(workflow.parse_new_volumes_fields(values))
+      .to match_array(
+        [
+          {
+            :name      => "disk_one",
+            :diskType  => "tier1",
+            :size      => 0,
+            :shareable => false
+          },
+          {
+            :size      => 2,
+            :diskType  => "standard-legacy",
+            :shareable => false
+          },
+          {
+            :name      => "disk_three",
+            :size      => 3,
+            :diskType  => "tier3",
+            :shareable => false
+          },
+          {
+            :name      => "disk_four",
+            :size      => 0,
+            :diskType  => "ssd-legacy",
+            :shareable => true
+          }
+        ]
+      )
   end
 end
