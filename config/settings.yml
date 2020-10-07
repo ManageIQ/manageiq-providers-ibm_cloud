@@ -38,3 +38,4 @@
     :queue_worker_base:
       :ems_refresh_worker:
         :ems_refresh_worker_ibm_cloud_power_virtual_servers: {}
+        :ems_refresh_worker_ibm_cloud_vpc: {}
