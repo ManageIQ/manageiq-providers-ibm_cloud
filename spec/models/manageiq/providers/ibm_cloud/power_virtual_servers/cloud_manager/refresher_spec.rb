@@ -141,6 +141,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
     def assert_specific_cloud_subnet
       cloud_subnet = ems.network_manager.cloud_subnets.find_by(:ems_ref => "339fc829-8c70-41dd-84c1-ca4b3a608b88")
+      expect(cloud_subnet.availability_zone&.ems_ref).to eq(ems.uid_ems)
       expect(cloud_subnet).to have_attributes(
         :ems_ref          => "339fc829-8c70-41dd-84c1-ca4b3a608b88",
         :name             => "public-192_168_129_72-29-VLAN_2037",
@@ -149,7 +150,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :gateway          => "192.168.129.73",
         :network_protocol => "IPv4",
         :dns_nameservers  => ["9.9.9.9"],
-        :extra_attributes => {:ip_version=>"4"},
+        :extra_attributes => {:ip_version => "4", :network_type => "pub-vlan"},
         :type             => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager::CloudSubnet"
       )
     end
