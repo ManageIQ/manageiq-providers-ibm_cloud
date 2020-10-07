@@ -13,7 +13,6 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
       'sysType'     => get_option_last(:sys_type),
       'pinPolicy'   => get_option_last(:pin_policy),
       'migratable'  => get_option_last(:migratable) == 1,
-      'networks'    => [{"networkID" => get_option(:vlan)}], # TODO: support multiple values
       'replicants'  => 1, # TODO: we have to use this field instead of what 'MIQ' does
       'storageType' => get_option_last(:storage_type)
     }
@@ -32,6 +31,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     attached_volumes = options[:cloud_volumes] || []
     attached_volumes.concat(phase_context[:new_volumes]).compact!
     specs['volumeIDs'] = attached_volumes unless attached_volumes.empty?
+
+    attached_networks = [{"networkID" => get_option(:vlan)}] # TODO: support multiple values
+    attached_networks.concat(phase_context[:new_networks]).compact!
+    specs['networks'] = attached_networks
 
     specs
   end
