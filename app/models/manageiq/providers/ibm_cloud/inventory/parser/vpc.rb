@@ -82,6 +82,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def instance_hardware(persister_instance, instance)
     vcpu_count = instance&.dig(:vcpu, :count)
+    architecture = instance&.dig(:vcpu, :architecture)
+    bitness = architecture.include?("64") ? 64 : 32
     cpus = Float(vcpu_count).ceil if vcpu_count
     memory = instance[:memory]
     memory_mb = Integer(memory) * 1024 if memory
@@ -89,7 +91,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
       :vm_or_template  => persister_instance,
       :cpu_sockets     => cpus,
       :cpu_total_cores => cpus,
-      :memory_mb       => memory_mb
+      :memory_mb       => memory_mb,
+      :bitness         => bitness
     )
 
     hardware_networks(persister_hardware, instance)
@@ -156,8 +159,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   def security_groups
     collector.security_groups.each do |sg|
       persister.security_groups.build(
-        :ems_ref => sg[:id],
-        :name    => sg[:name]
+        :ems_ref       => sg[:id],
+        :name          => sg[:name],
+        :network_ports => sg[:network_interfaces].to_a.map do |nic|
+          persister.network_ports.lazy_find(nic[:id])
+        end
       )
     end
   end
