@@ -110,8 +110,19 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
       require "ibm-cloud-sdk"
       IBM::Cloud::SDK.logger = $ibm_cloud_log
       iam = IBM::Cloud::SDK::IAM.new(api_key)
-      token = iam.get_identity_token
-      power_iaas_service = IBM::Cloud::SDK::ResourceController.new(token).get_resource(pcloud_guid)
+      begin
+        token = iam.get_identity_token
+      rescue RestClient::ExceptionWithResponse => e
+        _log.error("IAM authentication failed: #{e.response}")
+        raise MiqException::MiqInvalidCredentialsError, JSON.parse(e.response)['errorMessage']
+      end
+
+      begin
+        power_iaas_service = IBM::Cloud::SDK::ResourceController.new(token).get_resource(pcloud_guid)
+      rescue RestClient::ExceptionWithResponse => e
+        _log.error("GUID resource lookup failed: #{e.response}")
+        raise MiqException::MiqInvalidCredentialsError, JSON.parse(e.response)['message']
+      end
 
       {:token => token, :guid => pcloud_guid, :crn => power_iaas_service.crn, :region => power_iaas_service.region_id, :tenant => power_iaas_service.account_id}
     end
