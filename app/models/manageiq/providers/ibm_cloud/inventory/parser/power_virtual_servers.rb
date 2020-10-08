@@ -161,15 +161,17 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       )
 
       persister_cloud_subnet = persister.cloud_subnets.build(
-        :cloud_network    => persister_cloud_networks,
-        :cidr             => network['cidr'],
-        :ems_ref          => network['networkID'],
-        :gateway          => network['gateway'],
-        :name             => network['name'],
-        :status           => "active",
-        :dns_nameservers  => network['dnsServers'],
-        :ip_version       => '4',
-        :network_protocol => 'IPv4'
+        :cloud_network     => persister_cloud_networks,
+        :cidr              => network['cidr'],
+        :ems_ref           => network['networkID'],
+        :gateway           => network['gateway'],
+        :name              => network['name'],
+        :status            => "active",
+        :dns_nameservers   => network['dnsServers'],
+        :ip_version        => '4',
+        :network_protocol  => 'IPv4',
+        :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
+        :network_type      => network['type']
       )
 
       mac_to_port = {}
