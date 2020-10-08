@@ -32,7 +32,12 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     attached_volumes.concat(phase_context[:new_volumes]).compact!
     specs['volumeIDs'] = attached_volumes unless attached_volumes.empty?
 
-    attached_networks = [{"networkID" => get_option(:vlan)}] # TODO: support multiple values
+    attached_networks = case get_option(:vlan)
+                        when 'None'
+                          []
+                        else
+                          [{"networkID" => get_option(:vlan)}] # TODO: support multiple values
+                        end
     attached_networks.concat(phase_context[:new_networks]).compact!
     specs['networks'] = attached_networks
 

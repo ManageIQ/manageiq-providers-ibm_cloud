@@ -170,6 +170,7 @@
             :method: :allowed_subnets
           :description: Network Interfaces
           :required: true
+          :default: None
           :display: :edit
           :data_type: :string
         :public_network:

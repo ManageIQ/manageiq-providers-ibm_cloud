@@ -44,7 +44,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   def allowed_subnets(_options = {})
     ar_subnets = ar_ems.cloud_subnets
     subnets = ar_subnets&.collect { |subnet| [subnet[:ems_ref], subnet[:name]] }
-    Hash[subnets || {}]
+    none = ['None', 'None']
+    Hash[subnets.unshift(none)]
   end
 
   def allowed_cloud_volumes(_options = {})
