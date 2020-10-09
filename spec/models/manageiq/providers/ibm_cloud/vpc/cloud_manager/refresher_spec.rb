@@ -21,8 +21,8 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
   def assert_ems_counts
     # Cloud Manager
-    expect(ems.vms.count).to eq(3)
-    expect(ems.miq_templates.count).to eq(39)
+    expect(ems.vms.count).to eq(4)
+    expect(ems.miq_templates.count).to eq(45)
     expect(ems.key_pairs.count).to eq(1)
     expect(ems.availability_zones.count).to eq(3)
 
@@ -35,7 +35,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(ems.cloud_subnets.first.cloud_network_id).to eq(ems.cloud_networks[0].id)
 
     # Storage Manager
-    expect(ems.cloud_volumes.count).to eq(7)
+    expect(ems.cloud_volumes.count).to eq(11)
   end
 
   def assert_specific_vm
