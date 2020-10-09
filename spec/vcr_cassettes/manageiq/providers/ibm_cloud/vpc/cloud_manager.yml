@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://iam.cloud.ibm.com/identity/token
+    body:
+      encoding: UTF-8
+      string: grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=IBMCVS_API_KEY
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2509'
+      Transaction-Id:
+      - 35d07684780a4641b887af9bf1cbc002
+      Cache-Control:
+      - no-cache, no-store
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Content-Language:
+      - en-US
+      X-Akamai-Path-Stats:
+      - "[3:33129:4470871]"
+      Date:
+      - Fri, 09 Oct 2020 17:59:15 GMT
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - sessioncookie=6e95b82a7f952738ffdd9d9d694b9eb0; Path=/; Secure; HttpOnly
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiNTAxODBiNjYtZTBjZi00YWE2LTg0ZTMtMjFiMTNkMGI4NjgyIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDIyNjYzNTEsImV4cCI6MTYwMjI2OTk1MSwiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.IuK6Vwgsneq5lv4Kbea7DeBbHu5PameVlVJxtdln_IRxx9WD9clq8DaQqcAv_APqMsnPwaPDkm-I_SW_yxErh5nNcWyncDRdSztnB13_IN6b5RSfeXGsQg_Xlhga08EjTtT5H73ovzC-tolPQvhvunmtmcCPloGACi759gy1OtMeqOGszTGAjfmlNgGWx869mr8VBuUEWPuo2PeSkNx6qbUll59isK7LjqyYPLW31qXjM7Sd8PM-truQud0byKriCMdgnFviaoGyquEs80gZ_H_-DLyop15OfScRvYqdrFUGqGlX9ttz5GnB5aWDW85pdxKphNIrDpPl4Xuy1vDf1Q","refresh_token":"OKAv47Ssq2Sx09Zv4XpdinttkjsQAlfioXoBkDy9JhcQu4uZL0iJ6kI51PUqheki-07vWzo3ODpJ0eBfEPae1dLpR5rlSxxZtjeKlqtn6I-suv9_LGOMUjzfvnjp-L8Sc2TFNZVzs8v79_LKlavClZVHtZB3-6u9Q2FkvtoPRnx2S7ASKhbPFzEk9AFdmkA3zJztErlFsJA53zwS2n4Asz-IYKI9LgiCpr5-pX1uCJN28rkNR9Rn0jZJPdii8U9cNLuZB6pI8tlB1az79zQOqgp7wB-soQJBBT5FCzJgeL8D3fQ038P7XJaI3K_xeCsbNqCf8AZWOIvS2_KzYUAlu3IZEpb53fnmikuIHj7BA3tc7iRYQhNZpcBifW3JfvF_eYoplvGHhBns-ARC_yvhFQc18e_0JsNP3ZhW1Z7muKnE5cGDiIVUo6pQAykE84fFiVCfku9njxXOAOkj0LP-K_MIkVGeHp_O-lNTl_-EeDsJxoUlgSdJaAd2TvQQANIELdF3miifJpj7WvNuHJHeutEDqD-JvnrFRErZq7BQ2wMe1XLZGyIj1K265hzJSqsbCNxVZRRUkdIUNpKAs4iWduc9apoXF2d1h2xuVPLawGi1XBTiTn0M9kvSF5cCOBn8osx9kUKzWqq0WeNN19LDa7oZDRD0yK90EGK_lDxPH0iSGFINWlopU8YyybkezxUNemApMuSOlTBH8REvh3sXVpnEVCEUHo2NLM3gjBJBAvW91-cfqR2nCZQndHYdelj7f5FuKp0RBruVhXdJSfSC1gpkRuB39ewAVH23OAfM3PbdGg8--Qw14B4a_S9qWecqRKzxkuY27JJJY2XD30f40o-7MhMNL7sUMmxTTKL8qrmV3X1gwwceQII9-77fl85LNtan5F6tSMOH8clbbqeqnsa25ALZsFNqMec_QACTfuyDqaziacqrp2hCmJciBZ53IW_vKQpCwJ1CUhVSfkcJbYquaQd825cBwikUULX2Wq1xNKgGA1GTahLM4lmB7VGaCkY-1W5QkSQ5o1vPZ36Dtngwwi--gG7aIeocAgluJsLUQi9SSG8EHM0IO6yuwT7VOvr7yGVfZhbN2geGnPD1OFlbi8eV5xsRAH98NJx7_asYFK2wImkHQAOfuwIyNmjjfPM","ims_user_id":7282103,"token_type":"Bearer","expires_in":3600,"expiration":4102462800,"refresh_token_expiration":1604858351,"scope":"ibm
+        openid"}'
+    http_version:
+  recorded_at: Fri, 09 Oct 2020 17:59:15 GMT
+recorded_with: VCR 5.1.0
