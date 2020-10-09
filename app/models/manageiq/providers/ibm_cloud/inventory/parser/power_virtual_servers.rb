@@ -42,7 +42,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :vendor            => "ibm",
         :connection_state  => "connected",
         :raw_power_state   => instance["status"],
-        :uid_ems           => instance["pvmInstanceID"]
+        :uid_ems           => instance["pvmInstanceID"],
+        :format            => instance["storageType"]
       )
 
       # saving hardware information (CPU, Memory, etc.)
@@ -124,7 +125,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :vendor             => "ibm",
         :raw_power_state    => "never",
         :template           => true,
-        :storage_profile_id => persister.cloud_volume_types.lazy_find(ibm_image["storageType"])
+        :storage_profile_id => persister.cloud_volume_types.lazy_find(ibm_image["storageType"]),
+        :format             => ibm_image["storageType"]
       )
 
       persister.operating_systems.build(
