@@ -19,7 +19,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def volume_dialog_keys
-    %i[name size diskType shareable]
+    %i[name size shareable]
   end
 
   def allowed_sys_type(_options = {})
@@ -60,6 +60,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
 
   def parse_new_volumes_fields(values)
     new_volumes = []
+    storage_type = values[:storage_type][1]
 
     values.select { |k, _v| k =~ /(#{volume_dialog_keys.join("|")})_(\d+)/ }.each do |key, value|
       field, cnt = key.to_s.split("_")
@@ -72,6 +73,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     new_volumes.drop(1).map! do |new_volume|
       new_volume[:size] = new_volume[:size].to_i
       new_volume[:shareable] = [nil, 'null'].exclude?(new_volume[:shareable])
+      new_volume[:diskType] = storage_type
       new_volume
     end
   end

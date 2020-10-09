@@ -197,13 +197,6 @@
           :data_type: :boolean
           :default: false
           :display: :edit
-        :diskType:
-          :description: Disk type
-          :required: false
-          :data_type: :string
-          :min_length:
-          :max_length: 20
-          :display: :edit
       :display: :show
 
   :dialog_order:

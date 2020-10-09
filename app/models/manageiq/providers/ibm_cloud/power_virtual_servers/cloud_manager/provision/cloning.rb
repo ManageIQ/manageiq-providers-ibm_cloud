@@ -5,24 +5,22 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
   def prepare_for_clone_task
     specs = {
-      'serverName' => get_option(:vm_target_name),
-      'imageID'    => get_option_last(:src_vm_id),
-      'processors' => get_option_last(:entitled_processors).to_f,
-      'procType'   => get_option_last(:instance_type),
-      'memory'     => get_option_last(:vm_memory).to_i,
-      'sysType'    => get_option_last(:sys_type),
-      'pinPolicy'  => get_option_last(:pin_policy),
-      'migratable' => get_option_last(:migratable) == 1,
-      'networks'   => [{"networkID" => get_option(:vlan)}], # TODO: support multiple values
-      'replicants' => 1, # TODO: we have to use this field instead of what 'MIQ' does
+      'serverName'  => get_option(:vm_target_name),
+      'imageID'     => get_option_last(:src_vm_id),
+      'processors'  => get_option_last(:entitled_processors).to_f,
+      'procType'    => get_option_last(:instance_type),
+      'memory'      => get_option_last(:vm_memory).to_i,
+      'sysType'     => get_option_last(:sys_type),
+      'pinPolicy'   => get_option_last(:pin_policy),
+      'migratable'  => get_option_last(:migratable) == 1,
+      'networks'    => [{"networkID" => get_option(:vlan)}], # TODO: support multiple values
+      'replicants'  => 1, # TODO: we have to use this field instead of what 'MIQ' does
+      'storageType' => get_option_last(:storage_type)
     }
 
     # TODO: support multiple values
     ip_addr = get_option_last(:ip_addr)
     specs['networks'][0]['ipAddress'] = ip_addr unless !ip_addr || ip_addr.strip.blank?
-
-    chosen_storage_type = get_option_last(:storage_type)
-    specs['storageType'] = chosen_storage_type unless chosen_storage_type == 'None'
 
     chosen_key_pair = get_option_last(:guest_access_key_pair)
     specs['keyPairName'] = chosen_key_pair unless chosen_key_pair == 'None'
