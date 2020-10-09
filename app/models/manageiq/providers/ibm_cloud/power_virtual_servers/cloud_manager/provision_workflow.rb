@@ -24,13 +24,13 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
 
   def allowed_sys_type(_options = {})
     ar_sys_types = ar_ems.flavors
-    sys_types = ar_sys_types&.map&.with_index(1) { |sys_type, i| [i, sys_type['name']] }
+    sys_types = ar_sys_types&.map&.each_with_index { |sys_type, i| [i, sys_type['name']] }
     Hash[sys_types || {}]
   end
 
   def allowed_storage_type(_options = {})
     ar_storage_types = ar_ems.cloud_volume_types
-    storage_types = ar_storage_types&.map&.with_index(1) { |storage_type, i| [i, storage_type['name']] }
+    storage_types = ar_storage_types&.map&.each_with_index { |storage_type, i| [i, storage_type['name']] }
     Hash[storage_types || none]
   end
 
