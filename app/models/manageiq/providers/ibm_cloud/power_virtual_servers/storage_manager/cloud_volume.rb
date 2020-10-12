@@ -47,7 +47,14 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def validate_attach_volume
-    validate_volume_available
+    msg = validate_volume_available
+    return {:available => msg[:available], :message => msg[:message]} unless msg[:available]
+
+    if status == "in-use" && !multi_attachment
+      return validation_failed("Attach Volume", "Can't attach non-shareable volume that is in use.")
+    end
+
+    {:available => true, :message => nil}
   end
 
   def raw_attach_volume(vm_ems_ref, _device = nil)
