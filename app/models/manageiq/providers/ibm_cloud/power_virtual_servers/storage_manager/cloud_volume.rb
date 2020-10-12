@@ -7,6 +7,100 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     availability_zone.vms.select { |vm| vm.format == volume_type }
   end
 
+  def self.params_for_create(ems)
+    {
+      :fields => [
+        {
+          :component  => 'text-field',
+          :name       => 'size',
+          :id         => 'size',
+          :label      => _('Size (in bytes)'),
+          :type       => 'number',
+          :step       => 1024 * 1024 * 1024,
+          :isRequired => true,
+          :validate   => [{:type => 'required'}],
+        },
+        {
+          :component => 'select',
+          :name      => 'volume_type',
+          :id        => 'volume_type',
+          :label     => _('Cloud Volume Type'),
+          :condition => {
+            :when => 'edit',
+            :is   => false,
+          },
+          :options   => ems.cloud_volume_types.map do |cvt|
+            {
+              :label => cvt.description,
+              :value => cvt.name,
+            }
+          end,
+        },
+        {
+          :component => 'switch',
+          :name      => 'multi_attachment',
+          :id        => 'multi_attachment',
+          :label     => _('Shareable'),
+          :onText    => _('Yes'),
+          :offText   => _('No'),
+        },
+        {
+          :component    => 'select',
+          :name         => 'affinity_policy',
+          :id           => 'affinity_policy',
+          :label        => _('Affinity Policy'),
+          :initialValue => 'off',
+          :condition    => {
+            :when => 'edit',
+            :is   => false,
+          },
+          :options      => [
+            {
+              :label => 'Off',
+              :value => 'off',
+            },
+            {
+              :label => 'Affinity',
+              :value => 'affinity',
+            },
+            {
+              :label => 'Anti-affinity',
+              :value => 'anti-affinity',
+            },
+          ],
+        },
+        {
+          :component  => 'select',
+          :name       => 'affinity_volume_id',
+          :id         => 'affinity_volume_id',
+          :label      => _('Affinity Volume'),
+          :isRequired => true,
+          :validate   => [{:type => 'required'}],
+          :condition  => {
+            :and => [
+              {
+                :not => {
+                  :when => 'affinity_policy',
+                  :is   => 'off',
+                },
+              },
+              {
+                :when => 'edit',
+                :is   => false,
+              },
+            ],
+          },
+          :options    => ems.cloud_volumes.map do |cv|
+            {
+              :value => cv.id,
+              :label => cv.name,
+            }
+          end,
+        },
+      ],
+    }
+  end
+
   def self.validate_create_volume(ext_management_system)
     validate_volume(ext_management_system)
   end
