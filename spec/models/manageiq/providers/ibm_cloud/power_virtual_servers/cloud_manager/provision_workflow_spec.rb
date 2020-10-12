@@ -18,33 +18,29 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provi
 
   it "#parse_new_volumes_fields" do
     values = {
-      :name      => nil,
-      :size      => nil,
-      :shareable => false,
-      :diskType  => nil
+      :storage_type => [0, "tier1"],
+      :name         => nil,
+      :size         => nil,
+      :shareable    => false
     }
     expect(workflow.parse_new_volumes_fields(values))
       .to match_array([])
     values = {
-      :name        => nil,
-      :size        => nil,
-      :shareable   => false,
-      :diskType    => nil,
-      :name_1      => "disk_one",
-      :size_1      => "1",
-      :diskType_1  => "tier1",
-      :shareable_1 => "null",
-      :name_2      => "disk_two",
-      :size_2      => "2",
-      :diskType_2  => "standard-legacy",
-      :name_3      => "disk_three",
-      :size_3      => "3",
-      :diskType_3  => "tier3",
-      :shareable_3 => nil,
-      :name_4      => "disk_four",
-      :size_4      => "4",
-      :diskType_4  => "ssd-legacy",
-      :shareable_4 => true
+      :storage_type => [1, "tier1"],
+      :name         => nil,
+      :size         => nil,
+      :shareable    => false,
+      :name_1       => "disk_one",
+      :size_1       => "1",
+      :shareable_1  => "null",
+      :name_2       => "disk_two",
+      :size_2       => "2",
+      :name_3       => "disk_three",
+      :size_3       => "3",
+      :shareable_3  => nil,
+      :name_4       => "disk_four",
+      :size_4       => "4",
+      :shareable_4  => true
     }
     expect(workflow.parse_new_volumes_fields(values))
       .to match_array(
@@ -58,59 +54,55 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provi
           {
             :name      => "disk_two",
             :size      => 2,
-            :diskType  => "standard-legacy",
+            :diskType  => "tier1",
             :shareable => false
           },
           {
             :name      => "disk_three",
             :size      => 3,
-            :diskType  => "tier3",
+            :diskType  => "tier1",
             :shareable => false
           },
           {
             :name      => "disk_four",
             :size      => 4,
-            :diskType  => "ssd-legacy",
+            :diskType  => "tier1",
             :shareable => true
           }
         ]
       )
     values = {
-      :name        => nil,
-      :size        => nil,
-      :shareable   => false,
-      :diskType    => nil,
-      :name_1      => "disk_one",
-      :diskType_1  => "tier1",
-      :shareable_1 => "null",
-      :size_2      => "2",
-      :diskType_2  => "standard-legacy",
-      :name_3      => "disk_three",
-      :size_3      => "3",
-      :diskType_3  => "tier3",
-      :name_4      => "disk_four",
-      :size_4      => "",
-      :diskType_4  => "ssd-legacy",
-      :shareable_4 => true
+      :storage_type => [2, "ssd-legacy"],
+      :name         => nil,
+      :size         => nil,
+      :shareable    => false,
+      :name_1       => "disk_one",
+      :shareable_1  => "null",
+      :size_2       => "2",
+      :name_3       => "disk_three",
+      :size_3       => "3",
+      :name_4       => "disk_four",
+      :size_4       => "",
+      :shareable_4  => true
     }
     expect(workflow.parse_new_volumes_fields(values))
       .to match_array(
         [
           {
             :name      => "disk_one",
-            :diskType  => "tier1",
+            :diskType  => "ssd-legacy",
             :size      => 0,
             :shareable => false
           },
           {
             :size      => 2,
-            :diskType  => "standard-legacy",
+            :diskType  => "ssd-legacy",
             :shareable => false
           },
           {
             :name      => "disk_three",
             :size      => 3,
-            :diskType  => "tier3",
+            :diskType  => "ssd-legacy",
             :shareable => false
           },
           {
