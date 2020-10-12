@@ -147,7 +147,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :creation_time     => vol['creationDate'],
         :description       => 'IBM Cloud Block-Storage Volume',
         :volume_type       => vol['diskType'],
-        :size              => vol['size']&.gigabytes
+        :size              => vol['size']&.gigabytes,
+        :multi_attachment  => vol['shareable']
       )
     end
   end
