@@ -17,7 +17,7 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   end
 
   def verify_credentials(_auth_type = nil, options = {})
-    connect(options)
+    !!connect(options)&.token&.authorization_header
   end
 
   module ClassMethods
@@ -76,7 +76,7 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
       auth_key = args.dig('authentications', 'default', 'auth_key')
       auth_key = ManageIQ::Password.try_decrypt(auth_key)
       auth_key ||= find(args['id']).authentication_token('default')
-      !!raw_connect(auth_key)
+      !!raw_connect(auth_key)&.token&.authorization_header
     end
 
     def raw_connect(api_key)

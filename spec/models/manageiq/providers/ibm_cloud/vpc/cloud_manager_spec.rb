@@ -1,4 +1,6 @@
 describe ManageIQ::Providers::IbmCloud::VPC::CloudManager do
+  let(:api_key) { Rails.application.secrets.ibmcvs.try(:[], :api_key) || "IBMCVS_API_KEY" }
+
   it ".ems_type" do
     expect(described_class.ems_type).to eq('ibm_vpc')
   end
@@ -9,10 +11,6 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager do
 
   it "verifies regions options" do
     expect(described_class.provider_region_options.count).to eq(6)
-  end
-
-  it "tests the verify credentials logic" do
-    expect(validate('IBMCVS_API_KEY')).to eq(true)
   end
 
   it "does not create orphaned network_manager" do
@@ -43,19 +41,25 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager do
     expect(ems.network_manager.zone_id).to eq zone2.id
   end
 
-  it "tests the connect logic" do
-    zone1 = FactoryBot.create(:zone)
-    ems = FactoryBot.create(:ems_ibm_cloud_vpc, :zone => zone1, :provider_region => "us-east")
-    ems.authentications << FactoryBot.create(:authentication, :auth_key => "IBMCVS_API_KEY")
-    VCR.use_cassette(described_class.name.underscore) do
-      expect(!!ems.connect).to eq(true)
+  context "#connect" do
+    let(:ems) do
+      FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "us-east").tap do |ems|
+        ems.authentications << FactoryBot.create(:authentication, :auth_key => api_key)
+      end
     end
-    ems.destroy
+
+    it "tests the connect logic" do
+      VCR.use_cassette(described_class.name.underscore) do
+        expect(ems.verify_credentials).to be_truthy
+      end
+    end
   end
 
-  def validate(auth_key)
-    VCR.use_cassette(described_class.name.underscore) do
-      described_class.verify_credentials("authentications" => {"default" => {"auth_key" => auth_key}})
+  context ".verify_credentials" do
+    it "verifies the connection" do
+      VCR.use_cassette(described_class.name.underscore) do
+        described_class.verify_credentials("authentications" => {"default" => {"auth_key" => api_key}})
+      end
     end
   end
 end
