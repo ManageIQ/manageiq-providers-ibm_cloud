@@ -26,6 +26,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         assert_specific_cloud_network
         assert_specific_cloud_subnet
         assert_specific_network_port
+        assert_specific_cloud_volume
       end
     end
 
@@ -168,6 +169,22 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(network_port.cloud_subnets.count).to eq(2)
       expect(network_port.cloud_subnet_network_ports.pluck(:address))
         .to match_array(["192.168.129.76", "52.117.38.76"])
+    end
+
+    def assert_specific_cloud_volume
+      cloud_volume = ems.storage_manager.cloud_volumes.find_by(:ems_ref => "978d5b1d-ca0b-47ab-9fc0-6860aaa15ec3")
+      expect(cloud_volume.availability_zone&.ems_ref).to eq(ems.uid_ems)
+      expect(cloud_volume.creation_time.to_s).to eql("2020-09-30 20:13:06 UTC")
+      expect(cloud_volume).to have_attributes(
+        :ems_ref          => "978d5b1d-ca0b-47ab-9fc0-6860aaa15ec3",
+        :name             => "jaytest1",
+        :status           => "available",
+        :bootable         => false,
+        :description      => "IBM Cloud Block-Storage Volume",
+        :volume_type      => "tier1",
+        :size             => 1.gigabyte,
+        :multi_attachment => true
+      )
     end
 
     def full_refresh(ems)
