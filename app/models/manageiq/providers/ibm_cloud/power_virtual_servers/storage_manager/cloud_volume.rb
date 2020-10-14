@@ -4,7 +4,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   supports_not :update
 
   def available_vms
-    availability_zone.vms
+    availability_zone.vms.select { |vm| vm.format == volume_type }
   end
 
   def self.validate_create_volume(ext_management_system)
