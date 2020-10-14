@@ -48,8 +48,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_cloud_volumes(_options = {})
-    ar_volumes = ar_ems.cloud_volumes
+    storage_type = values&.dig(:storage_type, 1)
+
+    ar_volumes = ar_ems.cloud_volumes.select do |cloud_volume|
+      cloud_volume['volume_type'] == storage_type &&
+        (cloud_volume['multi_attachment'] || cloud_volume['status'] == 'available')
+    end
+
     cloud_volumes = ar_volumes&.map { |cloud_volume| [cloud_volume['ems_ref'], cloud_volume['name']] }
+
     Hash[cloud_volumes || {}]
   end
 
