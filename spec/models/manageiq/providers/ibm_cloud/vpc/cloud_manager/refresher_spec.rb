@@ -22,7 +22,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
   def assert_ems_counts
     # Cloud Manager
     expect(ems.vms.count).to eq(4)
-    expect(ems.miq_templates.count).to eq(45)
+    expect(ems.miq_templates.count).to eq(46)
     expect(ems.key_pairs.count).to eq(1)
     expect(ems.availability_zones.count).to eq(3)
 

@@ -1,2 +1,2 @@
-class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudVolume < ::CloudVolume
+class ManageIQ::Providers::IbmCloud::VPC::StorageManager::CloudVolume < ::CloudVolume
 end
