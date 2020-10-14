@@ -32,6 +32,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_cloud_collection(:hardwares)
     add_cloud_collection(:availability_zones)
     add_cloud_collection(:operating_systems)
+    add_cloud_collection(:disks)
     add_cloud_collection(:auth_key_pairs) do |builder|
       builder.add_default_values(
         :resource_id   => ->(persister) { persister.cloud_manager.id },

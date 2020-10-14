@@ -96,6 +96,22 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     )
 
     hardware_networks(persister_hardware, instance)
+    instance_storage(persister_hardware, instance)
+  end
+
+  def instance_storage(persister_hardware, instance)
+    instance[:volume_attachments].each do |vol_attach|
+      vol = collector.volume(vol_attach&.dig(:volume, :id))
+      persister.disks.build(
+        :hardware        => persister_hardware,
+        :device_name     => vol[:name],
+        :device_type     => vol[:type],
+        :controller_type => "ibm",
+        :backing         => persister.cloud_volumes.lazy_find(vol[:id]),
+        :location        => vol[:id],
+        :size            => vol[:capacity]&.gigabytes
+      )
+    end
   end
 
   def instance_operating_system(persister_instance, instance)
@@ -206,14 +222,18 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def volumes
     collector.volumes.each do |vol|
+      az_name = vol&.dig(:zone, :name)
+      attachments = vol&.dig(:volume_attachments)
+      bootable = attachments.to_a.any? { |vol_attach| vol_attach[:type] == "boot" }
       persister.cloud_volumes.build(
-        :ems_ref       => vol[:id],
-        :name          => vol[:name],
-        :status        => vol[:status],
-        :creation_time => vol[:created_at],
-        :description   => 'IBM Cloud Block-Storage Volume',
-        :volume_type   => vol[:type],
-        :size          => vol[:capacity]&.gigabytes
+        :ems_ref           => vol[:id],
+        :name              => vol[:name],
+        :status            => vol[:status],
+        :creation_time     => vol[:created_at],
+        :description       => 'IBM Cloud Block-Storage Volume',
+        :size              => vol[:capacity]&.gigabytes,
+        :bootable          => bootable,
+        :availability_zone => persister.availability_zones.lazy_find(az_name)
       )
     end
   end
