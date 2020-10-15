@@ -170,8 +170,18 @@
             :method: :allowed_subnets
           :description: Network Interfaces
           :required: true
+          :default: None
           :display: :edit
           :data_type: :string
+        :public_network:
+          :values:
+            false: 0
+            true: 1
+          :description: Attach to New Public Network
+          :required: false
+          :display: :edit
+          :data_type: :boolean
+          :default: false
       :display: :show
 
     :volumes:
