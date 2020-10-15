@@ -34,10 +34,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       # saving general VMI information
       ps_vmi = persister.vms.build(
         :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
-        :description       => "PVM Instance",
+        :description       => N_("PVM Instance"),
         :ems_ref           => instance["pvmInstanceID"],
         :flavor            => persister.flavors.lazy_find(instance["sysType"]),
-        :location          => "unknown",
+        :location          => N_("unknown"),
         :name              => instance["serverName"],
         :vendor            => "ibm",
         :connection_state  => "connected",
@@ -145,7 +145,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :status            => vol['state'],
         :bootable          => vol['bootable'],
         :creation_time     => vol['creationDate'],
-        :description       => 'IBM Cloud Block-Storage Volume',
+        :description       => N_('IBM Cloud Block-Storage Volume'),
         :volume_type       => vol['diskType'],
         :size              => vol['size']&.gigabytes,
         :multi_attachment  => vol['shareable']

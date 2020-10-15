@@ -32,7 +32,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     msg = validate_volume
     return {:available => msg[:available], :message => msg[:message]} unless msg[:available]
     if status == "in-use"
-      return validation_failed("Delete Volume", "Can't delete volume that is in use.")
+      return validation_failed(_("Delete Volume"), _("Can't delete volume that is in use."))
     end
 
     {:available => true, :message => nil}
@@ -51,7 +51,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     return {:available => msg[:available], :message => msg[:message]} unless msg[:available]
 
     if status == "in-use" && !multi_attachment
-      return validation_failed("Attach Volume", "Can't attach non-shareable volume that is in use.")
+      return validation_failed(_("Attach Volume"), _("Can't attach non-shareable volume that is in use."))
     end
 
     {:available => true, :message => nil}
@@ -63,7 +63,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     end
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
-    raise MiqException::MiqVolumeAttachError, "Unable to attach volume: #{e.message}"
+    raise MiqException::MiqVolumeAttachError, _("Unable to attach volume: %{error_message}") % {:error_message => e.message}
   end
 
   def validate_detach_volume
@@ -76,6 +76,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     end
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
-    raise MiqException::MiqVolumeDetachError, "Unable to attach volume: #{e.message}"
+    raise MiqException::MiqVolumeDetachError, _("Unable to detach volume: %{error_message}") % {:error_message => e.message}
   end
 end

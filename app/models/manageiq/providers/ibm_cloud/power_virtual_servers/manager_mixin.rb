@@ -19,7 +19,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
       region, guid, token, crn, tenant = creds.values_at(:region, :guid, :token, :crn, :tenant)
       IBM::Cloud::SDK::PowerIaas.new(region, guid, token, crn, tenant)
     else
-      raise ArgumentError, "Unknown target API set: '#{options[:service]}''"
+      raise ArgumentError, _("Unknown target API set: '%{service_type}'") % {:service_type => options[:service]}
     end
   end
 
