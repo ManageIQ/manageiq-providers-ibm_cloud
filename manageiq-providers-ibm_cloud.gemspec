@@ -20,5 +20,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "ibm-cloud-sdk", "~> 0.1"
 
+  spec.add_development_dependency "manageiq-style"
   spec.add_development_dependency "simplecov"
 end
