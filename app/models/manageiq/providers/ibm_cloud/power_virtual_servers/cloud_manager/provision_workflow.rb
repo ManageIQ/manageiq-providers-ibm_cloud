@@ -90,12 +90,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     dedicated = values[:instance_type][1] == 'dedicated'
 
     fval = /^\s*[\d]*(\.[\d]+)?\s*$/.match?(value) ? value.strip.to_f : 0
-    return "Entitled Processors field does not contain a well-formed positive number" unless fval > 0
+    return _("Entitled Processors field does not contain a well-formed positive number") unless fval > 0
 
     if dedicated
-      return 'For dedicated processors, the format is: "positive integer"' unless fval % 1 == 0
+      return _('For dedicated processors, the format is: "positive integer"') unless fval % 1 == 0
     else
-      return 'For shared processors, the format is: "positive whole multiple of 0.25"' unless (fval / 0.25) % 1 == 0
+      return _('For shared processors, the format is: "positive whole multiple of 0.25"') unless (fval / 0.25) % 1 == 0
     end
   end
 
@@ -108,7 +108,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
       valid = false
     end
 
-    return 'IP-address field has to be either blank or a valid IPv4 address' unless valid
+    return _('IP-address field has to be either blank or a valid IPv4 address') unless valid
   end
 
   private
@@ -116,7 +116,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   def ar_ems
     rui = resources_for_ui[:ems]
     ems = load_ar_obj(rui) if rui
-    raise MiqException::MiqProvisionError, 'A server-side error occurred in the provisioning workflow' if ems.nil?
+    raise MiqException::MiqProvisionError, _('A server-side error occurred in the provisioning workflow') if ems.nil?
 
     ems
   end

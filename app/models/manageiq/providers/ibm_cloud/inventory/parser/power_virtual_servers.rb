@@ -34,10 +34,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       # saving general VMI information
       ps_vmi = persister.vms.build(
         :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
-        :description       => "PVM Instance",
+        :description       => _("PVM Instance"),
         :ems_ref           => instance["pvmInstanceID"],
         :flavor            => persister.flavors.lazy_find(instance["sysType"]),
-        :location          => "unknown",
+        :location          => _("unknown"),
         :name              => instance["serverName"],
         :vendor            => "ibm",
         :connection_state  => "connected",
@@ -89,8 +89,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       persister.vms_and_templates_advanced_settings.build(
         :resource     => ps_vmi,
         :name         => 'entitled_processors',
-        :display_name => N_('Entitled Processors'),
-        :description  => N_('The number of entitled processors assigned to the VM'),
+        :display_name => _('Entitled Processors'),
+        :description  => _('The number of entitled processors assigned to the VM'),
         :value        => instance['processors'],
         :read_only    => true
       )
@@ -99,8 +99,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       persister.vms_and_templates_advanced_settings.build(
         :resource     => ps_vmi,
         :name         => 'processor_type',
-        :display_name => N_('Processor type'),
-        :description  => N_('dedicated: Dedicated, shared: Uncapped shared, capped: Capped shared'),
+        :display_name => _('Processor type'),
+        :description  => _('dedicated: Dedicated, shared: Uncapped shared, capped: Capped shared'),
         :value        => instance['procType'],
         :read_only    => true
       )
@@ -145,7 +145,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :status            => vol['state'],
         :bootable          => vol['bootable'],
         :creation_time     => vol['creationDate'],
-        :description       => 'IBM Cloud Block-Storage Volume',
+        :description       => _('IBM Cloud Block-Storage Volume'),
         :volume_type       => vol['diskType'],
         :size              => vol['size']&.gigabytes,
         :multi_attachment  => vol['shareable']

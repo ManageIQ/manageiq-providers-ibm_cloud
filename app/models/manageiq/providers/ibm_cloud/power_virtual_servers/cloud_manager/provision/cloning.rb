@@ -69,7 +69,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
         stop = (instance['processors'].to_f > 0) && (instance['memory'].to_f > 0)
         status = 'The server has been provisioned.; ' + (stop ? 'Server description available.' : 'Waiting for server description.')
       when 'ERROR'
-        raise MiqException::MiqProvisionError, "An error occurred while provisioning the instance."
+        raise MiqException::MiqProvisionError, _("An error occurred while provisioning the instance.")
       else
         status = "Unknown server state received from the cloud API: '#{instance_state}'"
         _log.warn(status)
