@@ -137,29 +137,25 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def vm_and_template_labels(resource, tags)
     tags.each do |tag|
-      formatted_tag = tag[:name].split(":")
-      tag_key = tag[:key] || formatted_tag[0] if formatted_tag.length >= 1
-      tag_value = tag[:value] || formatted_tag[1] if formatted_tag.length >= 2
+      formatted_tag = get_formatted_tag(tag)
       persister
         .vm_and_template_labels
         .find_or_build_by(
           :resource => resource,
-          :name     => tag_key
+          :name     => formatted_tag[:key]
         )
         .assign_attributes(
           :section => 'labels',
           :source  => 'ibm',
-          :value   => tag_value
+          :value   => formatted_tag[:value]
         )
     end
   end
 
   def map_labels(model_name, labels)
     label_hashes = labels.collect do |tag|
-      formatted_tag = tag[:name].split(":")
-      tag_key = tag[:key] || formatted_tag[0] if formatted_tag.length >= 1
-      tag_value = tag[:value] || formatted_tag[1] if formatted_tag.length >= 2
-      {:name => tag_key, :value => tag_value}
+      formatted_tag = get_formatted_tag(tag)
+      {:name => formatted_tag[:key], :value => formatted_tag[:value]}
     end
     persister.tag_mapper.map_labels(model_name, label_hashes)
   end
@@ -273,6 +269,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :availability_zone => persister.availability_zones.lazy_find(az_name)
       )
     end
+  end
+
+  def get_formatted_tag(tag)
+    formatted_key, formatted_value = tag[:name]&.split(":")
+    {:key => tag[:key] || formatted_key, :value => tag[:value] || formatted_value}
   end
 
   def pub_img_os(image_id)
