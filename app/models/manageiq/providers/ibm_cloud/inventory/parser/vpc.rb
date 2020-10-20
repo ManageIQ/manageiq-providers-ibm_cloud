@@ -60,6 +60,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
       instance_hardware(persister_instance, instance)
       instance_operating_system(persister_instance, instance)
       instance_network_interfaces(persister_instance, instance)
+      vm_and_template_labels(persister_instance, instance.tags.to_a)
+      vm_and_template_taggings(persister_instance, map_labels("VmIBM", instance.tags.to_a))
     end
   end
 
@@ -130,6 +132,41 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :description => "private",
         :ipaddress   => nic[:primary_ipv4_address]
       )
+    end
+  end
+
+  def vm_and_template_labels(resource, tags)
+    tags.each do |tag|
+      formatted_tag = tag[:name].split(":")
+      tag_key = tag[:key] || formatted_tag[0] if formatted_tag.length >= 1
+      tag_value = tag[:value] || formatted_tag[1] if formatted_tag.length >= 2
+      persister
+        .vm_and_template_labels
+        .find_or_build_by(
+          :resource => resource,
+          :name     => tag_key
+        )
+        .assign_attributes(
+          :section => 'labels',
+          :source  => 'ibm',
+          :value   => tag_value
+        )
+    end
+  end
+
+  def map_labels(model_name, labels)
+    label_hashes = labels.collect do |tag|
+      formatted_tag = tag[:name].split(":")
+      tag_key = tag[:key] || formatted_tag[0] if formatted_tag.length >= 1
+      tag_value = tag[:value] || formatted_tag[1] if formatted_tag.length >= 2
+      {:name => tag_key, :value => tag_value}
+    end
+    persister.tag_mapper.map_labels(model_name, label_hashes)
+  end
+
+  def vm_and_template_taggings(resource, tags_inventory_objects)
+    tags_inventory_objects.each do |tag|
+      persister.vm_and_template_taggings.build(:taggable => resource, :tag => tag)
     end
   end
 

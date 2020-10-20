@@ -16,6 +16,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
       assert_ems_counts
       assert_specific_vm
+      assert_vm_labels
     end
   end
 
@@ -58,5 +59,11 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(vm.key_pairs.count).to eq(1)
     expect(vm.key_pairs.first.name).to eq('cloudforms')
     expect(vm.key_pairs.first.fingerprint).to eq('SHA256:w6v2HXjIgk/2yxiVs8cvnt1AxyxVVDsVRcWlNRoyCRE')
+  end
+
+  def assert_vm_labels
+    vm = ems.vms.find_by(:ems_ref => "0777_f73e8687-3813-465f-99df-ba6e4ee8f289")
+
+    expect(vm.labels.count).to eq(2)
   end
 end
