@@ -1,6 +1,4 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < ManageIQ::Providers::NetworkManager
-  supports :create
-
   require_nested :Refresher
   require_nested :CloudNetwork
   require_nested :CloudSubnet
