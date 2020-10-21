@@ -20,6 +20,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
   end
 
   def initialize_inventory_collections
+    initialize_tag_mapper
     initialize_cloud_inventory_collections
     initialize_network_inventory_collections
     initialize_storage_inventory_collections
@@ -46,6 +47,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_cloud_collection(:flavors)
     add_cloud_collection(:vm_and_miq_template_ancestry)
     add_cloud_collection(:networks)
+    add_cloud_collection(:vm_and_template_labels)
+    add_cloud_collection(:vm_and_template_taggings)
   end
 
   def initialize_network_inventory_collections

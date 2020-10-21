@@ -2565,4 +2565,554 @@ http_interactions:
       string: '{"first":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volumes?start=r014-75d669a9-72f6-11ea-b28c-feff0b284b22\u0026limit=50"},"limit":50,"volumes":[{"capacity":100,"created_at":"2020-03-31T02:22:29.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-75d669a9-72f6-11ea-b28c-feff0b284b22","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-75d669a9-72f6-11ea-b28c-feff0b284b22","id":"r014-75d669a9-72f6-11ea-b28c-feff0b284b22","iops":3000,"name":"postgres","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","volume_attachments":[{"delete_volume_on_instance_delete":false,"device":{"id":"0777-fc94b3f8-20e8-45c8-bf95-6893ae56f52c-jbjx5"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d/volume_attachments/0777-fc94b3f8-20e8-45c8-bf95-6893ae56f52c","id":"0777-fc94b3f8-20e8-45c8-bf95-6893ae56f52c","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","id":"0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","name":"test"},"name":"volume-attachment","type":"data"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"capacity":100,"created_at":"2020-03-31T02:22:30.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-75d65ec3-72f6-11ea-b28c-feff0b284b22","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-75d65ec3-72f6-11ea-b28c-feff0b284b22","id":"r014-75d65ec3-72f6-11ea-b28c-feff0b284b22","iops":3000,"name":"test-boot","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","volume_attachments":[{"delete_volume_on_instance_delete":true,"device":{"id":"0777-de4544bd-58bb-4924-8f0c-4edf4fc994b9-8fbnl"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d/volume_attachments/0777-de4544bd-58bb-4924-8f0c-4edf4fc994b9","id":"0777-de4544bd-58bb-4924-8f0c-4edf4fc994b9","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","id":"0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","name":"test"},"name":"volume-attachment","type":"boot"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"capacity":100,"created_at":"2020-09-23T13:27:31.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-87773d7e-fda0-11ea-b8c9-feff0b288b7c","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-87773d7e-fda0-11ea-b8c9-feff0b288b7c","id":"r014-87773d7e-fda0-11ea-b8c9-feff0b288b7c","iops":3000,"name":"cmh1-boot","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","volume_attachments":[{"delete_volume_on_instance_delete":true,"device":{"id":""},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_f73e8687-3813-465f-99df-ba6e4ee8f289/volume_attachments/0777-c1ed05b9-c92b-4c15-8f8b-6aa7f836b691","id":"0777-c1ed05b9-c92b-4c15-8f8b-6aa7f836b691","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_f73e8687-3813-465f-99df-ba6e4ee8f289","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_f73e8687-3813-465f-99df-ba6e4ee8f289","id":"0777_f73e8687-3813-465f-99df-ba6e4ee8f289","name":"cmh1"},"name":"volume-attachment","type":"boot"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"capacity":10,"created_at":"2020-09-23T14:58:58.000Z","crn":"crn:v1:bluemix:public:is:us-east-1:a/c56c9a268d23e1b339ac14774358133c::volume:r014-f71d932e-8683-4bd4-a401-ad01e4a8e0b5","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-f71d932e-8683-4bd4-a401-ad01e4a8e0b5","id":"r014-f71d932e-8683-4bd4-a401-ad01e4a8e0b5","iops":3000,"name":"brad","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","volume_attachments":[],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-1","name":"us-east-1"}},{"capacity":10,"created_at":"2020-09-23T14:59:31.000Z","crn":"crn:v1:bluemix:public:is:us-east-2:a/c56c9a268d23e1b339ac14774358133c::volume:r014-028a0749-68ba-44c8-9d6f-487d80fdb26a","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-028a0749-68ba-44c8-9d6f-487d80fdb26a","id":"r014-028a0749-68ba-44c8-9d6f-487d80fdb26a","iops":3000,"name":"brad2","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/c315f4fc1e3e4d5ca4cc2a2c38e40ef6","id":"c315f4fc1e3e4d5ca4cc2a2c38e40ef6","name":"cloudforms"},"status":"available","volume_attachments":[],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-2","name":"us-east-2"}},{"capacity":10,"created_at":"2020-09-23T15:01:17.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-f2742c9e-7e91-43ca-a623-8d1edecb0fc4","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-f2742c9e-7e91-43ca-a623-8d1edecb0fc4","id":"r014-f2742c9e-7e91-43ca-a623-8d1edecb0fc4","iops":3000,"name":"bradboot","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/29b1dd25de2d40b5ae5bd5f719f30db8","id":"29b1dd25de2d40b5ae5bd5f719f30db8","name":"camc-test"},"status":"available","volume_attachments":[{"delete_volume_on_instance_delete":false,"device":{"id":"0777-7ee316bb-7802-4f60-8f8a-faddbf80b328-k5kph"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d/volume_attachments/0777-7ee316bb-7802-4f60-8f8a-faddbf80b328","id":"0777-7ee316bb-7802-4f60-8f8a-faddbf80b328","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","id":"0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","name":"test"},"name":"volume-attachment","type":"data"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"capacity":100,"created_at":"2020-09-29T15:58:47.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-a7dfe63b-026c-11eb-b8c9-feff0b288b7c","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-a7dfe63b-026c-11eb-b8c9-feff0b288b7c","id":"r014-a7dfe63b-026c-11eb-b8c9-feff0b288b7c","iops":3000,"name":"cmh2-boot","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","volume_attachments":[{"delete_volume_on_instance_delete":true,"device":{"id":""},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_8dcba0a5-ab24-4379-b0c6-3d32900c86d8/volume_attachments/0777-f2b439dc-6949-4346-ae8d-7cafe11c8408","id":"0777-f2b439dc-6949-4346-ae8d-7cafe11c8408","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_8dcba0a5-ab24-4379-b0c6-3d32900c86d8","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_8dcba0a5-ab24-4379-b0c6-3d32900c86d8","id":"0777_8dcba0a5-ab24-4379-b0c6-3d32900c86d8","name":"cmh2"},"name":"volume-attachment","type":"boot"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"capacity":100,"created_at":"2020-10-05T21:16:21.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-14203f4c-5e36-43c3-a62d-06d9e15f7cd5","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-14203f4c-5e36-43c3-a62d-06d9e15f7cd5","id":"r014-14203f4c-5e36-43c3-a62d-06d9e15f7cd5","iops":3000,"name":"brad-multidisk-boot","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","volume_attachments":[{"delete_volume_on_instance_delete":true,"device":{"id":"0777-5127e87c-3d9c-4229-82b4-bcf7caf5dbcb-xfzl7"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2/volume_attachments/0777-5127e87c-3d9c-4229-82b4-bcf7caf5dbcb","id":"0777-5127e87c-3d9c-4229-82b4-bcf7caf5dbcb","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","id":"0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","name":"brad-multidisk"},"name":"volume-attachment","type":"boot"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"capacity":20,"created_at":"2020-10-05T21:16:21.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-20c074ca-6a28-4e6c-9704-9077de9a7f2e","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-20c074ca-6a28-4e6c-9704-9077de9a7f2e","id":"r014-20c074ca-6a28-4e6c-9704-9077de9a7f2e","iops":3000,"name":"b-disk2","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","volume_attachments":[{"delete_volume_on_instance_delete":false,"device":{"id":"0777-6cdb087f-dbf0-48d5-b26c-a2a882c118b3-p74ld"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2/volume_attachments/0777-6cdb087f-dbf0-48d5-b26c-a2a882c118b3","id":"0777-6cdb087f-dbf0-48d5-b26c-a2a882c118b3","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","id":"0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","name":"brad-multidisk"},"name":"volume-attachment","type":"data"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"capacity":20,"created_at":"2020-10-05T21:16:22.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-de4a9b51-c243-46a4-97f9-e0220e131db1","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-de4a9b51-c243-46a4-97f9-e0220e131db1","id":"r014-de4a9b51-c243-46a4-97f9-e0220e131db1","iops":3000,"name":"b-disk1","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","volume_attachments":[{"delete_volume_on_instance_delete":false,"device":{"id":"0777-c5e56523-46e2-4ca0-b34e-f11dd3e333ef-fr5wm"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2/volume_attachments/0777-c5e56523-46e2-4ca0-b34e-f11dd3e333ef","id":"0777-c5e56523-46e2-4ca0-b34e-f11dd3e333ef","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","id":"0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","name":"brad-multidisk"},"name":"volume-attachment","type":"data"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"capacity":30,"created_at":"2020-10-05T21:16:22.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-4a7adea3-051c-4239-82b5-a2f3dfa09b28","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-4a7adea3-051c-4239-82b5-a2f3dfa09b28","id":"r014-4a7adea3-051c-4239-82b5-a2f3dfa09b28","iops":3000,"name":"b-disk3","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","volume_attachments":[{"delete_volume_on_instance_delete":false,"device":{"id":"0777-398b74c7-0f2c-4936-bc53-3ed0145d91ea-vcsh2"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2/volume_attachments/0777-398b74c7-0f2c-4936-bc53-3ed0145d91ea","id":"0777-398b74c7-0f2c-4936-bc53-3ed0145d91ea","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","id":"0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","name":"brad-multidisk"},"name":"volume-attachment","type":"data"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}}]}'
     http_version:
   recorded_at: Wed, 14 Oct 2020 14:30:10 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?attached_to=crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYjQ2MDE0YmQtNTdiZS00ZjE5LWJjMGMtYzBjZjM0YzkxMmZjIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDI2ODU3NzcsImV4cCI6MTYwMjY4OTM3NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.cUE-ax1vk0g_E5NM9eJYXVSKSxQwt4ajcK8xRpiUflJomzNgiqRXmWraRCH-G4qHr5QpMxEhNZx8oZjOgsUoIdmFkhei7bpV12aH0NUuBJ8lGvjgt5X_V6zOD_OdKVwyc8TKATSeso25_By8eHxp9hmvrO0p09Q59h6PiITnqdDf_oiZGQvKj807qzfud68urei7FZbqBCt4KQnVhDYBH_1jiVCYKvpB6IcVuvcCBgHINyuqlUYxM7R86L62qM3aqKJKjja6IlKfr_PAcH5ajfBS097ogiUkqDA4wAETYuxBVWoq-Pd9FaOjIyHP9GgFNNWjCsB8qMhd6qUTapPVRQ
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transaction-Id:
+      - gst-998ee6cc-2842-4993-876b-2086c69442b5
+      X-Global-Transaction-Id:
+      - gst-998ee6cc-2842-4993-876b-2086c69442b5
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_77bf65cc4d-vrfdh
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '51'
+      Etag:
+      - W/"33-sUTSWeOSWrQSBM+XTpADoXctN0o"
+      X-Envoy-Upstream-Service-Time:
+      - '446'
+      Server:
+      - istio-envoy
+      X-Akamai-Path-Stats:
+      - "[3:32453:446547]"
+      Date:
+      - Mon, 19 Oct 2020 23:33:57 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"total_count":0,"offset":0,"limit":100,"items":[]}'
+    http_version: null
+  recorded_at: Mon, 19 Oct 2020 23:33:57 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?attached_to=crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYjQ2MDE0YmQtNTdiZS00ZjE5LWJjMGMtYzBjZjM0YzkxMmZjIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDI2ODU3NzcsImV4cCI6MTYwMjY4OTM3NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.cUE-ax1vk0g_E5NM9eJYXVSKSxQwt4ajcK8xRpiUflJomzNgiqRXmWraRCH-G4qHr5QpMxEhNZx8oZjOgsUoIdmFkhei7bpV12aH0NUuBJ8lGvjgt5X_V6zOD_OdKVwyc8TKATSeso25_By8eHxp9hmvrO0p09Q59h6PiITnqdDf_oiZGQvKj807qzfud68urei7FZbqBCt4KQnVhDYBH_1jiVCYKvpB6IcVuvcCBgHINyuqlUYxM7R86L62qM3aqKJKjja6IlKfr_PAcH5ajfBS097ogiUkqDA4wAETYuxBVWoq-Pd9FaOjIyHP9GgFNNWjCsB8qMhd6qUTapPVRQ
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transaction-Id:
+      - gst-f404fc5a-d68e-488b-8e7e-d1c9a07d82f2
+      X-Global-Transaction-Id:
+      - gst-f404fc5a-d68e-488b-8e7e-d1c9a07d82f2
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_77bf65cc4d-lq2tz
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '51'
+      Etag:
+      - W/"33-sUTSWeOSWrQSBM+XTpADoXctN0o"
+      X-Envoy-Upstream-Service-Time:
+      - '237'
+      Server:
+      - istio-envoy
+      X-Akamai-Path-Stats:
+      - "[3:32465:237535]"
+      Date:
+      - Mon, 19 Oct 2020 23:33:57 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"total_count":0,"offset":0,"limit":100,"items":[]}'
+    http_version: null
+  recorded_at: Mon, 19 Oct 2020 23:33:57 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?attached_to=crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_f73e8687-3813-465f-99df-ba6e4ee8f289
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYjQ2MDE0YmQtNTdiZS00ZjE5LWJjMGMtYzBjZjM0YzkxMmZjIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDI2ODU3NzcsImV4cCI6MTYwMjY4OTM3NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.cUE-ax1vk0g_E5NM9eJYXVSKSxQwt4ajcK8xRpiUflJomzNgiqRXmWraRCH-G4qHr5QpMxEhNZx8oZjOgsUoIdmFkhei7bpV12aH0NUuBJ8lGvjgt5X_V6zOD_OdKVwyc8TKATSeso25_By8eHxp9hmvrO0p09Q59h6PiITnqdDf_oiZGQvKj807qzfud68urei7FZbqBCt4KQnVhDYBH_1jiVCYKvpB6IcVuvcCBgHINyuqlUYxM7R86L62qM3aqKJKjja6IlKfr_PAcH5ajfBS097ogiUkqDA4wAETYuxBVWoq-Pd9FaOjIyHP9GgFNNWjCsB8qMhd6qUTapPVRQ
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transaction-Id:
+      - gst-f720c51a-e5c6-4e50-87c7-c6b6713b3d06
+      X-Global-Transaction-Id:
+      - gst-f720c51a-e5c6-4e50-87c7-c6b6713b3d06
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_77bf65cc4d-fwmgs
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '95'
+      Etag:
+      - W/"5f-7HXf3G6+YUSytxrkBi3KHCZ8//E"
+      X-Envoy-Upstream-Service-Time:
+      - '408'
+      Server:
+      - istio-envoy
+      X-Akamai-Path-Stats:
+      - "[3:32448:409552]"
+      Date:
+      - Mon, 19 Oct 2020 23:33:58 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"total_count":2,"offset":0,"limit":100,"items":[{"name":"env:test"},{"name":"newtag:newval"}]}'
+    http_version: null
+  recorded_at: Mon, 19 Oct 2020 23:33:58 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?attached_to=crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_f73e8687-3813-465f-99df-ba6e4ee8f289&offset=100
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYjQ2MDE0YmQtNTdiZS00ZjE5LWJjMGMtYzBjZjM0YzkxMmZjIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDI2ODU3NzcsImV4cCI6MTYwMjY4OTM3NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.cUE-ax1vk0g_E5NM9eJYXVSKSxQwt4ajcK8xRpiUflJomzNgiqRXmWraRCH-G4qHr5QpMxEhNZx8oZjOgsUoIdmFkhei7bpV12aH0NUuBJ8lGvjgt5X_V6zOD_OdKVwyc8TKATSeso25_By8eHxp9hmvrO0p09Q59h6PiITnqdDf_oiZGQvKj807qzfud68urei7FZbqBCt4KQnVhDYBH_1jiVCYKvpB6IcVuvcCBgHINyuqlUYxM7R86L62qM3aqKJKjja6IlKfr_PAcH5ajfBS097ogiUkqDA4wAETYuxBVWoq-Pd9FaOjIyHP9GgFNNWjCsB8qMhd6qUTapPVRQ
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transaction-Id:
+      - gst-8c98f2b6-0e79-4405-a342-abd519529a6d
+      X-Global-Transaction-Id:
+      - gst-8c98f2b6-0e79-4405-a342-abd519529a6d
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_77bf65cc4d-hcwzf
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '53'
+      Etag:
+      - W/"35-B4ilI8l2Kux9toMLDPBtpVB0zBA"
+      X-Envoy-Upstream-Service-Time:
+      - '212'
+      Server:
+      - istio-envoy
+      X-Akamai-Path-Stats:
+      - "[3:32426:213574]"
+      Date:
+      - Mon, 19 Oct 2020 23:33:58 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"total_count":0,"offset":100,"limit":100,"items":[]}'
+    http_version: null
+  recorded_at: Mon, 19 Oct 2020 23:33:58 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?attached_to=crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_f73e8687-3813-465f-99df-ba6e4ee8f289
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYjQ2MDE0YmQtNTdiZS00ZjE5LWJjMGMtYzBjZjM0YzkxMmZjIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDI2ODU3NzcsImV4cCI6MTYwMjY4OTM3NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.cUE-ax1vk0g_E5NM9eJYXVSKSxQwt4ajcK8xRpiUflJomzNgiqRXmWraRCH-G4qHr5QpMxEhNZx8oZjOgsUoIdmFkhei7bpV12aH0NUuBJ8lGvjgt5X_V6zOD_OdKVwyc8TKATSeso25_By8eHxp9hmvrO0p09Q59h6PiITnqdDf_oiZGQvKj807qzfud68urei7FZbqBCt4KQnVhDYBH_1jiVCYKvpB6IcVuvcCBgHINyuqlUYxM7R86L62qM3aqKJKjja6IlKfr_PAcH5ajfBS097ogiUkqDA4wAETYuxBVWoq-Pd9FaOjIyHP9GgFNNWjCsB8qMhd6qUTapPVRQ
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transaction-Id:
+      - gst-d9a7e497-e3cc-4c63-a40e-92f3f2dd0870
+      X-Global-Transaction-Id:
+      - gst-d9a7e497-e3cc-4c63-a40e-92f3f2dd0870
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_77bf65cc4d-8rxtq
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '95'
+      Etag:
+      - W/"5f-7HXf3G6+YUSytxrkBi3KHCZ8//E"
+      X-Envoy-Upstream-Service-Time:
+      - '195'
+      Server:
+      - istio-envoy
+      X-Akamai-Path-Stats:
+      - "[3:32414:196586]"
+      Date:
+      - Mon, 19 Oct 2020 23:33:59 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"total_count":2,"offset":0,"limit":100,"items":[{"name":"env:test"},{"name":"newtag:newval"}]}'
+    http_version: null
+  recorded_at: Mon, 19 Oct 2020 23:33:59 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?attached_to=crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_f73e8687-3813-465f-99df-ba6e4ee8f289&offset=100
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYjQ2MDE0YmQtNTdiZS00ZjE5LWJjMGMtYzBjZjM0YzkxMmZjIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDI2ODU3NzcsImV4cCI6MTYwMjY4OTM3NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.cUE-ax1vk0g_E5NM9eJYXVSKSxQwt4ajcK8xRpiUflJomzNgiqRXmWraRCH-G4qHr5QpMxEhNZx8oZjOgsUoIdmFkhei7bpV12aH0NUuBJ8lGvjgt5X_V6zOD_OdKVwyc8TKATSeso25_By8eHxp9hmvrO0p09Q59h6PiITnqdDf_oiZGQvKj807qzfud68urei7FZbqBCt4KQnVhDYBH_1jiVCYKvpB6IcVuvcCBgHINyuqlUYxM7R86L62qM3aqKJKjja6IlKfr_PAcH5ajfBS097ogiUkqDA4wAETYuxBVWoq-Pd9FaOjIyHP9GgFNNWjCsB8qMhd6qUTapPVRQ
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transaction-Id:
+      - gst-ccdf0727-ce3d-4dd6-9cfc-75a791e14e4c
+      X-Global-Transaction-Id:
+      - gst-ccdf0727-ce3d-4dd6-9cfc-75a791e14e4c
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_77bf65cc4d-tt7k2
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '53'
+      Etag:
+      - W/"35-B4ilI8l2Kux9toMLDPBtpVB0zBA"
+      X-Envoy-Upstream-Service-Time:
+      - '238'
+      Server:
+      - istio-envoy
+      X-Akamai-Path-Stats:
+      - "[3:32396:238604]"
+      Date:
+      - Mon, 19 Oct 2020 23:33:59 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"total_count":0,"offset":100,"limit":100,"items":[]}'
+    http_version: null
+  recorded_at: Mon, 19 Oct 2020 23:33:59 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?attached_to=crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_8dcba0a5-ab24-4379-b0c6-3d32900c86d8
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYjQ2MDE0YmQtNTdiZS00ZjE5LWJjMGMtYzBjZjM0YzkxMmZjIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDI2ODU3NzcsImV4cCI6MTYwMjY4OTM3NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.cUE-ax1vk0g_E5NM9eJYXVSKSxQwt4ajcK8xRpiUflJomzNgiqRXmWraRCH-G4qHr5QpMxEhNZx8oZjOgsUoIdmFkhei7bpV12aH0NUuBJ8lGvjgt5X_V6zOD_OdKVwyc8TKATSeso25_By8eHxp9hmvrO0p09Q59h6PiITnqdDf_oiZGQvKj807qzfud68urei7FZbqBCt4KQnVhDYBH_1jiVCYKvpB6IcVuvcCBgHINyuqlUYxM7R86L62qM3aqKJKjja6IlKfr_PAcH5ajfBS097ogiUkqDA4wAETYuxBVWoq-Pd9FaOjIyHP9GgFNNWjCsB8qMhd6qUTapPVRQ
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transaction-Id:
+      - gst-54581210-f3e0-42f2-bc2e-52ad2c467840
+      X-Global-Transaction-Id:
+      - gst-54581210-f3e0-42f2-bc2e-52ad2c467840
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_77bf65cc4d-vrfdh
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '51'
+      Etag:
+      - W/"33-sUTSWeOSWrQSBM+XTpADoXctN0o"
+      X-Envoy-Upstream-Service-Time:
+      - '205'
+      Server:
+      - istio-envoy
+      X-Akamai-Path-Stats:
+      - "[3:32400:206600]"
+      Date:
+      - Mon, 19 Oct 2020 23:33:59 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"total_count":0,"offset":0,"limit":100,"items":[]}'
+    http_version: null
+  recorded_at: Mon, 19 Oct 2020 23:33:59 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?attached_to=crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_8dcba0a5-ab24-4379-b0c6-3d32900c86d8
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYjQ2MDE0YmQtNTdiZS00ZjE5LWJjMGMtYzBjZjM0YzkxMmZjIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDI2ODU3NzcsImV4cCI6MTYwMjY4OTM3NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.cUE-ax1vk0g_E5NM9eJYXVSKSxQwt4ajcK8xRpiUflJomzNgiqRXmWraRCH-G4qHr5QpMxEhNZx8oZjOgsUoIdmFkhei7bpV12aH0NUuBJ8lGvjgt5X_V6zOD_OdKVwyc8TKATSeso25_By8eHxp9hmvrO0p09Q59h6PiITnqdDf_oiZGQvKj807qzfud68urei7FZbqBCt4KQnVhDYBH_1jiVCYKvpB6IcVuvcCBgHINyuqlUYxM7R86L62qM3aqKJKjja6IlKfr_PAcH5ajfBS097ogiUkqDA4wAETYuxBVWoq-Pd9FaOjIyHP9GgFNNWjCsB8qMhd6qUTapPVRQ
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transaction-Id:
+      - gst-a3d65b38-82de-404c-b45c-e93213dcd936
+      X-Global-Transaction-Id:
+      - gst-a3d65b38-82de-404c-b45c-e93213dcd936
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_77bf65cc4d-lq2tz
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '51'
+      Etag:
+      - W/"33-sUTSWeOSWrQSBM+XTpADoXctN0o"
+      X-Envoy-Upstream-Service-Time:
+      - '214'
+      Server:
+      - istio-envoy
+      X-Akamai-Path-Stats:
+      - "[3:32384:222616]"
+      Date:
+      - Mon, 19 Oct 2020 23:34:00 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"total_count":0,"offset":0,"limit":100,"items":[]}'
+    http_version: null
+  recorded_at: Mon, 19 Oct 2020 23:34:00 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?attached_to=crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYjQ2MDE0YmQtNTdiZS00ZjE5LWJjMGMtYzBjZjM0YzkxMmZjIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDI2ODU3NzcsImV4cCI6MTYwMjY4OTM3NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.cUE-ax1vk0g_E5NM9eJYXVSKSxQwt4ajcK8xRpiUflJomzNgiqRXmWraRCH-G4qHr5QpMxEhNZx8oZjOgsUoIdmFkhei7bpV12aH0NUuBJ8lGvjgt5X_V6zOD_OdKVwyc8TKATSeso25_By8eHxp9hmvrO0p09Q59h6PiITnqdDf_oiZGQvKj807qzfud68urei7FZbqBCt4KQnVhDYBH_1jiVCYKvpB6IcVuvcCBgHINyuqlUYxM7R86L62qM3aqKJKjja6IlKfr_PAcH5ajfBS097ogiUkqDA4wAETYuxBVWoq-Pd9FaOjIyHP9GgFNNWjCsB8qMhd6qUTapPVRQ
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transaction-Id:
+      - gst-67714bc6-88e4-43a9-8c8d-00f129162a51
+      X-Global-Transaction-Id:
+      - gst-67714bc6-88e4-43a9-8c8d-00f129162a51
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_77bf65cc4d-fwmgs
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '51'
+      Etag:
+      - W/"33-sUTSWeOSWrQSBM+XTpADoXctN0o"
+      X-Envoy-Upstream-Service-Time:
+      - '603'
+      Server:
+      - istio-envoy
+      X-Akamai-Path-Stats:
+      - "[3:32370:603630]"
+      Date:
+      - Mon, 19 Oct 2020 23:34:00 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"total_count":0,"offset":0,"limit":100,"items":[]}'
+    http_version: null
+  recorded_at: Mon, 19 Oct 2020 23:34:00 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?attached_to=crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYjQ2MDE0YmQtNTdiZS00ZjE5LWJjMGMtYzBjZjM0YzkxMmZjIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDI2ODU3NzcsImV4cCI6MTYwMjY4OTM3NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.cUE-ax1vk0g_E5NM9eJYXVSKSxQwt4ajcK8xRpiUflJomzNgiqRXmWraRCH-G4qHr5QpMxEhNZx8oZjOgsUoIdmFkhei7bpV12aH0NUuBJ8lGvjgt5X_V6zOD_OdKVwyc8TKATSeso25_By8eHxp9hmvrO0p09Q59h6PiITnqdDf_oiZGQvKj807qzfud68urei7FZbqBCt4KQnVhDYBH_1jiVCYKvpB6IcVuvcCBgHINyuqlUYxM7R86L62qM3aqKJKjja6IlKfr_PAcH5ajfBS097ogiUkqDA4wAETYuxBVWoq-Pd9FaOjIyHP9GgFNNWjCsB8qMhd6qUTapPVRQ
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transaction-Id:
+      - gst-3c8f98c7-dd85-4b7e-af3b-55a4d29a3197
+      X-Global-Transaction-Id:
+      - gst-3c8f98c7-dd85-4b7e-af3b-55a4d29a3197
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_77bf65cc4d-hcwzf
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '51'
+      Etag:
+      - W/"33-sUTSWeOSWrQSBM+XTpADoXctN0o"
+      X-Envoy-Upstream-Service-Time:
+      - '940'
+      Server:
+      - istio-envoy
+      X-Akamai-Path-Stats:
+      - "[3:32811:941189]"
+      Date:
+      - Mon, 19 Oct 2020 23:34:01 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"total_count":0,"offset":0,"limit":100,"items":[]}'
+    http_version: null
+  recorded_at: Mon, 19 Oct 2020 23:34:01 GMT
 recorded_with: VCR 5.1.0
