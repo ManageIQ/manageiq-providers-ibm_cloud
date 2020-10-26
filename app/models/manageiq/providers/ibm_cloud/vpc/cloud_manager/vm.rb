@@ -22,35 +22,39 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     n_('Instance (IBM)', 'Instances (IBM)', number)
   end
 
-  # Send a start action to IBM Cloud. Wait for state to change to started, then update the raw_power_state to the current instance state.
+  # Send a start action to IBM Cloud. Wait for state to change to started, then update the raw_power_state.
   def raw_start
-    with_provider_connection() do |vpc|
+    with_provider_connection do |vpc|
       instance = vpc.instances.instance(ems_ref)
       instance.actions.start
-      _log.info("Starting instance #{ems_ref} in state #{instance.status}.")
-      instance.wait_for(started: true)
-      update!(:raw_power_state => instance.status)
-      _log.info("Started instance #{ems_ref} in state #{instance.status}.")
+      sdk_action(instance, :start => true)
     end
   end
 
   # IBM Cloud does not support suspend. Hiding it from UI.
   supports_not :suspend
 
-  # Send a stop action to IBM Cloud. Wait for state to change to stopped, then update the raw_power_state to the current instance state.
+  # Send a stop action to IBM Cloud. Wait for state to change to stopped, then update the raw_power_state.
   def raw_stop
-    with_provider_connection() do |vpc|
+    with_provider_connection do |vpc|
       instance = vpc.instances.instance(ems_ref)
       instance.actions.stop
-      _log.info("Stopping instance #{ems_ref} in state #{instance.status}.")
-      instance.wait_for(started: false)
-      update!(:raw_power_state => instance.status)
-      _log.info("Stopped instance #{ems_ref} in state #{instance.status}.")
+      sdk_action(instance, :start => false)
     end
   end
 
-  # IBM Cloud does not support pause. Using stop since can't unsupport it.
+  # IBM Cloud does not support pause. Using stop since can't hide it in UI.
   def raw_pause
     raw_stop
+  end
+
+  private
+
+  def sdk_action(instance, start: true)
+    label = start ? 'Start' : 'Stopp'
+    _log.info("#{label}ing instance #{instance.id} in state #{instance.status}.")
+    instance.wait_for(:started => false)
+    update!(:raw_power_state => instance.status)
+    _log.info("#{label}ed instance #{instance.id} in state #{instance.status}.")
   end
 end
