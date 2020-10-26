@@ -1,9 +1,9 @@
 # ManageIQ::Providers::IbmCloud
 
-[![Build Status](https://travis-ci.com/ManageIQ/manageiq-providers-ibm_cloud.svg?branch=master)](https://travis-ci.com/ManageIQ/manageiq-providers-ibm_cloud)
+[![Build Status](https://travis-ci.com/ManageIQ/manageiq-providers-ibm_cloud.svg?branch=kasparov)](https://travis-ci.com/ManageIQ/manageiq-providers-ibm_cloud)
 [![Maintainability](https://api.codeclimate.com/v1/badges/41e71ad240a79b0be9d9/maintainability)](https://codeclimate.com/github/ManageIQ/manageiq-providers-ibm_cloud/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/41e71ad240a79b0be9d9/test_coverage)](https://codeclimate.com/github/ManageIQ/manageiq-providers-ibm_cloud/test_coverage)
-[![Security](https://hakiri.io/github/ManageIQ/manageiq-providers-ibm_cloud/master.svg)](https://hakiri.io/github/ManageIQ/manageiq-providers-ibm_cloud/master)
+[![Security](https://hakiri.io/github/ManageIQ/manageiq-providers-ibm_cloud/kasparov.svg)](https://hakiri.io/github/ManageIQ/manageiq-providers-ibm_cloud/kasparov)
 
 [![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ManageIQ/manageiq-providers-ibm_cloud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
