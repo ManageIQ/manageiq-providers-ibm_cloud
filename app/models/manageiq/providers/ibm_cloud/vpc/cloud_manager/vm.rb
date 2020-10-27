@@ -27,7 +27,10 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     with_provider_connection do |vpc|
       instance = vpc.instances.instance(ems_ref)
       instance.actions.start
-      sdk_action(instance, :start => true)
+      instance.wait_for do
+        update!(:raw_power_state => instance.status)
+        instance.started?
+      end
     end
   end
 
@@ -39,7 +42,10 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     with_provider_connection do |vpc|
       instance = vpc.instances.instance(ems_ref)
       instance.actions.stop
-      sdk_action(instance, :start => false)
+      instance.wait_for do
+        update!(:raw_power_state => instance.status)
+        instance.stopped?
+      end
     end
   end
 
@@ -48,13 +54,6 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     raw_stop
   end
 
-  private
 
-  def sdk_action(instance, start: true)
-    label = start ? 'Start' : 'Stopp'
-    _log.info("#{label}ing instance #{instance.id} in state #{instance.status}.")
-    instance.wait_for(:started => false)
-    update!(:raw_power_state => instance.status)
-    _log.info("#{label}ed instance #{instance.id} in state #{instance.status}.")
   end
 end
