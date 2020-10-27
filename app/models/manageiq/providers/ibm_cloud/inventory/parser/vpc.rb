@@ -273,7 +273,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def get_formatted_tag(tag)
     formatted_key, formatted_value = tag[:name]&.split(":")
-    {:key => tag[:key] || formatted_key, :value => tag[:value] || formatted_value}
+    {:key => tag[:key] || formatted_key, :value => tag[:value] || formatted_value || ""}
   end
 
   def pub_img_os(image_id)
