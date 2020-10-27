@@ -54,6 +54,23 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     raw_stop
   end
 
+  # Show reboot in the instance menu when on.
+  supports :reboot_guest do
+    unsupported_reason_add(:reboot_guest, _('The VM is not powered on')) unless current_state == 'on'
+  end
 
+  def raw_reboot_guest
+    with_provider_connection do |vpc|
+      instance = vpc.instances.instance(ems_ref)
+      instance.actions.reboot
+      instance.wait_for(:sleep_time => 0.5, :timeout => 60) do
+        update!(:raw_power_state => instance.status)
+        instance.transitional?
+      end
+      instance.wait_for do
+        update!(:raw_power_state => instance.status)
+        instance.started?
+      end
+    end
   end
 end
