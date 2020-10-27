@@ -32,6 +32,10 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
         instance.started?
       end
     end
+  rescue => e
+    $ibm_cloud_log.error(e.to_s)
+    $ibm_cloud_log.log_backtrace(e)
+    raise
   end
 
   # IBM Cloud does not support suspend. Hiding it from UI.
@@ -47,6 +51,10 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
         instance.stopped?
       end
     end
+  rescue => e
+    $ibm_cloud_log.error(e.to_s)
+    $ibm_cloud_log.log_backtrace(e)
+    raise
   end
 
   # IBM Cloud does not support pause. Using stop since can't hide it in UI.
@@ -68,6 +76,10 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
         instance.started?
       end
     end
+  rescue => e
+    $ibm_cloud_log.error(e.to_s)
+    $ibm_cloud_log.log_backtrace(e)
+    raise
   end
 
   supports :reset do
