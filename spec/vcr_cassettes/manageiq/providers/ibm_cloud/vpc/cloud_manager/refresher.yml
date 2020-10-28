@@ -2727,7 +2727,7 @@ http_interactions:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"total_count":2,"offset":0,"limit":100,"items":[{"name":"env:test"},{"name":"newtag:newval"}]}'
+      string: '{"total_count":3,"offset":0,"limit":100,"items":[{"name":"env:test"},{"name":"newtag:newval"},{"name":"singlevaluetag"}]}'
     http_version: null
   recorded_at: Mon, 19 Oct 2020 23:33:58 GMT
 - request:
