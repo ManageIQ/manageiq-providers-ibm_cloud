@@ -64,6 +64,6 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
   def assert_vm_labels
     vm = ems.vms.find_by(:ems_ref => "0777_f73e8687-3813-465f-99df-ba6e4ee8f289")
 
-    expect(vm.labels.count).to eq(3)
+    expect(vm.labels.count).to(eq(3))
   end
 end
