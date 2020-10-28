@@ -27,8 +27,8 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     with_provider_connection do |vpc|
       instance = vpc.instances.instance(ems_ref)
       instance.actions.start
-      instance.wait_for do
-        update!(:raw_power_state => instance.status)
+      instance.wait_for! do
+        sdk_update_status(instance)
         instance.started?
       end
     end
@@ -46,8 +46,8 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     with_provider_connection do |vpc|
       instance = vpc.instances.instance(ems_ref)
       instance.actions.stop
-      instance.wait_for do
-        update!(:raw_power_state => instance.status)
+      instance.wait_for! do
+        sdk_update_status(instance)
         instance.stopped?
       end
     end
@@ -67,12 +67,15 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     unsupported_reason_add(:reboot_guest, _('The VM is not powered on')) unless current_state == 'on'
   end
 
+  # Gracefully reboot the quest.
+  # @param force [Boolean] Ungracefully reboot VM.
   def raw_reboot_guest(force: false)
     with_provider_connection do |vpc|
       instance = vpc.instances.instance(ems_ref)
       instance.actions.reboot(force)
-      instance.wait_for do
-        update!(:raw_power_state => instance.status)
+      sleep 5 # Sleep for 5 seconds to allow for reboot sequence to start.
+      instance.wait_for! do
+        sdk_update_status(instance)
         instance.started?
       end
     end
@@ -82,11 +85,23 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     raise
   end
 
+  # Tell UI to show reset in UI only when VM is on.
   supports :reset do
     unsupported_reason_add(:reset, _('The VM is not powered on')) unless current_state == "on"
   end
 
+  # Force the the VM to restart.
   def raw_reset
     raw_reboot_guest(:force => true)
+  end
+
+  private
+
+  # Update the saved status based on the SDK returned status.
+  def sdk_update_status(instance)
+    if raw_power_state != instance.status
+      update!(:raw_power_state => instance.status) if raw_power_state != instance.status
+      $ibm_cloud_log.info("VM instance #{instance.id} state is #{raw_power_state}")
+    end
   end
 end
