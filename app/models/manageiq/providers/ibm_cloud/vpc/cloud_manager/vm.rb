@@ -22,10 +22,14 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     n_('Instance (IBM)', 'Instances (IBM)', number)
   end
 
+  # Used in with_provider_object to scope SDK to this instance.
+  def provider_object(vpc)
+    vpc.instances.instance(ems_ref)
+  end
+
   # Send a start action to IBM Cloud. Wait for state to change to started, then update the raw_power_state.
   def raw_start
-    with_provider_connection do |vpc|
-      instance = vpc.instances.instance(ems_ref)
+    with_provider_object do |instance|
       instance.actions.start
       instance.wait_for! do
         sdk_update_status(instance)
@@ -43,8 +47,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
 
   # Send a stop action to IBM Cloud. Wait for state to change to stopped, then update the raw_power_state.
   def raw_stop
-    with_provider_connection do |vpc|
-      instance = vpc.instances.instance(ems_ref)
+    with_provider_object do |instance|
       instance.actions.stop
       instance.wait_for! do
         sdk_update_status(instance)
@@ -70,8 +73,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
   # Gracefully reboot the quest.
   # @param force [Boolean] Ungracefully reboot VM.
   def raw_reboot_guest(force: false)
-    with_provider_connection do |vpc|
-      instance = vpc.instances.instance(ems_ref)
+    with_provider_object do |instance|
       instance.actions.reboot(force)
       sleep 5 # Sleep for 5 seconds to allow for reboot sequence to start.
       instance.wait_for! do
