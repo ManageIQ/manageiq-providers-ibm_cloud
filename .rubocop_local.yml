@@ -1,0 +1,3 @@
+Style/GlobalVars:
+  AllowedVariables:
+    - $ibm_cloud_log # Global cloud plugin log from ManageIQ.
