@@ -74,7 +74,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
   # @param force [Boolean] Ungracefully reboot VM.
   def raw_reboot_guest(force: false)
     with_provider_object do |instance|
-      instance.actions.reboot(force)
+      instance.actions.reboot(:force => force)
       sleep 5 # Sleep for 5 seconds to allow for reboot sequence to start.
       instance.wait_for! do
         sdk_update_status(instance)
