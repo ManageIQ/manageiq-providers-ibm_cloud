@@ -8,6 +8,8 @@
           - IBM_CLOUD_POWER_VIRTUAL_SERVERS_instance_power_off
 
 :ems_refresh:
+  :ibm_vpc:
+    :refresh_interval: 15.minutes
   :ibm_cloud_power_virtual_servers:
     :storage_types:
     - :description: Tier 1 (NVMe-based flash storage)
