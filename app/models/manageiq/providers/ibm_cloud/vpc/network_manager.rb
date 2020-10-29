@@ -2,6 +2,7 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager < ManageIQ::Providers::
   require_nested :SecurityGroup
   require_nested :CloudNetwork
   require_nested :FloatingIp
+  require_nested :NetworkRouter
 
   include ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
 
