@@ -11,6 +11,7 @@
   :ibm_vpc:
     :refresh_interval: 15.minutes
   :ibm_cloud_power_virtual_servers:
+    :refresh_interval: 15.minutes
     :storage_types:
     - :description: Tier 1 (NVMe-based flash storage)
       :state: active
