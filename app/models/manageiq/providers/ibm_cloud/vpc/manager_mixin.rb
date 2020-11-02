@@ -85,7 +85,7 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
       end
 
       require 'ibm-cloud-sdk'
-      IBM::CloudSDK.new(api_key)
+      IBM::CloudSDK.new(api_key, :logger => $ibm_cloud_log)
     end
   end
 end
