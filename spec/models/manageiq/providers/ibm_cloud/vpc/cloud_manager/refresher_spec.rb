@@ -49,7 +49,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(vm.hardware.cpu_total_cores).to eq(2)
     expect(vm.hardware.cpu_sockets).to eq(2)
     expect(vm.hardware.bitness).to eq(64)
-    expect(vm.operating_system[:product_name]).to eq('linux_redhat')
+    expect(vm.operating_system[:product_name]).to(eq('linux_redhat'))
     expect(vm.flavor.name).to eq('mx2-2x16')
     expect(vm.raw_power_state).to eq('running')
     expect(vm.power_state).to eq('on')
