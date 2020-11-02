@@ -5,6 +5,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   attr_reader :img_to_os
 
+  # Extensions to the list in operating_system.rb
+  VPC_OS_NAMES = [
+    ["linux_redhat",    %w(red-7 red-8)]
+  ].freeze
+
   def initialize
     @img_to_os = {}
   end
@@ -25,7 +30,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   def images
     collector.images.each do |image|
       img_to_os[image[:id]] = image&.dig(:operating_system, :name)
-      persister.miq_templates.build(
+      persister_image = persister.miq_templates.build(
         :uid_ems            => image[:id],
         :ems_ref            => image[:id],
         :name               => image[:name],
@@ -37,6 +42,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :template           => true,
         :publicly_available => true
       )
+
+      image_operating_system(persister_image, image)
     end
   end
 
@@ -119,9 +126,21 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   def instance_operating_system(persister_instance, instance)
     image_id = instance&.dig(:image, :id)
     os = img_to_os[image_id] || pub_img_os(image_id)
+    os_name = normalize_os(os)
     persister.operating_systems.build(
       :vm_or_template => persister_instance,
-      :product_name   => os
+      :product_name   => os_name,
+      :version        => os
+    )
+  end
+
+  def image_operating_system(persister_image, image)
+    os_name = image&.dig(:operating_system, :name)
+    normalized_os_name = normalize_os(image&.dig(:operating_system, :name))
+    persister.operating_systems.build(
+      :vm_or_template => persister_image,
+      :product_name   => normalized_os_name,
+      :version        => os_name
     )
   end
 
@@ -278,5 +297,23 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def pub_img_os(image_id)
     collector.image(image_id)&.dig(:operating_system, :name)
+  end
+
+  def normalize_os(os_name)
+    normalized_name = OperatingSystem.normalize_os_name(os_name)
+    if normalized_name == "unknown"
+      normalize_vpc_os_name(os_name)
+    else
+      normalized_name
+    end
+  end
+
+  def normalize_vpc_os_name(osName)
+    VPC_OS_NAMES.each do |a|
+      a[1].each do |n|
+        return a[0] unless osName.index(n).nil?
+      end
+    end
+    "unknown"
   end
 end
