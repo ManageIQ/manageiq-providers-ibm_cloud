@@ -49,12 +49,14 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm do
     end
 
     let(:actions) do
+      require 'ibm-cloud-sdk'
       actions = IBM::Cloud::SDK::VPC::INSTANCE::Actions.new(parent)
       allow(actions).to receive(:create).and_return({:this => 'mock'})
       actions
     end
 
     let(:instance) do
+      require 'ibm-cloud-sdk'
       instance = IBM::Cloud::SDK::VPC::Instance.new(parent)
       allow(instance).to receive(:refresh) { instance.merge!({:id => 'mock_id', :name => 'Test instance', :status => 'running'}) }
       allow(instance).to receive(:actions).and_return(actions)
