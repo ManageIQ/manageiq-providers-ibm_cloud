@@ -43,7 +43,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm do
 
     let(:parent) do
       vpc = double("IBM::Cloud::SDK::Vpc")
-      allow(vpc).to receive(:logger).and_return(Logger.new($stdout))
+      allow(vpc).to receive(:logger).and_return(Logger.new(nil))
       allow(vpc).to receive_messages(:url => nil, :token => nil, :connection => nil)
       vpc
     end
