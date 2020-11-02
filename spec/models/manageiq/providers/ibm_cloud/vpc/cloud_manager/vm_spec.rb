@@ -1,16 +1,5 @@
 require 'logger'
 
-class ParentClass
-  attr_accessor :connection, :token
-
-  def logger
-    Logger.new(nil)
-  end
-
-  def url(url)
-  end
-end
-
 describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm do
   let(:ems) do
     FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "us-east").tap do |ems|
@@ -52,14 +41,21 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm do
       allow(vm).to receive(:provider_object).and_return(instance)
     end
 
+    let(:parent) do
+      vpc = double("IBM::Cloud::SDK::Vpc")
+      allow(vpc).to receive(:logger).and_return(Logger.new($stdout))
+      allow(vpc).to receive_messages(:url => nil, :token => nil, :connection => nil)
+      vpc
+    end
+
     let(:actions) do
-      actions = IBM::Cloud::SDK::VPC::INSTANCE::Actions.new(ParentClass.new)
+      actions = IBM::Cloud::SDK::VPC::INSTANCE::Actions.new(parent)
       allow(actions).to receive(:create).and_return({:this => 'mock'})
       actions
     end
 
     let(:instance) do
-      instance = IBM::Cloud::SDK::VPC::Instance.new(ParentClass.new)
+      instance = IBM::Cloud::SDK::VPC::Instance.new(parent)
       allow(instance).to receive(:refresh) { instance.merge!({:id => 'mock_id', :name => 'Test instance', :status => 'running'}) }
       allow(instance).to receive(:actions).and_return(actions)
       instance.refresh
