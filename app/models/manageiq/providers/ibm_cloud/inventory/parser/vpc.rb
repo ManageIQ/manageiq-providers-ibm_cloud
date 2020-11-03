@@ -131,7 +131,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def image_operating_system(persister_image, image)
     os_name = image&.dig(:operating_system, :name)
-    normalized_os_name = normalize_os(image&.dig(:operating_system, :name))
+    normalized_os_name = normalize_os(os_name)
     persister.operating_systems.build(
       :vm_or_template => persister_image,
       :product_name   => normalized_os_name,
