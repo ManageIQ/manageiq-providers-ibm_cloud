@@ -5,11 +5,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   attr_reader :img_to_os
 
-  # Extensions to the list in operating_system.rb
-  VPC_OS_NAMES = [
-    ["linux_redhat", %w[red-7 red-8]]
-  ].freeze
-
   def initialize
     @img_to_os = {}
   end
@@ -300,20 +295,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   end
 
   def normalize_os(os_name)
-    normalized_name = OperatingSystem.normalize_os_name(os_name)
-    if normalized_name == "unknown"
-      normalize_vpc_os_name(os_name)
-    else
-      normalized_name
-    end
-  end
-
-  def normalize_vpc_os_name(os_name)
-    VPC_OS_NAMES.each do |a|
-      a[1].each do |n|
-        return a[0] unless os_name.index(n).nil?
-      end
-    end
-    "unknown"
+    os_name.sub!("red-", "redhat-") if os_name.start_with?("red-")
+    OperatingSystem.normalize_os_name(os_name)
   end
 end
