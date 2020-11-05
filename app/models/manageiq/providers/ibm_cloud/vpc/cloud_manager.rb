@@ -16,6 +16,8 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   before_create :ensure_managers
   before_update :ensure_managers_zone
 
+  supports :label_mapping
+
   def ensure_managers
     ensure_network_manager
     ensure_storage_manager
@@ -63,5 +65,17 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
           :value => r[:name]
         }
       end
+  end
+
+  LABEL_MAPPING_ENTITIES = {
+    "VmIBM" => "ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm"
+  }.freeze
+
+  def self.entities_for_label_mapping
+    LABEL_MAPPING_ENTITIES
+  end
+
+  def self.label_mapping_prefix
+    "ibm"
   end
 end
