@@ -296,6 +296,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def normalize_os(os_name)
     return "unknown" if os_name.nil?
+
     os_name.sub!("red-", "redhat-") if os_name.start_with?("red-")
     OperatingSystem.normalize_os_name(os_name)
   end
