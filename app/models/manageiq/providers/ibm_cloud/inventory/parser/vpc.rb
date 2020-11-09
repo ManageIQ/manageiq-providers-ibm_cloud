@@ -295,7 +295,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   end
 
   def normalize_os(os_name)
-    os_name.sub!("red-", "redhat-") if os_name.start_with?("red-")
+    os_name.sub!("red-", "redhat-") if os_name && os_name.start_with?("red-")
     OperatingSystem.normalize_os_name(os_name)
   end
 end

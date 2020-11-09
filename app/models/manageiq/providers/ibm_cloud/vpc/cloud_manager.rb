@@ -56,7 +56,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   def self.provider_region_options
     ManageIQ::Providers::IbmCloud::VPC::Regions
       .all
-      .sort_by { |r| r[:description].downcase }
+      .sort_by { |r| r[:description].downcase if r[:description] }
       .map do |r|
         {
           :label => r[:description],
