@@ -27,6 +27,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
   virtual_delegate :cloud_tenants, :to => :parent_manager, :allow_nil => true
   virtual_delegate :volume_availability_zones, :to => :parent_manager, :allow_nil => true
 
+  supports :cloud_volume
+  supports :cloud_volume_create
+
   def image_name
     "ibm"
   end
