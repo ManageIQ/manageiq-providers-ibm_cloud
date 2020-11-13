@@ -4,6 +4,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
   require_nested :CloudSubnet
   require_nested :NetworkPort
   require_nested :NetworkRouter
+  require_nested :SecurityGroup
 
   include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
 
