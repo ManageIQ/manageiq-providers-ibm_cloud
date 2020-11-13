@@ -24,13 +24,27 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
     power_api_client.config.host            = "#{location}.power-iaas.cloud.ibm.com"
     power_api_client.default_headers["Crn"] = power_iaas_service.crn
 
-    power_api_client
+    if options[:service]
+      api_klass = "IbmCloudPower::#{options[:service]}".safe_constantize
+      raise ArgumentError, _("Unknown target API set: '%{service_type}'") % {:service_type => options[:service]} if api_klass.nil?
+
+      api_klass.new(power_api_client)
+    else
+      power_api_client
+    end
   end
 
   def verify_credentials(_auth_type = nil, options = {})
     connect(options)
     true
   end
+
+  def tenant_id(connection = nil)
+    connection ||= connect
+    parse_crn(connection.default_headers["Crn"])[:scope].split("/").last
+  end
+
+  private
 
   def parse_crn(crn)
     crn, version, cname, ctype, service_name, location, scope, service_instance, resource_type, resource = crn.split(":")

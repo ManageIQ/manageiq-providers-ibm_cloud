@@ -3,6 +3,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     _log.info('IBM SERVER PROVISIONING OPTIONS: ' + clone_options.to_s)
   end
 
+  def cloud_instance_id
+    source.ext_management_system.uid_ems
+  end
+
   def prepare_for_clone_task
     specs = {
       'serverName'  => get_option(:vm_target_name),
@@ -46,8 +50,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
   def start_clone(clone_options)
     begin
-      source.with_provider_object(:service => "PowerIaas") do |power_iaas|
-        power_iaas.create_pvm_instance(clone_options)[0]['pvmInstanceID']
+      source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
+        body = IbmCloudPower::PVMInstanceCreate.new(clone_options)
+        response = api.pcloud_pvminstances_post(cloud_instance_id, body)
+        response&.first&.pvm_instance_id
       end
     rescue RestClient::ExceptionWithResponse => e
       raise MiqException::MiqProvisionError, e.response.to_s
@@ -57,16 +63,16 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
   end
 
   def do_clone_task_check(clone_task_ref)
-    source.with_provider_object(:service => "PowerIaas") do |power_iaas|
-      instance = power_iaas.get_pvm_instance(clone_task_ref)
-      instance_state = instance['status']
+    source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
+      instance = api.pcloud_pvminstances_get(cloud_instance_id, clone_task_ref)
+      instance_state = instance.status
       stop = false
 
       case instance_state
       when 'BUILD'
         status = 'The server is being provisioned.'
       when 'ACTIVE'
-        stop = (instance['processors'].to_f > 0) && (instance['memory'].to_f > 0)
+        stop = (instance.processors.to_f > 0) && (instance.memory.to_f > 0)
         status = 'The server has been provisioned.; ' + (stop ? 'Server description available.' : 'Waiting for server description.')
       when 'ERROR'
         raise MiqException::MiqProvisionError, _("An error occurred while provisioning the instance.")

@@ -71,13 +71,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     @cloud_instance_id ||= cloud_manager.uid_ems
   end
 
-  def crn
-    connection.default_headers["Crn"]
-  end
-
   def tenant_id
-    scope = cloud_manager.parse_crn(crn)[:scope]
-    scope.split("/").last
+    cloud_manager.tenant_id(connection)
   end
 
   def images_api

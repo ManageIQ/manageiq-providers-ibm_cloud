@@ -68,17 +68,19 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
     MiqTask.generic_action_with_callback(task_opts, queue_opts)
   end
 
-  def raw_create_cloud_subnet(ext_management_system, options)
-    ext_management_system.with_provider_connection(:service => 'PowerIaas') do |power_iaas|
-      subnet = {
-        :type       => options[:type] || 'pub-vlan',
-        :name       => options[:name],
-        :cidr       => options[:cidr],
-        :gateway    => options[:gateway_ip],
-        :dnsservers => options[:dns_nameservers],
-      }
+  def self.raw_create_cloud_subnet(ext_management_system, options)
+    cloud_instance_id = ext_management_system.parent_manager.uid_ems
 
-      power_iaas.create_network(subnet)
+    ext_management_system.with_provider_connection(:service => 'PCloudNetworksApi') do |api|
+      network = IbmCloudPower::NetworkCreate.new(
+        :type        => options[:type] || 'pub-vlan',
+        :name        => options[:name],
+        :cidr        => options[:cidr],
+        :gateway     => options[:gateway_ip],
+        :dns_servers => options[:dns_nameservers],
+      )
+
+      api.pcloud_networks_post(cloud_instance_id, network)
     end
   end
 end

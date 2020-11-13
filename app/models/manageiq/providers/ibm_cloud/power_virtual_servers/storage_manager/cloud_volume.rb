@@ -7,6 +7,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     availability_zone.vms.select { |vm| vm.format == volume_type }
   end
 
+  def cloud_instance_id
+    ext_management_system.uid_ems
+  end
+
   def self.params_for_create(ems)
     {
       :fields => [
@@ -106,17 +110,17 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def self.raw_create_volume(ext_management_system, options)
-    volume_params = {
+    volume_params = IbmCloudPower::CreateDataVolume.new(
       'name'     => options[:name],
       'size'     => options[:size],
       'diskType' => options[:volume_type]
-    }
+    )
 
     volume = nil
-    ext_management_system.with_provider_connection(:service => 'PowerIaas') do |power_iaas|
-      volume = power_iaas.create_volume(volume_params)
+    ext_management_system.with_provider_connection(:service => 'PCloudVolumesApi') do |api|
+      volume = api.pcloud_cloudinstances_volumes_post(cloud_instance_id, volume_params)
     end
-    {:ems_ref => volume['volumeID'], :status => volume['state'], :name => volume['name']}
+    {:ems_ref => volume.volume_id, :status => volume.state, :name => volume.name}
   rescue => e
     _log.error("volume=[#{volume_params}], error: #{e}")
     raise MiqException::MiqVolumeCreateError, e.to_s, e.backtrace
@@ -133,8 +137,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def raw_delete_volume
-    ext_management_system.with_provider_connection(:service => 'PowerIaas') do |power_iaas|
-      power_iaas.delete_volume(ems_ref)
+    ext_management_system.with_provider_connection(:service => 'PCloudVolumesApi') do |api|
+      api.pcloud_cloudinstances_volumes_delete(cloud_instance_id, ems_ref)
     end
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
@@ -152,8 +156,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def raw_attach_volume(vm_ems_ref, _device = nil)
-    ext_management_system.with_provider_connection(:service => 'PowerIaas') do |power_iaas|
-      power_iaas.attach_volume(vm_ems_ref, ems_ref)
+    with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
+      # TODO
     end
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
@@ -165,8 +169,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def raw_detach_volume(vm_ems_ref)
-    ext_management_system.with_provider_connection(:service => 'PowerIaas') do |power_iaas|
-      power_iaas.detach_volume(vm_ems_ref, ems_ref)
+    with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
+      # TODO
     end
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
