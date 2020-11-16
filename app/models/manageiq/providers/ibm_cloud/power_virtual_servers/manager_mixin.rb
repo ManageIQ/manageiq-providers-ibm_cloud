@@ -21,9 +21,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
     power_api_client.config.api_key = auth_key
     power_api_client.config.scheme  = "https"
     power_api_client.config.host    = "#{location}.power-iaas.cloud.ibm.com"
-
+    power_api_client.config.logger  = $ibm_cloud_log
     power_api_client.default_headers["Crn"]           = power_iaas_service.crn
     power_api_client.default_headers["Authorization"] = "#{token.token_type} #{token.access_token}"
+
     if options[:service]
       api_klass = "IbmCloudPower::#{options[:service]}".safe_constantize
       raise ArgumentError, _("Unknown target API set: '%{service_type}'") % {:service_type => options[:service]} if api_klass.nil?
@@ -158,6 +159,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
       api_client.config.api_key        = {"Authorization" => token.access_token}
       api_client.config.api_key_prefix = {"Authorization" => token.token_type}
       api_client.config.access_token   = {"Authorization" => token.access_token}
+      api_client.config.logger         = $ibm_cloud_log
 
       resource_instances_api = IbmCloudResourceController::ResourceInstancesApi.new(api_client)
 
