@@ -156,8 +156,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def raw_attach_volume(vm_ems_ref, _device = nil)
-    with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
-      # TODO
+    with_provider_connection(:service => 'PCloudVolumesApi') do |api|
+      api.pcloud_pvminstances_volumes_post(cloud_instance_id, vm_ems_ref, ems_ref)
     end
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
@@ -169,8 +169,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def raw_detach_volume(vm_ems_ref)
-    with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
-      # TODO
+    with_provider_connection(:service => 'PCloudVolumesApi') do |api|
+      api.pcloud_pvminstances_volumes_delete(cloud_instance_id, vm_ems_ref, ems_ref)
     end
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
