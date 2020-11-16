@@ -77,7 +77,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
         :name        => options[:name],
         :cidr        => options[:cidr],
         :gateway     => options[:gateway_ip],
-        :dns_servers => options[:dns_nameservers],
+        :dns_servers => options[:dns_nameservers]
       )
 
       api.pcloud_networks_post(cloud_instance_id, network)
