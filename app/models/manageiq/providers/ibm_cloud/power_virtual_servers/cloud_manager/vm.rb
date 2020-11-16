@@ -52,7 +52,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
 
   private
 
-  def pcloud_pvminstances_action(action)
+  def pcloud_pvminstances_action_post(action)
     with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
       pvm_instance_action = IbmCloudPower::PVMInstanceAction.new("action" => action)
       api.pcloud_pvminstances_action_post(cloud_instance_id, ems_ref, pvm_instance_action)

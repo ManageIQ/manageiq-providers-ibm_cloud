@@ -40,7 +40,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   end
 
   def ports(network_id)
-    @ports ||= networks_api.pcloud_networks_ports_getall(cloud_instance_id, network_id).ports || []
+    networks_api.pcloud_networks_ports_getall(cloud_instance_id, network_id).ports || []
   end
 
   def sshkeys

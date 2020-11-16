@@ -110,8 +110,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   end
 
   def images
-    collector.images.each do |ibm_image|
+    collector.images.each do |image_ref|
+      ibm_image = collector.image(image_ref.image_id)
       id = ibm_image.image_id
+
       arch = ibm_image.specifications.architecture
       if ibm_image.specifications.endianness == 'little-endian'
         arch << 'le'
