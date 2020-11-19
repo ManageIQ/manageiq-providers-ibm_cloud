@@ -20,7 +20,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
   end
 
   def images
-    connection.images.all
+    @images ||= connection.images.all.to_a
+  end
+
+  def images_by_id
+    @images_by_id ||= images.index_by { |img| img[:id] }
   end
 
   def image(image_id)

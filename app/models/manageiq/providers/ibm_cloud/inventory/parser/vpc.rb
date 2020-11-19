@@ -3,12 +3,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   require_nested :NetworkManager
   require_nested :StorageManager
 
-  attr_reader :img_to_os
-
-  def initialize
-    @img_to_os = {}
-  end
-
   def parse
     floating_ips
     cloud_networks
@@ -24,7 +18,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def images
     collector.images.each do |image|
-      img_to_os[image[:id]] = image&.dig(:operating_system, :name)
       persister_image = persister.miq_templates.build(
         :uid_ems            => image[:id],
         :ems_ref            => image[:id],
@@ -38,7 +31,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :publicly_available => true
       )
 
-      image_operating_system(persister_image, image)
+      vm_or_template_operating_system(persister_image, image)
     end
   end
 
@@ -120,21 +113,17 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def instance_operating_system(persister_instance, instance)
     image_id = instance&.dig(:image, :id)
-    os = img_to_os[image_id] || pub_img_os(image_id)
-    os_name = normalize_os(os)
-    persister.operating_systems.build(
-      :vm_or_template => persister_instance,
-      :product_name   => os_name,
-      :version        => os
-    )
+    image    = collector.images_by_id[image_id] || collector.image(image_id) if image_id
+
+    vm_or_template_operating_system(persister_instance, image) if image
   end
 
-  def image_operating_system(persister_image, image)
+  def vm_or_template_operating_system(vm_or_template, image)
     os_name = image&.dig(:operating_system, :name)
-    normalized_os_name = normalize_os(os_name)
+
     persister.operating_systems.build(
-      :vm_or_template => persister_image,
-      :product_name   => normalized_os_name,
+      :vm_or_template => vm_or_template,
+      :product_name   => normalize_os(os_name),
       :version        => os_name
     )
   end
@@ -288,10 +277,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   def get_formatted_tag(tag)
     formatted_key, formatted_value = tag[:name]&.split(":")
     {:key => tag[:key] || formatted_key, :value => tag[:value] || formatted_value || ""}
-  end
-
-  def pub_img_os(image_id)
-    collector.image(image_id)&.dig(:operating_system, :name)
   end
 
   def normalize_os(os_name)
