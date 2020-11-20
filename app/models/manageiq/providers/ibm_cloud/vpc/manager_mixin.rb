@@ -77,6 +77,14 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
       auth_key = ManageIQ::Password.try_decrypt(auth_key)
       auth_key ||= find(args['id']).authentication_token('default')
       !!raw_connect(auth_key)&.token&.authorization_header
+    rescue IBM::Cloud::SDKHTTP::Exceptions::HttpStatusError => err
+      if err.response.status == 400
+        err_msg = err.response.json[:errorMessage]
+        err_msg ||= 'Authentication failed.'
+        raise MiqException::MiqInvalidCredentialsError, _(err_msg)
+      else
+        raise
+      end
     end
 
     def raw_connect(api_key)
