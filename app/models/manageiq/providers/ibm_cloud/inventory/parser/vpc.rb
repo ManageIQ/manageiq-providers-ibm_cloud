@@ -258,10 +258,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
       az_name = vol&.dig(:zone, :name)
       attachments = vol&.dig(:volume_attachments)
       bootable = attachments.to_a.any? { |vol_attach| vol_attach[:type] == "boot" }
+
+      # Using get to ensure that length and zero are working off of an Array.
+      vol_status = vol.get(:volume_attachments, []).length.zero? ? vol[:status] : "#{vol[:status]} (attached)"
+
       persister.cloud_volumes.build(
         :ems_ref           => vol[:id],
         :name              => vol[:name],
-        :status            => vol[:status],
+        :status            => vol_status,
         :creation_time     => vol[:created_at],
         :description       => 'IBM Cloud Block-Storage Volume',
         :size              => vol[:capacity]&.gigabytes,
