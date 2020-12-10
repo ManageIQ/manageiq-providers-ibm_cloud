@@ -8,9 +8,11 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     phase_context[:new_volumes] = []
 
     if new_volumes.any?
-      source.with_provider_object(:service => "PowerIaas") do |power_iaas|
+      source.with_provider_connection(:service => "PCloudVolumesApi") do |api|
         new_volumes.each do |new_volume|
-          phase_context[:new_volumes] << power_iaas.create_volume(new_volume)['volumeID']
+          api.pcloud_cloudinstances_volumes_post(
+            cloud_instance_id, IbmCloudPower::CreateDataVolume.new(new_volume)
+          )
         end
       end
     end
@@ -18,9 +20,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     phase_context[:new_networks] = []
 
     if options[:public_network][0]
-      source.with_provider_object(:service => "PowerIaas") do |power_iaas|
-        new_network = power_iaas.create_network('type' => 'pub-vlan')
-        phase_context[:new_networks] << {"networkID" => new_network['networkID']}
+      source.with_provider_connection(:service => "PCloudNetworksApi") do |api|
+        new_network_params = IbmCloudPower::NetworkCreate.new(:type => "pub-vlan")
+        new_network = api.pcloud_networks_post(cloud_instance_id, new_network_params)
+        phase_context[:new_networks] << {"networkID" => new_network.network_id}
       end
     end
 

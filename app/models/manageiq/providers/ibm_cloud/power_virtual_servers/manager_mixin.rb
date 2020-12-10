@@ -11,21 +11,57 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
 
   def connect(options = {})
     auth_key = authentication_key(options[:auth_type])
-    creds = self.class.raw_connect(auth_key, uid_ems)
+    token, power_iaas_service = self.class.raw_connect(auth_key, uid_ems)
 
-    options[:service] ||= "PowerIaas"
-    case options[:service]
-    when "PowerIaas"
-      region, guid, token, crn, tenant = creds.values_at(:region, :guid, :token, :crn, :tenant)
-      IBM::Cloud::SDK::PowerIaas.new(region, guid, token, crn, tenant)
+    location = parse_crn(power_iaas_service.crn)[:location]
+
+    require "ibm_cloud_power"
+    power_api_client = IbmCloudPower::ApiClient.new
+
+    power_api_client.config.api_key = auth_key
+    power_api_client.config.scheme  = "https"
+    power_api_client.config.host    = "#{location}.power-iaas.cloud.ibm.com"
+    power_api_client.config.logger  = $ibm_cloud_log
+    power_api_client.default_headers["Crn"]           = power_iaas_service.crn
+    power_api_client.default_headers["Authorization"] = "#{token.token_type} #{token.access_token}"
+
+    if options[:service]
+      api_klass = "IbmCloudPower::#{options[:service]}".safe_constantize
+      raise ArgumentError, _("Unknown target API set: '%{service_type}'") % {:service_type => options[:service]} if api_klass.nil?
+
+      api_klass.new(power_api_client)
     else
-      raise ArgumentError, _("Unknown target API set: '%{service_type}'") % {:service_type => options[:service]}
+      power_api_client
     end
   end
 
   def verify_credentials(_auth_type = nil, options = {})
     connect(options)
     true
+  end
+
+  def tenant_id(connection = nil)
+    connection ||= connect
+    parse_crn(connection.default_headers["Crn"])[:scope].split("/").last
+  end
+
+  private
+
+  def parse_crn(crn)
+    crn, version, cname, ctype, service_name, location, scope, service_instance, resource_type, resource = crn.split(":")
+
+    {
+      :crn              => crn,
+      :version          => version,
+      :cname            => cname,
+      :cype             => ctype,
+      :service_name     => service_name,
+      :location         => location,
+      :scope            => scope,
+      :service_instance => service_instance,
+      :resource_type    => resource_type,
+      :resource         => resource
+    }
   end
 
   module ClassMethods
@@ -107,24 +143,35 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
         raise MiqException::MiqInvalidCredentialsError, _("Missing credentials")
       end
 
-      require "ibm-cloud-sdk"
-      IBM::Cloud::SDK.logger = $ibm_cloud_log
-      iam = IBM::Cloud::SDK::IAM.new(api_key)
-      begin
-        token = iam.get_identity_token
-      rescue RestClient::ExceptionWithResponse => e
-        _log.error("IAM authentication failed: #{e.response}")
-        raise MiqException::MiqInvalidCredentialsError, JSON.parse(e.response)['errorMessage']
-      end
+      require "ibm_cloud_iam"
+      iam_token_api = IbmCloudIam::TokenOperationsApi.new
 
       begin
-        power_iaas_service = IBM::Cloud::SDK::ResourceController.new(token).get_resource(pcloud_guid)
-      rescue RestClient::ExceptionWithResponse => e
-        _log.error("GUID resource lookup failed: #{e.response}")
-        raise MiqException::MiqInvalidCredentialsError, JSON.parse(e.response)['message']
+        token = iam_token_api.get_token_api_key("urn:ibm:params:oauth:grant-type:apikey", api_key)
+      rescue IbmCloudIam::ApiError => err
+        error_message = JSON.parse(err.response_body)["message"]
+        _log.error("IAM authentication failed: #{err.code} #{error_message}")
+        raise MiqException::MiqInvalidCredentialsError, error_message
       end
 
-      {:token => token, :guid => pcloud_guid, :crn => power_iaas_service.crn, :region => power_iaas_service.region_id, :tenant => power_iaas_service.account_id}
+      require "ibm_cloud_resource_controller"
+      api_client = IbmCloudResourceController::ApiClient.new
+      api_client.config.api_key        = {"Authorization" => token.access_token}
+      api_client.config.api_key_prefix = {"Authorization" => token.token_type}
+      api_client.config.access_token   = {"Authorization" => token.access_token}
+      api_client.config.logger         = $ibm_cloud_log
+
+      resource_instances_api = IbmCloudResourceController::ResourceInstancesApi.new(api_client)
+
+      begin
+        power_iaas_service = resource_instances_api.get_resource_instance(pcloud_guid)
+      rescue IbmCloudResourceController::ApiError => err
+        error_message = JSON.parse(err.response_body)["message"]
+        _log.error("GUID resource lookup failed: #{err.code} #{error_message}")
+        raise MiqException::MiqInvalidCredentialsError, error_message
+      end
+
+      [token, power_iaas_service]
     end
   end
 end

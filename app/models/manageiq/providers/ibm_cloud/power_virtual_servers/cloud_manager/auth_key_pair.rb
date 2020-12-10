@@ -1,13 +1,17 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyPair < ManageIQ::Providers::CloudManager::AuthKeyPair
-  IbmCvsKeyPair = Struct.new(:name, :key_name, :fingerprint, :private_key)
-
   def self.raw_create_key_pair(ext_management_system, create_options)
-    power_iaas = ext_management_system.connect(:service => "PowerIaas")
-    kp = power_iaas.create_key_pair(create_options[:name], create_options[:public_key])
-    IbmCvsKeyPair.new(kp["name"], kp["name"], nil, nil)
+    ext_management_system.with_provider_connection(:service => "PCloudTenantsSSHKeysApi") do |api|
+      tenant_id = ext_management_system.tenant_id(api.api_client)
+      ssh_key   = IbmCloudPower::SSHKey.new(
+        :name       => create_options[:name],
+        :public_key => create_options[:public_key]
+      )
+
+      api.pcloud_tenants_sshkeys_post(tenant_id, ssh_key)
+    end
   rescue => err
+    _log.error("keypair=[#{create_options[:name]}], error: #{err}")
     _log.log_backtrace(err)
-    _log.error("keypair=[#{name}], error: #{err}")
     raise MiqException::Error, err.to_s, err.backtrace
   end
 
@@ -22,8 +26,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyP
   end
 
   def raw_delete_key_pair
-    power_iaas = resource.connect(:service => "PowerIaas")
-    power_iaas.delete_key_pair(name)
+    resource.with_provider_connection(:service => "PCloudTenantsSSHKeysApi") do |api|
+      api.pcloud_tenants_sshkeys_delete(resource.tenant_id, name)
+    end
   rescue => err
     _log.log_backtrace(err)
     _log.error("keypair=[#{name}], error: #{err}")

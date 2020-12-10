@@ -9,35 +9,31 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
 
   supports_not :suspend
 
+  def cloud_instance_id
+    ext_management_system.uid_ems
+  end
+
   def raw_start
-    with_provider_connection(:service => 'PowerIaas') do |power_iaas|
-      power_iaas.start_pvm_instance(ems_ref)
-    end
+    pcloud_pvminstances_action_post("start")
     update!(:raw_power_state => "ACTIVE")
   end
 
   def raw_stop
-    with_provider_connection(:service => 'PowerIaas') do |power_iaas|
-      power_iaas.stop_pvm_instance(ems_ref)
-    end
+    pcloud_pvminstances_action_post("stop")
     update!(:raw_power_state => "SHUTOFF")
   end
 
   def raw_reboot_guest
-    with_provider_connection(:service => 'PowerIaas') do |power_iaas|
-      power_iaas.soft_reboot_pvm_instance(ems_ref)
-    end
+    pcloud_pvminstances_action_post("soft-reboot")
   end
 
   def raw_reset
-    with_provider_connection(:service => 'PowerIaas') do |power_iaas|
-      power_iaas.hard_reboot_pvm_instance(ems_ref)
-    end
+    pcloud_pvminstances_action_post("hard-reboot")
   end
 
   def raw_destroy
-    with_provider_connection(:service => 'PowerIaas') do |power_iaas|
-      power_iaas.delete_pvm_instance(ems_ref)
+    with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
+      api.pcloud_pvminstances_delete(cloud_instance_id, ems_ref)
     end
   end
 
@@ -51,6 +47,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
       "on"
     else
       "off"
+    end
+  end
+
+  private
+
+  def pcloud_pvminstances_action_post(action)
+    with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
+      pvm_instance_action = IbmCloudPower::PVMInstanceAction.new("action" => action)
+      api.pcloud_pvminstances_action_post(cloud_instance_id, ems_ref, pvm_instance_action)
     end
   end
 end
