@@ -15,7 +15,7 @@ module ManageIQ
         end
 
         def self.init_loggers
-          $ibm_cloud_log ||= Vmdb::Loggers.create_logger("ibm_cloud.log")
+          $ibm_cloud_log ||= Vmdb::Loggers.create_logger("ibm_cloud.log", Vmdb::Loggers::ProviderSdkLogger)
         end
 
         def self.apply_logger_config(config)
