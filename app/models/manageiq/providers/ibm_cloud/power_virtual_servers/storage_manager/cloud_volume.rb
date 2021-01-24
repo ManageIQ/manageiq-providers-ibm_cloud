@@ -121,7 +121,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
         'affinity_volume' => options['affinity_volume_id']
       )
 
-      volume = api.pcloud_cloudinstances_volumes_post(cloud_instance_id, volume_params)
+      volume = api.pcloud_cloudinstances_volumes_post(
+        ext_management_system.parent_manager.uid_ems,
+        volume_params
+      )
     end
     {:ems_ref => volume.volume_id, :status => volume.state, :name => volume.name}
   rescue => e
