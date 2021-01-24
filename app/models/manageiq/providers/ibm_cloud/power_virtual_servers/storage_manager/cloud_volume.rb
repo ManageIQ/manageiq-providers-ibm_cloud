@@ -110,14 +110,17 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def self.raw_create_volume(ext_management_system, options)
-    volume_params = IbmCloudPower::CreateDataVolume.new(
-      'name'     => options[:name],
-      'size'     => options[:size],
-      'diskType' => options[:volume_type]
-    )
-
     volume = nil
     ext_management_system.with_provider_connection(:service => 'PCloudVolumesApi') do |api|
+      volume_params = IbmCloudPower::CreateDataVolume.new(
+        'name'            => options['name'],
+        'size'            => options['size'].to_f,
+        'disk_type'       => options['volume_type'],
+        'shareable'       => options['multi_attachment'],
+        'affinity_policy' => options['affinity_policy'],
+        'affinity_volume' => options['affinity_volume_id']
+      )
+
       volume = api.pcloud_cloudinstances_volumes_post(cloud_instance_id, volume_params)
     end
     {:ems_ref => volume.volume_id, :status => volume.state, :name => volume.name}
