@@ -53,7 +53,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :name         => 'affinity_policy',
           :id           => 'affinity_policy',
           :label        => _('Affinity Policy'),
-          :initialValue => 'off',
+          :initialValue => nil,
           :condition    => {
             :when => 'edit',
             :is   => false,
@@ -61,7 +61,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :options      => [
             {
               :label => 'Off',
-              :value => 'off',
+              :value => nil,
             },
             {
               :label => 'Affinity',
@@ -85,7 +85,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
               {
                 :not => {
                   :when => 'affinity_policy',
-                  :is   => 'off',
+                  :is   => nil,
                 },
               },
               {
