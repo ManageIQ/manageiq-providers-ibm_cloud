@@ -18,7 +18,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :component  => 'text-field',
           :name       => 'size',
           :id         => 'size',
-          :label      => _('Size (in bytes)'),
+          :label      => _('Size (GB)'),
           :type       => 'number',
           :step       => 1024 * 1024 * 1024,
           :isRequired => true,
