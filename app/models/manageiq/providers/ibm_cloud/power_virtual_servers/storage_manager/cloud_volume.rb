@@ -8,7 +8,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def cloud_instance_id
-    ext_management_system.uid_ems
+    ext_management_system.parent_manager.uid_ems
   end
 
   def self.params_for_create(ems)
