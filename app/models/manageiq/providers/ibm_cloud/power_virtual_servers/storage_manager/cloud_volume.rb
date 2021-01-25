@@ -20,7 +20,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :id         => 'size',
           :label      => _('Size (GB)'),
           :type       => 'number',
-          :step       => 1024 * 1024 * 1024,
           :isRequired => true,
           :validate   => [{:type => 'required'}],
         },
