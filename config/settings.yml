@@ -28,11 +28,10 @@
 :log:
   :level_ibm_cloud: info
 :workers:
-  :worker_base:
-    :event_catcher:
-      :event_catcher_ibm_cloud_power_virtual_servers:
-        :poll: 20.seconds
-    :queue_worker_base:
-      :ems_refresh_worker:
-        :ems_refresh_worker_ibm_cloud_power_virtual_servers: {}
-        :ems_refresh_worker_ibm_cloud_vpc: {}
+  :ems_refresh_worker_ibm_cloud_power_virtual_servers:
+    :inherits_from: ems_refresh_worker
+  :ems_refresh_worker_ibm_cloud_vpc:
+    :inherits_from: ems_refresh_worker
+  :event_catcher_ibm_cloud_power_virtual_servers:
+    :inherits_from: event_catcher
+    :poll: 20.seconds
