@@ -8,7 +8,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def cloud_instance_id
-    ext_management_system.uid_ems
+    ext_management_system.parent_manager.uid_ems
   end
 
   def self.params_for_create(ems)
@@ -18,9 +18,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :component  => 'text-field',
           :name       => 'size',
           :id         => 'size',
-          :label      => _('Size (in bytes)'),
+          :label      => _('Size (GB)'),
           :type       => 'number',
-          :step       => 1024 * 1024 * 1024,
           :isRequired => true,
           :validate   => [{:type => 'required'}],
         },
@@ -53,7 +52,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :name         => 'affinity_policy',
           :id           => 'affinity_policy',
           :label        => _('Affinity Policy'),
-          :initialValue => 'off',
+          :initialValue => nil,
           :condition    => {
             :when => 'edit',
             :is   => false,
@@ -61,7 +60,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :options      => [
             {
               :label => 'Off',
-              :value => 'off',
+              :value => nil,
             },
             {
               :label => 'Affinity',
@@ -85,7 +84,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
               {
                 :not => {
                   :when => 'affinity_policy',
-                  :is   => 'off',
+                  :is   => nil,
                 },
               },
               {
@@ -110,15 +109,21 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def self.raw_create_volume(ext_management_system, options)
-    volume_params = IbmCloudPower::CreateDataVolume.new(
-      'name'     => options[:name],
-      'size'     => options[:size],
-      'diskType' => options[:volume_type]
-    )
-
     volume = nil
     ext_management_system.with_provider_connection(:service => 'PCloudVolumesApi') do |api|
-      volume = api.pcloud_cloudinstances_volumes_post(cloud_instance_id, volume_params)
+      volume_params = IbmCloudPower::CreateDataVolume.new(
+        'name'            => options['name'],
+        'size'            => options['size'].to_f,
+        'disk_type'       => options['volume_type'],
+        'shareable'       => options['multi_attachment'],
+        'affinity_policy' => options['affinity_policy'],
+        'affinity_volume' => options['affinity_volume_id']
+      )
+
+      volume = api.pcloud_cloudinstances_volumes_post(
+        ext_management_system.parent_manager.uid_ems,
+        volume_params
+      )
     end
     {:ems_ref => volume.volume_id, :status => volume.state, :name => volume.name}
   rescue => e
