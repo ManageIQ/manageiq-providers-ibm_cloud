@@ -5,45 +5,51 @@ http_interactions:
     uri: https://iam.cloud.ibm.com/identity/token
     body:
       encoding: UTF-8
-      string: grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=IBMCVS_API_KEY
+      string: grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=IBMCVS_API_KEY&response_type=cloud_iam
     headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Content-Type:
+      - application/x-www-form-urlencoded
       Accept:
-      - "*/*"
+      - application/json
+      Connection:
+      - close
       User-Agent:
-      - Ruby
+      - http.rb/4.1.1
   response:
     status:
       code: 200
       message: OK
     headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '2509'
       Transaction-Id:
-      - 35d07684780a4641b887af9bf1cbc002
+      - 55952749a63547ac9f9de094d5a45201
       Cache-Control:
       - no-cache, no-store
       Expires:
       - '0'
       Pragma:
       - no-cache
+      Content-Type:
+      - application/json
       Content-Language:
       - en-US
-      X-Akamai-Path-Stats:
-      - "[3:33129:4470871]"
+      Content-Length:
+      - '2498'
+      X-Envoy-Upstream-Service-Time:
+      - '1733'
+      Server:
+      - istio-envoy
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
       Date:
-      - Fri, 09 Oct 2020 17:59:15 GMT
+      - Tue, 09 Feb 2021 21:06:46 GMT
       Connection:
-      - keep-alive
+      - close
       Set-Cookie:
-      - sessioncookie=6e95b82a7f952738ffdd9d9d694b9eb0; Path=/; Secure; HttpOnly
+      - sessioncookie="06cb689164e733ae"; Path=/; HttpOnly
     body:
       encoding: UTF-8
-      string: '{"access_token":"eyJraWQiOiIyMDIwMDkyMjE4MzMiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwiaWQiOiJJQk1pZC0wNjAwMDA0UzM4IiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiNTAxODBiNjYtZTBjZi00YWE2LTg0ZTMtMjFiMTNkMGI4NjgyIiwiaWRlbnRpZmllciI6IjA2MDAwMDRTMzgiLCJnaXZlbl9uYW1lIjoiQnJhZCIsImZhbWlseV9uYW1lIjoiQmxhbmNldHQiLCJuYW1lIjoiQnJhZCBCbGFuY2V0dCIsImVtYWlsIjoiYmxhbmNldHRAdXMuaWJtLmNvbSIsInN1YiI6ImJsYW5jZXR0QHVzLmlibS5jb20iLCJhY2NvdW50Ijp7InZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiNzI4MjEwMyIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2MDIyNjYzNTEsImV4cCI6MTYwMjI2OTk1MSwiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.IuK6Vwgsneq5lv4Kbea7DeBbHu5PameVlVJxtdln_IRxx9WD9clq8DaQqcAv_APqMsnPwaPDkm-I_SW_yxErh5nNcWyncDRdSztnB13_IN6b5RSfeXGsQg_Xlhga08EjTtT5H73ovzC-tolPQvhvunmtmcCPloGACi759gy1OtMeqOGszTGAjfmlNgGWx869mr8VBuUEWPuo2PeSkNx6qbUll59isK7LjqyYPLW31qXjM7Sd8PM-truQud0byKriCMdgnFviaoGyquEs80gZ_H_-DLyop15OfScRvYqdrFUGqGlX9ttz5GnB5aWDW85pdxKphNIrDpPl4Xuy1vDf1Q","refresh_token":"OKAv47Ssq2Sx09Zv4XpdinttkjsQAlfioXoBkDy9JhcQu4uZL0iJ6kI51PUqheki-07vWzo3ODpJ0eBfEPae1dLpR5rlSxxZtjeKlqtn6I-suv9_LGOMUjzfvnjp-L8Sc2TFNZVzs8v79_LKlavClZVHtZB3-6u9Q2FkvtoPRnx2S7ASKhbPFzEk9AFdmkA3zJztErlFsJA53zwS2n4Asz-IYKI9LgiCpr5-pX1uCJN28rkNR9Rn0jZJPdii8U9cNLuZB6pI8tlB1az79zQOqgp7wB-soQJBBT5FCzJgeL8D3fQ038P7XJaI3K_xeCsbNqCf8AZWOIvS2_KzYUAlu3IZEpb53fnmikuIHj7BA3tc7iRYQhNZpcBifW3JfvF_eYoplvGHhBns-ARC_yvhFQc18e_0JsNP3ZhW1Z7muKnE5cGDiIVUo6pQAykE84fFiVCfku9njxXOAOkj0LP-K_MIkVGeHp_O-lNTl_-EeDsJxoUlgSdJaAd2TvQQANIELdF3miifJpj7WvNuHJHeutEDqD-JvnrFRErZq7BQ2wMe1XLZGyIj1K265hzJSqsbCNxVZRRUkdIUNpKAs4iWduc9apoXF2d1h2xuVPLawGi1XBTiTn0M9kvSF5cCOBn8osx9kUKzWqq0WeNN19LDa7oZDRD0yK90EGK_lDxPH0iSGFINWlopU8YyybkezxUNemApMuSOlTBH8REvh3sXVpnEVCEUHo2NLM3gjBJBAvW91-cfqR2nCZQndHYdelj7f5FuKp0RBruVhXdJSfSC1gpkRuB39ewAVH23OAfM3PbdGg8--Qw14B4a_S9qWecqRKzxkuY27JJJY2XD30f40o-7MhMNL7sUMmxTTKL8qrmV3X1gwwceQII9-77fl85LNtan5F6tSMOH8clbbqeqnsa25ALZsFNqMec_QACTfuyDqaziacqrp2hCmJciBZ53IW_vKQpCwJ1CUhVSfkcJbYquaQd825cBwikUULX2Wq1xNKgGA1GTahLM4lmB7VGaCkY-1W5QkSQ5o1vPZ36Dtngwwi--gG7aIeocAgluJsLUQi9SSG8EHM0IO6yuwT7VOvr7yGVfZhbN2geGnPD1OFlbi8eV5xsRAH98NJx7_asYFK2wImkHQAOfuwIyNmjjfPM","ims_user_id":7282103,"token_type":"Bearer","expires_in":3600,"expiration":4102462800,"refresh_token_expiration":1604858351,"scope":"ibm
+      string: '{"access_token":"eyJraWQiOiIyMDIxMDEyMDE4MzUiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiNjE1YzNhMzUtOGJkMi00OTU2LWExZmUtZDQxYjk5NzRmMzc2IiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYWNjb3VudCI6eyJ2YWxpZCI6dHJ1ZSwiYnNzIjoiYzU2YzlhMjY4ZDIzZTFiMzM5YWMxNDc3NDM1ODEzM2MiLCJpbXNfdXNlcl9pZCI6IjcyMjY1OTEiLCJmcm96ZW4iOnRydWUsImltcyI6IjExNjA0NDcifSwiaWF0IjoxNjEyOTA0ODAzLCJleHAiOjE2MTI5MDg0MDMsImlzcyI6Imh0dHBzOi8vaWFtLmNsb3VkLmlibS5jb20vaWRlbnRpdHkiLCJncmFudF90eXBlIjoidXJuOmlibTpwYXJhbXM6b2F1dGg6Z3JhbnQtdHlwZTphcGlrZXkiLCJzY29wZSI6ImlibSBvcGVuaWQiLCJjbGllbnRfaWQiOiJkZWZhdWx0IiwiYWNyIjoxLCJhbXIiOlsicHdkIl19.cDa63U2ARH92Tm5oGh8nn5RMVDzEKDi9U37t4D38XXbOTPv-ZQIXDRZAsh7PP8ltApX6qkplZkf2vjt6dRCeCwMv06fO1tHTrosdm4m_P0e-xxh_NL1oAeUc1kYd7unijvZICaHa9v7uMYrJlxUpTT8elQq4SdT8nN-6RLCS9DratD-pwXX_Adk5ubOu9DAHauCZ21wGXOqpeUAZSorW_-02XRRNv6lcwTK6is1G3nJKQY_4Nbl6qpn-73bemoNYfMQg0ovk-GyQ7WNj7nMMzs-1Ax2kGCcNMKVp76KalFoIFevCUxDKW0Lg2uuuC86ZkK2Bon7BuST2uLFMraW7KA","refresh_token":"REFRESH_TOKEN","ims_user_id":"11111","token_type":"Bearer","expires_in":3600,"expiration":4102462800,"refresh_token_expiration":1615496803,"scope":"ibm
         openid"}'
     http_version:
-  recorded_at: Fri, 09 Oct 2020 17:59:15 GMT
+  recorded_at: Tue, 09 Feb 2021 21:06:46 GMT
 recorded_with: VCR 5.1.0

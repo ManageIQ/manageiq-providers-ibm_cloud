@@ -12,15 +12,15 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
   end
 
   def vm_key_pairs(vm_id)
-    connection.instances.instance(vm_id)&.initialization || {}
+    connection.request(:get_instance_initialization, :id => vm_id) || {}
   end
 
   def flavors
-    connection.instance_profiles.all
+    connection.request(:list_instance_profiles)[:profiles]
   end
 
   def images
-    @images ||= connection.images.all.to_a
+    @images ||= connection.collection(:list_images).to_a
   end
 
   def images_by_id
@@ -28,38 +28,42 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
   end
 
   def image(image_id)
-    connection.images.instance(image_id)&.details
+    connection.request(:list_images, :id => image_id)
   end
 
   def keys
-    connection.keys.all
+    connection.request(:list_keys)[:keys]
   end
 
   def availability_zones
-    connection.regions.instance(manager.provider_region).zones.all
+    connection.request(:list_region_zones, :region_name => manager.provider_region)[:zones]
   end
 
   def security_groups
-    connection.security_groups.all
+    connection.collection(:list_security_groups)
   end
 
   def cloud_networks
-    connection.vpcs.all
+    connection.collection(:list_vpcs)
   end
 
   def cloud_subnets
-    connection.subnets.all
+    connection.collection(:list_subnets)
   end
 
   def floating_ips
-    connection.floating_ips.all
+    connection.collection(:list_floating_ips)
   end
 
   def volumes
-    connection.volumes.all
+    connection.collection(:list_volumes)
   end
 
   def volume(volume_id)
-    connection.volumes.instance(volume_id)&.details
+    connection.request(:get_volume, :id => volume_id)
+  end
+
+  def tags_by_crn(crn)
+    connection.cloudtools.tagging.collection(:list_tags, :attached_to => crn, :providers => ["ghost"]).to_a
   end
 end

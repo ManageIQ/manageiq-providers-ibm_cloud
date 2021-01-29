@@ -55,8 +55,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
       instance_hardware(persister_instance, instance)
       instance_operating_system(persister_instance, instance)
       instance_network_interfaces(persister_instance, instance)
-      vm_and_template_labels(persister_instance, instance.tags.to_a)
-      vm_and_template_taggings(persister_instance, map_labels("VmIBM", instance.tags.to_a))
+
+      tags = collector.tags_by_crn(instance[:crn])
+      vm_and_template_labels(persister_instance, tags)
+      vm_and_template_taggings(persister_instance, map_labels("VmIBM", tags))
     end
   end
 

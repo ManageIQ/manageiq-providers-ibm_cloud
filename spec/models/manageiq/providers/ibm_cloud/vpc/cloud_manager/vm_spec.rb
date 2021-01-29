@@ -1,4 +1,4 @@
-require 'logger'
+# frozen_string_literal: true
 
 describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm do
   let(:ems) do
@@ -42,22 +42,20 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm do
     end
 
     let(:parent) do
-      vpc = double("IBM::Cloud::SDK::Vpc")
+      vpc = double("ManageIQ::Providers::IbmCloud::CloudTools::Vpc")
       allow(vpc).to receive(:logger).and_return(Logger.new(nil))
-      allow(vpc).to receive_messages(:url => nil, :token => nil, :connection => nil)
+      allow(vpc).to receive_messages(:cloudtools => nil, :region => nil, :version => nil)
       vpc
     end
 
     let(:actions) do
-      require 'ibm-cloud-sdk'
-      actions = IBM::Cloud::SDK::VPC::INSTANCE::Actions.new(parent)
+      actions = ManageIQ::Providers::IbmCloud::CloudTools::VpcSdk::InstanceActions.new(:vpc => parent, :instance_id => nil)
       allow(actions).to receive(:create).and_return({:this => 'mock'})
       actions
     end
 
     let(:instance) do
-      require 'ibm-cloud-sdk'
-      instance = IBM::Cloud::SDK::VPC::Instance.new(parent)
+      instance = ManageIQ::Providers::IbmCloud::CloudTools::VpcSdk::Instance.new(:vpc => parent, :data => {})
       allow(instance).to receive(:refresh) { instance.merge!({:id => 'mock_id', :name => 'Test instance', :status => 'running'}) }
       allow(instance).to receive(:actions).and_return(actions)
       instance.refresh
