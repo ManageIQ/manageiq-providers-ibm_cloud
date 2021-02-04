@@ -3,8 +3,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyP
     ext_management_system.with_provider_connection(:service => "PCloudTenantsSSHKeysApi") do |api|
       tenant_id = ext_management_system.tenant_id(api.api_client)
       ssh_key   = IbmCloudPower::SSHKey.new(
-        :name       => create_options[:name],
-        :public_key => create_options[:public_key]
+        :name    => create_options['name'],
+        :ssh_key => create_options['public_key']
       )
 
       api.pcloud_tenants_sshkeys_post(tenant_id, ssh_key)
