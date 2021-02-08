@@ -22,6 +22,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
     power_api_client.config.scheme  = "https"
     power_api_client.config.host    = "#{location}.power-iaas.cloud.ibm.com"
     power_api_client.config.logger  = $ibm_cloud_log
+    power_api_client.config.debugging = Settings.log.level_ibm_cloud == "debug"
     power_api_client.default_headers["Crn"]           = power_iaas_service.crn
     power_api_client.default_headers["Authorization"] = "#{token.token_type} #{token.access_token}"
 
