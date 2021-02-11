@@ -18,8 +18,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :component  => 'text-field',
           :name       => 'size',
           :id         => 'size',
-          :label      => _('Size (GB)'),
+          :label      => _('Size (in bytes)'),
           :type       => 'number',
+          :step       => 1.gigabytes,
           :isRequired => true,
           :validate   => [{:type => 'required'}],
         },
@@ -113,7 +114,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     ext_management_system.with_provider_connection(:service => 'PCloudVolumesApi') do |api|
       volume_params = IbmCloudPower::CreateDataVolume.new(
         'name'            => options['name'],
-        'size'            => options['size'].to_f,
+        'size'            => options['size'] / 1.0.gigabyte,
         'disk_type'       => options['volume_type'],
         'shareable'       => options['multi_attachment'],
         'affinity_policy' => options['affinity_policy'],
