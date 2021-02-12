@@ -157,32 +157,32 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def assert_specific_network_port
-      network_port = ems.network_manager.network_ports.find_by(:ems_ref => "c91ad01c-23e0-4602-b605-8f8c259e8150")
+      network_port = ems.network_manager.network_ports.find_by(:ems_ref => "cd3fe1c4-bbd6-4254-a809-fe6fe543c170")
       expect(network_port).to have_attributes(
-        :ems_ref     => "c91ad01c-23e0-4602-b605-8f8c259e8150",
-        :name        => "c91ad01c-23e0-4602-b605-8f8c259e8150",
-        :mac_address => "fa:1f:a0:cd:36:20",
+        :ems_ref     => "cd3fe1c4-bbd6-4254-a809-fe6fe543c170",
+        :name        => "cd3fe1c4-bbd6-4254-a809-fe6fe543c170",
+        :mac_address => "fa:e4:33:53:80:20",
         :status      => "ACTIVE",
-        :device_ref  => "7effc17f-f708-48f0-862d-4177fabf62fe"
+        :device_ref  => "74bb914d-44a6-4893-b1b8-499cbc7f82ca"
       )
 
       expect(network_port.cloud_subnets.count).to eq(2)
       expect(network_port.cloud_subnet_network_ports.pluck(:address))
-        .to match_array(["192.168.129.76", "52.117.38.76"])
+        .to match_array(["192.168.129.78", "52.117.38.78"])
     end
 
     def assert_specific_cloud_volume
-      cloud_volume = ems.storage_manager.cloud_volumes.find_by(:ems_ref => "978d5b1d-ca0b-47ab-9fc0-6860aaa15ec3")
+      cloud_volume = ems.storage_manager.cloud_volumes.find_by(:ems_ref => "dc15d935-e6a1-4788-b227-bb24cd3c0c76")
       expect(cloud_volume.availability_zone&.ems_ref).to eq(ems.uid_ems)
-      expect(cloud_volume.creation_time.to_s).to eql("2020-09-30 20:13:06 UTC")
+      expect(cloud_volume.creation_time.to_s).to eql("2021-02-12 18:08:55 UTC")
       expect(cloud_volume).to have_attributes(
-        :ems_ref          => "978d5b1d-ca0b-47ab-9fc0-6860aaa15ec3",
+        :ems_ref          => "dc15d935-e6a1-4788-b227-bb24cd3c0c76",
         :name             => "jaytest1",
         :status           => "available",
         :bootable         => false,
         :description      => "IBM Cloud Block-Storage Volume",
         :volume_type      => "tier1",
-        :size             => 1.gigabyte,
+        :size             => 10.gigabyte,
         :multi_attachment => true
       )
     end
