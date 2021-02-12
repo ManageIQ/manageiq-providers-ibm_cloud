@@ -111,7 +111,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :uid_ems          => "b4ae82e3-51c2-49a3-9071-81f668232ed4",
         :ems_ref          => "b4ae82e3-51c2-49a3-9071-81f668232ed4",
         :name             => "7100-05-05",
-        :description      => nil,
+        :description      => "stock",
         :vendor           => "ibm",
         :power_state      => "never",
         :raw_power_state  => "never",

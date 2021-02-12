@@ -124,7 +124,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :uid_ems            => id,
         :ems_ref            => id,
         :name               => ibm_image.name,
-        :description        => ibm_image.description.presence,
+        :description        => ibm_image.specifications.image_type,
         :location           => "unknown",
         :vendor             => "ibm",
         :raw_power_state    => "never",
