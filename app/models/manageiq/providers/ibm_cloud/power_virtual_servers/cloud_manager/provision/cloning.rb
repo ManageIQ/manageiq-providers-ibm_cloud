@@ -27,15 +27,15 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     specs['networks'][0]['ipAddress'] = ip_addr unless !ip_addr || ip_addr.strip.blank?
 
     chosen_key_pair = get_option_last(:guest_access_key_pair)
-    specs['keyPairName'] = chosen_key_pair unless chosen_key_pair == 'None'
+    specs['ssh_key_name'] = chosen_key_pair unless chosen_key_pair == 'None'
 
     user_script_text = options[:user_script_text]
     user_script_text64 = Base64.encode64(user_script_text) unless user_script_text.nil?
-    specs['userData'] = user_script_text64 unless user_script_text64.nil?
+    specs['user_data'] = user_script_text64 unless user_script_text64.nil?
 
     attached_volumes = options[:cloud_volumes] || []
     attached_volumes.concat(phase_context[:new_volumes]).compact!
-    specs['volumeIDs'] = attached_volumes unless attached_volumes.empty?
+    specs['volume_i_ds'] = attached_volumes unless attached_volumes.empty?
 
     attached_networks = case get_option(:vlan)
                         when 'None'
