@@ -69,7 +69,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_sys_type(_options = {})
-    flavor_type = sap_image? ? "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile" : "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType"
+    flavor_type = "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::#{sap_image? ? 'SAPProfile' : 'SystemType'}"
 
     ar_sys_types = ar_ems.flavors.find_all { |flavor| flavor.type == flavor_type }
 
