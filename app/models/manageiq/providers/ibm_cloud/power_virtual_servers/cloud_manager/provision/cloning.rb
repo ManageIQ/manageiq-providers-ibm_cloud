@@ -5,32 +5,39 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
   def prepare_for_clone_task
     specs = {
-      'serverName'  => get_option(:vm_target_name),
-      'imageID'     => get_option_last(:src_vm_id),
-      'processors'  => get_option_last(:entitled_processors).to_f,
-      'procType'    => get_option_last(:instance_type),
-      'memory'      => get_option_last(:vm_memory).to_i,
-      'sysType'     => get_option_last(:sys_type),
-      'pinPolicy'   => get_option_last(:pin_policy),
-      'migratable'  => get_option_last(:migratable) == 1,
-      'replicants'  => 1, # TODO: we have to use this field instead of what 'MIQ' does
-      'storageType' => get_option_last(:storage_type)
+      'image_id'   => get_option_last(:src_vm_id),
+      'pin_policy' => get_option_last(:pin_policy),
     }
+
+    chosen_key_pair = get_option_last(:guest_access_key_pair)
+
+    if sap_image?
+      specs['name']         = get_option(:vm_target_name)
+      specs['profile_id']   = get_option_last(:sys_type)
+      specs['ssh_key_name'] = chosen_key_pair unless chosen_key_pair == 'None'
+    else
+      specs['server_name']   = get_option(:vm_target_name)
+      specs['memory']        = get_option_last(:vm_memory).to_i
+      specs['migratable']    = get_option_last(:migratable) == 1
+      specs['processors']    = get_option_last(:entitled_processors).to_f
+      specs['proc_type']     = get_option_last(:instance_type)
+      specs['replicants']    = 1 # TODO: we have to use this field instead of what 'MIQ' does
+      specs['key_pair_name'] = chosen_key_pair unless chosen_key_pair == 'None'
+      specs['storage_type']  = get_option_last(:storage_type)
+      specs['sys_type']      = get_option_last(:sys_type)
+    end
 
     # TODO: support multiple values
     ip_addr = get_option_last(:ip_addr)
     specs['networks'][0]['ipAddress'] = ip_addr unless !ip_addr || ip_addr.strip.blank?
 
-    chosen_key_pair = get_option_last(:guest_access_key_pair)
-    specs['keyPairName'] = chosen_key_pair unless chosen_key_pair == 'None'
-
     user_script_text = options[:user_script_text]
     user_script_text64 = Base64.encode64(user_script_text) unless user_script_text.nil?
-    specs['userData'] = user_script_text64 unless user_script_text64.nil?
+    specs['user_data'] = user_script_text64 unless user_script_text64.nil?
 
     attached_volumes = options[:cloud_volumes] || []
     attached_volumes.concat(phase_context[:new_volumes]).compact!
-    specs['volumeIDs'] = attached_volumes unless attached_volumes.empty?
+    specs['volume_i_ds'] = attached_volumes unless attached_volumes.empty?
 
     attached_networks = case get_option(:vlan)
                         when 'None'
@@ -46,10 +53,18 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
   def start_clone(clone_options)
     begin
-      source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
-        body = IbmCloudPower::PVMInstanceCreate.new(clone_options)
-        response = api.pcloud_pvminstances_post(cloud_instance_id, body)
-        response&.first&.pvm_instance_id
+      if sap_image?
+        source.with_provider_connection(:service => "PCloudSAPApi") do |api|
+          body = IbmCloudPower::SAPCreate.new(clone_options)
+          response = api.pcloud_sap_post(cloud_instance_id, body)
+          response&.first&.pvm_instance_id
+        end
+      else
+        source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
+          body = IbmCloudPower::PVMInstanceCreate.new(clone_options)
+          response = api.pcloud_pvminstances_post(cloud_instance_id, body)
+          response&.first&.pvm_instance_id
+        end
       end
     rescue RestClient::ExceptionWithResponse => e
       raise MiqException::MiqProvisionError, e.response.to_s

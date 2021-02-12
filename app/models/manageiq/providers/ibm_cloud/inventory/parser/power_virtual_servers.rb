@@ -124,7 +124,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :uid_ems            => id,
         :ems_ref            => id,
         :name               => ibm_image.name,
-        :description        => ibm_image.description.presence,
+        :description        => ibm_image.specifications.image_type,
         :location           => "unknown",
         :vendor             => "ibm",
         :raw_power_state    => "never",
@@ -240,6 +240,21 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType",
         :ems_ref => value.type,
         :name    => value.type
+      )
+    end
+    collector.sap_profiles.each do |value|
+      description = ''
+      if value.certified
+        description = 'certified'
+      end
+
+      persister.flavors.build(
+        :type        => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile",
+        :ems_ref     => value.profile_id,
+        :name        => value.profile_id,
+        :cpus        => value.cores,
+        :memory      => value.memory,
+        :description => description
       )
     end
   end

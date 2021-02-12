@@ -6,6 +6,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   require_nested :ProvisionWorkflow
   require_nested :Template
   require_nested :Vm
+  require_nested :SAPProfile
 
   include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
 
