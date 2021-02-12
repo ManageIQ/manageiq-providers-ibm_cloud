@@ -242,7 +242,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :name    => value.type
       )
     end
-    collector.sap_profiles.profiles.each do |value|
+    collector.sap_profiles.each do |value|
       description = ''
       if value.certified
         description = 'certified'

@@ -44,7 +44,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   end
 
   def sap_profiles
-    @sap_profiles ||= sap_api.pcloud_sap_getall(cloud_instance_id)
+    @sap_profiles ||= sap_api.pcloud_sap_getall(cloud_instance_id).profiles || []
   end
 
   def sshkeys
