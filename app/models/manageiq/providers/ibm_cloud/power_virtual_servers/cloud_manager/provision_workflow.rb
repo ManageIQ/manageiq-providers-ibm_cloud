@@ -27,6 +27,17 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     ar_ems.miq_templates.select { |t| t.id == template_id }[0]
   end
 
+  def sap_image?
+    vm_image.description == 'stock-sap'
+  end
+
+  def sap_flavor
+    if sap_image?
+      selected_flavor_name = values&.dig(:sys_type, 1)
+      ar_ems.flavors.select { |flavor| flavor.name == selected_flavor_name }[0]
+    end
+  end
+
   def allowed_sys_type(_options = {})
     ar_sys_types = ar_ems.flavors
     sys_types = ar_sys_types&.map&.each_with_index { |sys_type, i| [i, sys_type['name']] }
