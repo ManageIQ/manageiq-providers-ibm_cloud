@@ -23,8 +23,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def vm_image
-    template_id = values&.dig(:src_vm_id, 0)
-    ar_ems.miq_templates.select { |t| t.id == template_id }[0]
+    @vm_image ||= begin
+      template_id = values&.dig(:src_vm_id, 0)
+      ar_ems.miq_templates.find_by(:id => template_id)
+    end
   end
 
   def sap_image?
@@ -33,8 +35,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
 
   def sap_flavor
     if sap_image?
-      selected_flavor_name = values&.dig(:sys_type, 1)
-      ar_ems.flavors.select { |flavor| flavor.name == selected_flavor_name }[0]
+      @sap_image ||= begin
+        selected_flavor_name = values&.dig(:sys_type, 1)
+        ar_ems.flavors.find_by(:name => selected_flavor_name)
+      end
     end
   end
 
