@@ -242,6 +242,21 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :name    => value.type
       )
     end
+    collector.sap_profiles.profiles.each do |value|
+      description = ''
+      if value.certified
+        description = 'certified'
+      end
+
+      persister.flavors.build(
+        :type        => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile",
+        :ems_ref     => value.profile_id,
+        :name        => value.profile_id,
+        :cpus        => value.cores,
+        :memory      => value.memory,
+        :description => description
+      )
+    end
   end
 
   def cloud_volume_types

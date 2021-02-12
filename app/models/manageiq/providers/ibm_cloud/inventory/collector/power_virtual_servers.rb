@@ -43,6 +43,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     networks_api.pcloud_networks_ports_getall(cloud_instance_id, network_id).ports || []
   end
 
+  def sap_profiles
+    @sap_profiles ||= sap_api.pcloud_sap_getall(cloud_instance_id)
+  end
+
   def sshkeys
     @sshkeys ||= tenants_api.pcloud_tenants_get(tenant_id).ssh_keys
   end
@@ -85,6 +89,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
 
   def pvm_instances_api
     @pvm_instances_api ||= IbmCloudPower::PCloudPVMInstancesApi.new(connection)
+  end
+
+  def sap_api
+    @sap_api ||= IbmCloudPower::PCloudSAPApi.new(connection)
   end
 
   def system_pools_api
