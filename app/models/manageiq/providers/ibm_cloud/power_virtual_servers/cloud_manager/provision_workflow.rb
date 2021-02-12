@@ -38,8 +38,37 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     end
   end
 
+  def sap_flavor_memory(_options = {})
+    if sap_flavor
+      {"2" => sap_flavor.memory}
+    end
+  end
+
+  def sap_flavor_cpus(_options = {})
+    if sap_flavor
+      {sap_flavor.cpus.to_s => ''}
+    end
+  end
+
+  def allowed_instance_type(_options = {})
+    if sap_image?
+      {
+        0 => "dedicated"
+      }
+    else
+      {
+        0 => "capped",
+        1 => "shared",
+        2 => "dedicated"
+      }
+    end
+  end
+
   def allowed_sys_type(_options = {})
-    ar_sys_types = ar_ems.flavors
+    flavor_type = sap_image? ? "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile" : "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType"
+
+    ar_sys_types = ar_ems.flavors.find_all { |flavor| flavor.type == flavor_type }
+
     sys_types = ar_sys_types&.map&.each_with_index { |sys_type, i| [i, sys_type['name']] }
     Hash[sys_types || {}]
   end

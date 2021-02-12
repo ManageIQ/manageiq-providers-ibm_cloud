@@ -101,6 +101,8 @@
         :entitled_processors:
           :description: Entitled Processors
           :required: true
+          :values_from:
+            :method: :sap_flavor_cpus
           :required_method: :validate_entitled_processors
           :display: :edit
           :default: '0.25'
@@ -108,10 +110,8 @@
           :min_length: 1
           :max_length: 5
         :instance_type:
-          :values:
-            0: "capped"
-            1: "shared"
-            2: "dedicated"
+          :values_from:
+            :method: :allowed_instance_type
           :description: Processor
           :required: true
           :display: :edit
@@ -138,6 +138,8 @@
           :required_method: :validate_regex
           :required_regex: !ruby/regexp /^\s*[0-9]+\s*$/
           :required: true
+          :values_from:
+            :method: :sap_flavor_memory
           :default: "2"
           :data_type: :string
           :display: :edit
