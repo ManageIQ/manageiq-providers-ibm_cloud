@@ -22,6 +22,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     %i[name size shareable]
   end
 
+  def vm_image
+    template_id = values&.dig(:src_vm_id, 0)
+    ar_ems.miq_templates.select { |t| t.id == template_id }[0]
+  end
+
   def allowed_sys_type(_options = {})
     ar_sys_types = ar_ems.flavors
     sys_types = ar_sys_types&.map&.each_with_index { |sys_type, i| [i, sys_type['name']] }
