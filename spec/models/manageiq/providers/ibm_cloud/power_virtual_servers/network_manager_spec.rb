@@ -2,7 +2,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager do
   context "ems" do
     it "does not support network creation" do
       ems = FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud)
-      expect(ems.supports_ems_network_new?).to eq(false)
+      expect(ems.supports?(:ems_network_new)).to eq(false)
     end
   end
 
