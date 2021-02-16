@@ -8,6 +8,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
 
   include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
 
+  supports :cloud_subnet_create
+
   delegate :authentication_check,
            :authentication_status,
            :authentication_status_ok?,

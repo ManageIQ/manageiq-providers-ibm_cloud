@@ -5,6 +5,52 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager::CloudS
     end
   end
 
+  def self.params_for_create(_ems)
+    {
+      :fields => [
+        {
+          :component    => 'select',
+          :name         => 'type',
+          :id           => 'type',
+          :label        => _('Type'),
+          :isRequired   => true,
+          :validate     => [{:type => 'required'}],
+          :initialValue => 'vlan',
+          :options      => [
+            {
+              :label => 'vlan',
+              :value => 'vlan',
+            },
+            {
+              :label => 'pub-vlan',
+              :value => 'pub-vlan',
+            }
+          ]
+        },
+        {
+          :component => 'text-field',
+          :id        => 'starting_ip_address',
+          :name      => 'starting_ip_address',
+          :label     => _('Starting IP Address'),
+        },
+        {
+          :component => 'text-field',
+          :id        => 'ending_ip_address',
+          :name      => 'ending_ip_address',
+          :label     => _('Ending IP Address'),
+        },
+        {
+          :component => 'switch',
+          :id        => 'jumbo',
+          :name      => 'jumbo',
+          :label     => _('MTU Jumbo Network'),
+          :onText    => _('Enabled'),
+          :offText   => _('Disabled'),
+        },
+      ],
+    }
+  end
+
   def delete_cloud_subnet_queue(userid)
     task_opts = {
       :action => "creating cloud subnet, userid: #{userid}",
