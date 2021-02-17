@@ -25,15 +25,16 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :validate   => [{:type => 'required'}],
         },
         {
-          :component => 'select',
-          :name      => 'volume_type',
-          :id        => 'volume_type',
-          :label     => _('Cloud Volume Type'),
-          :condition => {
+          :component    => 'select',
+          :name         => 'volume_type',
+          :id           => 'volume_type',
+          :label        => _('Cloud Volume Type'),
+          :includeEmpty => true,
+          :condition    => {
             :when => 'edit',
             :is   => false,
           },
-          :options   => ems.cloud_volume_types.map do |cvt|
+          :options      => ems.cloud_volume_types.map do |cvt|
             {
               :label => cvt.description,
               :value => cvt.name,
@@ -74,13 +75,14 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           ],
         },
         {
-          :component  => 'select',
-          :name       => 'affinity_volume_id',
-          :id         => 'affinity_volume_id',
-          :label      => _('Affinity Volume'),
-          :isRequired => true,
-          :validate   => [{:type => 'required'}],
-          :condition  => {
+          :component    => 'select',
+          :name         => 'affinity_volume_id',
+          :id           => 'affinity_volume_id',
+          :label        => _('Affinity Volume'),
+          :isRequired   => true,
+          :validate     => [{:type => 'required'}],
+          :includeEmpty => true,
+          :condition    => {
             :and => [
               {
                 :not => {
@@ -94,7 +96,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
               },
             ],
           },
-          :options    => ems.cloud_volumes.map do |cv|
+          :options      => ems.cloud_volumes.map do |cv|
             {
               :value => cv.id,
               :label => cv.name,
