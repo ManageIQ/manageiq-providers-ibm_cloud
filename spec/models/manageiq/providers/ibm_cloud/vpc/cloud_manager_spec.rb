@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 describe ManageIQ::Providers::IbmCloud::VPC::CloudManager do
+  # Defined in config/secrets.yml of the manageiq repo.
   let(:api_key) { Rails.application.secrets.ibmcvs.try(:[], :api_key) || "IBMCVS_API_KEY" }
 
   it ".ems_type" do

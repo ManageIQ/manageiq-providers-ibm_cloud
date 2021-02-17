@@ -3,23 +3,50 @@ if ENV['CI']
   SimpleCov.start
 end
 
-Dir[Rails.root.join("spec/shared/**/*.rb")].each { |f| require f }
-Dir[File.join(__dir__, "support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join("spec/shared/**/*.rb")].sort.each { |f| require f }
+Dir[File.join(__dir__, "support/**/*.rb")].sort.each { |f| require f }
 
 require "manageiq-providers-ibm_cloud"
 
+# Iterate through the SSH keys and replace all values.
+# Being very careful with this one as fixing a data leak would be costly.
+def replace_ssh_keys(response)
+  data = JSON.parse(response.body, :symbolize_names => true)
+  return unless data.key?(:keys)
+
+  keys = {:fingerprint => 'SHA256:xxxxxxx', :public_key => 'RSA: VVVVVV'}
+  data.fetch(:keys).each_with_index do |v, i|
+    v.merge!(keys)
+    v[:name] = "random_key_#{i}"
+  end
+  response.body = data.to_json.force_encoding('ASCII-8BIT')
+end
+
+# Replace the contents of the token before writing to file.
+def replace_token_contents(response)
+  data = JSON.parse(response.body, :symbolize_names => true)
+  data.merge!({:refresh_token => 'REFRESH_TOKEN', :ims_user_id => '22222', :expiration => Date.new(2100, 1, 1).to_time.to_i})
+  response.body = data.to_json.force_encoding('ASCII-8BIT')
+end
+
+# Sanitize VPC VCR files.
+def vpc_sanitizier(interaction)
+  # Mask bearer token in recorded file.
+  interaction.request.headers['Authorization'] = 'Bearer xxxxxx' if interaction.request.headers.key?('Authorization')
+  # Replace IP V4 Addresses
+  interaction.response.body.gsub!(/([0-9]{1,3}\.){3}/, '127.0.0.')
+  # Replace ssh key data.
+  replace_ssh_keys(interaction.response)
+  interaction
+end
+
 VCR.configure do |config|
-  config.ignore_hosts 'codeclimate.com' if ENV['CI']
+  # config.debug_logger = $stdout # Keep for debugging tests.
+  config.ignore_hosts('codeclimate.com') if ENV['CI']
   config.cassette_library_dir = File.join(ManageIQ::Providers::IbmCloud::Engine.root, 'spec/vcr_cassettes')
+  config.define_cassette_placeholder('IBMCVS_API_KEY') { Rails.application.secrets.ibmcvs.try(:[], :api_key) || 'IBMCVS_API_KEY' }
   config.before_record do |i|
-    # The ibm-cloud-sdk gem attempts to auto-renew the Bearer token if it
-    # detects that it is expired.  This causes unhandled http interactions
-    # after the expiration time.  We can replace the expiration time with
-    # one way in the future to prevent this.
-    if i.request.uri == "https://iam.cloud.ibm.com/identity/token"
-      body = JSON.parse(i.response.body)
-      body["expiration"] = Date.new(2100, 1, 1).to_time.to_i
-      i.response.body = body.to_json
-    end
+    replace_token_contents(i.response) if i.request.uri == "https://iam.cloud.ibm.com/identity/token"
+    vpc_sanitizier(i) if i.request.uri.match?('iaas.cloud.ibm')
   end
 end

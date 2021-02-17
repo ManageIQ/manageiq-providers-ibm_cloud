@@ -9,15 +9,22 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
     %w[auth_key]
   end
 
+  # Return a cloudtools vpc object.
+  # @param options [Hash] Hash of options. Default to an empty Hash.
+  # @return [ManageIQ::Providers::IbmCloud::CloudTools::Vpc]
   def connect(options = {})
     key = authentication_key(options[:auth_type])
     region = options[:provider_region] || provider_region
     sdk = self.class.raw_connect(key)
-    sdk.vpc(region)
+    sdk.vpc(:region => region)
   end
 
+  # Same as calling connect.
+  # @param _auth_type [nil] Not used
+  # @param options [Hash] Connection options.
+  # @return [ManageIQ::Providers::IbmCloud::CloudTools::Vpc]
   def verify_credentials(_auth_type = nil, options = {})
-    !!connect(options)&.token&.authorization_header
+    connect(options).cloudtools.authenticator
   end
 
   module ClassMethods
@@ -62,7 +69,7 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
       }.freeze
     end
 
-    # Verify Credentials
+    # Get the authentication from for args hash.
     # args:
     # {
     #   "uid_ems"         => "",
@@ -72,29 +79,31 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
     #     }
     #   }
     # }
-
-    def verify_credentials(args)
+    # @param args [Hash] The supplied arguments.
+    # @return [String] The retrieved authorization key.
+    def auth_key(args)
       auth_key = args.dig('authentications', 'default', 'auth_key')
       auth_key = ManageIQ::Password.try_decrypt(auth_key)
       auth_key ||= find(args['id']).authentication_token('default')
-      !!raw_connect(auth_key)&.token&.authorization_header
-    rescue IBM::Cloud::SDKHTTP::Exceptions::HttpStatusError => err
-      if err.response.status == 400
-        err_msg = err.response.json[:errorMessage]
-        err_msg ||= 'Authentication failed.'
-        raise MiqException::MiqInvalidCredentialsError, _(err_msg)
-      else
-        raise
-      end
+      auth_key
     end
 
-    def raw_connect(api_key)
-      if api_key.blank?
-        raise MiqException::MiqInvalidCredentialsError, _('Missing credentials')
-      end
+    # Verify that the credentials can be authenitcted by IAM.
+    # @see auth_key
+    # @raise [MiqException::MiqInvalidCredentialsError] The authentication failed.
+    def verify_credentials(args)
+      raw_connect(auth_key(args))&.authenticator
+    rescue IBMCloudSdkCore::ApiException => err
+      raise MiqException::MiqInvalidCredentialsError, _(err)
+    end
 
-      require 'ibm-cloud-sdk'
-      IBM::CloudSDK.new(api_key, :logger => $ibm_cloud_log)
+    # Get a new CloudTools class.
+    # @raise [MiqException::MiqInvalidCredentialsError] The apikey is nil.
+    # @return [ManageIQ::Providers::IbmCloud::CloudTools] An instantiated version of the CloudTools.
+    def raw_connect(api_key)
+      ManageIQ::Providers::IbmCloud::CloudTool.new(:api_key => api_key)
+    rescue RuntimeError
+      raise MiqException::MiqInvalidCredentialsError, _('Missing credentials')
     end
   end
 end

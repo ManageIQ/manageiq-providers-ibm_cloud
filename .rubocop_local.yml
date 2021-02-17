@@ -4,4 +4,4 @@ Style/GlobalVars:
 
 Style/MethodCallWithArgsParentheses:
   Exclude:
-  - spec/models/manageiq/providers/ibm_cloud/vpc/cloud_manager/vm_spec.rb
+  - spec/models/manageiq/providers/ibm_cloud/vpc/**/*.rb

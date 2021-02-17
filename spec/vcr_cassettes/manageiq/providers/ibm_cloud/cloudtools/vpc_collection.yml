@@ -1,0 +1,122 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://iam.cloud.ibm.com/identity/token
+    body:
+      encoding: UTF-8
+      string: grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=IBMCVS_API_KEY&response_type=cloud_iam
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - application/json
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/4.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Transaction-Id:
+      - fac286acd5a34b4ea0ebee3b12037389
+      Cache-Control:
+      - no-cache, no-store
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '1318'
+      X-Envoy-Upstream-Service-Time:
+      - '1503'
+      Server:
+      - istio-envoy
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Date:
+      - Fri, 12 Feb 2021 18:05:46 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - sessioncookie="de4cace0834b27a5"; Path=/; HttpOnly
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"eyJraWQiOiIyMDIxMDEyMDE4MzUiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiNzI5MTJjYjItODE4Ny00Y2U5LWI1MmEtYjA4NDg2YWI5OWMxIiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYWNjb3VudCI6eyJ2YWxpZCI6dHJ1ZSwiYnNzIjoiYzU2YzlhMjY4ZDIzZTFiMzM5YWMxNDc3NDM1ODEzM2MiLCJpbXNfdXNlcl9pZCI6IjcyMjY1OTEiLCJmcm96ZW4iOnRydWUsImltcyI6IjExNjA0NDcifSwiaWF0IjoxNjEzMTUzMTQzLCJleHAiOjE2MTMxNTY3NDMsImlzcyI6Imh0dHBzOi8vaWFtLmNsb3VkLmlibS5jb20vaWRlbnRpdHkiLCJncmFudF90eXBlIjoidXJuOmlibTpwYXJhbXM6b2F1dGg6Z3JhbnQtdHlwZTphcGlrZXkiLCJzY29wZSI6ImlibSBvcGVuaWQiLCJjbGllbnRfaWQiOiJkZWZhdWx0IiwiYWNyIjoxLCJhbXIiOlsicHdkIl19.DDTSSqoULqT8EgZJmHOKKNlf1WmzkIFTlDLQ5_O8UElpfenP5zkEPPthhfv_6V0Q0fKd7CwkRGFgexmgzKvyb9P-BZMrBUnDGqP5x2F09UABtO1IanEE_XCHoWXq6zJ0W1do3V8G2baif7BVoeVc59CyQhGby-GQXn26pDp6xUy6bXiHqisMN-VOja291bPkMXSkEp0IFffTz_2UQ_wi11Lhjc0b0xclPQD1ZFUFbhxQfiCeg-ef11iOzBa-tzdo0_eJIFZdX7yCVqkqWadMqidvXQP-I1PvA79CpanWRcON0NV5vPBXMgIn7pG0HPr-bK03ZI6KwvTQD6UM_HaaLg","refresh_token":"REFRESH_TOKEN","ims_user_id":"11111","token_type":"Bearer","expires_in":3600,"expiration":4102462800,"scope":"ibm
+        openid"}'
+    http_version:
+  recorded_at: Fri, 12 Feb 2021 18:05:46 GMT
+- request:
+    method: get
+    uri: https://us-east.iaas.cloud.ibm.com/v1/volumes?generation=2&version=2021-01-01
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - ibm_vpc-ruby-sdk-0.1.0 x86_64-apple-darwin19.6.0 ruby-2.6.6
+      X-Ibmcloud-Sdk-Analytics:
+      - service_name=vpc;service_version=V1;operation_id=list_volumes
+      Accept:
+      - application/json
+      Authorization:
+      - Bearer eyJraWQiOiIyMDIxMDEyMDE4MzUiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiNzI5MTJjYjItODE4Ny00Y2U5LWI1MmEtYjA4NDg2YWI5OWMxIiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYWNjb3VudCI6eyJ2YWxpZCI6dHJ1ZSwiYnNzIjoiYzU2YzlhMjY4ZDIzZTFiMzM5YWMxNDc3NDM1ODEzM2MiLCJpbXNfdXNlcl9pZCI6IjcyMjY1OTEiLCJmcm96ZW4iOnRydWUsImltcyI6IjExNjA0NDcifSwiaWF0IjoxNjEzMTUzMTQzLCJleHAiOjE2MTMxNTY3NDMsImlzcyI6Imh0dHBzOi8vaWFtLmNsb3VkLmlibS5jb20vaWRlbnRpdHkiLCJncmFudF90eXBlIjoidXJuOmlibTpwYXJhbXM6b2F1dGg6Z3JhbnQtdHlwZTphcGlrZXkiLCJzY29wZSI6ImlibSBvcGVuaWQiLCJjbGllbnRfaWQiOiJkZWZhdWx0IiwiYWNyIjoxLCJhbXIiOlsicHdkIl19.DDTSSqoULqT8EgZJmHOKKNlf1WmzkIFTlDLQ5_O8UElpfenP5zkEPPthhfv_6V0Q0fKd7CwkRGFgexmgzKvyb9P-BZMrBUnDGqP5x2F09UABtO1IanEE_XCHoWXq6zJ0W1do3V8G2baif7BVoeVc59CyQhGby-GQXn26pDp6xUy6bXiHqisMN-VOja291bPkMXSkEp0IFffTz_2UQ_wi11Lhjc0b0xclPQD1ZFUFbhxQfiCeg-ef11iOzBa-tzdo0_eJIFZdX7yCVqkqWadMqidvXQP-I1PvA79CpanWRcON0NV5vPBXMgIn7pG0HPr-bK03ZI6KwvTQD6UM_HaaLg
+      Connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 12 Feb 2021 18:05:49 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - close
+      Set-Cookie:
+      - __cfduid=d94b632470108484e9323d6942789e0211613153147; expires=Sun, 14-Mar-21
+        18:05:47 GMT; path=/; domain=.iaas.cloud.ibm.com; HttpOnly; SameSite=Lax;
+        Secure
+      Cf-Ray:
+      - 62083d60bd323fdf-YYZ
+      Cache-Control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      Expires:
+      - "-1"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Vary:
+      - Accept-Encoding
+      Cf-Cache-Status:
+      - DYNAMIC
+      Cf-Request-Id:
+      - '083904b07800003fdf39873000000001'
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Pragma:
+      - no-cache
+      Transaction-Id:
+      - 4ec09f86680deae54c1c97e122ec14f4
+      X-Content-Type-Options:
+      - nosniff
+      X-Request-Id:
+      - 4ec09f86680deae54c1c97e122ec14f4
+      X-Xss-Protection:
+      - 1; mode=block
+      Server:
+      - cloudflare
+    body:
+      encoding: UTF-8
+      string: '{"first":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volumes?start=r014-75d669a9-72f6-11ea-b28c-feff0b284b22\u0026limit=50"},"limit":50,"volumes":[{"active":false,"capacity":100,"created_at":"2020-03-31T02:22:29.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-75d669a9-72f6-11ea-b28c-feff0b284b22","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-75d669a9-72f6-11ea-b28c-feff0b284b22","id":"r014-75d669a9-72f6-11ea-b28c-feff0b284b22","iops":3000,"name":"postgres","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","status_reasons":[],"volume_attachments":[{"delete_volume_on_instance_delete":false,"device":{"id":"0777-fc94b3f8-20e8-45c8-bf95-6893ae56f52c-jbjx5"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d/volume_attachments/0777-fc94b3f8-20e8-45c8-bf95-6893ae56f52c","id":"0777-fc94b3f8-20e8-45c8-bf95-6893ae56f52c","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","id":"0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","name":"test"},"name":"volume-attachment","type":"data"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"active":false,"capacity":100,"created_at":"2020-03-31T02:22:30.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-75d65ec3-72f6-11ea-b28c-feff0b284b22","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-75d65ec3-72f6-11ea-b28c-feff0b284b22","id":"r014-75d65ec3-72f6-11ea-b28c-feff0b284b22","iops":3000,"name":"test-boot","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","status_reasons":[],"volume_attachments":[{"delete_volume_on_instance_delete":true,"device":{"id":"0777-de4544bd-58bb-4924-8f0c-4edf4fc994b9-8fbnl"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d/volume_attachments/0777-de4544bd-58bb-4924-8f0c-4edf4fc994b9","id":"0777-de4544bd-58bb-4924-8f0c-4edf4fc994b9","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","id":"0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","name":"test"},"name":"volume-attachment","type":"boot"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"active":false,"capacity":100,"created_at":"2020-09-23T13:27:31.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-87773d7e-fda0-11ea-b8c9-feff0b288b7c","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-87773d7e-fda0-11ea-b8c9-feff0b288b7c","id":"r014-87773d7e-fda0-11ea-b8c9-feff0b288b7c","iops":3000,"name":"cmh1-boot","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","status_reasons":[],"volume_attachments":[{"delete_volume_on_instance_delete":true,"device":{"id":"0777-c1ed05b9-c92b-4c15-8f8b-6aa7f836b691-kss4c"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_f73e8687-3813-465f-99df-ba6e4ee8f289/volume_attachments/0777-c1ed05b9-c92b-4c15-8f8b-6aa7f836b691","id":"0777-c1ed05b9-c92b-4c15-8f8b-6aa7f836b691","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_f73e8687-3813-465f-99df-ba6e4ee8f289","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_f73e8687-3813-465f-99df-ba6e4ee8f289","id":"0777_f73e8687-3813-465f-99df-ba6e4ee8f289","name":"cmh1"},"name":"volume-attachment","type":"boot"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"active":false,"capacity":10,"created_at":"2020-09-23T14:58:58.000Z","crn":"crn:v1:bluemix:public:is:us-east-1:a/c56c9a268d23e1b339ac14774358133c::volume:r014-f71d932e-8683-4bd4-a401-ad01e4a8e0b5","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-f71d932e-8683-4bd4-a401-ad01e4a8e0b5","id":"r014-f71d932e-8683-4bd4-a401-ad01e4a8e0b5","iops":3000,"name":"brad","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","status_reasons":[],"volume_attachments":[],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-1","name":"us-east-1"}},{"active":false,"capacity":10,"created_at":"2020-09-23T14:59:31.000Z","crn":"crn:v1:bluemix:public:is:us-east-2:a/c56c9a268d23e1b339ac14774358133c::volume:r014-028a0749-68ba-44c8-9d6f-487d80fdb26a","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-028a0749-68ba-44c8-9d6f-487d80fdb26a","id":"r014-028a0749-68ba-44c8-9d6f-487d80fdb26a","iops":3000,"name":"brad2","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/c315f4fc1e3e4d5ca4cc2a2c38e40ef6","id":"c315f4fc1e3e4d5ca4cc2a2c38e40ef6","name":"cloudforms"},"status":"available","status_reasons":[],"volume_attachments":[],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-2","name":"us-east-2"}},{"active":false,"capacity":10,"created_at":"2020-09-23T15:01:17.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-f2742c9e-7e91-43ca-a623-8d1edecb0fc4","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-f2742c9e-7e91-43ca-a623-8d1edecb0fc4","id":"r014-f2742c9e-7e91-43ca-a623-8d1edecb0fc4","iops":3000,"name":"bradboot","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/29b1dd25de2d40b5ae5bd5f719f30db8","id":"29b1dd25de2d40b5ae5bd5f719f30db8","name":"camc-test"},"status":"available","status_reasons":[],"volume_attachments":[{"delete_volume_on_instance_delete":false,"device":{"id":"0777-7ee316bb-7802-4f60-8f8a-faddbf80b328-k5kph"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d/volume_attachments/0777-7ee316bb-7802-4f60-8f8a-faddbf80b328","id":"0777-7ee316bb-7802-4f60-8f8a-faddbf80b328","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","id":"0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d","name":"test"},"name":"volume-attachment","type":"data"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"active":false,"capacity":100,"created_at":"2020-09-29T15:58:47.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-a7dfe63b-026c-11eb-b8c9-feff0b288b7c","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-a7dfe63b-026c-11eb-b8c9-feff0b288b7c","id":"r014-a7dfe63b-026c-11eb-b8c9-feff0b288b7c","iops":3000,"name":"cmh2-boot","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","status_reasons":[],"volume_attachments":[{"delete_volume_on_instance_delete":true,"device":{"id":"0777-f2b439dc-6949-4346-ae8d-7cafe11c8408-cfxd7"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_8dcba0a5-ab24-4379-b0c6-3d32900c86d8/volume_attachments/0777-f2b439dc-6949-4346-ae8d-7cafe11c8408","id":"0777-f2b439dc-6949-4346-ae8d-7cafe11c8408","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_8dcba0a5-ab24-4379-b0c6-3d32900c86d8","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_8dcba0a5-ab24-4379-b0c6-3d32900c86d8","id":"0777_8dcba0a5-ab24-4379-b0c6-3d32900c86d8","name":"cmh2"},"name":"volume-attachment","type":"boot"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"active":false,"capacity":100,"created_at":"2020-10-05T21:16:21.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-14203f4c-5e36-43c3-a62d-06d9e15f7cd5","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-14203f4c-5e36-43c3-a62d-06d9e15f7cd5","id":"r014-14203f4c-5e36-43c3-a62d-06d9e15f7cd5","iops":3000,"name":"brad-multidisk-boot","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","status_reasons":[],"volume_attachments":[{"delete_volume_on_instance_delete":true,"device":{"id":"0777-5127e87c-3d9c-4229-82b4-bcf7caf5dbcb-xfzl7"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2/volume_attachments/0777-5127e87c-3d9c-4229-82b4-bcf7caf5dbcb","id":"0777-5127e87c-3d9c-4229-82b4-bcf7caf5dbcb","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","id":"0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","name":"brad-multidisk"},"name":"volume-attachment","type":"boot"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"active":false,"capacity":20,"created_at":"2020-10-05T21:16:21.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-20c074ca-6a28-4e6c-9704-9077de9a7f2e","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-20c074ca-6a28-4e6c-9704-9077de9a7f2e","id":"r014-20c074ca-6a28-4e6c-9704-9077de9a7f2e","iops":3000,"name":"b-disk2","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","status_reasons":[],"volume_attachments":[{"delete_volume_on_instance_delete":false,"device":{"id":"0777-6cdb087f-dbf0-48d5-b26c-a2a882c118b3-p74ld"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2/volume_attachments/0777-6cdb087f-dbf0-48d5-b26c-a2a882c118b3","id":"0777-6cdb087f-dbf0-48d5-b26c-a2a882c118b3","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","id":"0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","name":"brad-multidisk"},"name":"volume-attachment","type":"data"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"active":false,"capacity":20,"created_at":"2020-10-05T21:16:22.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-de4a9b51-c243-46a4-97f9-e0220e131db1","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-de4a9b51-c243-46a4-97f9-e0220e131db1","id":"r014-de4a9b51-c243-46a4-97f9-e0220e131db1","iops":3000,"name":"b-disk1","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","status_reasons":[],"volume_attachments":[{"delete_volume_on_instance_delete":false,"device":{"id":"0777-c5e56523-46e2-4ca0-b34e-f11dd3e333ef-fr5wm"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2/volume_attachments/0777-c5e56523-46e2-4ca0-b34e-f11dd3e333ef","id":"0777-c5e56523-46e2-4ca0-b34e-f11dd3e333ef","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","id":"0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","name":"brad-multidisk"},"name":"volume-attachment","type":"data"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"active":false,"capacity":30,"created_at":"2020-10-05T21:16:22.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-4a7adea3-051c-4239-82b5-a2f3dfa09b28","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-4a7adea3-051c-4239-82b5-a2f3dfa09b28","id":"r014-4a7adea3-051c-4239-82b5-a2f3dfa09b28","iops":3000,"name":"b-disk3","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","status_reasons":[],"volume_attachments":[{"delete_volume_on_instance_delete":false,"device":{"id":"0777-398b74c7-0f2c-4936-bc53-3ed0145d91ea-vcsh2"},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2/volume_attachments/0777-398b74c7-0f2c-4936-bc53-3ed0145d91ea","id":"0777-398b74c7-0f2c-4936-bc53-3ed0145d91ea","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","id":"0777_a9ee9e6a-231a-4a3c-b9cb-fc83d25114a2","name":"brad-multidisk"},"name":"volume-attachment","type":"data"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}},{"active":false,"capacity":100,"created_at":"2020-11-02T12:12:24.000Z","crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::volume:r014-48c5809e-39a4-4177-a4c8-2a3cb6434bd2","encryption":"provider_managed","href":"https://us-east.iaas.cloud.ibm.com/v1/volumes/r014-48c5809e-39a4-4177-a4c8-2a3cb6434bd2","id":"r014-48c5809e-39a4-4177-a4c8-2a3cb6434bd2","iops":3000,"name":"ubuntu-18-vm-boot","profile":{"href":"https://us-east.iaas.cloud.ibm.com/v1/volume/profiles/general-purpose","name":"general-purpose"},"resource_group":{"href":"https://resource-controller.cloud.ibm.com/v2/resource_groups/345c433098294722ba52d9039133e8cf","id":"345c433098294722ba52d9039133e8cf","name":"default"},"status":"available","status_reasons":[],"volume_attachments":[{"delete_volume_on_instance_delete":true,"device":{"id":""},"href":"https://us-east.iaas.cloud.ibm.com/instances/0777_2652013a-860e-4363-a463-e0bd9019e2d3/volume_attachments/0777-cde17cd9-5b01-477f-9778-9a262edb5d20","id":"0777-cde17cd9-5b01-477f-9778-9a262edb5d20","instance":{"crn":"crn:v1:bluemix:public:is:us-east-3:a/c56c9a268d23e1b339ac14774358133c::instance:0777_2652013a-860e-4363-a463-e0bd9019e2d3","href":"https://us-east.iaas.cloud.ibm.com/instances/0777_2652013a-860e-4363-a463-e0bd9019e2d3","id":"0777_2652013a-860e-4363-a463-e0bd9019e2d3","name":"ubuntu-18-vm"},"name":"volume-attachment","type":"boot"}],"zone":{"href":"https://us-east.iaas.cloud.ibm.com/v1/regions/us-east/zones/us-east-3","name":"us-east-3"}}]}'
+    http_version:
+  recorded_at: Fri, 12 Feb 2021 18:05:49 GMT
+recorded_with: VCR 5.1.0
