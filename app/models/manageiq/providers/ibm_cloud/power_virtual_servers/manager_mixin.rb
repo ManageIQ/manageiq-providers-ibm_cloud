@@ -20,7 +20,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
 
     power_api_client.config.api_key = auth_key
     power_api_client.config.scheme  = "https"
-    power_api_client.config.host    = "#{location}.power-iaas.cloud.ibm.com"
+    power_api_client.config.host    = api_endpoint_url(location)
     power_api_client.config.logger  = $ibm_cloud_log
     power_api_client.config.debugging = Settings.log.level_ibm_cloud == "debug"
     power_api_client.default_headers["Crn"]           = power_iaas_service.crn
@@ -34,6 +34,11 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
     else
       power_api_client
     end
+  end
+
+  def api_endpoint_url(location)
+    region = location.sub(/-\d$/, '')
+    "#{region}.power-iaas.cloud.ibm.com"
   end
 
   def verify_credentials(_auth_type = nil, options = {})
