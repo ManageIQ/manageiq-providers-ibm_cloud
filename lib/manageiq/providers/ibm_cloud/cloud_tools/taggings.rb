@@ -34,7 +34,7 @@ module ManageIQ
               offset = response.fetch(:offset) + response.fetch(:limit)
 
               resources = response[:items]
-              resources&.each { |value| yield value } # rubocop:disable Style/ExplicitBlockArgument
+              resources&.each { |value| yield value }
 
               return if resources.empty?
             end

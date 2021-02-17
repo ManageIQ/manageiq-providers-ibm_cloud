@@ -29,7 +29,7 @@ module ManageIQ
             # Convert non-nil keys into a hash.
             # @return [Hash]
             def to_hash
-              self.class::ACCESSOR_KEYS.each_with_object({}) { |key, obj| obj[key] = instance_variable_get("@#{key}") }.compact # rubocop:disable Rails/IndexWith
+              self.class::ACCESSOR_KEYS.each_with_object({}) { |key, obj| obj[key] = instance_variable_get("@#{key}") }.compact
             end
           end
         end

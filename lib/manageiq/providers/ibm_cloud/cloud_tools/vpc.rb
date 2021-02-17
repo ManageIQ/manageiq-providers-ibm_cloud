@@ -44,7 +44,7 @@ module ManageIQ
 
               resources = response.fetch(array_key.to_sym)
 
-              resources&.each { |value| yield value } # rubocop:disable Style/ExplicitBlockArgument
+              resources&.each { |value| yield value }
 
               # VPC has a next key that holds the next URL.
               return unless response.key?(:next)
