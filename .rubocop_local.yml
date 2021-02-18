@@ -1,7 +1,3 @@
 Style/GlobalVars:
   AllowedVariables:
   - $ibm_cloud_log # Global cloud plugin log from ManageIQ.
-
-Style/MethodCallWithArgsParentheses:
-  Exclude:
-  - spec/models/manageiq/providers/ibm_cloud/vpc/**/*.rb
