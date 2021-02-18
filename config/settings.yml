@@ -1,5 +1,7 @@
 :ems:
   :ems_ibm_cloud_power_virtual_servers:
+    :api_endpoint_overrides:
+      :dal12: us-south.power-iaas.cloud.ibm.com
     :event_handling:
       :event_groups:
         :power:

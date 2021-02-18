@@ -37,8 +37,16 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
   end
 
   def api_endpoint_url(location)
-    region = location.sub(/-\d$/, '')
-    "#{region}.power-iaas.cloud.ibm.com"
+    api_endpoint_overrides = ::Settings.ems.ems_ibm_cloud_power_virtual_servers.api_endpoint_overrides
+
+    if api_endpoint_overrides.key?(location.to_sym)
+      url = api_endpoint_overrides[location.to_sym]
+    else
+      region = location.sub(/-\d$/, '')
+      url = "#{region}.power-iaas.cloud.ibm.com"
+    end
+
+    url
   end
 
   def verify_credentials(_auth_type = nil, options = {})
