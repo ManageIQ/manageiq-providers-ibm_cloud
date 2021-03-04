@@ -17,10 +17,16 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
     case options[:service]
     when "PowerIaas"
       region, guid, token, crn, tenant = creds.values_at(:region, :guid, :token, :crn, :tenant)
-      IBM::Cloud::SDK::PowerIaas.new(region, guid, token, crn, tenant)
+      IBM::Cloud::SDK::PowerIaas.new(api_endpoint_url(region), guid, token, crn, tenant)
     else
       raise ArgumentError, _("Unknown target API set: '%{service_type}'") % {:service_type => options[:service]}
     end
+  end
+
+  def api_endpoint_url(location)
+    api_endpoint_overrides = ::Settings.ems.ems_ibm_cloud_power_virtual_servers.api_endpoint_overrides
+
+    api_endpoint_overrides[location.to_sym] || location.sub(/-\d$/, '')
   end
 
   def verify_credentials(_auth_type = nil, options = {})
