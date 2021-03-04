@@ -47,7 +47,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::PowerVirtualServers <
       )
     end
     add_cloud_collection(:miq_templates) do |builder|
-      builder.add_properties(:model_class => ::ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template)
       builder.add_default_values(:ems_id => ->(persister) { persister.cloud_manager.id })
     end
     add_advanced_settings
