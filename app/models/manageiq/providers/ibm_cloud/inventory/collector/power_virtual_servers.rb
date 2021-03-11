@@ -7,6 +7,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     connection
   end
 
+  def cloud_instance
+    cloud_instances_api.pcloud_cloudinstances_get(cloud_instance_id)
+  end
+
   def pvm_instances
     @pvm_instances ||= pvm_instances_api.pcloud_pvminstances_getall(cloud_instance_id).pvm_instances || []
   end
@@ -105,5 +109,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
 
   def volumes_api
     @volumes_api ||= IbmCloudPower::PCloudVolumesApi.new(connection)
+  end
+
+  def cloud_instances_api
+    @cloud_instances_api ||= IbmCloudPower::PCloudInstancesApi.new(connection)
   end
 end
