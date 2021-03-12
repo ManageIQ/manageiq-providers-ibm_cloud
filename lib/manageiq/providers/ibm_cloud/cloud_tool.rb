@@ -9,11 +9,10 @@ module ManageIQ
       # Collects and simplifies the intialization of IBM Cloud SDKs.
       # @param apk_key [String] A valid IAM API Key.
       class CloudTool
-        def initialize(api_key:, logger: nil)
-          raise 'API Key is nil.' if api_key.nil?
-
+        def initialize(api_key: nil, bearer_token: nil, logger: nil)
           @api_key = api_key
           @logger = define_logger(logger)
+          @bearer_token = bearer_token
         end
 
         attr_reader :logger
@@ -33,7 +32,7 @@ module ManageIQ
         # A IBM CLoud SDK authentication object.
         # @return [IamAuthenticator]
         def authenticator
-          @authenticator ||= CloudTools::Common::IamAuth.new(:apikey => @api_key)
+          @authenticator ||= CloudTools::Authentication.new_auth(:api_key => @api_key, :bearer_token => @bearer_token)
         end
 
         # Access the tagging cloud interface.
