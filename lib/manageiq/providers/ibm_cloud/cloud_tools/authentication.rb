@@ -11,7 +11,7 @@ module ManageIQ
           class << self
             # Fetch a new Authenticator using IAM token.
             # @param api_key [String]
-            # @param logger [Logger, String, IO] Either a logger object, a string, IO object.
+            # @param logger [Logger, IO, String] Either a Logger object, IO object or path to file.
             #
             # @raise [StandardError] API key is empty.
             # @return [IamAuth]
@@ -22,11 +22,11 @@ module ManageIQ
             end
 
             # Fetch a new Authenticator using IAM token.
-            # @param bearer_info [Hash{Symbol=><String, Integer>}] bearer hash with token, expire_time and api_key as keys.
-            # @param logger [Logger, String, IO] Either a logger object, a string, IO object.
+            # @param bearer_info [Hash{Symbol=>String, Integer}] bearer hash with token, expire_time and api_key as keys.
+            # @param logger [Logger, IO, String] Either a Logger object, IO object or path to file.
             #
             # @raise [StandardError] Bearer token is empty.
-            # @return [IbmVpc::Authenticators::BearerTokenAuthenticator]
+            # @return [BearerAuth]
             def new_bearer(bearer_info, logger: nil)
               raise 'Bearer token info is empty.' if bearer_info.nil?
 
@@ -35,10 +35,10 @@ module ManageIQ
 
             # Fetch a new Authenticator using IAM token.
             # @param api_key [String] The IAM OAuth api token.
-            # @param bearer_info [Hash{Symbol=><String, Integer>}] bearer hash with token, expire_time and api_key as keys.
-            # @param logger [Logger, IO,String] Either a logger object, a file path or IO object.
+            # @param bearer_info [Hash{Symbol => String, Integer}] bearer hash with token, expire_time and api_key as keys.
+            # @param logger [Logger, IO, String] Either a Logger object, IO object or path to file.
             #
-            # @return [IbmVpc::Authenticators::BearerTokenAuthenticator]
+            # @return [BearerAuth]
             def new_auth(api_key: nil, bearer_info: nil, logger: nil)
               raise 'No authentication information given.' if api_key.nil? && bearer_info.nil?
 
@@ -55,7 +55,7 @@ module ManageIQ
           # @see https://github.com/IBM/ruby-sdk-core/blob/main/lib/ibm_cloud_sdk_core/authenticators/bearer_token_authenticator.rb SDK Bearer doc.
           class BearerAuth < IbmVpc::Authenticators::BearerTokenAuthenticator
             # Convert bearer info into something the superclass understands.
-            # @param bearer_info [Hash{Symbol=><String, Integer>}] bearer hash with token, expire_time and api_key as keys.
+            # @param bearer_info [Hash{Symbol=>String, Integer}] bearer hash with token, expire_time and api_key as keys.
             # @param logger [Logger, IO,String] Either a logger object, a file path or IO object.
             #
             # @return [void]
@@ -65,14 +65,14 @@ module ManageIQ
               super({:bearer_token => bearer_info[:token]})
             end
 
-            # @return [Hash{Symbol=><String, Integer>}] bearer hash with token, expire_time and api_key as keys.
+            # @return [Hash{Symbol=>String, Integer}] bearer hash with token, expire_time and api_key as keys.
             attr_reader :bearer_info
 
             private
 
             # Verify that the bearer token hasn't expired. If it has and an API Key is present try to get a new bearer token.
             #
-            # @return [Hash{Symbol, <String, Integer>}] @see #bearer_info
+            # @return [Hash{Symbol => String, Integer}] @see #bearer_info
             def verify_info(bearer_info)
               # Raise standard error if expiration time expires in the next 10 second.
               if verify_valid(bearer_info[:expire_time])
@@ -94,7 +94,7 @@ module ManageIQ
             end
 
             # Define a new logger.
-            # @param logger [Logger, IO,String] Either a logger object, a file path or IO object.
+            # @param logger [Logger, IO, String] Either a Logger object, IO object or path to file.
             #
             # @return [Logger]
             def define_logger(logger)
@@ -115,7 +115,7 @@ module ManageIQ
               super(:apikey => api_key)
             end
 
-            # @return [Hash{Symbol=><String, Integer>}] bearer hash with token, expire_time and api_key as keys.
+            # @return [Hash{Symbol=> String, Integer}] bearer hash with token, expire_time and api_key as keys.
             def bearer_info
               {:token => @token_manager.access_token, :expire_time => @token_manager.token_info["expiration"], :api_key => @apikey}
             end
@@ -123,6 +123,7 @@ module ManageIQ
             private
 
             # Define a new logger.
+            # @param logger [Logger, IO, String] Either a Logger object, IO object or path to file.
             # @return [Logger]
             def define_logger(logger)
               return logger if logger.kind_of?(Logger)
