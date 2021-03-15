@@ -10,13 +10,16 @@ module ManageIQ
       class CloudTool
         # Initialize the class variables for the key but do not use them until a SDK method is called.
         # @param api_key [String] A valid IAM API Key or Access Token.
-        # @param bearer_token [String] The type of key that is given.
-        # @param logger [NilClass, String, {Logger}] Instantiate logger with no output. Filesystem path to print logs to. An instance of a object that implements Logger.
+        # @param bearer_info [Hash{Symbol => String, Integer}] Hash retrieved from #authenticator#bearer_info
+        # @param logger [Logger, IO, String] A logger instance, IO instance or path to a file.
+        #
         # @return [void]
-        def initialize(api_key: nil, bearer_token: nil, logger: nil)
+        def initialize(api_key: nil, bearer_info: nil, logger: nil)
+          raise 'Required api_key or bearer_info not provided' if api_key.nil? && bearer_info.nil?
+
           @api_key = api_key
+          @bearer_info = bearer_info
           @logger = define_logger(logger)
-          @bearer_token = bearer_token
         end
 
         # @return [Logger] a Ruby Logger instance.
@@ -33,10 +36,9 @@ module ManageIQ
         end
 
         # An IBM CLoud SDK authentication object.
-        # @param use_bearer [Boolean]
-        # @return [CloudTools::Common::IamAuth]
+        # @return [ManageIQ::Providers::IbmCloud::CloudTools::Authentication::BearerAuth]
         def authenticator
-          @authenticator ||= CloudTools::Authentication.new_auth(:api_key => @api_key, :bearer_token => @bearer_token)
+          @authenticator ||= CloudTools::Authentication.new_auth(:api_key => @api_key, :bearer_info => @bearer_info)
         end
 
         # @return [CloudTools::GlobalTag] the CloudTools GlobalTagging SDK wrapper.
