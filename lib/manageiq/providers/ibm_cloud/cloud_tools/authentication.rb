@@ -60,8 +60,8 @@ module ManageIQ
             #
             # @return [void]
             def initialize(bearer_info, logger: nil)
-              @bearer_info = verify_info(bearer_info)
               @logger = define_logger(logger)
+              @bearer_info = verify_info(bearer_info)
               super({:bearer_token => bearer_info[:token]})
             end
 
