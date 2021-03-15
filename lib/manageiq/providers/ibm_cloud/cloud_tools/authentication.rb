@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'logger'
 require 'ibm_vpc'
 
 module ManageIQ
@@ -8,59 +9,125 @@ module ManageIQ
       module CloudTools
         module Authentication
           class << self
-            # Set that params for the auth
-            # @param api_key [String] The API Key string.
-            # @param bearer_token [String] The Bearer Token string.
-            # @return [Hash<Symbol, String>]
-            def vars(api_key: nil, bearer_token: nil)
-              setup = {}
-              setup[:apikey] = api_key unless api_key.nil?
-              setup[:bearer_token] = bearer_token unless bearer_token.nil?
-              setup
-            end
-
             # Fetch a new Authenticator using IAM token.
             # @param api_key [String]
+            # @param logger [Logger, String, IO] Either a logger object, a string, IO object.
+            #
             # @raise [StandardError] API key is empty.
             # @return [IamAuth]
-            def new_iam(api_key)
+            def new_iam(api_key, logger: nil)
               raise 'API key is empty.' if api_key.nil?
 
-              IamAuth.new(vars(:api_key => api_key))
+              IamAuth.new(api_key, :logger => logger)
             end
 
             # Fetch a new Authenticator using IAM token.
-            # @param bearer_token [String]
+            # @param bearer_info [Hash{Symbol=><String, Integer>}] bearer hash with token, expire_time and api_key as keys.
+            # @param logger [Logger, String, IO] Either a logger object, a string, IO object.
+            #
             # @raise [StandardError] Bearer token is empty.
             # @return [IbmVpc::Authenticators::BearerTokenAuthenticator]
-            def new_bearer(bearer_token)
-              raise 'Bearer token is empty.' if bearer_token.nil?
+            def new_bearer(bearer_info, logger: nil)
+              raise 'Bearer token info is empty.' if bearer_info.nil?
 
-              BearerAuth.new(vars(:bearer_token => bearer_token))
+              BearerAuth.new(bearer_info, :logger => logger)
             end
 
             # Fetch a new Authenticator using IAM token.
-            # @param api_key [String]
-            # @param bearer_token [String]
+            # @param api_key [String] The IAM OAuth api token.
+            # @param bearer_info [Hash{Symbol=><String, Integer>}] bearer hash with token, expire_time and api_key as keys.
+            # @param logger [Logger, IO,String] Either a logger object, a file path or IO object.
+            #
             # @return [IbmVpc::Authenticators::BearerTokenAuthenticator]
-            def new_auth(api_key:, bearer_token: nil)
-              return new_bearer(bearer_token) unless bearer_token.nil?
+            def new_auth(api_key: nil, bearer_info: nil, logger: nil)
+              raise 'No authentication information given.' if api_key.nil? && bearer_info.nil?
 
-              iam_auth = new_iam(api_key)
-              new_bearer(iam_auth.bearer_token)
+              bearer_info[:api_key] = api_key if !bearer_info.nil? && !api_key.nil?
+
+              return new_bearer(bearer_info, :logger => logger) unless bearer_info.nil?
+
+              iam_auth = new_iam(api_key, :logger => logger)
+              new_bearer(iam_auth.bearer_info)
             end
           end
 
+          # API Authentication using Bearer header.
+          # @see https://github.com/IBM/ruby-sdk-core/blob/main/lib/ibm_cloud_sdk_core/authenticators/bearer_token_authenticator.rb SDK Bearer doc.
           class BearerAuth < IbmVpc::Authenticators::BearerTokenAuthenticator
-            # @return [String] The configured bearer_token.
-            attr_reader :bearer_token
+            # Convert bearer info into something the superclass understands.
+            # @param bearer_info [Hash{Symbol=><String, Integer>}] bearer hash with token, expire_time and api_key as keys.
+            # @param logger [Logger, IO,String] Either a logger object, a file path or IO object.
+            #
+            # @return [void]
+            def initialize(bearer_info, logger: nil)
+              @bearer_info = verify_info(bearer_info)
+              @logger = define_logger(logger)
+              super({:bearer_token => bearer_info[:token]})
+            end
+
+            # @return [Hash{Symbol=><String, Integer>}] bearer hash with token, expire_time and api_key as keys.
+            attr_reader :bearer_info
+
+            private
+
+            # Verify that the bearer token hasn't expired. If it has and an API Key is present try to get a new bearer token.
+            #
+            # @return [Hash{Symbol, <String, Integer>}] @see #bearer_info
+            def verify_info(bearer_info)
+              # Raise standard error if expiration time expires in the next 10 second.
+              if verify_valid(bearer_info[:expire_time])
+                raise 'Bearer token has expired.' if bearer_info[:api_key].nil?
+
+                @logger.info('Bearer token expired. Fetching new one using API Key.')
+                return IamAuth.new(bearer_info[:api_key]).bearer_info
+              end
+              bearer_info
+            end
+
+            # Validate expire time is set and greater than now - 10 seconds.
+            #
+            # @return [Boolean]
+            def verify_valid(expire_time)
+              return false if expire_time.nil?
+
+              expire_time <= (Time.now.to_i - 10)
+            end
+
+            # Define a new logger.
+            # @param logger [Logger, IO,String] Either a logger object, a file path or IO object.
+            #
+            # @return [Logger]
+            def define_logger(logger)
+              return logger if logger.kind_of?(Logger)
+
+              Logger.new(logger)
+            end
           end
 
-          # A class to allow for auth manipulation.
+          # IAM authentication using OAUTH API Key.
+          # @see https://github.com/IBM/ruby-sdk-core/blob/main/lib/ibm_cloud_sdk_core/authenticators/iam_authenticator.rb SDK IAM doc.
           class IamAuth < IbmVpc::Authenticators::IamAuthenticator
-            # @return [String] The retrieved access token.
-            def bearer_token
-              @token_manager.access_token
+            # Standardize the parameter names throughout the application.
+            # @param api_key [String] An IAM API Key.
+            # @return [void]
+            def initialize(api_key, logger: nil)
+              @logger = define_logger(logger)
+              super(:apikey => api_key)
+            end
+
+            # @return [Hash{Symbol=><String, Integer>}] bearer hash with token, expire_time and api_key as keys.
+            def bearer_info
+              {:token => @token_manager.access_token, :expire_time => @token_manager.token_info["expiration"], :api_key => @apikey}
+            end
+
+            private
+
+            # Define a new logger.
+            # @return [Logger]
+            def define_logger(logger)
+              return logger if logger.kind_of?(Logger)
+
+              Logger.new(logger)
             end
           end
         end
