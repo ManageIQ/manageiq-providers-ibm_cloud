@@ -33,7 +33,7 @@ module ManageIQ
             # @param force [Boolean] If set to true, the action will be forced immediately, and all queued actions deleted. Ignored for the start action.
             def create(action, force: false)
               logger.info("Sending action request for #{action} with force #{force}.")
-              @parent.response(:create_instance_action, :instance_id => @instance_id, :action => action, :force => force)
+              @parent.request(:create_instance_action, :instance_id => @instance_id, :type => action, :force => force)
             end
           end
         end
