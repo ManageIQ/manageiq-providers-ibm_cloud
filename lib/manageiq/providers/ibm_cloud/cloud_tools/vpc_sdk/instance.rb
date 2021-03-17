@@ -65,7 +65,7 @@ module ManageIQ
             end
 
             def actions
-              InstanceActions.new(:vpc => self, :instance_id => id)
+              InstanceActions.new(:vpc => @parent, :instance_id => id)
             end
 
             # Wait for the VM instance to be have a started status.
