@@ -8,7 +8,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   end
 
   def cloud_instance
-    cloud_instances_api.pcloud_cloudinstances_get(cloud_instance_id)
+    @cloud_instance ||= cloud_instances_api.pcloud_cloudinstances_get(cloud_instance_id)
   end
 
   def pvm_instances
