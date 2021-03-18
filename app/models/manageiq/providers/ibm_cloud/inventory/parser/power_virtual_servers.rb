@@ -242,20 +242,22 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :name    => value.type
       )
     end
-    collector.sap_profiles.each do |value|
-      description = ''
-      if value.certified
-        description = 'certified'
-      end
+    if collector.cloud_instance.capabilities.include?('sap')
+      collector.sap_profiles.each do |value|
+        description = ''
+        if value.certified
+          description = 'certified'
+        end
 
-      persister.flavors.build(
-        :type        => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile",
-        :ems_ref     => value.profile_id,
-        :name        => value.profile_id,
-        :cpus        => value.cores,
-        :memory      => value.memory,
-        :description => description
-      )
+        persister.flavors.build(
+          :type        => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile",
+          :ems_ref     => value.profile_id,
+          :name        => value.profile_id,
+          :cpus        => value.cores,
+          :memory      => value.memory,
+          :description => description
+        )
+      end
     end
   end
 
