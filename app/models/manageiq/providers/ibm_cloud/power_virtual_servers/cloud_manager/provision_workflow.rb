@@ -142,9 +142,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     return _("Entitled Processors field does not contain a well-formed positive number") unless fval > 0
 
     if dedicated
-      return _('For dedicated processors, the format is: "positive integer"') unless fval % 1 == 0
+      return _('For dedicated processors, the format is: "positive integer"') unless (fval % 1).zero?
     else
-      return _('For shared processors, the format is: "positive whole multiple of 0.25"') unless (fval / 0.25) % 1 == 0
+      return _('For shared processors, the format is: "positive whole multiple of 0.25"') unless ((fval / 0.25) % 1).zero?
     end
   end
 

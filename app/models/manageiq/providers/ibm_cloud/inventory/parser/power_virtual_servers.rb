@@ -14,6 +14,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   }.freeze
 
   def initialize
+    super
     @img_to_arch         = {}
     @subnet_to_ext_ports = {}
   end
