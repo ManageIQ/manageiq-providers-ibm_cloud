@@ -43,6 +43,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
       url = api_endpoint_overrides[location.to_sym]
     else
       region = location.sub(/-\d$/, '')
+      region = region.sub(/\d\d$/, '')
       url = "#{region}.power-iaas.cloud.ibm.com"
     end
 
