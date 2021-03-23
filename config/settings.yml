@@ -2,6 +2,13 @@
   :ems_ibm_cloud_power_virtual_servers:
     :api_endpoint_overrides:
       :dal12: us-south
+      :syd04: syd
+      :tok04: tok
+      :lon04: lon
+      :lon06: lon
+      :mon01: mon
+      :tor01: tor
+      :sao01: sao
     :event_handling:
       :event_groups:
         :power:
