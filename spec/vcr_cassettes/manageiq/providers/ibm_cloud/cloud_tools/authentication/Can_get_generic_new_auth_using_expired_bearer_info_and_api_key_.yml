@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://iam.cloud.ibm.com/identity/token
+    body:
+      encoding: UTF-8
+      string: grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=IBM_CLOUD_VPC_API_KEY&response_type=cloud_iam
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - application/json
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/4.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Transaction-Id:
+      - 2e6997633d5641b0b2696c722fa3ebc4
+      Cache-Control:
+      - no-cache, no-store
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '1524'
+      X-Envoy-Upstream-Service-Time:
+      - '18'
+      Server:
+      - istio-envoy
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Date:
+      - Mon, 15 Mar 2021 22:29:04 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - sessioncookie="4e32253784c73d75"; Path=/; HttpOnly
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"eyJraWQiOiIyMDIxMDIxOTE4MzUiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiNDZjOTI4YTEtMzY3Zi00N2I4LTk1MTAtYzVlNjdhNzY0MGQ0IiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYXV0aG4iOnsic3ViIjoiamFyZWRtQGNhLmlibS5jb20iLCJpYW1faWQiOiJpYW0tMjcwMDAxWE5ORiIsIm5hbWUiOiJKYXJlZCBNb29yZSIsImdpdmVuX25hbWUiOiJKYXJlZCIsImZhbWlseV9uYW1lIjoiTW9vcmUiLCJlbWFpbCI6ImphcmVkbUBjYS5pYm0uY29tIn0sImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6ImM1NmM5YTI2OGQyM2UxYjMzOWFjMTQ3NzQzNTgxMzNjIiwiaW1zX3VzZXJfaWQiOiI3MjI2NTkxIiwiZnJvemVuIjp0cnVlLCJpbXMiOiIxMTYwNDQ3In0sImlhdCI6MTYxNTg0NzM0MSwiZXhwIjoxNjE1ODUwOTQxLCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.YcmyRBtvVy0MuuTLv8HH3S2aL8EWow4vpibiAYrDU2xHmdK_DonLl5sDp4yVP4-ZIjluS2GSCcY9GW1A_Z6FNOIm7nQPo0odZkyueXhyoas3EHotDPy1E7A9oSa-LcvsTkMKm3W6LSQUiJNktCHZyknbouFMSeMi_tI6UC5-ZQLCyXz5MPLEEZ2e3K0Ut27tulN8MZvN7aR_cylOgajLWG-qJhCc62ALvpVFZWGUFcW_0Y-77bybxErkwjQ9up3MvCKrOe2zMZcdrWc4PqildRO2p3rpS0XpfVOCHwSbVvkEgKgiCNlv8F3YKqFagwsqQs9Ij2VjRv5rWhlxw_Eltw","refresh_token":"REFRESH_TOKEN","ims_user_id":"22222","token_type":"Bearer","expires_in":3600,"expiration":4102462800,"scope":"ibm
+        openid"}'
+    http_version:
+  recorded_at: Mon, 15 Mar 2021 22:29:04 GMT
+recorded_with: VCR 5.1.0
