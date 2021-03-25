@@ -270,6 +270,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       persister.cloud_volume_types.build(
         :type        => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudVolumeType",
         :ems_ref     => v.type,
+        :ems_id      => persister.storage_manager.id,
         :name        => v.type,
         :description => v.description
       )
