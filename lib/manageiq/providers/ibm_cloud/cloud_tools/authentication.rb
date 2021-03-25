@@ -75,7 +75,7 @@ module ManageIQ
             # @return [Hash{Symbol => String, Integer}] @see #bearer_info
             def verify_info(bearer_info)
               # Raise standard error if expiration time expires in the next 10 second.
-              if verify_valid(bearer_info[:expire_time])
+              if expired?(bearer_info[:expire_time])
                 raise 'Bearer token has expired.' if bearer_info[:api_key].nil?
 
                 @logger.info('Bearer token expired. Fetching new one using API Key.')
@@ -84,13 +84,15 @@ module ManageIQ
               bearer_info
             end
 
-            # Validate expire time is set and greater than now - 10 seconds.
+            # Check to see if the token expiry time has elapsed.
+            # @param expire_time [Integer, NilClass] The token expiry time provided by IAM.
             #
-            # @return [Boolean]
-            def verify_valid(expire_time)
-              return false if expire_time.nil?
+            # @return [Boolean] True is expired. False is valid.
+            def expired?(expire_time)
+              return true if expire_time.nil?
 
-              expire_time <= (Time.now.to_i - 10)
+              # Checks to see if the expire time will elapse in the next 10 seconds.
+              Time.now.to_i >= (expire_time - 10)
             end
 
             # Define a new logger.
