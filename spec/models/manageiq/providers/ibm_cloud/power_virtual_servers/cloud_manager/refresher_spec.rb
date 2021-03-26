@@ -66,6 +66,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(ems.network_manager.cloud_networks.count).to eq(3)
       expect(ems.network_manager.cloud_subnets.count).to eq(3)
       expect(ems.network_manager.network_ports.count).to eq(4)
+      expect(ems.storage_manager.cloud_volumes.count).to eq(13)
+      expect(ems.storage_manager.cloud_volume_types.count).to eq(4)
     end
 
     def assert_specific_vm
