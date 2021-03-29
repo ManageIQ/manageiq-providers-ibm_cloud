@@ -2,6 +2,8 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager < ManageIQ::Providers::
   include ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   include ManageIQ::Providers::StorageManager::BlockMixin
 
+  require_nested :CloudVolumeType
+
   delegate :authentication_check,
            :authentication_status,
            :authentication_status_ok?,

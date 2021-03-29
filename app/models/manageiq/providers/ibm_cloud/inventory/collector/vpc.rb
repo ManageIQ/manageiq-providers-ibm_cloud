@@ -65,6 +65,12 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
     connection.request(:get_volume, :id => volume_id)
   end
 
+  # Fetch volume profiles from VPC. Each item has following keys :name, :family, :href.
+  # @return [Array<Hash<Symbol, String>>]
+  def volume_profiles
+    connection.collection(:list_volume_profiles)
+  end
+
   def tags_by_crn(crn)
     connection.cloudtools.tagging.collection(:list_tags, :attached_to => crn, :providers => ["ghost"]).to_a
   end

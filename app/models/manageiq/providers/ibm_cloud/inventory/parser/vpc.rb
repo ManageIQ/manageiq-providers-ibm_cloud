@@ -14,6 +14,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     images
     instances
     volumes
+    cloud_volume_types
   end
 
   def images
@@ -296,6 +297,18 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :size              => vol[:capacity]&.gigabytes,
         :bootable          => bootable,
         :availability_zone => persister.availability_zones.lazy_find(az_name)
+      )
+    end
+  end
+
+  # Store VPC volume profiles in cloud_volume_types table. Use name for the ems_ref and name. Use the family as description.
+  # @return [void]
+  def cloud_volume_types
+    collector.volume_profiles.each do |v|
+      persister.cloud_volume_types.build(
+        :ems_ref     => v[:name],
+        :name        => v[:name],
+        :description => v[:family]
       )
     end
   end
