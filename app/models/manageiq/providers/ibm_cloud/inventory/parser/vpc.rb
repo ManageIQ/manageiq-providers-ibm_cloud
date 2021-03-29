@@ -237,13 +237,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   def cloud_subnets
     collector.cloud_subnets.each do |cs|
       persister.cloud_subnets.build(
-        :cloud_network    => persister.cloud_networks.lazy_find(cs&.dig(:vpc, :id)),
-        :cidr             => cs[:ipv4_cidr_block],
-        :ems_ref          => cs[:id],
-        :name             => cs[:name],
-        :status           => "active",
-        :ip_version       => cs[:ip_version],
-        :network_protocol => cs[:ip_version]
+        :cloud_network     => persister.cloud_networks.lazy_find(cs&.dig(:vpc, :id)),
+        :availability_zone => persister.availability_zones.lazy_find(cs&.dig(:zone, :name)),
+        :cidr              => cs[:ipv4_cidr_block],
+        :ems_ref           => cs[:id],
+        :name              => cs[:name],
+        :status            => "active",
+        :ip_version        => cs[:ip_version],
+        :network_protocol  => cs[:ip_version]
       )
     end
   end
