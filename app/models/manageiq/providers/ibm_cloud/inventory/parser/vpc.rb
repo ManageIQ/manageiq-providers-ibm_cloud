@@ -190,7 +190,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     collector.keys.each do |key|
       persister.auth_key_pairs.build(
         :name        => key[:name],
-        :fingerprint => key[:fingerprint]
+        :fingerprint => key[:fingerprint],
+        :ems_ref     => key[:id]
       )
     end
   end
