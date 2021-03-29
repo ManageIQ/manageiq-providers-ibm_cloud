@@ -40,6 +40,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
     # Storage Manager
     expect(ems.cloud_volumes.count).to eq(12)
+    expect(ems.cloud_volume_types.count).to eq(4)
   end
 
   def assert_specific_vm
