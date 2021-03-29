@@ -62,6 +62,10 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(vm.key_pairs.count).to eq(1)
     expect(vm.key_pairs.first.name).to eq('random_key_0')
     expect(vm.key_pairs.first.fingerprint).to eq('SHA256:xxxxxxx')
+
+    # Check that ems_ref is not nil and has a value which follows the guidance in https://cloud.ibm.com/apidocs/vpc#list-keys
+    expect(vm.key_pairs.first.ems_ref).to_not be_nil
+    expect(vm.key_pairs.first.ems_ref).to match(/^[-0-9a-z_]{1,64}/)
   end
 
   def assert_vm_labels
