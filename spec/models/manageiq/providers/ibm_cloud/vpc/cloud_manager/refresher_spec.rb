@@ -18,6 +18,8 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
       assert_ems_counts
       assert_specific_vm
+      assert_specific_cloud_volume_type
+      assert_specific_cloud_subnet
       assert_vm_labels
     end
   end
@@ -40,6 +42,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
     # Storage Manager
     expect(ems.cloud_volumes.count).to eq(12)
+    expect(ems.cloud_volume_types.count).to eq(4)
   end
 
   def assert_specific_vm
@@ -74,16 +77,23 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(vm.labels.count).to eq(4)
   end
 
+  def assert_specific_cloud_volume_type
+    cvt = ems.cloud_volume_types.find_by(:ems_ref => 'general-purpose')
+
+    expect(cvt.name).to eq('general-purpose')
+    expect(cvt.description).to eq('tiered')
+  end
+
   # Test the components of a cloud subnet.
   def assert_specific_cloud_subnet
     cloud_subnet = ems.cloud_subnets.find_by(:ems_ref => '0757-ef523a2f-5356-42ff-8a78-9325509465b9')
 
     # Test cloud_network relationship.
-    cloud_network = ems.cloud_network.find_by(:ems_ref => 'r014-0fa2acc6-2a41-4f2b-9c89-bcea07cdcbc3')
+    cloud_network = ems.cloud_networks.find_by(:ems_ref => 'r014-0fa2acc6-2a41-4f2b-9c89-bcea07cdcbc3')
     expect(cloud_subnet.cloud_network_id).to eq(cloud_network.id)
 
     # Test availability_zone relationship.
-    availability_zone = ems.availability_zone.find_by(:ems_ref => 'us-east-1')
+    availability_zone = ems.availability_zones.find_by(:ems_ref => 'us-east-1')
     expect(cloud_subnet.availability_zone_id).to eq(availability_zone.id)
 
     # Test remaining fields.
