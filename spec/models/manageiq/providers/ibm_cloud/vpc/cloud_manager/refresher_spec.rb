@@ -18,6 +18,8 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
       assert_ems_counts
       assert_specific_vm
+      assert_specific_cloud_volume_type
+      assert_specific_cloud_subnet
       assert_vm_labels
     end
   end
