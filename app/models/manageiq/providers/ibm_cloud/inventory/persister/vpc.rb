@@ -40,5 +40,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
 
   def initialize_storage_inventory_collections
     add_storage_collection(:cloud_volumes)
+    add_storage_collection(:cloud_volume_types)
   end
 end
