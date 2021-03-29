@@ -286,7 +286,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   def cloud_volume_types
     collector.volume_profiles.each do |v|
       persister.cloud_volume_types.build(
-        :type        => "ManageIQ::Providers::IbmCloud::VPC::StorageManager::CloudVolumeType",
         :ems_ref     => v[:name],
         :name        => v[:name],
         :description => v[:family]
