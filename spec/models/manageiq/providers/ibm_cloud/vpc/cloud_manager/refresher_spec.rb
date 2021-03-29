@@ -87,11 +87,11 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     cloud_subnet = ems.cloud_subnets.find_by(:ems_ref => '0757-ef523a2f-5356-42ff-8a78-9325509465b9')
 
     # Test cloud_network relationship.
-    cloud_network = ems.cloud_network.find_by(:ems_ref => 'r014-0fa2acc6-2a41-4f2b-9c89-bcea07cdcbc3')
+    cloud_network = ems.cloud_networks.find_by(:ems_ref => 'r014-0fa2acc6-2a41-4f2b-9c89-bcea07cdcbc3')
     expect(cloud_subnet.cloud_network_id).to eq(cloud_network.id)
 
     # Test availability_zone relationship.
-    availability_zone = ems.availability_zone.find_by(:ems_ref => 'us-east-1')
+    availability_zone = ems.availability_zones.find_by(:ems_ref => 'us-east-1')
     expect(cloud_subnet.availability_zone_id).to eq(availability_zone.id)
 
     # Test remaining fields.
