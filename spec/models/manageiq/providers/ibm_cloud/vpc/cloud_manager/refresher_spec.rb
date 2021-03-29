@@ -75,6 +75,13 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(vm.labels.count).to eq(4)
   end
 
+  def assert_specific_cloud_volume_type
+    cvt = ems.cloud_volume_types.find_by(:ems_ref => 'general-purpose')
+
+    expect(cvt.name).to eq('general-purpose')
+    expect(cvt.description).to eq('tiered')
+  end
+
   # Test the components of a cloud subnet.
   def assert_specific_cloud_subnet
     cloud_subnet = ems.cloud_subnets.find_by(:ems_ref => '0757-ef523a2f-5356-42ff-8a78-9325509465b9')
