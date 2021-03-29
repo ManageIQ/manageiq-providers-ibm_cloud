@@ -69,4 +69,23 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
     expect(vm.labels.count).to eq(4)
   end
+
+  # Test the components of a cloud subnet.
+  def assert_specific_cloud_subnet
+    cloud_subnet = ems.cloud_subnets.find_by(:ems_ref => '0757-ef523a2f-5356-42ff-8a78-9325509465b9')
+
+    # Test cloud_network relationship.
+    cloud_network = ems.cloud_network.find_by(:ems_ref => 'r014-0fa2acc6-2a41-4f2b-9c89-bcea07cdcbc3')
+    expect(cloud_subnet.cloud_network_id).to eq(cloud_network.id)
+
+    # Test availability_zone relationship.
+    availability_zone = ems.availability_zone.find_by(:ems_ref => 'us-east-1')
+    expect(cloud_subnet.availability_zone_id).to eq(availability_zone.id)
+
+    # Test remaining fields.
+    expect(cloud_subnet.cidr).to eq('127.0.0.0/24')
+    expect(cloud_subnet.name).to eq('b-subneet-washington-dc-1')
+    expect(cloud_subnet.ip_version).to eq('ipv4')
+    expect(cloud_subnet.network_protocol).to eq('ipv4')
+  end
 end
