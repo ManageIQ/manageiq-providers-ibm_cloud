@@ -2,7 +2,7 @@
 
 # rubocop:disable Style/MethodCallWithArgsParentheses # Guidance does not conform to preferred expect formatting.
 describe ManageIQ::Providers::IbmCloud::CloudTools::Authentication do
-  let(:api_key) { Rails.application.secrets.ibmcvs.try(:[], :api_key) || 'IBMCVS_API_KEY' }
+  let(:api_key) { Rails.application.secrets.ibm_cloud_vpc[:api_key] }
 
   # @param has_expired_time [Boolean] Include expire_time in returned hash.
   # @param backdate_expired_time [Boolean] Set the expire_time to sometime in the past.
@@ -138,7 +138,7 @@ describe ManageIQ::Providers::IbmCloud::CloudTools::Authentication do
 end
 
 describe ManageIQ::Providers::IbmCloud::CloudTool do
-  let(:api_key) { Rails.application.secrets.ibmcvs.try(:[], :api_key) || 'IBMCVS_API_KEY' }
+  let(:api_key) { Rails.application.secrets.ibm_cloud_vpc[:api_key] }
 
   it 'raises error on with not options given' do |example|
     VCR.use_cassette("#{described_class.name.underscore}/#{example.description}") do
