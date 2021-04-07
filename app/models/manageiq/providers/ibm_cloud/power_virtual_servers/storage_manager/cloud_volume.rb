@@ -98,7 +98,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           },
           :options      => ems.cloud_volumes.map do |cv|
             {
-              :value => cv.id,
+              :value => cv.name,
               :label => cv.name,
             }
           end,
