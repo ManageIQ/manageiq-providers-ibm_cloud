@@ -5,7 +5,7 @@ http_interactions:
     uri: https://iam.cloud.ibm.com/identity/token#apikey
     body:
       encoding: UTF-8
-      string: apikey=IBMCVS_API_KEY&grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey
+      string: apikey=IBM_CLOUD_POWERVS_API_KEY&grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey
     headers:
       User-Agent:
       - OpenAPI-Generator/1.0.1/ruby
