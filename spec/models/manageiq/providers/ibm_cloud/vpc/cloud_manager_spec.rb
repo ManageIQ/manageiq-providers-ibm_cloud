@@ -2,7 +2,7 @@
 
 describe ManageIQ::Providers::IbmCloud::VPC::CloudManager do
   # Defined in config/secrets.yml of the manageiq repo.
-  let(:api_key) { Rails.application.secrets.ibmcvs.try(:[], :api_key) || "IBMCVS_API_KEY" }
+  let(:api_key) { Rails.application.secrets.ibm_cloud_vpc[:api_key] }
 
   it ".ems_type" do
     expect(described_class.ems_type).to eq('ibm_vpc')

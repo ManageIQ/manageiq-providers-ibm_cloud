@@ -2,7 +2,7 @@
 
 describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
   let(:ems) do
-    api_key = Rails.application.secrets.ibmcvs.try(:[], :api_key) || "IBMCVS_API_KEY"
+    api_key = Rails.application.secrets.ibm_cloud_vpc[:api_key]
     FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "us-east").tap do |ems|
       ems.authentications << FactoryBot.create(:authentication, :auth_key => api_key)
     end
