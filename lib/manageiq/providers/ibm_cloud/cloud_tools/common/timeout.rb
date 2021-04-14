@@ -7,7 +7,7 @@ module ManageIQ
         module Common
           # A class that standardises the timeout for all object.
           class Timeout
-            def initialize(global: 10)
+            def initialize(global: 60)
               @global = global
             end
 
