@@ -35,7 +35,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
 
   def sap_flavor
     if sap_image?
-      @sap_image ||= begin
+      begin
         selected_flavor_name = values&.dig(:sys_type, 1)
         ar_ems.flavors.find_by(:name => selected_flavor_name)
       end
