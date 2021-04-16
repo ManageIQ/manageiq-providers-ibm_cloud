@@ -13,7 +13,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager do
   end
 
   it "verifies regions options" do
-    expect(described_class.provider_region_options.count).to eq(6)
+    expect(described_class.provider_region_options.count).to eq(8)
   end
 
   it "does not create orphaned network_manager" do
