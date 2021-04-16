@@ -61,27 +61,37 @@ module ManageIQ
             # @return [void]
             def initialize(bearer_info, logger: nil)
               @logger = define_logger(logger)
-              @bearer_info = verify_info(bearer_info)
+              @bearer_info = bearer_info
               super({:bearer_token => bearer_info[:token]})
             end
 
             # @return [Hash{Symbol=>String, Integer}] bearer hash with token, expire_time and api_key as keys.
             attr_reader :bearer_info
 
+            def authenticate(headers)
+              verify_bearer
+              super(headers)
+            end
+
             private
 
-            # Verify that the bearer token hasn't expired. If it has and an API Key is present try to get a new bearer token.
-            #
-            # @return [Hash{Symbol => String, Integer}] @see #bearer_info
-            def verify_info(bearer_info)
-              # Raise standard error if expiration time expires in the next 10 second.
-              if expired?(bearer_info[:expire_time])
-                raise 'Bearer token has expired.' if bearer_info[:api_key].nil?
-
-                @logger.info('Bearer token expired. Fetching new one using API Key.')
-                return IamAuth.new(bearer_info[:api_key]).bearer_info
+            # Check to see if bearer token has expired. If it has fetch a new one.
+            # @return [void]
+            def verify_bearer
+              if expired?(@bearer_info[:expire_time])
+                @bearer_info = new_bearer(@bearer_info)
+                @bearer_token = @bearer_info[:token]
               end
-              bearer_info
+            end
+
+            # Get a new bearer token.
+            # @param bearer_info [Hash{Symbol=>String, Integer}] Bearer info hash from IamAuth
+            # @return [Hash{Symbol=>String, Integer}] Bearer info hash from IamAuth
+            def new_bearer(bearer_info)
+              raise 'Bearer token has expired.' if bearer_info[:api_key].nil?
+
+              @logger.info('Bearer token expired. Fetching new one using API Key.')
+              IamAuth.new(bearer_info[:api_key]).bearer_info
             end
 
             # Check to see if the token expiry time has elapsed.
