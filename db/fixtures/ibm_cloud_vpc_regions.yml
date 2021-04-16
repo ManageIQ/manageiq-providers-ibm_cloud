@@ -7,6 +7,10 @@ us-east:
   :name: us-east
   :hostname: us-east.iaas.cloud.ibm.com
   :description: US East (Washington DC)
+ca-tor:
+  :name: ca-tor
+  :hostname: ca-tor.iaas.cloud.ibm.com
+  :description: Canada (Toronto)
 eu-gb:
   :name: eu-gb
   :hostname: eu-gb.iaas.cloud.ibm.com
@@ -19,6 +23,10 @@ jp-tok:
   :name: jp-tok
   :hostname: jp-tok.iaas.cloud.ibm.com
   :description: Japan (Tokyo)
+jp-osa:
+  :name: jp-osa
+  :hostname: jp-osa.iaas.cloud.ibm.com
+  :description: Japan (Osaka)
 au-syd:
   :name: au-syd
   :hostname: au-syd.iaas.cloud.ibm.com
