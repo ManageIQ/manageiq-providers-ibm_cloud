@@ -93,7 +93,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   def allowed_subnets(_options = {})
     ar_subnets = ar_ems.cloud_subnets
     subnets = ar_subnets&.collect { |subnet| [subnet[:ems_ref], subnet[:name]] }
-    none = ['None', 'None']
+    none = ['None', 'None (Must attach to new public network)']
     Hash[subnets.unshift(none)]
   end
 
