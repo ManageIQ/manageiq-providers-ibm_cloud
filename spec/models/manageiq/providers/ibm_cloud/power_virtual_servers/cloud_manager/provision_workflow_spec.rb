@@ -48,25 +48,25 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provi
           {
             :name      => "disk_one",
             :size      => 1,
-            :diskType  => "tier1",
+            :disk_type => "tier1",
             :shareable => false
           },
           {
             :name      => "disk_two",
             :size      => 2,
-            :diskType  => "tier1",
+            :disk_type => "tier1",
             :shareable => false
           },
           {
             :name      => "disk_three",
             :size      => 3,
-            :diskType  => "tier1",
+            :disk_type => "tier1",
             :shareable => false
           },
           {
             :name      => "disk_four",
             :size      => 4,
-            :diskType  => "tier1",
+            :disk_type => "tier1",
             :shareable => true
           }
         ]
@@ -90,25 +90,25 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provi
         [
           {
             :name      => "disk_one",
-            :diskType  => "ssd-legacy",
+            :disk_type => "ssd-legacy",
             :size      => 0,
             :shareable => false
           },
           {
             :size      => 2,
-            :diskType  => "ssd-legacy",
+            :disk_type => "ssd-legacy",
             :shareable => false
           },
           {
             :name      => "disk_three",
             :size      => 3,
-            :diskType  => "ssd-legacy",
+            :disk_type => "ssd-legacy",
             :shareable => false
           },
           {
             :name      => "disk_four",
             :size      => 0,
-            :diskType  => "ssd-legacy",
+            :disk_type => "ssd-legacy",
             :shareable => true
           }
         ]

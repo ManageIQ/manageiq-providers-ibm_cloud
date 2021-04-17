@@ -130,7 +130,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     new_volumes.drop(1).map! do |new_volume|
       new_volume[:size] = new_volume[:size].to_i
       new_volume[:shareable] = [nil, 'null'].exclude?(new_volume[:shareable])
-      new_volume[:diskType] = storage_type
+      new_volume[:disk_type] = storage_type
       new_volume
     end
   end
