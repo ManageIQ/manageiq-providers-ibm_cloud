@@ -54,7 +54,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :name         => 'affinity_policy',
           :id           => 'affinity_policy',
           :label        => _('Affinity Policy'),
-          :initialValue => nil,
+          :initialValue => 'Off',
           :condition    => {
             :when => 'edit',
             :is   => false,
@@ -62,7 +62,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :options      => [
             {
               :label => 'Off',
-              :value => nil,
+              :value => 'Off',
             },
             {
               :label => 'Affinity',
@@ -87,7 +87,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
               {
                 :not => {
                   :when => 'affinity_policy',
-                  :is   => nil,
+                  :is   => 'Off',
                 },
               },
               {
@@ -120,8 +120,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
         'size'            => options['size'].to_i / 1.0.gigabyte,
         'disk_type'       => options['volume_type'],
         'shareable'       => options['multi_attachment'],
-        'affinity_policy' => options['affinity_policy'],
-        'affinity_volume' => options['affinity_volume_id']
+        'affinity_policy' => options['affinity_policy'] == 'Off' ? nil : options['affinity_policy'],
+        'affinity_volume' => options['affinity_policy'] == 'Off' ? nil : options['affinity_volume_id']
       )
 
       volume = api.pcloud_cloudinstances_volumes_post(
