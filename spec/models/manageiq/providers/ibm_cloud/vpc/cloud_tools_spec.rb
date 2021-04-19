@@ -105,33 +105,50 @@ describe ManageIQ::Providers::IbmCloud::CloudTools::Authentication do
       end
     end
 
-    it 'Can get generic new_auth using bearer info only' do |example|
-      VCR.use_cassette("#{described_class.name.underscore}/#{example.description}") do
-        auth = described_class.new_auth(:bearer_info => create_bearer_info)
-        expect(auth).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::Authentication::BearerAuth)
-      end
+    # New bearer class returned with only bearer info given.
+    it 'Can get generic new_auth using bearer info only' do
+      auth = described_class.new_auth(:bearer_info => create_bearer_info)
+      expect(auth).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::Authentication::BearerAuth)
     end
 
+    # An error should raise if there is no api key set.
     it 'Cannot get generic new_auth using expired bearer info and no api key.' do |example|
       VCR.use_cassette("#{described_class.name.underscore}/#{example.description}") do
         bearer_info = create_bearer_info(:valid_expire_time => false, :set_api_key => false)
-        expect { ManageIQ::Providers::IbmCloud::CloudTools::Authentication.new_auth(:bearer_info => bearer_info) }.to raise_error(StandardError)
+        expect(bearer_info[:expire_time]).to be < Time.now.to_i
+
+        authentication = ManageIQ::Providers::IbmCloud::CloudTools::Authentication.new_auth(:bearer_info => bearer_info)
+        expect { authentication.authenticate }.to raise_error(StandardError)
       end
     end
 
+    # In this test we use a api key set in bearer info hash with no api key set in the constructor.
     it 'Can get generic new_auth using expired bearer info and api key.' do |example|
       VCR.use_cassette("#{described_class.name.underscore}/#{example.description}") do
         bearer_info = create_bearer_info(:valid_expire_time => false, :set_api_key => true)
+        old_expire = bearer_info[:expire_time]
+
         auth = ManageIQ::Providers::IbmCloud::CloudTools::Authentication.new_auth(:bearer_info => bearer_info)
         expect(auth).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::Authentication::BearerAuth)
+        # Check expiry and update if necessary.
+        auth.authenticate({})
+        expect(auth.bearer_info[:expire_time]).not_to eq(old_expire)
       end
     end
 
+    # In this test we use a bearer info hash with no api key and a api key set in the constructor.
     it 'Can get generic new_auth using expired bearer info and provided api key.' do |example|
       VCR.use_cassette("#{described_class.name.underscore}/#{example.description}") do
         bearer_info = create_bearer_info(:valid_expire_time => false, :set_api_key => false)
+        old_expire = bearer_info[:expire_time]
+
+        expect(bearer_info[:api_key]).to be_nil
         auth = ManageIQ::Providers::IbmCloud::CloudTools::Authentication.new_auth(:api_key => api_key, :bearer_info => bearer_info)
         expect(auth).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::Authentication::BearerAuth)
+
+        # Check expiry and update if necessary.
+        auth.authenticate({})
+        expect(auth.bearer_info[:expire_time]).not_to eq(old_expire)
       end
     end
   end
@@ -146,15 +163,44 @@ describe ManageIQ::Providers::IbmCloud::CloudTool do
     end
   end
 
+  # Test that the VPC client can be instantiated.
   it 'can get a VPC client' do |example|
     VCR.use_cassette("#{described_class.name.underscore}/#{example.description}") do
       expect(described_class.new(:api_key => api_key).vpc(:region => 'us-east').client).to be_a(IbmVpc::VpcV1)
     end
   end
 
+  # Test that a initialized VPC class can refresh its token if expired.
+  it 'can get a VPC client with expired auth' do |example|
+    VCR.use_cassette("#{described_class.name.underscore}/#{example.description}") do
+      cloud_tool = described_class.new(:api_key => api_key)
+      expect(cloud_tool.vpc(:region => 'us-east').client).to be_a(IbmVpc::VpcV1)
+      orig_expiry = cloud_tool.vpc.client.authenticator.bearer_info[:expire_time]
+
+      # Set expire time to something really old.
+      cloud_tool.vpc.client.authenticator.bearer_info[:expire_time] = 1111
+      expect(cloud_tool.vpc.client.authenticator.bearer_info[:expire_time]).to eq(1111)
+
+      # On request the expiry should be checked and a new token retrieved.
+      expect(cloud_tool.vpc.request(:list_subnets)).to be_a(Hash)
+
+      # The new expire time should not be the same as the one manually set.
+      expect(cloud_tool.vpc.client.authenticator.bearer_info[:expire_time]).to_not eq(1111)
+
+      # VCR will reset the token information.
+      expect(cloud_tool.vpc.client.authenticator.bearer_info[:expire_time]).to eq(orig_expiry)
+    end
+  end
+
+  # Test that the tagging client can get tags.
   it 'can get a Tagging client' do |example|
     VCR.use_cassette("#{described_class.name.underscore}/#{example.description}") do
-      expect(described_class.new(:api_key => api_key).tagging.client).to be_a(IbmCloudGlobalTagging::GlobalTaggingV1)
+      cloud_tool = described_class.new(:api_key => api_key)
+      expect(cloud_tool.tagging.client).to be_a(IbmCloudGlobalTagging::GlobalTaggingV1)
+      tags = cloud_tool.tagging.request(:list_tags, :limit => 1)
+      expect(tags).to be_a(Hash)
+      expect(tags[:items]).to be_a(Array)
+      expect(tags[:items].length).to eq(1)
     end
   end
 
