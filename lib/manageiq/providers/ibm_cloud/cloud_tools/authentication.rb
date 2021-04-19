@@ -102,6 +102,7 @@ module ManageIQ
               return true if expire_time.nil?
 
               # Checks to see if the expire time will elapse in the next 10 seconds.
+              # True if now is greater than expiry time. False if now is less than expire time.
               Time.now.to_i >= (expire_time - 10)
             end
 
