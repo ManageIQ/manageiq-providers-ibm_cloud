@@ -88,14 +88,14 @@ module ManageIQ
             # @param bearer_info [Hash{Symbol=>String, Integer}] Bearer info hash from IamAuth
             # @return [Hash{Symbol=>String, Integer}] Bearer info hash from IamAuth
             def new_bearer(bearer_info)
-              raise 'Bearer token has expired.' if bearer_info[:api_key].nil?
+              raise 'Bearer token has expired and unable to refresh. An api key is not present in bearer_info hash.' if bearer_info[:api_key].nil?
 
               @logger.info('Bearer token expired. Fetching new one using API Key.')
               IamAuth.new(bearer_info[:api_key]).bearer_info
             end
 
-            # Check to see if the token expiry time has elapsed.
-            # @param expire_time [Integer, NilClass] The token expiry time provided by IAM.
+            # Check to see if the token expire_time has elapsed.
+            # @param expire_time [Integer, NilClass] The token expire_time provided by IAM.
             #
             # @return [Boolean] True is expired. False is valid.
             def expired?(expire_time)
