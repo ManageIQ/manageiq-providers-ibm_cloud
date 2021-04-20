@@ -44,6 +44,10 @@ VCR.configure do |config|
   # config.debug_logger = $stdout # Keep for debugging tests.
   config.ignore_hosts('codeclimate.com') if ENV['CI']
   config.cassette_library_dir = File.join(ManageIQ::Providers::IbmCloud::Engine.root, 'spec/vcr_cassettes')
+
+  # Used to replace the API Key with the placeholder in the saved VCR.
+  config.define_cassette_placeholder('IBM_CLOUD_VPC_API_KEY') { Rails.application.secrets.ibm_cloud_vpc[:api_key] }
+
   config.before_record do |i|
     replace_token_contents(i.response) if i.request.uri == "https://iam.cloud.ibm.com/identity/token"
     vpc_sanitizier(i) if i.request.uri.match?('iaas.cloud.ibm')

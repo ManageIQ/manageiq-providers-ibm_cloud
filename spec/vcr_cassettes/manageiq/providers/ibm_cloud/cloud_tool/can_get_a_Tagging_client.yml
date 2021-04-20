@@ -51,5 +51,78 @@ http_interactions:
       string: '{"access_token":"eyJraWQiOiIyMDIxMDIxOTE4MzUiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiZTQyNDhkMTktZGE2OS00NTIwLWI5MDctMzE5NWYwMmFhNDBkIiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYXV0aG4iOnsic3ViIjoiamFyZWRtQGNhLmlibS5jb20iLCJpYW1faWQiOiJpYW0tMjcwMDAxWE5ORiIsIm5hbWUiOiJKYXJlZCBNb29yZSIsImdpdmVuX25hbWUiOiJKYXJlZCIsImZhbWlseV9uYW1lIjoiTW9vcmUiLCJlbWFpbCI6ImphcmVkbUBjYS5pYm0uY29tIn0sImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6ImM1NmM5YTI2OGQyM2UxYjMzOWFjMTQ3NzQzNTgxMzNjIiwiaW1zX3VzZXJfaWQiOiI3MjI2NTkxIiwiZnJvemVuIjp0cnVlLCJpbXMiOiIxMTYwNDQ3In0sImlhdCI6MTYxNTg0NzM0MywiZXhwIjoxNjE1ODUwOTQzLCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.FRoBPEG5ypkuFuVfR9gik43LuYzioFDxbhztZaGo-2CPaDYVblzR-xvMu_mWrcWJhY3N-L2zL8nkvixhCJA2L7QgRREQcyjS7V-mBUdPnSnmlz3L8pMg7jBZpbGmQWQAMfeQ7tFk6N5H2NT--zNKUkjlK2btsnTLc-sbifMIOB9gg-YOdN9nVBrnAz6pN5DjB_XdzTA9IKYTFbqDyWq3NQ6tpCwo_KqZO2ucBK3hJMvpwnJeMr4WgS_Sf8Co9Ten3uqF10l-ZVLZqRMUI4g6RYWE1acKEASSb6GpLuQLlH0aNb3cLRabvoE-TnpsfsAuIf92CdmFlny1UZOI1IKSAA","refresh_token":"REFRESH_TOKEN","ims_user_id":"22222","token_type":"Bearer","expires_in":3600,"expiration":4102462800,"scope":"ibm
         openid"}'
     http_version:
-  recorded_at: Mon, 15 Mar 2021 22:29:06 GMT
+  recorded_at: Mon, 19 Apr 2021 20:28:06 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?limit=1
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - ibm_cloud_global_tagging-ruby-sdk-0.1.0 x86_64-apple-darwin20.3.0 ruby-2.6.7
+      X-Ibmcloud-Sdk-Analytics:
+      - service_name=global_tagging;service_version=V1;operation_id=list_tags
+      Accept:
+      - application/json
+      Authorization:
+      - Bearer eyJraWQiOiIyMDIxMDMyMTE4MzUiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiMmM4M2VmN2MtZDVmZi00NjAwLTg2MDYtMGQ3ZGUyMTI2NDZiIiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYXV0aG4iOnsic3ViIjoiamFyZWRtQGNhLmlibS5jb20iLCJpYW1faWQiOiJpYW0tMjcwMDAxWE5ORiIsIm5hbWUiOiJKYXJlZCBNb29yZSIsImdpdmVuX25hbWUiOiJKYXJlZCIsImZhbWlseV9uYW1lIjoiTW9vcmUiLCJlbWFpbCI6ImphcmVkbUBjYS5pYm0uY29tIn0sImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6ImM1NmM5YTI2OGQyM2UxYjMzOWFjMTQ3NzQzNTgxMzNjIiwiaW1zX3VzZXJfaWQiOiI3MjI2NTkxIiwiZnJvemVuIjp0cnVlLCJpbXMiOiIxMTYwNDQ3In0sImlhdCI6MTYxODg2NDA4MywiZXhwIjoxNjE4ODY3NjgzLCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.R3jgHche9Ze6mSyfd4O5TKG4Idjfh2OxqCoO3PMkK5clNobIXSWmsIpbLMh32KQYMu8Eo3Oyat4bcin3lpaPk9mAQPGVW-f7FP7MaCP_XTby4PHsG2FxSFJeH1adExdhYGFPgmzsmPjRlY78IC2NBC_9HwkJFZVYwnxqQ43yFg-2EP6yA_ukP2mfNtzcu6MEu9z2e32m-kUCJrYbQXl2HGowHXrGPByUgrBJVRGRjww-vRX_WtW1V0ODxOJVl9k3o4RKekvrlWnqU83gw2NCxd2rH7ZrCw2NImJPAot68Iss_IJdtBB5HRD8_0Cis_38rloy2bWfmNWelNp2KzjLmA
+      Connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      X-Dns-Prefetch-Control:
+      - 'off'
+      Expect-Ct:
+      - max-age=0
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - no-referrer
+      X-Xss-Protection:
+      - 1; mode=block
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+      Transaction-Id:
+      - gst-9d0e5474-feb6-4a6a-a00b-66603a1730b1
+      X-Global-Transaction-Id:
+      - gst-9d0e5474-feb6-4a6a-a00b-66603a1730b1
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_6f8ff9546f-l2jvl
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '78'
+      X-Envoy-Upstream-Service-Time:
+      - '115'
+      Server:
+      - istio-envoy
+      Date:
+      - Mon, 19 Apr 2021 20:28:06 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"total_count":431,"offset":0,"limit":1,"items":[{"name":"a-b:c_e4.32:6784"}]}'
+    http_version:
+  recorded_at: Mon, 19 Apr 2021 20:28:06 GMT
 recorded_with: VCR 5.1.0
