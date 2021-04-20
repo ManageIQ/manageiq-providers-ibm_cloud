@@ -99,11 +99,13 @@ module ManageIQ
             #
             # @return [Boolean] True is expired. False is valid.
             def expired?(expire_time)
-              return true if expire_time.nil?
+              return false if expire_time.nil? # Assume that expire check is disabled.
+
+              return true unless expire_time.match?('^\d+$') # Verify that expire_time can be converted into an integer.
 
               # Checks to see if the expire time will elapse in the next 10 seconds.
               # True if now is greater than expire time. False if now is less than expire time.
-              Time.now.to_i >= (expire_time - 10)
+              Time.now.to_i >= (expire_time.to_i - 10)
             end
 
             # Define a new logger.
