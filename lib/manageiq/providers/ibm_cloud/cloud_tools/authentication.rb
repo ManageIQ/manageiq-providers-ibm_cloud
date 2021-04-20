@@ -101,7 +101,12 @@ module ManageIQ
             def expired?(expire_time)
               return false if expire_time.nil? # Assume that expire check is disabled.
 
-              return true unless expire_time.match?('^\d+$') # Verify that expire_time can be converted into an integer.
+              return true unless expire_time.respond_to?(:to_i) # Verify that expire_time can be converted into an integer.
+
+              # If expire_time is a string then ensure that it only has digits.
+              if expire_time.respond_to?(:match?)
+                return true unless expire_time.match?('^\d+$') # rubocop:disable Style/SoleNestedConditional
+              end
 
               # Checks to see if the expire time will elapse in the next 10 seconds.
               # True if now is greater than expire time. False if now is less than expire time.
