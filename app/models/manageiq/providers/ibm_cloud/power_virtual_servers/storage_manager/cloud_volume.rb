@@ -22,7 +22,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :type       => 'number',
           :step       => 1.gigabytes,
           :isRequired => true,
-          :validate   => [{:type => 'required'}],
+          :validate   => [{:type => 'required'}, {:type => 'min-number-value', :value => 0, :message => _('Size must be greater than or equal to 0')}],
         },
         {
           :component    => 'select',
