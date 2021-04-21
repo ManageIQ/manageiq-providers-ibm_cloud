@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
+# rubocop:disable Style/MethodCallWithArgsParentheses # Guidance does not conform to preferred expect formatting.
+describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:allow_playback_repeats => true} do
   let(:ems) do
     api_key = Rails.application.secrets.ibm_cloud_vpc[:api_key]
     FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "us-east").tap do |ems|
@@ -10,10 +11,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
   it "tests the refresh" do
     2.times do
-      VCR.use_cassette(described_class.name.underscore) do
-        ems.refresh
-      end
-
+      ems.refresh
       ems.reload
 
       assert_ems_counts
@@ -26,8 +24,8 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
   def assert_ems_counts
     # Cloud Manager
-    expect(ems.vms.count).to eq(5)
-    expect(ems.miq_templates.count).to eq(48)
+    expect(ems.vms.count).to eq(6)
+    expect(ems.miq_templates.count).to eq(57)
     expect(ems.key_pairs.count).to eq(2)
     expect(ems.availability_zones.count).to eq(3)
 
@@ -37,17 +35,14 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(ems.security_groups.first.name).to eq('nebulizer-bobtail-hacked-yield-linseed-sandpit')
     expect(ems.cloud_networks.count).to eq(2)
     expect(ems.cloud_subnets.count).to eq(4)
-    # Remove test. The cloud network ids are not predictable with more than 1 cloud network.
-    # expect(ems.cloud_subnets.first.cloud_network_id).to eq(ems.cloud_networks[0].id)
 
     # Storage Manager
-    expect(ems.cloud_volumes.count).to eq(12)
+    expect(ems.cloud_volumes.count).to eq(15)
     expect(ems.cloud_volume_types.count).to eq(4)
   end
 
   def assert_specific_vm
     vm = ems.vms.find_by(:ems_ref => "0777_249ba858-a4eb-4f2c-ba6c-72254a781d0d")
-
     expect(vm.ipaddresses.count).to eq(1)
     expect(vm.availability_zone.name).to eq('us-east-3')
     expect(vm.cpu_total_cores).to eq(2)
@@ -57,8 +52,8 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(vm.hardware.bitness).to eq(64)
     expect(vm.operating_system[:product_name]).to eq('linux_redhat')
     expect(vm.flavor.name).to eq('mx2-2x16')
-    expect(vm.raw_power_state).to eq('running')
-    expect(vm.power_state).to eq('on')
+    expect(vm.raw_power_state).to eq('stopped')
+    expect(vm.power_state).to eq('off')
     expect(vm.security_groups.count).to eq(1)
 
     ## linking key pairs to vms
@@ -73,13 +68,11 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
   def assert_vm_labels
     vm = ems.vms.find_by(:ems_ref => "0777_f73e8687-3813-465f-99df-ba6e4ee8f289")
-
     expect(vm.labels.count).to eq(4)
   end
 
   def assert_specific_cloud_volume_type
     cvt = ems.cloud_volume_types.find_by(:ems_ref => 'general-purpose')
-
     expect(cvt.name).to eq('general-purpose')
     expect(cvt.description).to eq('tiered')
   end
@@ -103,3 +96,4 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(cloud_subnet.network_protocol).to eq('ipv4')
   end
 end
+# rubocop:enable Style/MethodCallWithArgsParentheses
