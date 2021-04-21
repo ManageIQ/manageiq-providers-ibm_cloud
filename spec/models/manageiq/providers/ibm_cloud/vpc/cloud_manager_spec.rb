@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-describe ManageIQ::Providers::IbmCloud::VPC::CloudManager do
+# rubocop:disable Style/MethodCallWithArgsParentheses # Guidance does not conform to preferred expect formatting.
+describe ManageIQ::Providers::IbmCloud::VPC::CloudManager, :vcr do
   # Defined in config/secrets.yml of the manageiq repo.
   let(:api_key) { Rails.application.secrets.ibm_cloud_vpc[:api_key] }
 
@@ -52,17 +53,14 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager do
     end
 
     it "tests the connect logic" do
-      VCR.use_cassette(described_class.name.underscore) do
-        expect(ems.verify_credentials).to be_truthy
-      end
+      expect(ems.verify_credentials).to be_truthy
     end
   end
 
   context ".verify_credentials" do
     it "verifies the connection" do
-      VCR.use_cassette(described_class.name.underscore) do
-        described_class.verify_credentials("authentications" => {"default" => {"auth_key" => api_key}})
-      end
+      described_class.verify_credentials("authentications" => {"default" => {"auth_key" => api_key}})
     end
   end
 end
+# rubocop:enable Style/MethodCallWithArgsParentheses
