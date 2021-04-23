@@ -15,6 +15,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     instances
     volumes
     cloud_volume_types
+    resource_groups
   end
 
   def images
@@ -289,6 +290,17 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :ems_ref     => v[:name],
         :name        => v[:name],
         :description => v[:family]
+      )
+    end
+  end
+
+  # For each resource group save the id as ems_ref and name as name. All other properties are ignored.
+  # @return [void]
+  def resource_groups
+    collector.resource_groups.each do |resource|
+      persister.resource_groups.build(
+        :ems_ref => resource[:id],
+        :name    => resource[:name]
       )
     end
   end

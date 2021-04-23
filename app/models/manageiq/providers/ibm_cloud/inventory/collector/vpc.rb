@@ -72,4 +72,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
   def tags_by_crn(crn)
     connection.cloudtools.tagging.collection(:list_tags, :attached_to => crn, :providers => ["ghost"]).to_a
   end
+
+  # Fetch resource groups from ResourceController SDK.
+  # @return [Enumerator]
+  def resource_groups
+    connection.cloudtools.resource.manager.collection(:list_resource_groups)
+  end
 end
