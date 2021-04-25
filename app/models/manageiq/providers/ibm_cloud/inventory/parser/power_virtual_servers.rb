@@ -255,7 +255,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
           :ems_ref     => value.profile_id,
           :name        => value.profile_id,
           :cpus        => value.cores,
-          :memory      => value.memory,
+          :memory      => value.memory&.gigabytes,
           :description => description
         )
       end
