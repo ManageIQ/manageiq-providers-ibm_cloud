@@ -28,7 +28,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
   end
 
   def image(image_id)
-    connection.request(:list_images, :id => image_id)
+    connection.request(:get_image, :id => image_id)
   end
 
   def keys
