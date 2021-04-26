@@ -44,7 +44,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
 
   def sap_flavor_memory(_options = {})
     if sap_flavor
-      {"2" => sap_flavor.memory}
+      {"2" => (sap_flavor.memory / 1.0.gigabyte).to_i}
     end
   end
 
