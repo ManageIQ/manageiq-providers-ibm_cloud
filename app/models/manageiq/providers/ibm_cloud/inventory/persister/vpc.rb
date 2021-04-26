@@ -44,7 +44,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
       builder.add_properties(:model_class => ::ManageIQ::Providers::IbmCloud::VPC::CloudManager::Template)
       builder.add_default_values(:ems_id => ->(persister) { persister.cloud_manager.id })
     end
-    add_cloud_collection(:flavors)
+    add_cloud_collection(:flavors) do |builder|
+      builder.add_default_values(:ems_id => ->(persister) { persister.cloud_manager.id })
+    end
     add_cloud_collection(:vm_and_miq_template_ancestry)
     add_cloud_collection(:networks)
     add_cloud_collection(:vm_and_template_labels)
