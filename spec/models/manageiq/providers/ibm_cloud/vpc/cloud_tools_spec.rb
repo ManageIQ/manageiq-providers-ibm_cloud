@@ -197,4 +197,24 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
     expect(response.next).to be_a(Hash)
     expect(response.next).to be_a(Hash)
   end
+
+  it 'Can get resource controller' do
+    resource = described_class.new(:api_key => api_key).resource
+    expect(resource).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::ResourceController)
+    manager = resource.controller
+    expect(manager).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::ResourceController::Controller)
+    response = manager.collection('list_resource_instances', :limit => 2)
+    expect(response).to be_a(Enumerator)
+    expect(response.next).to be_a(Hash)
+  end
+
+  it 'Can get resource manager' do
+    resource = described_class.new(:api_key => api_key).resource
+    expect(resource).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::ResourceController)
+    manager = resource.manager
+    expect(manager).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::ResourceController::Manager)
+    response = manager.collection('list_resource_groups')
+    expect(response).to be_a(Enumerator)
+    expect(response.next).to be_a(Hash)
+  end
 end

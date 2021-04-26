@@ -60,6 +60,9 @@ module ManageIQ
             #
             # @return [void]
             def initialize(bearer_info, logger: nil)
+              raise 'Bearer info must be a hash.' unless bearer_info.kind_of?(Hash)
+              raise 'Bearer info must have a key named :token.' unless bearer_info.key?(:token)
+
               @logger = define_logger(logger)
               @bearer_info = bearer_info
               super({:bearer_token => bearer_info[:token]})
@@ -97,16 +100,13 @@ module ManageIQ
             # Check to see if the token expire_time has elapsed.
             # @param expire_time [Integer, NilClass] The token expire_time provided by IAM.
             #
+            # * An expire_time with a nil value will disable the validation check. The token will be used as-is for the request.
+            # * An expire_time that cannot be used as an integer will force a refresh of the token from IAM.
+            #
             # @return [Boolean] True is expired. False is valid.
             def expired?(expire_time)
               return false if expire_time.nil? # Assume that expire check is disabled.
-
               return true unless expire_time.respond_to?(:to_i) # Verify that expire_time can be converted into an integer.
-
-              # If expire_time is a string then ensure that it only has digits.
-              if expire_time.respond_to?(:match?)
-                return true unless expire_time.match?('^\d+$') # rubocop:disable Style/SoleNestedConditional
-              end
 
               # Checks to see if the expire time will elapse in the next 10 seconds.
               # True if now is greater than expire time. False if now is less than expire time.
@@ -137,10 +137,29 @@ module ManageIQ
 
             # @return [Hash{Symbol=> String, Integer}] bearer hash with token, expire_time and api_key as keys.
             def bearer_info
-              {:token => @token_manager.access_token, :expire_time => @token_manager.token_info["expiration"], :api_key => @apikey}
+              {:token => token, :expire_time => expire_time, :api_key => @apikey}
             end
 
             private
+
+            # Validate that the bearer token was successfully retrieved and populated.
+            # @return [String]
+            def token
+              access_token = @token_manager.access_token
+              raise 'CloudTools::IAMAuth Unable to retrieve the access token from token manager.' if access_token.nil?
+
+              access_token
+            end
+
+            # Validate that the bearer token expiry time can be retrieved and is an Integer.
+            # @return [Integer]
+            def expire_time
+              e_time = @token_manager.token_info["expiration"]
+              raise 'CloudTools::IAMAuth Unable to extract the retrieved expiration time.' if e_time.nil?
+              raise "CloudTools::IAMAuth Extracted expiry time #{e_time} is not an expected integer." unless e_time.kind_of?(Integer)
+
+              e_time
+            end
 
             # Define a new logger.
             # @param logger [Logger, IO, String] Either a Logger object, IO object or path to file.
