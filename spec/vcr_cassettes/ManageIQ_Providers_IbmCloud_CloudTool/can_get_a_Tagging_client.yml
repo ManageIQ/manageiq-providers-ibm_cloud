@@ -1,0 +1,128 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://iam.cloud.ibm.com/identity/token
+    body:
+      encoding: UTF-8
+      string: grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=IBM_CLOUD_VPC_API_KEY&response_type=cloud_iam
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - application/json
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/4.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Transaction-Id:
+      - a67758d9f4ad40e6bc3003248a96f41a
+      Cache-Control:
+      - no-cache, no-store
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '1524'
+      X-Envoy-Upstream-Service-Time:
+      - '158'
+      Server:
+      - istio-envoy
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Date:
+      - Wed, 21 Apr 2021 19:42:41 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - sessioncookie="e7ec8592868025ad"; Path=/; HttpOnly
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"eyJraWQiOiIyMDIxMDQyMDE4MzYiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiMDgzMmM2N2EtNjUyMS00MmI0LTkzZWMtNDEwNWM5YWJiOWQzIiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYXV0aG4iOnsic3ViIjoiamFyZWRtQGNhLmlibS5jb20iLCJpYW1faWQiOiJpYW0tMjcwMDAxWE5ORiIsIm5hbWUiOiJKYXJlZCBNb29yZSIsImdpdmVuX25hbWUiOiJKYXJlZCIsImZhbWlseV9uYW1lIjoiTW9vcmUiLCJlbWFpbCI6ImphcmVkbUBjYS5pYm0uY29tIn0sImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6ImM1NmM5YTI2OGQyM2UxYjMzOWFjMTQ3NzQzNTgxMzNjIiwiaW1zX3VzZXJfaWQiOiI3MjI2NTkxIiwiZnJvemVuIjp0cnVlLCJpbXMiOiIxMTYwNDQ3In0sImlhdCI6MTYxOTAzNDE1OCwiZXhwIjoxNjE5MDM3NzU4LCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.RZErxUeOYQN1NvmRIMJaXqYxiTqDaoEofZGyBLdyWZV5rrpxpm4DyQ9P7GM1R6mCTRyveXv_QcPlSg5sl4SQgVrBXjzL7-s9rcVeUr4c9Au8q1oJ836Hlri9FPuOSWOImsAR9v2tHJw5VjjQksruIZUYLeaiDSRAlLTxsfdbqHBdkzyHBhc3GodnnIr9B_HMIS1PPLcf5qqy5XMyVU5liLQZTx-A5kfayIr3HK4Q38twp23Gsp9MH-bOX4mSRo4q2Ey387V1EZmbwIvbUAT2vfRHHbWUcgNviV2VS0ODOeIuoKnrItE5TkFQTolbdYwKFLE1SSQ-q8F7IWFY90ks0g","refresh_token":"REFRESH_TOKEN","ims_user_id":"22222","token_type":"Bearer","expires_in":3600,"expiration":4102462800,"scope":"ibm
+        openid"}'
+    http_version:
+  recorded_at: Wed, 21 Apr 2021 19:42:41 GMT
+- request:
+    method: get
+    uri: https://tags.global-search-tagging.cloud.ibm.com/v3/tags?limit=1
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - ibm_cloud_global_tagging-ruby-sdk-0.1.0 x86_64-apple-darwin20.3.0 ruby-2.6.7
+      X-Ibmcloud-Sdk-Analytics:
+      - service_name=global_tagging;service_version=V1;operation_id=list_tags
+      Accept:
+      - application/json
+      Authorization:
+      - Bearer eyJraWQiOiIyMDIxMDQyMDE4MzYiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiMDgzMmM2N2EtNjUyMS00MmI0LTkzZWMtNDEwNWM5YWJiOWQzIiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYXV0aG4iOnsic3ViIjoiamFyZWRtQGNhLmlibS5jb20iLCJpYW1faWQiOiJpYW0tMjcwMDAxWE5ORiIsIm5hbWUiOiJKYXJlZCBNb29yZSIsImdpdmVuX25hbWUiOiJKYXJlZCIsImZhbWlseV9uYW1lIjoiTW9vcmUiLCJlbWFpbCI6ImphcmVkbUBjYS5pYm0uY29tIn0sImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6ImM1NmM5YTI2OGQyM2UxYjMzOWFjMTQ3NzQzNTgxMzNjIiwiaW1zX3VzZXJfaWQiOiI3MjI2NTkxIiwiZnJvemVuIjp0cnVlLCJpbXMiOiIxMTYwNDQ3In0sImlhdCI6MTYxOTAzNDE1OCwiZXhwIjoxNjE5MDM3NzU4LCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.RZErxUeOYQN1NvmRIMJaXqYxiTqDaoEofZGyBLdyWZV5rrpxpm4DyQ9P7GM1R6mCTRyveXv_QcPlSg5sl4SQgVrBXjzL7-s9rcVeUr4c9Au8q1oJ836Hlri9FPuOSWOImsAR9v2tHJw5VjjQksruIZUYLeaiDSRAlLTxsfdbqHBdkzyHBhc3GodnnIr9B_HMIS1PPLcf5qqy5XMyVU5liLQZTx-A5kfayIr3HK4Q38twp23Gsp9MH-bOX4mSRo4q2Ey387V1EZmbwIvbUAT2vfRHHbWUcgNviV2VS0ODOeIuoKnrItE5TkFQTolbdYwKFLE1SSQ-q8F7IWFY90ks0g
+      Connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Security-Policy:
+      - 'default-src ''self'';base-uri ''self'';block-all-mixed-content;font-src ''self''
+        https: data:;frame-ancestors ''self'';img-src ''self'' data:;object-src ''none'';script-src
+        ''self'';script-src-attr ''none'';style-src ''self'' https: ''unsafe-inline'';upgrade-insecure-requests'
+      X-Dns-Prefetch-Control:
+      - 'off'
+      Expect-Ct:
+      - max-age=0
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - no-referrer
+      X-Xss-Protection:
+      - 1; mode=block
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+      Transaction-Id:
+      - gst-dcb6d70a-606a-4c2a-852b-3231341f3e2d
+      X-Global-Transaction-Id:
+      - gst-dcb6d70a-606a-4c2a-852b-3231341f3e2d
+      Ghost-Endpoint:
+      - ibm:yp:us-south:Kubernetes
+      Ghost-Instance:
+      - Kubernetes_859d6bbfd8-8v25d
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '78'
+      X-Envoy-Upstream-Service-Time:
+      - '130'
+      Server:
+      - istio-envoy
+      Date:
+      - Wed, 21 Apr 2021 19:42:41 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"total_count":431,"offset":0,"limit":1,"items":[{"name":"a-b:c_e4.32:6784"}]}'
+    http_version:
+  recorded_at: Wed, 21 Apr 2021 19:42:41 GMT
+recorded_with: VCR 5.1.0
