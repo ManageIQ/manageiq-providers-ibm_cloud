@@ -27,6 +27,8 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:
     expect(ems.miq_templates.count).to eq(57)
     expect(ems.key_pairs.count).to eq(2)
     expect(ems.availability_zones.count).to eq(3)
+    expect(ems.resource_groups.count).to eq(3)
+    expect(ems.resource_groups.first.name).to eq('camc-test')
 
     # Network Manager
     expect(ems.floating_ips.count).to eq(4)
