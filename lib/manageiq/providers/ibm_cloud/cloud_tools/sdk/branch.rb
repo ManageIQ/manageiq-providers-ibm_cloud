@@ -22,7 +22,7 @@ module ManageIQ
               @cloudtools.logger
             end
 
-            # Get an instatiated instance of the Cloud SDK.
+            # Get an instantiated instance of the Cloud SDK.
             # @return [Object] The specific Cloud SDK object for the class.
             def client
               client = sdk_client
@@ -55,7 +55,7 @@ module ManageIQ
 
             private
 
-            # @return [Object] The instaniated client.
+            # @return [Object] The instantiated client.
             def sdk_client
               raise NotImplementedError, 'Implement sdk_client method in subclass.'
             end
@@ -63,7 +63,7 @@ module ManageIQ
             # Main logic for enumerator is implemented here in subclasses.
             # @param call_back [Symbol] A method on the SDK client.
             # @param kwargs [Any] Should be notated as **kwargs. Captures all keyword args and passes them downstream.
-            # @return [Object] The instaniated client.
+            # @return [Object] The instantiated client.
             def each_resource(_call_back, _kwargs)
               raise NotImplementedError, 'Implement each_resource method in subclass.'
             end

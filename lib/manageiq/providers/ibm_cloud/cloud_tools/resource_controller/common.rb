@@ -10,8 +10,9 @@ module ManageIQ
             private
 
             # Create a generator that removes the need for pagination.
+            # Some of the list methods look like they have pagination properties but the default SDK doesn't allow passing in the start argument.
             # @param call_back [String] The method name to use for pagination.
-            # @param call_back [String] The method name to use for pagination.
+            # @param kwargs [Hash{Symbol => String, Number}] Key pairs to be passed into the request.
             #
             # @return [Enumerator] Object to page through results.
             # @yield [Hash] Result of request.
