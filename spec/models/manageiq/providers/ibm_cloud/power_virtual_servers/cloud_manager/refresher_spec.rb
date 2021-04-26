@@ -20,6 +20,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
         assert_table_counts
         assert_ems_counts
+        assert_specific_flavor
         assert_specific_vm
         assert_specific_template
         assert_specific_key_pair
@@ -35,6 +36,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         full_refresh(ems.network_manager)
         ems.reload
         assert_table_counts
+        assert_specific_flavor
       end
     end
 
@@ -43,10 +45,25 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         full_refresh(ems.storage_manager)
         ems.reload
         assert_table_counts
+        assert_specific_flavor
+      end
+    end
+
+    it "refreshes the cloud manager then network manager" do
+      2.times do
+        full_refresh(ems)
+        ems.reload
+        assert_table_counts
+        assert_specific_flavor
+
+        full_refresh(ems.network_manager)
+        assert_table_counts
+        assert_specific_flavor
       end
     end
 
     def assert_table_counts
+      expect(Flavor.count).to eq(52)
       expect(Vm.count).to eq(2)
       expect(OperatingSystem.count).to eq(7)
       expect(MiqTemplate.count).to eq(5)
@@ -66,6 +83,16 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(ems.network_manager.cloud_networks.count).to eq(3)
       expect(ems.network_manager.cloud_subnets.count).to eq(3)
       expect(ems.network_manager.network_ports.count).to eq(4)
+    end
+
+    def assert_specific_flavor
+      flavor = ems.flavors.find_by(:ems_ref => "s922")
+
+      expect(flavor).to have_attributes(
+        :ems_ref => "s922",
+        :name    => "s922",
+        :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType"
+      )
     end
 
     def assert_specific_vm
