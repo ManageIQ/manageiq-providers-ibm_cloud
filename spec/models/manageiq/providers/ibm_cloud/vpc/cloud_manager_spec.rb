@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/MethodCallWithArgsParentheses # Guidance does not conform to preferred expect formatting.
 describe ManageIQ::Providers::IbmCloud::VPC::CloudManager, :vcr do
   # Defined in config/secrets.yml of the manageiq repo.
   let(:api_key) { Rails.application.secrets.ibm_cloud_vpc[:api_key] }
@@ -63,4 +62,3 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager, :vcr do
     end
   end
 end
-# rubocop:enable Style/MethodCallWithArgsParentheses

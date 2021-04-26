@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/MethodCallWithArgsParentheses # Guidance does not conform to preferred expect formatting.
 describe ManageIQ::Providers::IbmCloud::CloudTools::Authentication, :vcr do
   let(:api_key) { Rails.application.secrets.ibm_cloud_vpc[:api_key] }
 
@@ -199,4 +198,3 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
     expect(response.next).to be_a(Hash)
   end
 end
-# rubocop:enable Style/MethodCallWithArgsParentheses

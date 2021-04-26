@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/MethodCallWithArgsParentheses # Guidance does not conform to preferred expect formatting.
 describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm, :vcr do
   let(:ems) do
     FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "us-east").tap do |ems|
@@ -88,4 +87,3 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm, :vcr do
     end
   end
 end
-# rubocop:enable Style/MethodCallWithArgsParentheses
