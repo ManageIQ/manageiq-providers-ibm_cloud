@@ -1,0 +1,125 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://iam.cloud.ibm.com/identity/token
+    body:
+      encoding: UTF-8
+      string: grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=IBM_CLOUD_VPC_API_KEY&response_type=cloud_iam
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - application/json
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/4.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Transaction-Id:
+      - 7c7c87ed2fba411eab47904b21246b0d
+      Cache-Control:
+      - no-cache, no-store
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '1524'
+      X-Envoy-Upstream-Service-Time:
+      - '268'
+      Server:
+      - istio-envoy
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Date:
+      - Mon, 26 Apr 2021 16:48:13 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - sessioncookie="ffcfbc9e0090bd6e"; Path=/; HttpOnly
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"eyJraWQiOiIyMDIxMDQyMDE4MzYiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiNWJlZDRmZWMtOTMxMy00YjI1LTg2YTEtYTNiN2Q3NmY5MTRkIiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYXV0aG4iOnsic3ViIjoiamFyZWRtQGNhLmlibS5jb20iLCJpYW1faWQiOiJpYW0tMjcwMDAxWE5ORiIsIm5hbWUiOiJKYXJlZCBNb29yZSIsImdpdmVuX25hbWUiOiJKYXJlZCIsImZhbWlseV9uYW1lIjoiTW9vcmUiLCJlbWFpbCI6ImphcmVkbUBjYS5pYm0uY29tIn0sImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6ImM1NmM5YTI2OGQyM2UxYjMzOWFjMTQ3NzQzNTgxMzNjIiwiaW1zX3VzZXJfaWQiOiI3MjI2NTkxIiwiZnJvemVuIjp0cnVlLCJpbXMiOiIxMTYwNDQ3In0sImlhdCI6MTYxOTQ1NTY5MCwiZXhwIjoxNjE5NDU5MjkwLCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.hIFRbiPB1E5MZsvoWE9GEKYj-G4hwarqkfxspP_k5cr0n2ws-XcL7RAnzPr8Q-mejhRdQy88HhWjFPgciVIu4juKyav2eJqXEvq4cCC_1tnXrJr2SOTbCg8NKWnZhL9oc9YTv8grCx6ADI6dkvcLpU0wZigEWXnjMT2igkxlTGYRqM2aciiJcuysAeiaFNXCrvmWR6HwycUJcYl-OtwaaubgonttTa9UShIGJIMqH5RAeo718P_WQbTva29P0yqyqjYj5-yoPf9NbWiUIKFOXFFx8F8DQ2gK_OcPR-98FtqAo2cP0RJO2yQKurveBw19l4f9sf03WcxK16vFB5hE6w","refresh_token":"REFRESH_TOKEN","ims_user_id":"22222","token_type":"Bearer","expires_in":3600,"expiration":4102462800,"scope":"ibm
+        openid"}'
+    http_version:
+  recorded_at: Mon, 26 Apr 2021 16:48:13 GMT
+- request:
+    method: get
+    uri: https://resource-controller.cloud.ibm.com/v2/resource_instances?limit=2
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - ibm_cloud_resource_controller-ruby-sdk-2.0.1 x86_64-apple-darwin20.3.0 ruby-2.6.7
+      X-Ibmcloud-Sdk-Analytics:
+      - service_name=resource_controller;service_version=V2;operation_id=list_resource_instances
+      Accept:
+      - application/json
+      Authorization:
+      - Bearer eyJraWQiOiIyMDIxMDQyMDE4MzYiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiNWJlZDRmZWMtOTMxMy00YjI1LTg2YTEtYTNiN2Q3NmY5MTRkIiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYXV0aG4iOnsic3ViIjoiamFyZWRtQGNhLmlibS5jb20iLCJpYW1faWQiOiJpYW0tMjcwMDAxWE5ORiIsIm5hbWUiOiJKYXJlZCBNb29yZSIsImdpdmVuX25hbWUiOiJKYXJlZCIsImZhbWlseV9uYW1lIjoiTW9vcmUiLCJlbWFpbCI6ImphcmVkbUBjYS5pYm0uY29tIn0sImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6ImM1NmM5YTI2OGQyM2UxYjMzOWFjMTQ3NzQzNTgxMzNjIiwiaW1zX3VzZXJfaWQiOiI3MjI2NTkxIiwiZnJvemVuIjp0cnVlLCJpbXMiOiIxMTYwNDQ3In0sImlhdCI6MTYxOTQ1NTY5MCwiZXhwIjoxNjE5NDU5MjkwLCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.hIFRbiPB1E5MZsvoWE9GEKYj-G4hwarqkfxspP_k5cr0n2ws-XcL7RAnzPr8Q-mejhRdQy88HhWjFPgciVIu4juKyav2eJqXEvq4cCC_1tnXrJr2SOTbCg8NKWnZhL9oc9YTv8grCx6ADI6dkvcLpU0wZigEWXnjMT2igkxlTGYRqM2aciiJcuysAeiaFNXCrvmWR6HwycUJcYl-OtwaaubgonttTa9UShIGJIMqH5RAeo718P_WQbTva29P0yqyqjYj5-yoPf9NbWiUIKFOXFFx8F8DQ2gK_OcPR-98FtqAo2cP0RJO2yQKurveBw19l4f9sf03WcxK16vFB5hE6w
+      Connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Request-Id:
+      - f3433bbd-d789-43d3-afee-390642b5e333
+      Retry-After:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000;includeSubDomains
+      Transaction-Id:
+      - bss-28600fbda8ecbbd6
+      X-Global-K8fdic-Transaction-Id:
+      - f3433bbd-d789-43d3-afee-390642b5e333
+      X-Global-Transaction-Id:
+      - bss-28600fbda8ecbbd6
+      X-Ratelimit-Limit:
+      - '120'
+      X-Ratelimit-Remaining:
+      - '119'
+      X-Ratelimit-Reset:
+      - '0'
+      X-Request-Id:
+      - f3433bbd-d789-43d3-afee-390642b5e333
+      X-Transaction-Id:
+      - bss-28600fbda8ecbbd6
+      X-Envoy-Upstream-Service-Time:
+      - '264'
+      Server:
+      - istio-envoy
+      Expires:
+      - Mon, 26 Apr 2021 16:48:14 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Mon, 26 Apr 2021 16:48:14 GMT
+      Content-Length:
+      - '2436'
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"rows_count":1,"next_url":"/v2/resource_instances?start=bmV4dF9kb2NpZD1nMUFBQUFEX2VKekxZV0JnWU01Z1RtSFFTa2xLemk5S2RVaEpNdFZMeXRWTlR0Wk5TVTNKVEU0c1NVMHhNakxYUzg3SkwwMUp6Q3ZSeTBzdHlRSHFZVXBTQUpKSi12X19fODhDODkyY3l2allXclF2TUNReE1ERHFacUVhYVVLY2tRWWdJLTJSakN4OXd5S1ZlQUJrNUFZajhveDBBQm5wajJxa3hQb1BJQ01sZDJWbEFRQlhnRTZyJmxpbWl0PTImYWNjb3VudF9pZD1jNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYw","resources":[{"id":"crn:v1:bluemix:public:container-registry:eu-gb:a/c56c9a268d23e1b339ac14774358133c:e3c2e605-9af4-59fc-b966-d23265b8dd38::","guid":"crn:v1:bluemix:public:container-registry:eu-gb:a/c56c9a268d23e1b339ac14774358133c:e3c2e605-9af4-59fc-b966-d23265b8dd38::","url":"/v2/resource_instances/crn:v1:bluemix:public:container-registry:eu-gb:a%2Fc56c9a268d23e1b339ac14774358133c:e3c2e605-9af4-59fc-b966-d23265b8dd38::","created_at":"2018-01-10T14:10:17.405Z","updated_at":"2018-01-10T14:10:17.405Z","deleted_at":null,"created_by":"","updated_by":"","deleted_by":"","scheduled_reclaim_at":null,"restored_at":null,"scheduled_reclaim_by":"","restored_by":"","name":"Container
+        Registry","region_id":"eu-gb","account_id":"c56c9a268d23e1b339ac14774358133c","reseller_channel_id":"","resource_plan_id":"public.bluemix.container.registry.free","resource_group_id":"345c433098294722ba52d9039133e8cf","target_crn":"crn:v1:bluemix:public::eu-gb:::environment:bluemix-eu-gb","create_time":1515593417405,"allow_cleanup":false,"crn":"crn:v1:bluemix:public:container-registry:eu-gb:a/c56c9a268d23e1b339ac14774358133c:e3c2e605-9af4-59fc-b966-d23265b8dd38::","state":"active","type":"container-registry_instance","resource_id":"public.bluemix.container.registry","dashboard_url":null,"last_operation":null,"resource_aliases_url":"/v2/resource_instances/crn:v1:bluemix:public:container-registry:eu-gb:a%2Fc56c9a268d23e1b339ac14774358133c:e3c2e605-9af4-59fc-b966-d23265b8dd38::/resource_aliases","resource_bindings_url":"/v2/resource_instances/crn:v1:bluemix:public:container-registry:eu-gb:a%2Fc56c9a268d23e1b339ac14774358133c:e3c2e605-9af4-59fc-b966-d23265b8dd38::/resource_bindings","resource_keys_url":"/v2/resource_instances/crn:v1:bluemix:public:container-registry:eu-gb:a%2Fc56c9a268d23e1b339ac14774358133c:e3c2e605-9af4-59fc-b966-d23265b8dd38::/resource_keys","plan_history":[{"resource_plan_id":"public.bluemix.container.registry.free","start_date":"2018-01-10T14:10:17.405Z","requestor_id":""}],"migrated":false,"controlled_by":"","locked":false}]}
+
+        '
+    http_version:
+  recorded_at: Mon, 26 Apr 2021 16:48:13 GMT
+recorded_with: VCR 5.1.0

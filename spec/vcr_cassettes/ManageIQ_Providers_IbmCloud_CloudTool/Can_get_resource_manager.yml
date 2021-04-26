@@ -1,0 +1,120 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://iam.cloud.ibm.com/identity/token
+    body:
+      encoding: UTF-8
+      string: grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=IBM_CLOUD_VPC_API_KEY&response_type=cloud_iam
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - application/json
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/4.1.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Transaction-Id:
+      - 960408706f39432ea561937d6f5718f6
+      Cache-Control:
+      - no-cache, no-store
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '1524'
+      X-Envoy-Upstream-Service-Time:
+      - '99'
+      Server:
+      - istio-envoy
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Date:
+      - Mon, 26 Apr 2021 15:29:12 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - sessioncookie="3951cc356c8e5468"; Path=/; HttpOnly
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"eyJraWQiOiIyMDIxMDQyMDE4MzYiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiODc5YmU0ZDUtYWJkZi00ZDgzLWI3MmItNDg3MGJkY2Q2Yzc4IiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYXV0aG4iOnsic3ViIjoiamFyZWRtQGNhLmlibS5jb20iLCJpYW1faWQiOiJpYW0tMjcwMDAxWE5ORiIsIm5hbWUiOiJKYXJlZCBNb29yZSIsImdpdmVuX25hbWUiOiJKYXJlZCIsImZhbWlseV9uYW1lIjoiTW9vcmUiLCJlbWFpbCI6ImphcmVkbUBjYS5pYm0uY29tIn0sImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6ImM1NmM5YTI2OGQyM2UxYjMzOWFjMTQ3NzQzNTgxMzNjIiwiaW1zX3VzZXJfaWQiOiI3MjI2NTkxIiwiZnJvemVuIjp0cnVlLCJpbXMiOiIxMTYwNDQ3In0sImlhdCI6MTYxOTQ1MDk0OSwiZXhwIjoxNjE5NDU0NTQ5LCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.Cu1lgiTEr6HVTaxUH2wN3bIJYjGuEom8H8rxpmXijAMlttYjHacgtCptYGIfTcBpl5cE2ytag5Y1d2UIyMhygRdQ9h9lBBTcIgDDk7nLB9a_2TDlmWRBImQJdC4LBCoAQdEmwMFnHHnnhCygMtR9ssX68-cl-S78wEE3yzoFMPIy04G5S7HJNJqVfDSka_2j-Qg4h1FFNse7mVuxcRjZUCbymbjt4Z75rQdVQMlCLPS6UDXNBQgcJavQhSrmxYrI7aClJ2tWJlh8bznO0JXmutJBVl51EfcCceC0CbwpqB_Kjpy4ZZQh89m3bffaxYrGlkp_jbn8N470tMjufHeaow","refresh_token":"REFRESH_TOKEN","ims_user_id":"22222","token_type":"Bearer","expires_in":3600,"expiration":4102462800,"scope":"ibm
+        openid"}'
+    http_version:
+  recorded_at: Mon, 26 Apr 2021 15:29:13 GMT
+- request:
+    method: get
+    uri: https://resource-controller.cloud.ibm.com/v2/resource_groups
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - ibm_cloud_resource_controller-ruby-sdk-2.0.1 x86_64-apple-darwin20.3.0 ruby-2.6.7
+      X-Ibmcloud-Sdk-Analytics:
+      - service_name=resource_manager;service_version=V2;operation_id=list_resource_groups
+      Accept:
+      - application/json
+      Authorization:
+      - Bearer eyJraWQiOiIyMDIxMDQyMDE4MzYiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwiaWQiOiJJQk1pZC0yNzAwMDFYTk5GIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiODc5YmU0ZDUtYWJkZi00ZDgzLWI3MmItNDg3MGJkY2Q2Yzc4IiwiaWRlbnRpZmllciI6IjI3MDAwMVhOTkYiLCJnaXZlbl9uYW1lIjoiSmFyZWQiLCJmYW1pbHlfbmFtZSI6Ik1vb3JlIiwibmFtZSI6IkphcmVkIE1vb3JlIiwiZW1haWwiOiJqYXJlZG1AY2EuaWJtLmNvbSIsInN1YiI6ImphcmVkbUBjYS5pYm0uY29tIiwiYXV0aG4iOnsic3ViIjoiamFyZWRtQGNhLmlibS5jb20iLCJpYW1faWQiOiJpYW0tMjcwMDAxWE5ORiIsIm5hbWUiOiJKYXJlZCBNb29yZSIsImdpdmVuX25hbWUiOiJKYXJlZCIsImZhbWlseV9uYW1lIjoiTW9vcmUiLCJlbWFpbCI6ImphcmVkbUBjYS5pYm0uY29tIn0sImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6ImM1NmM5YTI2OGQyM2UxYjMzOWFjMTQ3NzQzNTgxMzNjIiwiaW1zX3VzZXJfaWQiOiI3MjI2NTkxIiwiZnJvemVuIjp0cnVlLCJpbXMiOiIxMTYwNDQ3In0sImlhdCI6MTYxOTQ1MDk0OSwiZXhwIjoxNjE5NDU0NTQ5LCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.Cu1lgiTEr6HVTaxUH2wN3bIJYjGuEom8H8rxpmXijAMlttYjHacgtCptYGIfTcBpl5cE2ytag5Y1d2UIyMhygRdQ9h9lBBTcIgDDk7nLB9a_2TDlmWRBImQJdC4LBCoAQdEmwMFnHHnnhCygMtR9ssX68-cl-S78wEE3yzoFMPIy04G5S7HJNJqVfDSka_2j-Qg4h1FFNse7mVuxcRjZUCbymbjt4Z75rQdVQMlCLPS6UDXNBQgcJavQhSrmxYrI7aClJ2tWJlh8bznO0JXmutJBVl51EfcCceC0CbwpqB_Kjpy4ZZQh89m3bffaxYrGlkp_jbn8N470tMjufHeaow
+      Connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Powered-By:
+      - Express
+      Transaction-Id:
+      - '18601131293'
+      X-Request-Id:
+      - '18601131293'
+      "-Request-Id":
+      - '18601131293'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Ratelimit-Limit:
+      - '500'
+      X-Ratelimit-Remaining:
+      - '499'
+      X-Ratelimit-Reset:
+      - '0'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"81d-i65+Aq39zx/y7MnkcbzumHl8/28"
+      X-Response-Time:
+      - 1874.987ms
+      X-Envoy-Upstream-Service-Time:
+      - '1879'
+      Server:
+      - istio-envoy
+      Expires:
+      - Mon, 26 Apr 2021 15:29:15 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Mon, 26 Apr 2021 15:29:15 GMT
+      Content-Length:
+      - '2077'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"resources":[{"id":"29b1dd25de2d40b5ae5bd5f719f30db8","crn":"crn:v1:bluemix:public:resource-controller::a/c56c9a268d23e1b339ac14774358133c::resource-group:29b1dd25de2d40b5ae5bd5f719f30db8","account_id":"c56c9a268d23e1b339ac14774358133c","name":"camc-test","state":"ACTIVE","default":false,"enable_reclamation":false,"quota_id":"a3d7b8d01e261c24677937c29ab33f3c","quota_url":"/v2/quota_definitions/a3d7b8d01e261c24677937c29ab33f3c","payment_methods_url":"/v2/resource_groups/29b1dd25de2d40b5ae5bd5f719f30db8/payment_methods","resource_linkages":[],"teams_url":"/v2/resource_groups/29b1dd25de2d40b5ae5bd5f719f30db8/teams","created_at":"2019-01-22T12:50:50.278Z","updated_at":"2019-01-22T12:50:50.278Z"},{"id":"345c433098294722ba52d9039133e8cf","crn":"crn:v1:bluemix:public:resource-controller::a/c56c9a268d23e1b339ac14774358133c::resource-group:345c433098294722ba52d9039133e8cf","account_id":"c56c9a268d23e1b339ac14774358133c","name":"default","state":"ACTIVE","default":true,"enable_reclamation":false,"quota_id":"a3d7b8d01e261c24677937c29ab33f3c","quota_url":"/v2/quota_definitions/a3d7b8d01e261c24677937c29ab33f3c","payment_methods_url":"/v2/resource_groups/345c433098294722ba52d9039133e8cf/payment_methods","resource_linkages":[],"teams_url":"/v2/resource_groups/345c433098294722ba52d9039133e8cf/teams","created_at":"2017-09-17T06:45:26.325Z","updated_at":"2018-05-24T08:29:49.065Z"},{"id":"c315f4fc1e3e4d5ca4cc2a2c38e40ef6","crn":"crn:v1:bluemix:public:resource-controller::a/c56c9a268d23e1b339ac14774358133c::resource-group:c315f4fc1e3e4d5ca4cc2a2c38e40ef6","account_id":"c56c9a268d23e1b339ac14774358133c","name":"cloudforms","state":"ACTIVE","default":false,"enable_reclamation":false,"quota_id":"a3d7b8d01e261c24677937c29ab33f3c","quota_url":"/v2/quota_definitions/a3d7b8d01e261c24677937c29ab33f3c","payment_methods_url":"/v2/resource_groups/c315f4fc1e3e4d5ca4cc2a2c38e40ef6/payment_methods","resource_linkages":[],"teams_url":"/v2/resource_groups/c315f4fc1e3e4d5ca4cc2a2c38e40ef6/teams","created_at":"2020-03-31T01:21:57.714Z","updated_at":"2020-03-31T01:21:57.714Z"}]}'
+    http_version:
+  recorded_at: Mon, 26 Apr 2021 15:29:15 GMT
+recorded_with: VCR 5.1.0

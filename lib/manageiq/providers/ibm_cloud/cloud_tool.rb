@@ -55,6 +55,12 @@ module ManageIQ
           @vpc ||= CloudTools::Vpc.new(:cloudtools => self, :region => region, :version => version, :generation => generation)
         end
 
+        # Get a class that accesses the IBM Cloud Resource Manager API.
+        # @return [CloudTools::ResourceController] the CloudTools Resource Manager SDK wrapper.
+        def resource
+          @resource ||= CloudTools::ResourceController.new(:cloudtools => self)
+        end
+
         private
 
         # Set a new logger
