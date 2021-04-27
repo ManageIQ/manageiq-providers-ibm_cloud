@@ -19,7 +19,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   before_update :ensure_managers_zone
 
   # Add resource groups association to cloud manager for provisioning.
-  has_many :resource_groups, :foreign_key => :ems_id, :dependent => :destroy
+  has_many :resource_groups, :foreign_key => :ems_id, :dependent => :destroy # rubocop:disable Rails/InverseOf # ':inverse_of => :resource_group' throws error.
 
   supports :label_mapping
 

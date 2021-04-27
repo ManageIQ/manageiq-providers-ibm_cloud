@@ -29,7 +29,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_cloud_collection(:vm_and_template_taggings)
 
     # Define resource_groups method on CloudManager
-    add_cloud_collection(:resource_groups, {}, {:auto_inventory_attributes => false})  { |builder| add_resource_group(builder) }
+    add_cloud_collection(:resource_groups, {}, {:auto_inventory_attributes => false}) { |builder| add_resource_group(builder) }
   end
 
   def initialize_network_inventory_collections
