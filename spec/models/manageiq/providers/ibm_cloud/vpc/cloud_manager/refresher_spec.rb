@@ -29,14 +29,14 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:
   # @return [void]
   def assert_ems_counts(mgmt)
     # Cloud Manager
-    cloud_manger = {
+    cloud_manager = {
       :availability_zones => 3,
       :key_pairs          => 2,
       :miq_templates      => 57,
       :resource_groups    => 3,
       :vms                => 6,
     }.freeze
-    check_counts(mgmt, cloud_manger)
+    check_counts(mgmt, cloud_manager)
 
     # Network Manager
     network_manager = {
