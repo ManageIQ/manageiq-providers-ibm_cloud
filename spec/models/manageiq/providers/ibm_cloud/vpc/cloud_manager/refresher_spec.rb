@@ -157,7 +157,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:
   # @param ems_ref [String] Value used by the Cloud as a ID.
   # @return [ApplicationRecord] The result of the find.
   def check_resource_fetch(mgmt, method, ems_ref)
-    expect(mgmt).to respond_to(method.to_sym), "ems does not respond to #{ems_method}"
+    expect(mgmt).to respond_to(method.to_sym), "ems does not respond to #{method}"
 
     resource = mgmt.send(method.to_sym).find_by(:ems_ref => ems_ref)
     expect(resource).not_to be_nil, "#{mgmt.class.name}.#{method} with ems_ref #{ems_ref} was not found in db."
