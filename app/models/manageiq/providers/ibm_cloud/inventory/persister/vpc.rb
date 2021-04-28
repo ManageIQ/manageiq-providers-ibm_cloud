@@ -27,9 +27,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_cloud_collection(:networks)
     add_cloud_collection(:vm_and_template_labels)
     add_cloud_collection(:vm_and_template_taggings)
-
-    # Define resource_groups method on CloudManager
-    add_cloud_collection(:resource_groups, {}, {:auto_inventory_attributes => false}) { |builder| add_resource_group(builder) }
+    add_cloud_collection(:resource_groups)
   end
 
   def initialize_network_inventory_collections
@@ -44,12 +42,5 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
   def initialize_storage_inventory_collections
     add_storage_collection(:cloud_volumes)
     add_storage_collection(:cloud_volume_types)
-  end
-
-  # Automatically add the local model class and id of ems to the database record.
-  # @return [void]
-  def add_resource_group(builder)
-    builder.add_properties(:model_class => ::ManageIQ::Providers::IbmCloud::VPC::ResourceGroup)
-    builder.add_default_values(:ems_id => manager.id)
   end
 end
