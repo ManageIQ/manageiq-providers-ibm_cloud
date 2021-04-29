@@ -18,7 +18,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:
       assert_ems_counts(mgmt)
       assert_specific_vm(mgmt)
       assert_specific_resource_group(mgmt, '29b1dd25de2d40b5ae5bd5f719f30db8', 'camc-test')
-      assert_specific_security_group(mgmt, 'r014-e4be0c69-6df6-4464-a9bc-384e4179ea1b', 'backup-deglazed-bagful-deflation')
+      assert_specific_security_group(mgmt, 'r014-e4be0c69-6df6-4464-a9bc-384e4179ea1b', 'backup-deglazed-bagful-deflation', 'r014-0fa2acc6-2a41-4f2b-9c89-bcea07cdcbc3')
       assert_specific_cloud_volume_type(mgmt, 'general-purpose', 'tiered')
       assert_specific_cloud_subnet(mgmt, '0757-ef523a2f-5356-42ff-8a78-9325509465b9', 'r014-0fa2acc6-2a41-4f2b-9c89-bcea07cdcbc3', 'us-east-1')
       assert_specific_floating_ip(mgmt)
@@ -120,11 +120,15 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:
   # @param mgmt [VPC] The VPC EMS.
   # @param ems_ref [String] Value used by the Cloud as a ID.
   # @param name [String] The expected value of the name attribute.
+  # @param vpc_id [SString] The UUID of the associated IBM Cloud VPC.
   # @return [void]
-  def assert_specific_security_group(mgmt, ems_ref, name)
+  def assert_specific_security_group(mgmt, ems_ref, name, vpc_id)
     resource = check_resource_fetch(mgmt, :security_groups, ems_ref)
     class_type = 'ManageIQ::Providers::IbmCloud::VPC::NetworkManager::SecurityGroup'
     check_attribute_values(resource, ems_ref, class_type, name)
+
+    cloud_network = check_resource_fetch(mgmt, :cloud_networks, vpc_id)
+    check_relationship(resource, :cloud_network_id, cloud_network)
   end
 
   # Test a cloud_volume_type record is properly persisted.
