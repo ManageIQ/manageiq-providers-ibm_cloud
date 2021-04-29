@@ -4,6 +4,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   require_nested :Refresher
   require_nested :Template
   require_nested :Vm
+  require_nested :LoggingMixin
 
   supports :provisioning
 
