@@ -2,6 +2,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   require_nested :AuthKeyPair
   require_nested :RefreshWorker
   require_nested :Refresher
+  require_nested :Provision
   require_nested :ProvisionWorkflow
   require_nested :Template
   require_nested :Vm
