@@ -10,6 +10,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:
 
   it "tests the refresh" do
     2.times do
+      # Storing ems as a variable and passing it directly reduces the complexity of the runtime. Which appears to increase runtime performance.
       mgmt = ems
       mgmt.refresh
       mgmt.reload
