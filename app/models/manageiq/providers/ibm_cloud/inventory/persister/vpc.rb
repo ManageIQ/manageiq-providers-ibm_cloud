@@ -28,6 +28,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_cloud_collection(:networks)
     add_cloud_collection(:vm_and_template_labels)
     add_cloud_collection(:vm_and_template_taggings)
+    add_cloud_collection(:resource_groups)
   end
 
   def initialize_network_inventory_collections
