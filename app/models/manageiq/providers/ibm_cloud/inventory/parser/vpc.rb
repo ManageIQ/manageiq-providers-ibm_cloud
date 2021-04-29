@@ -216,6 +216,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   def security_groups
     collector.security_groups.each do |sg|
       persister.security_groups.build(
+        :cloud_network => persister.cloud_networks.lazy_find(sg&.dig(:vpc, :id)),
         :ems_ref       => sg[:id],
         :name          => sg[:name],
         :network_ports => sg[:network_interfaces].to_a.map do |nic|
