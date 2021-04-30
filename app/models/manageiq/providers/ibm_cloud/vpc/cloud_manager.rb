@@ -78,8 +78,8 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   end
 
   LABEL_MAPPING_ENTITIES = {
-    "VmIBM"   => "ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm",
-    "VmImage" => "ManageIQ::Providers::IbmCloud::VPC::CloudManager::Template"
+    "VmIBM"    => "ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm",
+    "ImageIBM" => "ManageIQ::Providers::IbmCloud::VPC::CloudManager::Template"
   }.freeze
 
   def self.entities_for_label_mapping
