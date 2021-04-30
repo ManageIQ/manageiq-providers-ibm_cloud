@@ -1,10 +1,6 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Collector::ObjectStorage < ManageIQ::Providers::IbmCloud::Inventory::Collector
   require_nested :ObjectManager
 
-  def connection
-    @connection ||= manager.connect
-  end
-
   def buckets
     buckets = []
 
@@ -23,5 +19,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::ObjectStorage < Manag
   def objects(bucket_id, token = nil)
     params = token.nil? ? {:continuation_token => token} : {}
     connection.list_objects_v2({:bucket => bucket_id}, params)
+  end
+
+  private
+
+  def connection
+    @connection ||= manager.connect
   end
 end
