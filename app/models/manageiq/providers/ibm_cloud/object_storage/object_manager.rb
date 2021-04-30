@@ -112,10 +112,10 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::ObjectManager < ManageIQ::Pr
     "ibm"
   end
 
-  def get_cos_creds
-    iam     = authentications.detect { |e| e.authtype == 'default' } || {}
-    bearer  = authentications.detect { |e| e.authtype == 'bearer' }  || {}
-    endp    = endpoints.detect { |e| e.role == 'default' } || {}
+  def cos_creds
+    iam     = authentications.detect { |e| e.authtype == 'default' }
+    bearer  = authentications.detect { |e| e.authtype == 'bearer' }
+    endp    = endpoints.first
 
     guid   = uid_ems
     region = provider_region
@@ -129,21 +129,22 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::ObjectManager < ManageIQ::Pr
   end
 
   def connect(_args = {})
-    guid, apikey, region, endpoint, access_key, secret_key = get_cos_creds
+    _, _, region, endpoint, access_key, secret_key = cos_creds
     self.class.raw_connect(region, endpoint, access_key, secret_key)
   end
 
   def verify_credentials(_args = {})
-    guid, apikey, region, endpoint, access_key, secret_key = get_cos_creds
+    guid, apikey, region, endpoint, access_key, secret_key = cos_creds
     self.class.verify_bearer(region, endpoint, access_key, secret_key)
     self.class.verify_iam(guid, apikey)
+
     true
   end
 
   def self.verify_credentials(args)
     guid     = args["uid_ems"]
     auth_key = args.dig("authentications", "default", "auth_key")
-    apikey  = ManageIQ::Password.try_decrypt(auth_key)
+    apikey   = ManageIQ::Password.try_decrypt(auth_key)
     verify_iam(guid, apikey)
 
     region = args["provider_region"]
@@ -156,17 +157,16 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::ObjectManager < ManageIQ::Pr
     true
   end
 
-  private
-
   def self.verify_bearer(region, endpoint, access_key, secret_key)
     begin
-      self.raw_connect(region, endpoint, access_key, secret_key).list_buckets({}, params: {max_keys: 1})
-      return true
+      raw_connect(region, endpoint, access_key, secret_key).list_buckets({}, :params => {:max_keys => 1})
     rescue IbmCloudIam::ApiError => err
       error_message = JSON.parse(err.response_body)["message"]
       _log.error("Access/Secret authentication failed: #{err.code} #{error_message}")
       raise MiqException::MiqInvalidCredentialsError, error_message
     end
+
+    true
   end
 
   def self.verify_iam(crn, api_key)
@@ -193,11 +193,11 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::ObjectManager < ManageIQ::Pr
       resource_instances_api.get_resource_instance(crn)
     rescue IbmCloudResourceController::ApiError => err
       error_message = JSON.parse(err.response_body)["message"]
-      _log.error("GUID resource lookup failed: #{err.code} #{error_message}")
+      _log.error("CRN resource lookup failed: #{err.code} #{error_message}")
       raise MiqException::MiqInvalidCredentialsError, error_message
     end
 
-    return true
+    true
   end
 
   def self.raw_connect(region, endpoint, access_key, secret_key)

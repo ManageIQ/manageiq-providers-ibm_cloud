@@ -1,7 +1,7 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Parser::ObjectStorage < ManageIQ::Providers::IbmCloud::Inventory::Parser
   require_nested :ObjectManager
 
-  BUCKET_TAB_LIMIT = 2000
+  BUCKET_TAB_LIMIT = 1000
 
   def parse
     buckets
@@ -12,13 +12,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::ObjectStorage < ManageIQ
   def buckets
     collector.buckets.each do |bucket|
       bucket_id = bucket['name']
+
       total_size, total_count = process_bucket(bucket_id)
 
       persister.cloud_object_store_containers.build(
-        :ems_ref => bucket_id,
-        :key     => bucket_id,
-        :bytes   => total_size,
-        :object_count => total_count,
+        :ems_ref      => bucket_id,
+        :key          => bucket_id,
+        :bytes        => total_size,
+        :object_count => total_count
       )
     end
   end
@@ -40,7 +41,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::ObjectStorage < ManageIQ
           :last_modified                => object['last_modified'],
           :content_length               => object['size'],
           :key                          => object['key'],
-          :cloud_object_store_container => persister.cloud_object_store_containers.lazy_find(bucket_id),
+          :cloud_object_store_container => persister.cloud_object_store_containers.lazy_find(bucket_id)
         )
       end
 
