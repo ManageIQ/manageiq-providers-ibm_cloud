@@ -181,20 +181,14 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::ObjectManager < ManageIQ::Pr
     end
 
     require "ibm_cloud_resource_controller"
-    api_client = IbmCloudResourceController::ApiClient.new
-    api_client.config.api_key        = {"Authorization" => token.access_token}
-    api_client.config.api_key_prefix = {"Authorization" => token.token_type}
-    api_client.config.access_token   = {"Authorization" => token.access_token}
-    api_client.config.logger         = $ibm_cloud_log
-
-    resource_instances_api = IbmCloudResourceController::ResourceInstancesApi.new(api_client)
+    authenticator = IbmCloudResourceController::Authenticators::BearerTokenAuthenticator.new(:bearer_token => token.access_token)
+    resource_controller_api = IbmCloudResourceController::ResourceControllerV2.new(:authenticator => authenticator)
 
     begin
-      resource_instances_api.get_resource_instance(crn)
-    rescue IbmCloudResourceController::ApiError => err
-      error_message = JSON.parse(err.response_body)["message"]
-      _log.error("CRN resource lookup failed: #{err.code} #{error_message}")
-      raise MiqException::MiqInvalidCredentialsError, error_message
+      resource_controller_api.get_resource_instance(:id => crn).result
+    rescue IbmCloudResourceController::ApiException => err
+      _log.error("GUID resource lookup failed: #{err.code} #{err.error}")
+      raise MiqException::MiqInvalidCredentialsError, err.error
     end
 
     true
