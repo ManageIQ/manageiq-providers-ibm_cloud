@@ -12,12 +12,13 @@ describe ManageIQ::Providers::IbmCloud::ObjectStorage::ObjectManager::Refresher 
       FactoryBot.create(
         :ems_ibm_cloud_object_storage_object,
         :uid_ems         => uid_ems,
-        :provider_region => "us-south"
-      ).tap do |ems|
-        ems.endpoints << FactoryBot.create(
+        :provider_region => "us-south",
+        :endpoints       => [FactoryBot.create(
           :endpoint,
-          :hostname => "https://s3.us-east.cloud-object-storage.appdomain.cloud"
-        )
+          :role => 'default',
+          :url  => 'https://s3.us-east.cloud-object-storage.appdomain.cloud'
+        )]
+      ).tap do |ems|
         ems.authentications << FactoryBot.create(
           :authentication,
           :authtype => 'default',
