@@ -33,6 +33,13 @@ end
 def vpc_sanitizer(interaction)
   # Mask bearer token in recorded file.
   interaction.request.headers['Authorization'] = 'Bearer xxxxxx' if interaction.request.headers.key?('Authorization')
+
+  # Replace headers so that they don't get updated each regeneration.
+  response_header = interaction.response.headers
+  %w[Date Set-Cookie X-Envoy-Upstream-Service-Time Transaction-Id __cfduid Cf-Ray Cf-Request-Id X-Request-Id X-Trace-Id].each do |header|
+    response_header.delete(header) if response_header.key?(header)
+  end
+
   # Replace IP V4 Addresses
   interaction.response.body.gsub!(/([0-9]{1,3}\.){3}/, '127.0.0.')
   # Replace ssh key data.
@@ -55,7 +62,7 @@ VCR.configure do |config|
 
   config.before_record do |i|
     replace_token_contents(i.response) if i.request.uri == "https://iam.cloud.ibm.com/identity/token"
-    vpc_sanitizer(i) if i.request.uri.match?('iaas.cloud.ibm')
+    vpc_sanitizer(i) if i.request.uri.match?('iaas.cloud.ibm') || i.request.uri.match?('tags.global-search-tagging')
   end
 
   secrets = Rails.application.secrets
