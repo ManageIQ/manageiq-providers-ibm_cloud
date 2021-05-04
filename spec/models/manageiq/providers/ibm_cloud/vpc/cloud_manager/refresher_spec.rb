@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/MethodCallWithArgsParentheses
 describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:allow_playback_repeats => true} do
   let(:ems) do
     api_key = Rails.application.secrets.ibm_cloud_vpc[:api_key]
