@@ -248,14 +248,35 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     end
   end
 
+  # Persist all floating ips in VPC Cloud.
+  # @return [void]
   def floating_ips
     collector.floating_ips.each do |ip|
+      instance_id = floating_ip_instance_id(ip)
       persister.floating_ips.build(
-        :ems_ref => ip[:id],
-        :address => ip[:address],
-        :status  => ip[:status]
+        :vm               => persister.vms.lazy_find(instance_id),
+        :network_port     => persister.network_ports.lazy_find(ip&.dig(:target, :id)),
+        :ems_ref          => ip[:id],
+        :address          => ip[:address],
+        :status           => ip[:status],
+        :fixed_ip_address => ip&.dig(:target, :primary_ipv4_address)
       )
     end
+  end
+
+  # Use a regex to find the target for a floating ip attached to an instance.
+  # @param fip [Hash] A VPC Floating Ip hash.
+  # @return [String, NilClass] The Cloud ID of the attached instance. Everything else is nil.
+  def floating_ip_instance_id(fip)
+    # The target key is only present when there is an attached instance.
+    return nil unless fip&.dig(:target, :href)
+
+    # The href is something like "https://<zone>.iaas.cloud.ibm.com/v1/instances/<instance_id>/network_interfaces/<network_interface_id>"
+    regex = "/instances/(?<inst_id>.*)/network_interfaces/" # Use string to avoid escaping errors and improve readability.
+    match = fip[:target][:href].match(regex)
+    return nil if match.nil?
+
+    match[:inst_id]
   end
 
   def volumes
