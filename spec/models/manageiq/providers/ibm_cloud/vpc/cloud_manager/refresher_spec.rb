@@ -201,6 +201,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:
   # @param mgmt [VPC] The VPC EMS.
   # @param method [Symbol] The method to use to call the association record.
   # @param ems_ref [String] Value used by the Cloud as a ID.
+  # @param key [Symbol] The key to use to find the record.
   # @return [ApplicationRecord] The result of the find.
   def check_resource_fetch(mgmt, method, ems_ref, key: :ems_ref)
     expect(mgmt).to respond_to(method.to_sym), "ems does not respond to #{method}"
