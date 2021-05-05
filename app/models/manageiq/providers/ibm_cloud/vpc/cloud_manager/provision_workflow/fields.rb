@@ -19,6 +19,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Fiel
   # @param provider [#each_with_object]  An object that acts as an array with hash contents.
   # @param key [String | Symbol] The name of the field to query for the key of the returned hash.
   # @param value [String | Symbol] The name of the field to query for the value of the returned hash.
+  # @param remove_fields [Array<String>] An array of values to not include. Used for when the Cloud returns values that do not work with a simple drop-down.
   # @return [Hash<String, String>] A hash containing the values returned by 'key' and 'value' parameters.
   # @return [Hash<String, String>] If an error is encountered then a hash with 'Error' as the key and the exception string as the value will be returned.
   # On error a log message with backtrace will be printed to the log file.
@@ -27,22 +28,10 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Fiel
     parent_method = caller(1..1).first.split[-1]
     generic_dropdown(provider, key, value, remove_fields)
   rescue => e
-    # Log the error but do not raise an exception. The pulldown will have a string representation of the error.
-    logger(__method__).log_backtrace(e, :re_raise => false, :context_msg => "#{parent_method} exception using #{provider.class.name} using #{key} => #{value}")
-    {'Error' => e.to_s}
-  end
-
-  # Tries to return the contents of the provided key.
-  # @param item [Hash] Hash to query.
-  # @param key [String | Symbol] The key to look for,
-  # @return [String] The contents of the key in the item hash.
-  # @return [String] If the key cannot be found the exception string is returned.
-  def find_key(item, key)
-    item[key.to_sym] || item[key.to_s] || "key #{key} does not exist in Hash"
-  rescue => e
-    # Log the error but do not raise an exception. The pulldown will have a string representation of the error.
-    logger(__method__).log_backtrace(e, :re_raise => false, :context_msg => "#{item.class} had exception using #{key}")
-    e.to_s
+    # Log the error but do not raise an exception. The pulldown will have a have a string indicating an error occurred.
+    new_logger = logger(__method__)
+    new_logger.log_backtrace(e, :re_raise => false, :context_msg => "#{parent_method} exception using #{provider.class.name} using #{key} => #{value}")
+    {'Error' => new_logger.default_short_ui_msg}
   end
 
   # Create a hash with integers as keys.
@@ -55,11 +44,12 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Fiel
   def index_dropdown(provider, key: :id, value: :name)
     # Get the last caller to use in error logging.
     parent_method = caller(1..1).first.split[-1]
-
     generic_dropdown(provider, key, value)
   rescue => e
-    logger(__method__).log_backtrace(e, :re_raise => false, :context_msg => "#{parent_method} exception using #{key} => #{value}")
-    {0 => e.to_s}
+    # Log the error but do not raise an exception. The pulldown will have a string indicating an error occurred.
+    new_logger = logger(__method__)
+    new_logger.log_backtrace(e, :re_raise => false, :context_msg => "#{parent_method} exception using #{key} => #{value}")
+    {0 => new_logger.default_short_ui_msg}
   end
 
   # Standardize the dropdown logic so that both methods use this method.
@@ -77,5 +67,24 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Fiel
 
       obj[find_key(item, key)] = return_value
     end
+  end
+
+  # Tries to return the contents of the provided key.
+  # @param item [ActiveRecord, Hash] Hash like instance to query.
+  # @param key [String | Symbol] The key to look for,
+  # @return [String] The contents of the key in the item hash.
+  # @raise [StandardError] There is an error trying to access the content using passed in key value.
+  # @return [String, NilClass] Value of the key in the object.
+  def find_key(item, key)
+    if item.kind_of?(Hash)
+      # ActiveRecord doesn't seem to have key? method.
+      raise "#{item.class.name} does not contain #{key}" unless item.key?(key.to_sym) || item.key?(key.to_s)
+
+      return item[key.to_sym] || item[key.to_s]
+    end
+
+    raise "#{item.class.name} does not have respond to #{key}." unless item.respond_to?(key.to_sym)
+
+    item.send(key.to_sym)
   end
 end
