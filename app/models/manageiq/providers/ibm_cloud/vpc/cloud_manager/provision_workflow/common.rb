@@ -10,7 +10,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Comm
 
     rui = resources_for_ui[:ems]
     ems = load_ar_obj(rui) if rui
-    raise MiqException::MiqProvisionError, _('A server-side error occurred in the provisioning workflow') if ems.nil?
+    raise 'VPC EMS could not be found. Raising an exception.' if ems.nil?
 
     @ar_ems = ems
   rescue => e
