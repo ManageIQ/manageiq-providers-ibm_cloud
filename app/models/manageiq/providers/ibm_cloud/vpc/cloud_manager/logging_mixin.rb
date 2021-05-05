@@ -6,6 +6,16 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::LoggingMixin
   # During development use the defined $ibm_cloud_log which prints to ibm_cloud.log.
   # In production use the defined _log which prints to general evm log and should be captured in containers.
   class LoggingWrapper
+    # The error message presented to the UI on unhandled exception.
+    # @return [String]
+    def default_ui_error_msg
+      _('A server-side error occurred in the provisioning workflow, contact your administrator. Use the menu or "instances by Provider" link to cancel this workflow.')
+    end
+
+    def default_short_ui_msg
+      _('Error fetching data, check server logs.')
+    end
+
     # Define a short-lived object for this method.
     # @param method_name [String] The name of the method calling this logger.
     # @return [void]
@@ -55,6 +65,11 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::LoggingMixin
       raise if re_raise
 
       send_return
+    end
+
+    def ui_exception(exception, context_msg: '')
+      log_backtrace(exception, :context_msg => context_msg, :re_raise => false)
+      raise MiqException::MiqProvisionError, default_ui_error_msg
     end
 
     private
