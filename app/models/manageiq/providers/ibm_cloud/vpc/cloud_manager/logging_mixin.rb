@@ -17,28 +17,28 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::LoggingMixin
     # @param msg [String] A string message to print.
     # @return [void]
     def info(msg)
-      parent_logger.info(format_message(msg))
+      $ibm_cloud_log.info(format_message(msg))
     end
 
     # Send a debug message to the configured logger.
     # @param msg [String] A string message to print.
     # @return [void]
     def debug(msg)
-      parent_logger.debug(format_message(msg))
+      $ibm_cloud_log.debug(format_message(msg))
     end
 
     # Send a warn message to the configured logger.
     # @param msg [String] A string message to print.
     # @return [void]
     def warn(msg)
-      parent_logger.warn(format_message(msg))
+      $ibm_cloud_log.warn(format_message(msg))
     end
 
     # Send a warn message to the configured logger.
     # @param msg [String] A string message to print.
     # @return [void]
     def error(msg)
-      parent_logger.error(format_message(msg))
+      $ibm_cloud_log.error(format_message(msg))
     end
 
     # Log the backtrace for an exception.
@@ -48,9 +48,10 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::LoggingMixin
     # @param send_return [] The object to send as a return value.
     # @return [void]
     def log_backtrace(exception, context_msg: '', re_raise: true, send_return: nil)
-      parent_logger.error(format_message(context_msg)) unless context_msg.length.zero?
+      context_msg = 'printing raised exception' if context_msg.length.zero?
 
-      parent_logger.log_backtrace(exception)
+      $ibm_cloud_log.error(format_message(context_msg))
+      $ibm_cloud_log.log_backtrace(exception)
       raise if re_raise
 
       send_return
@@ -63,17 +64,6 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::LoggingMixin
     # @return [String]
     def format_message(msg)
       "#{@method_name} #{msg}"
-    end
-
-    # Determine which logger to use for this call.
-    # @return [Vmdb::Loggers::ProviderSdkLogger, Vmdb::LogProxy]
-    def parent_logger
-      development? ? $ibm_cloud_log : _log
-    end
-
-    # Save the environment type.
-    def development?
-      @development ||= ManageIQ.env.development?
     end
   end
 
