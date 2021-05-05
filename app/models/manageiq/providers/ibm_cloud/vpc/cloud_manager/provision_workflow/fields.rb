@@ -83,7 +83,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Fiel
       return item[key.to_sym] || item[key.to_s]
     end
 
-    raise "#{item.class.name} does not have respond to #{key}." unless item.respond_to?(key.to_sym)
+    raise "#{item.class.name} does not respond to #{key}." unless item.respond_to?(key.to_sym)
 
     item.send(key.to_sym)
   end
