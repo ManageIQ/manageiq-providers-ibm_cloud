@@ -48,7 +48,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Fiel
   rescue => e
     # Log the error but do not raise an exception. The pulldown will have a string indicating an error occurred.
     new_logger = logger(__method__)
-    new_logger.log_backtrace(e, :re_raise => false, :context_msg => "#{parent_method} exception using #{key} => #{value}")
+    new_logger.log_backtrace(e, :re_raise => false, :context_msg => "#{parent_method} exception with #{provider.class.name} using #{key} => #{value}")
     {0 => new_logger.default_short_ui_msg}
   end
 
