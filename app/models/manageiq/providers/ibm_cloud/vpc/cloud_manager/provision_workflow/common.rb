@@ -27,9 +27,22 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Comm
   # @param values [Hash] Values for use in provision request.
   # @return [void]
   def set_request_values(values) # rubocop:disable Naming/AccessorMethodName # Standard method in parent.
+    validate_fields_no_errors(values)
     parse_new_volumes_fields(values) # See volumes.rb for details.
     super
     logger(__method__).info("Final values is #{values}")
     # Do not rescue. `parse_new_volumes_fields` will throw an exception on validation error.
+  end
+
+  # Validate each dropdown value and ensure that they don't have the default short error message.
+  # @param values [Hash] Values for use in provision request.
+  # @raise [StandardError] A field has the error message. Cancel the form submission.
+  # @return [void]
+  def validate_fields_no_errors(values)
+    logger_message = logger(__method__).default_short_ui_msg
+    values.each_value do |value|
+      next unless value.kind_of?(Array)
+      raise _('A server-side error prevents this form from being submitted. Contact your administrator. To leave this form use the Cancel button.') if value.include?(logger_message)
+    end
   end
 end
