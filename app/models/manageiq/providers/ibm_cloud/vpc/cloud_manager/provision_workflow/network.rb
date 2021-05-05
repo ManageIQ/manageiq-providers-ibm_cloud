@@ -9,6 +9,8 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Netw
   # @return [Hash] Hash with ems_ref as key and name as value.
   def placement_availability_zone_to_zone(_options = {})
     @placement_availability_zone_to_zone ||= index_dropdown(ar_ems.availability_zones)
+  rescue => e
+    logger(__method__).ui_exception(e)
   end
 
   # Fetch VPCs from inventory.
@@ -16,6 +18,8 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Netw
   # @return [Hash] Hash with ems_ref as key and name as value.
   def cloud_networks_to_vpc(_options = {})
     @cloud_networks_to_vpc ||= string_dropdown(ar_ems.cloud_networks)
+  rescue => e
+    logger(__method__).ui_exception(e)
   end
 
   # Wait until both the zone and cloud_network fields are set and then fetch subnets from inventory.
@@ -33,7 +37,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Netw
     method_log.debug("Subnets are #{subnets}")
     string_dropdown(subnets)
   rescue => e
-    method_log.log_backtrace(e)
+    logger(__method__).ui_exception(e)
   end
 
   # Fetch a list of security groups.
@@ -48,7 +52,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Netw
     end
     string_dropdown(ar_security_group)
   rescue => e
-    logger(__method__).log_backtrace(e)
+    logger(__method__).ui_exception(e)
   end
 
   # Validate the given IP address.

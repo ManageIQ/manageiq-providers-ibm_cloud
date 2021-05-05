@@ -8,7 +8,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
   def provision_type_to_profile(_options = {})
     @provision_type_to_profile ||= index_dropdown(ar_ems.flavors)
   rescue => e
-    logger(__method__).log_backtrace(e)
+    logger(__method__).ui_exception(e)
   end
 
   # Validate vm_name field matches the required regex specified by VPC Cloud API doc.
@@ -32,7 +32,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
   def guest_access_key_pairs_to_keys(_options = {})
     @guest_access_key_pairs_to_keys ||= string_dropdown(ar_ems.key_pairs)
   rescue => e
-    logger(__method__).log_backtrace(e)
+    logger(__method__).ui_exception(e)
   end
 
   # Fetch resource groups from inventory.
@@ -41,6 +41,6 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
   def resource_groups_to_resource_groups(_options = {})
     @resource_groups_to_resource_groups ||= string_dropdown(ar_ems.resource_groups)
   rescue => e
-    logger(__method__).log_backtrace(e)
+    logger(__method__).ui_exception(e)
   end
 end

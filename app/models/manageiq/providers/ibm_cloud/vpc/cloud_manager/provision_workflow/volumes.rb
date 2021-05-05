@@ -14,7 +14,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
   def storage_type_to_profile(_options = {})
     @storage_type_to_profile ||= string_dropdown(ar_ems.cloud_volume_types, :remove_fields => %w[custom])
   rescue => e
-    logger(__method__).log_backtrace(e)
+    logger(__method__).ui_exception(e)
   end
 
   # Wait until zone is set, then fetch volumes that have a status of available and reside in that zone.
@@ -29,7 +29,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
     end
     string_dropdown(ar_volumes)
   rescue => e
-    logger(__method__).log_backtrace(e)
+    logger(__method__).ui_exception(e)
   end
 
   # Perform any needed manipulation and validation for new volume fields.
@@ -66,7 +66,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
     # The volume index starts at 1. Which means index 0 is nil. Compact to get rid of it.
     new_volumes.compact
   rescue => e
-    logger(__method__).log_backtrace(e, :context_msg => 'Creating new_volume array.')
+    logger(__method__).ui_exception(e, :context_msg => 'Creating new_volume array.')
   end
 
   # Validate the new volumes fields.
