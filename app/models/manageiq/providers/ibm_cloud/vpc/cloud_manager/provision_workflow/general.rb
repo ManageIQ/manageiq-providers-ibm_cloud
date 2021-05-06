@@ -24,6 +24,8 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
     return msg unless value.to_s.strip.match?(/^[a-z][a-z][-a-z0-9]*[a-z0-9]$/)
 
     nil
+  rescue => e
+    logger(__method__).ui_exception(e)
   end
 
   # Fetch SSH keys from inventory.
