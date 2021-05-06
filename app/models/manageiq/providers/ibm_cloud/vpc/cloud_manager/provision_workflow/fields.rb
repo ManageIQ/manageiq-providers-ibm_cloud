@@ -78,12 +78,12 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Fiel
   def find_key(item, key)
     if item.kind_of?(Hash)
       # ActiveRecord doesn't seem to have key? method.
-      raise "#{item.class.name} does not contain #{key}" unless item.key?(key.to_sym) || item.key?(key.to_s)
+      raise "#{item.class.name} does not contain '#{key}'" unless item.key?(key.to_sym) || item.key?(key.to_s)
 
       return item[key.to_sym] || item[key.to_s]
     end
 
-    raise "#{item.class.name} does not respond to #{key}." unless item.respond_to?(key.to_sym)
+    raise "#{item.class.name} does not respond to '#{key}'." unless item.respond_to?(key.to_sym)
 
     item.send(key.to_sym)
   end
