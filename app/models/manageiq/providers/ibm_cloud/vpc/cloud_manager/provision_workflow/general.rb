@@ -18,10 +18,10 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
   # @param value [String] The value of the field.
   # @return [String, NilClass]  String on error. Nil when valid.
   def validate_vm_name(_field, _values, _dlg, _fld, value)
-    return _('General/Instance Name is a required field.') if value.nil?
+    return _('General/Instance Name is a required field.') if value.nil? || value.to_s.strip.length.zero?
 
     msg = _('General/Instance Name must be all lower-case, start with 2 characters, followed by any number of characters, numbers or dashes and end with a character or digit.')
-    return msg unless value.match?('^[a-z][a-z][-a-z0-9]*[a-z0-9]$')
+    return msg unless value.to_s.strip.match?(/^[a-z][a-z][-a-z0-9]*[a-z0-9]$/)
 
     nil
   end
