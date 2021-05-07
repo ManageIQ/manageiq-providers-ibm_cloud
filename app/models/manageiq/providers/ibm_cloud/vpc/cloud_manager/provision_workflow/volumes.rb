@@ -85,7 +85,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
     return nil if error_array.empty?
 
     e_msg = _("New volumes has the following problems: %{error}") % {:error => error_array.join(", ")}
-    raise e_msg
+    raise MiqException::MiqProvisionError, e_msg
   end
 
   # Validate that volume_name and volume_size are populated. Add a string explaining each violation to error_array.

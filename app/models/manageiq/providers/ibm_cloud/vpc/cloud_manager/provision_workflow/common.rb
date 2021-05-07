@@ -30,8 +30,11 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Comm
     validate_fields_no_errors(values)
     parse_new_volumes_fields(values) # See volumes.rb for details.
     super
-    logger(__method__).info("Final values is #{values}")
-    # Do not rescue. `parse_new_volumes_fields` will throw an exception on validation error.
+    logger(__method__).debug("Final values is #{values}")
+  rescue MiqException::MiqProvisionError # Allow the exception thrown by validation to be re-raised.
+    raise
+  rescue => e # Log any other errors and return default ui exception message.
+    logger(__method__).ui_exception(e)
   end
 
   # Validate each dropdown value and ensure that they don't have the default short error message.
