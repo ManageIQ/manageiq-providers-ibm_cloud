@@ -95,8 +95,10 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
   def validate_volume_required(index, item, error_array)
     logger(__method__).debug("Item is #{item}")
     %i[volume_name volume_size].each do |req|
+      next if item.key?(req) # Skip if new_volume hash contains the key the required key.
+
       e_str = _("Volume %{index} %{field} is required.") % {:index => index, :field => req.to_s}
-      error_array.append(e_str) unless item.key?(req)
+      error_array.append(e_str)
     end
   end
 
