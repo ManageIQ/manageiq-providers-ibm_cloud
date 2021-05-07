@@ -89,6 +89,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
   end
 
   # Validate that volume_name and volume_size are populated. Add a string explaining each violation to error_array.
+  # @param index [Integer] Number to print in error messages. Denotes the current UI volume being checked.Denotes the current UI volume being checked.
   # @param item [Hash<Symbol, String>] A new_volume hash.
   # @param error_array [Array<String>] An array of validation error strings.
   # @return [void]
@@ -104,6 +105,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
 
   # Validate that volume_name conforms to 2 lower-case characters followed by a random number of characters, numbers or dashes.
   # On validation error, add a string explaining the error to error_array.
+  # @param index [Integer] Number to print in error messages. Denotes the current UI volume being checked.
   # @param value [String] The value for the volume_name field.
   # @param error_array [Array<String>] An array of validation error strings.
   # @return [void]
@@ -116,6 +118,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
 
   # Validate that volume_size is a number between 10 and 2000.
   # On validation error, add a string explaining the error to error_array.
+  # @param index [Integer] Number to print in error messages. Denotes the current UI volume being checked.
   # @param value [Integer] The value for the volume_size field.
   # @param error_array [Array<String>] An array of validation error strings.
   # @return [void]
@@ -128,6 +131,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
 
   # Validate that volume_profile field has a known volume_profile name.
   # On validation error, add a string explaining the error to error_array.
+  # @param index [Integer] Number to print in error messages. Denotes the current UI volume being checked.
   # @param value [String] The value for the volume_profile field.
   # @param error_array [Array<String>] An array of validation error strings.
   # @return [void]
