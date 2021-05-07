@@ -2,6 +2,12 @@
 
 # Methods to create a new json payload.
 module ManageIQ::Providers::IbmCloud::VPC::CloudManager::Provision::Payload
+  # Get a MiqTemplate instance for the template selected during provision.
+  # @return [MiqTemplate]
+  def vm_image
+    @vm_image ||= MiqTemplate.find_by(:id => get_option(:src_vm_id))
+  end
+
   # Create the hash that will be sent to the provider for provisioning.
   # @return [Hash] A complete hash for provisioning.
   def prepare_for_clone_task

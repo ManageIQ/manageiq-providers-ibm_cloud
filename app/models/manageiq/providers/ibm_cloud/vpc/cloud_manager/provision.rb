@@ -5,7 +5,6 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Provision < ::MiqProvisi
   include ManageIQ::Providers::IbmCloud::VPC::CloudManager::LoggingMixin # Standardise the logging.
 
   include_concern 'Cloning'       # Actual provision to cloud.
-  include_concern 'OptionsHelper' # Provides shared utility methods.
   include_concern 'Payload'       # Create json payload.
   include_concern 'StateMachine'  # Pre-provision tasks.
 end
