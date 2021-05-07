@@ -25,14 +25,6 @@
     :customize:
       :description: Customization
       :fields:
-        :ip_addr:
-          :description: Specify an IPv4 address
-          :required_method: :validate_ip_address
-          :required: false
-          :display: :hide
-          :data_type: :string
-          :min_length: 8
-          :max_length: 16
         :user_script_text:
           :description: User Script
           :required: false

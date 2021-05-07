@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'ipaddr'
-
 # Contains the elements used to populate and validate networking related fields.
 module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Network
   # Fetch available zones for this region from inventory.
@@ -53,25 +51,5 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Netw
     string_dropdown(ar_security_group)
   rescue => e
     logger(__method__).ui_exception(e)
-  end
-
-  # Validate the given IP address.
-  # @param _field [void]
-  # @param _values [void]
-  # @param _dig [void]
-  # @param _fld [void]
-  # @param value [String] The value given in the UI.
-  def validate_ip_address(_field, _values, _dlg, _fld, value)
-    return _('IP is blank') if value.blank?
-
-    begin
-      valid = IPAddr.new(value.strip).ipv4?
-    rescue IPAddr::InvalidAddressError
-      valid = false
-    end
-
-    return _('IP-address field has to be either blank or a valid IPv4 address') unless valid
-  rescue => e
-    logger(__method__).log_backtrace(e)
   end
 end
