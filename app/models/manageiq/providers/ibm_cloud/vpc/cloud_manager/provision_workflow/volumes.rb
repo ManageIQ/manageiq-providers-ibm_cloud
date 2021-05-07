@@ -82,8 +82,10 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
       validate_volume_size(index, item[:volume_size], error_array)
       validate_volume_profile(index, item[:volume_profile], error_array)
     end
+    return nil if error_array.empty?
+
     e_msg = _("New volumes has the following problems: %{error}") % {:error => error_array.join(", ")}
-    raise e_msg unless error_array.length.zero?
+    raise e_msg
   end
 
   # Validate that volume_name and volume_size are populated. Add a string explaining each violation to error_array.
