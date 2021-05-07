@@ -21,7 +21,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
     return _('General/Instance Name is a required field.') if value.nil? || value.to_s.strip.length.zero?
 
     msg = _('General/Instance Name must be all lower-case, start with 2 characters, followed by any number of characters, numbers or dashes and end with a character or digit.')
-    return msg unless value.to_s.strip.match?(/^[a-z][a-z][-a-z0-9]*[a-z0-9]$/)
+    return msg unless value.to_s.match?(/^[a-z][a-z][-a-z0-9]*[a-z0-9]$/)
 
     nil
   rescue => e
