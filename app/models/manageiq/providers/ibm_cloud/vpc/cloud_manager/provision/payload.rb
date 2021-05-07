@@ -79,7 +79,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::Provision::Payload
   # @param volume [Hash<Symbol => String, Integer>] A new_volume hash.
   # @return [Hash]
   def new_cloud_volume(volume)
-    volume_on_instance_delete = volume[:volume_on_instance_delete] == 'on'
+    volume_on_instance_delete = volume[:volume_on_instance_delete] == 'on' # 'on' is the value returned by the checkbox.
     volume_profile = volume[:volume_profile] || get_option_last(:storage_type)
 
     {
