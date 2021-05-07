@@ -51,7 +51,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
     values.each do |key, value|
       next if value.nil? || (value.respond_to?(:length) && value.length.zero?)
 
-      reg = key.match(keys_regex)
+      reg = key.to_s.match(keys_regex) # 'req' should be nil or a match instance. Match instance has ':field' and ':count' keys.
       next if reg.nil?
 
       count = reg[:count].to_i
@@ -60,7 +60,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
       field = reg[:field].to_sym
 
       # Use integer if value starts and ends with digits.
-      new_volumes[count][field] = value.match?('^\d+$') ? value.to_i : value
+      new_volumes[count][field] = value.to_s.match?(/^\d+$/) ? value.to_i : value
     end
 
     # The volume index starts at 1. Which means index 0 is nil. Compact to get rid of it.
@@ -108,7 +108,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
   # @param error_array [Array<String>] An array of validation error strings.
   # @return [void]
   def validate_volume_name(index, value, error_array)
-    return nil if value.nil? || value.match?('^[a-z][a-z][-a-z0-9]*[a-z0-9]$')
+    return nil if value.nil? || value.to_s.match?(/^[a-z][a-z][-a-z0-9]*[a-z0-9]$/)
 
     e_msg = _("Volume %{index} name '%{value}' must be 3 characters or greater, all lower case, start with two characters, followed by characters, numbers or dash.") % {:index => index, :value => value}
     error_array.append(e_msg)
@@ -132,7 +132,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
   # @param error_array [Array<String>] An array of validation error strings.
   # @return [void]
   def validate_volume_profile(index, value, error_array)
-    return nil if value.nil? || value.length.zero?
+    return nil if value.nil? || value.to_s.length.zero?
 
     s_values = storage_type_to_profile.values
     return nil if s_values.include?(value)
