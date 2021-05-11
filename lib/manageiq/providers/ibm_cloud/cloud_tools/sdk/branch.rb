@@ -37,6 +37,8 @@ module ManageIQ
             # @return [Enumerator] Object to page through results.
             # @yield [Hash] Result of request.
             def collection(call_back, **kwargs)
+              raise "Provided call_back #{call_back} does not start with list. This method is for paginating list methods." unless call_back.to_s.match?(/^list/)
+
               enum_for(:each_resource, call_back, **kwargs)
             end
 
