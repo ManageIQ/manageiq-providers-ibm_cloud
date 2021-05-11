@@ -71,6 +71,8 @@ module ManageIQ
             end
 
             def send_request(call_back, **kwargs)
+              raise "#{client.class.name} does not contain a method #{call_back.to_sym}" unless client.respond_to?(call_back.to_sym)
+
               return client.send(call_back.to_sym) if kwargs.length.zero?
 
               client.send(call_back.to_sym, **kwargs)
