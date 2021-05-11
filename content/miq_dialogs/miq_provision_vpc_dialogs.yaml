@@ -1,0 +1,190 @@
+---
+:name: miq_provision_vpc_dialogs
+:description: VPC VM Provisioning Dialog
+:dialog_type: MiqProvisionWorkflow
+:content:
+  :buttons:
+  - :submit
+  - :cancel
+  :dialogs:
+    :requester:
+      :description: Request
+      :fields: {}
+      :display: :hide
+
+    :schedule:
+      :description: Schedule
+      :fields: {}
+      :display: :hide
+
+    :purpose:
+      :description: Purpose
+      :fields: {}
+      :display: :hide
+
+    :customize:
+      :description: Customization
+      :fields:
+        :user_script_text:
+          :description: User Script
+          :required: false
+          :display: :edit
+          :data_type: :string
+      :display: :hide
+
+    :service:
+      :description: General
+      :fields:
+        :provision_type:
+          :description: System Profile
+          :values_from:
+            :method: :provision_type_to_profile
+          :required: true
+          :display: :edit
+          :data_type: :integer
+        :vm_name:
+          :description: Instance Name
+          :required_method: :validate_vm_name
+          :required: true
+          :display: :edit
+          :data_type: :string
+          :min_length: 1
+          :max_length: 30
+        :number_of_vms:
+          :values:
+            1: 1
+          :description: Number of Instances
+          :required: false
+          :display: :hide
+          :default: 1
+          :data_type: :integer
+      :display: :show
+
+    :environment:
+      :description: Environment
+      :fields:
+        :placement_auto:
+          :values:
+            false: 0
+            true: 1
+          :description: Choose Automatically
+          :required: false
+          :display: :hide
+          :default: false
+          :data_type: :boolean
+        :placement_availability_zone:
+          :description: Availability Zones
+          :values_from:
+            :method: :placement_availability_zone_to_zone
+          :auto_select_single: true
+          :required: true
+          :display: :edit
+          :data_type: :integer
+          :required_description: Availability Zone Name
+        :cloud_network:
+          :description: VPC
+          :values_from:
+            :method: cloud_networks_to_vpc
+          :required: true
+          :auto_select_single: true
+          :display: :edit
+          :data_type: :string
+        :cloud_subnet:
+          :description: Subnet
+          :values_from:
+            :method: cloud_subnets
+          :required: true
+          :auto_select_single: true
+          :display: :edit
+          :data_type: :string
+        :resource_group:
+          :description: Resource groups
+          :values_from:
+            :method: resource_groups_to_resource_groups
+          :required: false
+          :display: :edit
+          :data_type: :string
+        :security_groups:
+          :description: Interface Security Group
+          :values_from:
+            :method: security_group_to_security_group
+          :required: true
+          :display: :edit
+          :data_type: :string
+      :display: :show
+
+    :hardware:
+      :description: Profile
+      :fields:
+        :storage_type:
+          :description: Boot Volume Profile
+          :values_from:
+            :method: :storage_type_to_profile
+          :required: true
+          :display: :edit
+          :default: 'general-purpose'
+          :data_type: :string
+        :guest_access_key_pair:
+          :values_from:
+            :method: :guest_access_key_pairs_to_keys
+          :description: Key Pair
+          :required: true
+          :display: :edit
+          :data_type: :string
+        :cloud_volumes:
+          :values_from:
+            :method: :cloud_volumes_to_volumes
+          :description: Attach Volumes
+          :required: false
+          :display: :edit
+          :auto_select_single: false
+          :data_type: :string
+      :display: :show
+
+    :network:
+      :description: Network
+      :fields: {}
+      :display: :hide
+
+    :volumes:
+      :description: New Volumes
+      :fields:
+        :volume_name:
+          :description: Name
+          :required: false
+          :display: :edit
+          :data_type: :string
+          :min_length:
+          :max_length: 100
+        :volume_size:
+          :description: Size (10-2000 GB)
+          :required: false
+          :display: :edit
+          :data_type: :string
+          :min_length:
+          :max_length: 4
+        :volume_profile:
+          :description: Volume Profile
+          :required: false
+          :display: :edit
+          :data_type: :string
+          :min_length:
+          :max_length: 100
+        :volume_on_instance_delete:
+          :description: Delete volume on instance delete
+          :required: false
+          :display: :edit
+          :data_type: :boolean
+      :display: :show
+
+  :dialog_order:
+  - :service
+  - :environment
+  - :hardware
+  - :volumes
+  - :network
+  - :customize
+
+  - :purpose     # unused
+  - :requester   # unused
+  - :schedule    # unused
