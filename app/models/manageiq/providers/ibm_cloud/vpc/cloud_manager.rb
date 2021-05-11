@@ -2,8 +2,13 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   require_nested :AuthKeyPair
   require_nested :RefreshWorker
   require_nested :Refresher
+  require_nested :Provision
+  require_nested :ProvisionWorkflow
   require_nested :Template
   require_nested :Vm
+  require_nested :LoggingMixin
+
+  supports :provisioning
 
   include ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   delegate :cloud_volumes, :to => :storage_manager
@@ -73,7 +78,8 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   end
 
   LABEL_MAPPING_ENTITIES = {
-    "VmIBM" => "ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm"
+    "VmIBM"    => "ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm",
+    "ImageIBM" => "ManageIQ::Providers::IbmCloud::VPC::CloudManager::Template"
   }.freeze
 
   def self.entities_for_label_mapping
