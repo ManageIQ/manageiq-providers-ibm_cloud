@@ -2,9 +2,7 @@
 
 # Encapsulate logging methods into a single mixin.
 module ManageIQ::Providers::IbmCloud::VPC::CloudManager::LoggingMixin
-  # A logger wrapper that can be used as a general interface during dev or production.
-  # During development use the defined $ibm_cloud_log which prints to ibm_cloud.log.
-  # In production use the defined _log which prints to general evm log and should be captured in containers.
+  # A logger wrapper that can be used as a general interface.
   class LoggingWrapper
     # The error message presented to the UI on unhandled exception.
     # @return [String]
