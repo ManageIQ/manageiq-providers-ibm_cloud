@@ -228,4 +228,46 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
   it 'Raises error in collection when method is not a list.' do
     expect { vpc.collection(:get_instance) }.to raise_error(StandardError, 'Provided call_back get_instance does not start with list. This method is for paginating list methods.')
   end
+
+  it 'Instances is callable' do
+    instances = vpc.instances
+    expect(instances).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::VpcSdk::Instances)
+    expect(instances).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::Sdk::Leaf)
+    expect(instances).to respond_to(:all)
+    expect(instances.all(:limit => 1)).to be_a(Enumerator)
+    expect(instances.all.first).to be_a(Hash)
+  end
+
+  it 'Instance is callable' do
+    expect(vpc.instances).to respond_to(:instance).with(1).argument
+
+    # Request a list of instances and limit to 1 result. Test each instance to see if it is running.
+    instance_hash = nil
+    vpc.instances.all(:limit => 1).each do |inst|
+      instance_hash = inst if inst[:status].downcase == 'running'
+      break if instance_hash.nil? == false
+    end
+    expect(instance_hash).not_to be_nil, 'Unable to find a running VM in VPC Cloud.'
+
+    # Test the returned hash is what we expect.
+    expect(instance_hash).to be_a(Hash)
+    expect(instance_hash).to have_key(:id)
+
+    # Test that the same instance can be called using instances.instance.
+    instance = vpc.instances.instance(instance_hash[:id])
+    expect(instance).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::VpcSdk::Instance)
+    expect(instance).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::Sdk::Leaf)
+    expect(instance).to have_key(:id)
+
+    # Test actions can be called.
+    expect(instance).to respond_to(:actions)
+    expect(instance.actions).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::VpcSdk::InstanceActions)
+    expect(instance.actions).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::Sdk::Leaf)
+
+    # Test that instance actions are created properly.
+    start_action = instance.actions.start
+    expect(start_action).to be_a(Hash)
+    expect(start_action).to have_key(:type)
+    expect(start_action[:type]).to eq('start')
+  end
 end
