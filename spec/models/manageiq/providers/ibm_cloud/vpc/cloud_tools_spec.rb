@@ -141,6 +141,8 @@ end
 
 describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
   let(:api_key) { Rails.application.secrets.ibm_cloud_vpc[:api_key] }
+  let(:region) { 'us-east' }
+  let(:vpc) { ManageIQ::Providers::IbmCloud::CloudTool.new(:api_key => api_key).vpc(:region => region) }
 
   it 'raises error on with not options given' do
     expect { described_class.new }.to raise_exception(RuntimeError)
@@ -148,13 +150,13 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
 
   # Test that the VPC client can be instantiated.
   it 'can get a VPC client' do
-    expect(described_class.new(:api_key => api_key).vpc(:region => 'us-east').client).to be_a(IbmVpc::VpcV1)
+    expect(described_class.new(:api_key => api_key).vpc(:region => region).client).to be_a(IbmVpc::VpcV1)
   end
 
   # Test that a initialized VPC class can refresh its token if expired.
   it 'can get a VPC client with expired auth' do
     cloud_tool = described_class.new(:api_key => api_key)
-    expect(cloud_tool.vpc(:region => 'us-east').client).to be_a(IbmVpc::VpcV1)
+    expect(cloud_tool.vpc(:region => region).client).to be_a(IbmVpc::VpcV1)
     orig_expiry = cloud_tool.vpc.client.authenticator.bearer_info[:expire_time]
 
     # Set expire time to something really old.
@@ -182,7 +184,6 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
   end
 
   it 'VPC can get a response' do
-    vpc = described_class.new(:api_key => api_key).vpc(:region => 'us-east')
     response = vpc.request('list_images', :limit => 1)
     expect(response).to be_a(Hash)
     expect(response).to include(:images)
@@ -191,7 +192,6 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
   end
 
   it 'VPC can paginate' do
-    vpc = described_class.new(:api_key => api_key).vpc(:region => 'us-east')
     response = vpc.collection('list_images', :limit => 1)
     expect(response).to be_a(Enumerator)
     expect(response.next).to be_a(Hash)
@@ -219,7 +219,6 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
   end
 
   it 'Raises error with non-existent method.' do
-    vpc = described_class.new(:api_key => api_key).vpc(:region => 'us-east')
     bad_method = :list_instancess
 
     expect { vpc.request(bad_method) }.to raise_error(StandardError, 'IbmVpc::VpcV1 does not contain a method list_instancess')
@@ -227,8 +226,44 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
   end
 
   it 'Raises error in collection when method is not a list.' do
-    vpc = described_class.new(:api_key => api_key).vpc(:region => 'us-east')
-
     expect { vpc.collection(:get_instance) }.to raise_error(StandardError, 'Provided call_back get_instance does not start with list. This method is for paginating list methods.')
+  end
+
+  it 'Instances is callable' do
+    instances = vpc.instances
+    expect(instances).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::VpcSdk::Instances)
+    expect(instances).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::Sdk::Leaf)
+    expect(instances).to respond_to(:all)
+    expect(instances.all(:limit => 1)).to be_a(Enumerator)
+    expect(instances.all.first).to be_a(Hash)
+  end
+
+  it 'Instance is callable' do
+    expect(vpc.instances).to respond_to(:instance).with(1).argument
+
+    # Request a list of instances and limit to 1 result. Test each instance to see if it is running.
+    instance_hash = vpc.instances.all(:limit => 1).detect { |inst| inst[:status].downcase == 'running' }
+    expect(instance_hash).not_to be_nil, 'Unable to find a running VM in VPC Cloud.'
+
+    # Test the returned hash is what we expect.
+    expect(instance_hash).to be_a(Hash)
+    expect(instance_hash).to have_key(:id)
+
+    # Test that the same instance can be called using instances.instance.
+    instance = vpc.instances.instance(instance_hash[:id])
+    expect(instance).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::VpcSdk::Instance)
+    expect(instance).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::Sdk::Leaf)
+    expect(instance).to have_key(:id)
+
+    # Test actions can be called.
+    expect(instance).to respond_to(:actions)
+    expect(instance.actions).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::VpcSdk::InstanceActions)
+    expect(instance.actions).to be_a(ManageIQ::Providers::IbmCloud::CloudTools::Sdk::Leaf)
+
+    # Test that instance actions are created properly.
+    start_action = instance.actions.start
+    expect(start_action).to be_a(Hash)
+    expect(start_action).to have_key(:type)
+    expect(start_action).to include(:type => 'start')
   end
 end
