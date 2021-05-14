@@ -12,13 +12,6 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Template < ManageIQ::Pro
     end
   end
 
-  # Get a new CloudTool VPC object.
-  # @param connection [ManageIQ::Providers::IbmCloud::CloudTools::Vpc] An existing connection.
-  # @return [ManageIQ::Providers::IbmCloud::CloudTools::Vpc] The passed in connection or a new one.
-  def provider_object(connection = nil)
-    connection || ext_management_system.connect
-  end
-
   # Method used to translate pluralized.
   # @param number [Integer] 1 for singular, 2 for plural.
   # @return [String] The desired format.
