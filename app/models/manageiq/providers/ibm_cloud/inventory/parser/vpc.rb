@@ -327,9 +327,15 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     end
   end
 
+  # Split tags on the first found colon. If no colons then value is an empty string.
+  # @return [Hash<Symbol, String>] Hash with :key as value before colon and :value as everything after.
   def get_formatted_tag(tag)
-    formatted_key, formatted_value = tag[:name]&.split(":")
-    {:key => tag[:key] || formatted_key, :value => tag[:value] || formatted_value || ""}
+    # Matches any character as few as possible, a colon, and then everything else. Return two groups key & value.
+    regex = /(?<key>.*?):(?<value>.*)/
+    # If regex doesn't match then nil is returned and the second hash is created.
+    match = tag[:name].to_s.match(regex) || {:key => tag[:name], :value => ''}
+    # MatchObjects act like hashes but aren't. Create a new hash.
+    {:key => match[:key], :value => match[:value].to_s.strip}
   end
 
   def normalize_os(os_name)
