@@ -268,6 +268,6 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
     start_action = instance.actions.start
     expect(start_action).to be_a(Hash)
     expect(start_action).to have_key(:type)
-    expect(start_action[:type]).to eq('start')
+    expect(start_action).to include(:type => 'start')
   end
 end
