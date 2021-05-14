@@ -20,7 +20,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::Provision::Cloning
   # @return [String] The ID of the new instance.
   def start_clone(clone_options)
     logger(__method__).debug("Json for VPC provision task. #{JSON.dump(clone_options)}")
-    response = source.with_provider_object { |vpc| vpc.request(:create_instance, :instance_prototype => clone_options) }
+    response = source.with_provider_connection { |vpc| vpc.request(:create_instance, :instance_prototype => clone_options) }
     if response[:id].nil?
       error_msg = _('An error occurred while requesting the IBM VPC instance provision. Cannot retrieve instance id from returned server response.')
       raise MiqException::MiqProvisionError, error_msg
@@ -37,7 +37,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::Provision::Cloning
   # @param clone_task_ref [String] The UUID for the new provision.
   # @return [Array(Boolean, String)] 2 elements first is boolean when true signals the provision is complete. Second element is a string for logging the current status.
   def do_clone_task_check(clone_task_ref)
-    instance = source.with_provider_object { |vpc| vpc.request(:get_instance, :id => clone_task_ref) }
+    instance = source.with_provider_connection { |vpc| vpc.request(:get_instance, :id => clone_task_ref) }
     live_status = instance[:status]
     return false, _('IBM VPC instance provision has no status present.') if live_status.nil?
 
