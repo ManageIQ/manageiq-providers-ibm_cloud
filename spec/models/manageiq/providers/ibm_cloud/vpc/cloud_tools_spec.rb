@@ -242,11 +242,7 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
     expect(vpc.instances).to respond_to(:instance).with(1).argument
 
     # Request a list of instances and limit to 1 result. Test each instance to see if it is running.
-    instance_hash = nil
-    vpc.instances.all(:limit => 1).each do |inst|
-      instance_hash = inst if inst[:status].downcase == 'running'
-      break if instance_hash.nil? == false
-    end
+    instance_hash = vpc.instances.all(:limit => 1).detect { |inst| inst[:status].downcase == 'running' }
     expect(instance_hash).not_to be_nil, 'Unable to find a running VM in VPC Cloud.'
 
     # Test the returned hash is what we expect.
