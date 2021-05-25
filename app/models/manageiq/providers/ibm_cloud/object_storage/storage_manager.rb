@@ -1,4 +1,4 @@
-class ManageIQ::Providers::IbmCloud::ObjectStorage::ObjectManager < ManageIQ::Providers::StorageManager
+class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::Providers::StorageManager
   require_nested :Refresher
   require_nested :RefreshWorker
 

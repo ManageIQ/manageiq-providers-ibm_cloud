@@ -1,4 +1,4 @@
-class ManageIQ::Providers::IbmCloud::ObjectStorage::ObjectManager::RefreshWorker < MiqEmsRefreshWorker
+class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager::RefreshWorker < MiqEmsRefreshWorker
   require_nested :Runner
 
   def self.settings_name

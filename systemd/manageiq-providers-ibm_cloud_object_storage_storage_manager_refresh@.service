@@ -1,11 +1,11 @@
 [Unit]
-PartOf=manageiq-providers-ibm_cloud_object_storage_object_manager_refresh.target
+PartOf=manageiq-providers-ibm_cloud_object_storage_storage_manager_refresh.target
 [Install]
-WantedBy=manageiq-providers-ibm_cloud_object_storage_object_manager_refresh.target
+WantedBy=manageiq-providers-ibm_cloud_object_storage_storage_manager_refresh.target
 [Service]
 WorkingDirectory=/var/www/miq/vmdb
 Environment=BUNDLER_GROUPS=manageiq_default,ui_dependencies
 ExecStart=/bin/bash -lc 'exec ruby lib/workers/bin/run_single_worker.rb ManageIQ::Providers::IbmCloud::ObjectStorage::ObjectManager::RefreshWorker --heartbeat --guid=%i'
 Restart=no
 Type=notify
-Slice=manageiq-providers-ibm_cloud_object_storage_object_manager_refresh.slice
+Slice=manageiq-providers-ibm_cloud_object_storage_storage_manager_refresh.slice

@@ -1,5 +1,5 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Collector::ObjectStorage < ManageIQ::Providers::IbmCloud::Inventory::Collector
-  require_nested :ObjectManager
+  require_nested :StorageManager
 
   def buckets
     buckets = []

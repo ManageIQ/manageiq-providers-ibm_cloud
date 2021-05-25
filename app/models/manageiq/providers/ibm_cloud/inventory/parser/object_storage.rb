@@ -1,5 +1,5 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Parser::ObjectStorage < ManageIQ::Providers::IbmCloud::Inventory::Parser
-  require_nested :ObjectManager
+  require_nested :StorageManager
 
   BUCKET_TAB_LIMIT = 1000
 
