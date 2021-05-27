@@ -20,6 +20,6 @@ end
 
 FactoryBot.define do
   factory :ems_ibm_cloud_object_storage_object,
-          :class  => "ManageIQ::Providers::IbmCloud::ObjectStorage::ObjectManager",
+          :class  => "ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager",
           :parent => :ems_storage
 end

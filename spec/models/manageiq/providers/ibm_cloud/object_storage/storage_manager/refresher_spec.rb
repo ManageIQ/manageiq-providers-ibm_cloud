@@ -1,4 +1,4 @@
-describe ManageIQ::Providers::IbmCloud::ObjectStorage::ObjectManager::Refresher do
+describe ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager::Refresher do
   it ".ems_type" do
     expect(described_class.ems_type).to eq(:ibm_cloud_object_storage)
   end
