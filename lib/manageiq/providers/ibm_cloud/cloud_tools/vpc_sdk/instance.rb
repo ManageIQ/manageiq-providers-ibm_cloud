@@ -68,6 +68,10 @@ module ManageIQ
               InstanceActions.new(:vpc => @parent, :instance_id => id)
             end
 
+            def delete
+              @parent.request(:delete_instance, :id => id)
+            end
+
             # Wait for the VM instance to be have a started status.
             # @param sleep_time [Integer] The time to sleep between refreshes.
             # @param timeout [Integer] The number of seconds before raising an error.

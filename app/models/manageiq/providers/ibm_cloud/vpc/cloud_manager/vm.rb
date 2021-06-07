@@ -97,6 +97,16 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     raw_reboot_guest(:force => true)
   end
 
+  supports :terminate do
+    unsupported_reason_add(:terminate, unsupported_reason(:control)) unless supports_control?
+  end
+
+  def raw_destroy
+    raise "VM has no #{ui_lookup(:table => "ext_management_systems")}, unable to destroy VM" unless ext_management_system
+    with_provider_object(&:delete)
+    update!(:raw_power_state => "powering-down")
+  end
+
   private
 
   # Update the saved status based on the SDK returned status.
