@@ -47,6 +47,8 @@ module ManageIQ
             # @return [Hash] The JSON return of the operation with symbolic key names.
             def request(call_back, **kwargs)
               request = send_request(call_back, **kwargs)
+              return if request.nil?
+
               result = request.result
               raise 'Return is not a JSON object' if result.instance_of?(String)
 
