@@ -99,16 +99,9 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm, :vcr do
       vpc
     end
 
-    let(:actions) do
-      actions = ManageIQ::Providers::IbmCloud::CloudTools::VpcSdk::InstanceActions.new(:vpc => parent, :instance_id => nil)
-      allow(actions).to receive(:create).and_return({:this => 'mock'})
-      actions
-    end
-
     let(:instance) do
       instance = ManageIQ::Providers::IbmCloud::CloudTools::VpcSdk::Instance.new(:vpc => parent, :data => {})
       allow(instance).to receive(:refresh) { instance.merge!({:id => 'mock_id', :name => 'Test instance', :status => 'running'}) }
-      allow(instance).to receive(:actions).and_return(actions)
       instance.refresh
       instance
     end
