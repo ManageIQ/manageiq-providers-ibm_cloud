@@ -103,8 +103,9 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
 
   def raw_destroy
     raise "VM has no #{ui_lookup(:table => "ext_management_systems")}, unable to destroy VM" unless ext_management_system
+
     with_provider_object(&:delete)
-    update!(:raw_power_state => "powering-down")
+    update!(:raw_power_state => "stopping")
   end
 
   private

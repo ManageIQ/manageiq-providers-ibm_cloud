@@ -50,6 +50,7 @@ module ManageIQ
             def request(call_back, **kwargs)
               request = send_request(call_back, **kwargs)
               return if request.nil?
+
               result = request.result
               raise 'Return is not a JSON object' if result.instance_of?(String)
 
