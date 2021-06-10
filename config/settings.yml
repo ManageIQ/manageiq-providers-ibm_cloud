@@ -12,6 +12,7 @@
 :ems_refresh:
   :ibm_vpc:
     :refresh_interval: 15.minutes
+    :allow_targeted_refresh: true
   :ibm_cloud_power_virtual_servers:
     :refresh_interval: 15.minutes
     :storage_types:
