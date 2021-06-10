@@ -20,6 +20,46 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
     []
   end
 
+  def flavors
+    []
+  end
+
+  def auth_key_pairs
+    []
+  end
+
+  def availability_zones
+    []
+  end
+
+  def security_groups
+    []
+  end
+
+  def cloud_networks
+    []
+  end
+
+  def cloud_subnets
+    []
+  end
+
+  def floating_ips
+    []
+  end
+
+  def volumes
+    []
+  end
+
+  def cloud_volume_types
+    []
+  end
+
+  def resource_groups
+    []
+  end
+
   private
 
   def parse_targets!
