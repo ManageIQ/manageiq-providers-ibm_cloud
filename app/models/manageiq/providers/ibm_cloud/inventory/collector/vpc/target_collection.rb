@@ -12,7 +12,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   def instances
     @instances ||= begin
       references(:vms).map do |ems_ref|
-        byebug
         compute_client.get_instance(ems_ref)
       end
     end
@@ -35,7 +34,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
       when MiqTemplate
         add_target(:miq_templates, target.ems_ref)
       when Vm
-        byebug
         add_target(:vms, target.ems_ref)
       end
     end
@@ -43,7 +41,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
 
   def add_target(association, ems_ref)
     return if ems_ref.blank?
-    byebug
+
     target.add_target(:association => association, :manager_ref => {:ems_ref => ems_ref})
   end
 
