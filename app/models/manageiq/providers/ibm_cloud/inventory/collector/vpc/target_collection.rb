@@ -1,20 +1,19 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection < ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC
   def initialize(_manager, _target)
     super
-    
+
     parse_targets!
   end
 
   def images
     []
   end
-  
+
   def instances
-    @instances ||= begin
+    @instances ||=
       references(:vms).map do |ems_ref|
         compute_client.get_instance(ems_ref)
       end
-    end
   end
 
   def instance_types
