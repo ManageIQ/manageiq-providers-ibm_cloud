@@ -160,7 +160,7 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
   def self.verify_bearer(region, endpoint, access_key, secret_key)
     begin
       raw_connect(region, endpoint, access_key, secret_key).list_buckets({}, :params => {:max_keys => 1})
-    rescue IbmCloudIam::ApiError => err
+    rescue Aws::Errors::ServiceError, Seahorse::Client::NetworkingError => err
       error_message = JSON.parse(err.response_body)["message"]
       _log.error("Access/Secret authentication failed: #{err.code} #{error_message}")
       raise MiqException::MiqInvalidCredentialsError, error_message
