@@ -10,7 +10,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   end
 
   def vms
-    @instances ||=
+    @vms ||=
       references(:vms).map do |ems_ref|
         connection.request(:get_instance, :id => ems_ref)
       end
