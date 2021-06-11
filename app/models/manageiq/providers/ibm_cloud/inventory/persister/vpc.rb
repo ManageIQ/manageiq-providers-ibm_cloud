@@ -2,6 +2,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
   require_nested :CloudManager
   require_nested :NetworkManager
   require_nested :StorageManager
+  require_nested :TargetCollection
 
   def self.provider_module
     "ManageIQ::Providers::IbmCloud::VPC"
@@ -37,6 +38,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_network_collection(:floating_ips)
     add_network_collection(:network_ports)
     add_network_collection(:cloud_subnet_network_ports)
+    add_network_collection(:load_balancers)
   end
 
   def initialize_storage_inventory_collections
