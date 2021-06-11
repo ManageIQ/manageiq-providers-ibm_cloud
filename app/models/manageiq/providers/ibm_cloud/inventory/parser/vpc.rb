@@ -2,6 +2,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   require_nested :CloudManager
   require_nested :NetworkManager
   require_nested :StorageManager
+  require_nested :TargetCollection
 
   def parse
     floating_ips
