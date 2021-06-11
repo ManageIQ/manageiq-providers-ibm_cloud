@@ -146,10 +146,10 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
     region   = args["provider_region"]
     endpoint = args.dig("endpoints", "default", "url")
 
-    access_key    = args.dig("authentications", "bearer", "userid")
-    secret_encr   = args.dig("authentications", "bearer", "password")
-    secret_encr   = ManageIQ::Password.try_decrypt(secret_encr)
-    secret_encr ||= find(args["id"]).authentication_password("bearer")
+    access_key   = args.dig("authentications", "bearer", "userid")
+    secret_encr  = args.dig("authentications", "bearer", "password")
+    secret_key   = ManageIQ::Password.try_decrypt(secret_encr)
+    secret_key ||= find(args["id"]).authentication_password("bearer")
     verify_bearer(region, endpoint, access_key, secret_key)
 
     true
