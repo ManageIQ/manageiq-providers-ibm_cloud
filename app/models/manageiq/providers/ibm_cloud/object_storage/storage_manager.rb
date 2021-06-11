@@ -113,17 +113,12 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
   end
 
   def cos_creds
-    iam     = authentications.detect { |e| e.authtype == 'default' }
-    bearer  = authentications.detect { |e| e.authtype == 'bearer' }
-    endp    = endpoints.first
-
-    guid   = uid_ems
-    region = provider_region
-    endpoint = endp.url
-    apikey   = iam.auth_key
-    access_key = bearer.userid
-    secret_encr = bearer.password
-    secret_key  = ManageIQ::Password.try_decrypt(secret_encr)
+    guid       = uid_ems
+    region     = provider_region
+    endpoint   = default_endpoint.url
+    apikey     = authentication_token("default")
+    access_key = authentication_userid("bearer")
+    secret_key = authentication_password("bearer")
 
     return guid, apikey, region, endpoint, access_key, secret_key
   end
@@ -145,13 +140,16 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
     guid     = args["uid_ems"]
     auth_key = args.dig("authentications", "default", "auth_key")
     apikey   = ManageIQ::Password.try_decrypt(auth_key)
+    apikey ||= find(args["id"]).authentication_token("default")
     verify_iam(guid, apikey)
 
-    region = args["provider_region"]
+    region   = args["provider_region"]
     endpoint = args.dig("endpoints", "default", "url")
-    access_key = args.dig("authentications", "bearer", "userid")
-    secret_encr = args.dig("authentications", "bearer", "password")
-    secret_key  = ManageIQ::Password.try_decrypt(secret_encr)
+
+    access_key    = args.dig("authentications", "bearer", "userid")
+    secret_encr   = args.dig("authentications", "bearer", "password")
+    secret_encr   = ManageIQ::Password.try_decrypt(secret_encr)
+    secret_encr ||= find(args["id"]).authentication_password("bearer")
     verify_bearer(region, endpoint, access_key, secret_key)
 
     true
