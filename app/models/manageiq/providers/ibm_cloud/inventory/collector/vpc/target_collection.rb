@@ -9,10 +9,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
     []
   end
 
-  def instances
+  def vms
     @instances ||=
       references(:vms).map do |ems_ref|
-        compute_client.get_instance(ems_ref)
+        connection.request(:get_instance, :id => ems_ref)
       end
   end
 
@@ -24,7 +24,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
     []
   end
 
-  def auth_key_pairs
+  def keys
     []
   end
 
