@@ -6,7 +6,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   end
 
   def images
-    []
+    @images ||=
+      references(:miq_templates).map do |ems_ref|
+        connection.request(:get_image, :id => ems_ref)
+      end
   end
 
   def vms
@@ -21,7 +24,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   end
 
   def flavors
-    []
+    @flavors ||=
+      references(:flavors).map do |ems_ref|
+        connection.request(:get_instance_profile, :name => ems_ref)
+      end
   end
 
   def keys
@@ -74,6 +80,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
         add_target(:miq_templates, target.ems_ref)
       when Vm
         add_target(:vms, target.ems_ref)
+      when Flavor
+        add_target(:flavors, target.ems_ref)
       end
     end
   end
