@@ -35,7 +35,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   end
 
   def availability_zones
-    []
+    @availability_zones ||=
+      references(:availability_zones).map do |ems_ref|
+        connection.request(:get_region_zone, :region_name => manager.provider_region, :name => ems_ref)
+      end
   end
 
   def security_groups
@@ -63,7 +66,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   end
 
   def resource_groups
-    []
+    @resource_groups ||=
+      references(:resource_groups).map do |ems_ref|
+        connection.cloudtools.resource.manager.request(:get_resource_group, :id => ems_ref)
+      end
   end
 
   private
@@ -82,6 +88,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
         add_target(:vms, target.ems_ref)
       when Flavor
         add_target(:flavors, target.ems_ref)
+      when AvailabilityZone
+        add_target(:availability_zones, target.ems_ref)
+      when ResourceGroup
+        add_target(:resource_groups, target.ems_ref)
       end
     end
   end
