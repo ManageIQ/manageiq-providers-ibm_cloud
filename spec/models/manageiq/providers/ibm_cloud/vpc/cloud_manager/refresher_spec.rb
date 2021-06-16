@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:allow_playback_repeats => true} do
+describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
+  include Spec::Support::EmsRefreshHelper
+
   let(:ems) do
     api_key = Rails.application.secrets.ibm_cloud_vpc[:api_key]
     FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "us-east").tap do |ems|
@@ -12,7 +14,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:
     2.times do
       # Storing ems as a variable and passing it directly reduces the complexity of the runtime. Which appears to increase runtime performance.
       mgmt = ems
-      mgmt.refresh
+      with_vcr { mgmt.refresh }
       mgmt.reload
 
       assert_ems_counts(mgmt)
@@ -23,6 +25,20 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher, :vcr => {:
       assert_specific_cloud_subnet(mgmt, '0757-ef523a2f-5356-42ff-8a78-9325509465b9', 'r014-0fa2acc6-2a41-4f2b-9c89-bcea07cdcbc3', 'us-east-1')
       assert_specific_floating_ip(mgmt)
       assert_vm_labels(mgmt, '0777_f73e8687-3813-465f-99df-ba6e4ee8f289', 4)
+    end
+  end
+
+  context "targeted refresh" do
+    before { with_vcr { ems.refresh } }
+
+    context "vm target" do
+      let(:target) { ems.vms.find_by(:ems_ref => "0757_81687d4a-4676-4eeb-9fd7-55f9c7fffb69") }
+
+      it "doesn't impact other inventory" do
+        assert_inventory_not_changed do
+          with_vcr("vm_target") { EmsRefresh.refresh(target) }
+        end
+      end
     end
   end
 
