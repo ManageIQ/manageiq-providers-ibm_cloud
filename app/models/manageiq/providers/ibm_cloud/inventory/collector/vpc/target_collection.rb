@@ -73,7 +73,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
       end
   end
 
-  def cloud_volume_types
+  def volume_profiles
     []
   end
 
