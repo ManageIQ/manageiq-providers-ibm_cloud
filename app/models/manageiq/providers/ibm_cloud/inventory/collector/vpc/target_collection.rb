@@ -16,7 +16,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
     @vms ||=
       references(:vms).map do |ems_ref|
         connection.request(:get_instance, :id => ems_ref)
-      end
+      rescue IBMCloudSdkCore::ApiException
+        nil
+      end.compact
   end
 
   def instance_types
