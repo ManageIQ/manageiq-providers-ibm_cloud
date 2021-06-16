@@ -42,15 +42,24 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   end
 
   def security_groups
-    []
+    @security_groups ||=
+      references(:security_groups).map do |ems_ref|
+        connection.request(:get_security_group, :id => ems_ref)
+      end
   end
 
   def cloud_networks
-    []
+    @cloud_networks ||=
+      references(:cloud_networks).map do |ems_ref|
+        connection.request(:get_vpc, :id => ems_ref)
+      end
   end
 
   def cloud_subnets
-    []
+    @cloud_subnets ||=
+      references(:cloud_subnets).map do |ems_ref|
+        connection.request(:get_subnet, :id => ems_ref)
+      end
   end
 
   def floating_ips
@@ -58,7 +67,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   end
 
   def volumes
-    []
+    @volumes ||=
+      references(:cloud_volumes).map do |ems_ref|
+        connection.request(:get_volume, :id => ems_ref)
+      end
   end
 
   def cloud_volume_types
@@ -90,6 +102,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
         add_target(:flavors, target.ems_ref)
       when AvailabilityZone
         add_target(:availability_zones, target.ems_ref)
+      when SecurityGroup
+        add_target(:security_groups, target.ems_ref)
+      when CloudNetwork
+        add_target(:cloud_networks, target.ems_ref)
+      when CloudSubnet
+        add_target(:cloud_subnets, target.ems_ref)
+      when CloudVolume
+        add_target(:cloud_volumes, target.ems_ref)
       when ResourceGroup
         add_target(:resource_groups, target.ems_ref)
       end
