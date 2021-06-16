@@ -38,13 +38,9 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
       let(:target) { ems.vms.find_by(:ems_ref => "0757_81687d4a-4676-4eeb-9fd7-55f9c7fffb69") }
 
       it "doesn't impact other inventory" do
-        before_targeted_refresh = serialize_inventory
-
-        with_vcr("vm_target") { EmsRefresh.refresh(target) }
-
-        after_targeted_refresh = serialize_inventory
-
-        assert_inventory_not_changed(before_targeted_refresh, after_targeted_refresh)
+        assert_inventory_not_changed do
+          with_vcr("vm_target") { EmsRefresh.refresh(target) }
+        end
       end
     end
   end
@@ -273,12 +269,5 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
   # @return [void]
   def check_counts(resource, resources)
     resources.each_pair { |key, value| check_count(resource, key, value) }
-  end
-
-  def with_vcr(suffix = nil, &block)
-    path = described_class.name.dup
-    path << "::#{suffix}" if suffix
-
-    VCR.use_cassette(path.underscore, &block)
   end
 end
