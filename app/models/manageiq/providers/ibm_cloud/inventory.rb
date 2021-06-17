@@ -3,7 +3,7 @@ class ManageIQ::Providers::IbmCloud::Inventory < ManageIQ::Providers::Inventory
   require_nested :Parser
   require_nested :Persister
 
-  def self.parsed_manager_name(target)
+  def self.parsed_manager_name(_ems, target)
     case target
     when InventoryRefresh::TargetCollection
       'VPC::TargetCollection'

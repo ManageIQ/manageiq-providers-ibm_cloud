@@ -37,6 +37,25 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     context "vm target" do
       let(:target) { ems.vms.find_by(:ems_ref => "0757_81687d4a-4676-4eeb-9fd7-55f9c7fffb69") }
 
+      it "with a deleted vm" do
+        connection = double("IbmCloud::CloudTool")
+        allow(ems).to receive(:connect).and_return(connection)
+        expect(connection).to receive(:request)
+          .with(:get_instance, :id => target.ems_ref)
+          .and_raise(
+            IBMCloudSdkCore::ApiException.new(
+              :code                  => 404,
+              :error                 => "Error: Instance not found",
+              :transaction_id        => "1234",
+              :global_transaction_id => "5678"
+            )
+          )
+
+        EmsRefresh.refresh(target)
+
+        expect(target.reload).to be_archived
+      end
+
       it "doesn't impact other inventory" do
         assert_inventory_not_changed do
           with_vcr("vm_target") { EmsRefresh.refresh(target) }
