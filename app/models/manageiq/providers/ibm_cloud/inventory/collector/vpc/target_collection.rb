@@ -21,10 +21,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
       end.compact
   end
 
-  def instance_types
-    []
-  end
-
   def flavors
     @flavors ||=
       references(:flavors).map do |ems_ref|
@@ -33,7 +29,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   end
 
   def keys
-    []
+    @keys ||=
+      references(:auth_key_pairs).map do |ems_ref|
+        connection.request(:get_key, :id => ems_ref)
+      end
   end
 
   def availability_zones
@@ -65,7 +64,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   end
 
   def floating_ips
-    []
+    @floating_ips ||=
+      references(:floating_ips).map do |ems_ref|
+        connection.request(:get_floating_ip, :id => ems_ref)
+      end
   end
 
   def volumes
@@ -76,7 +78,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   end
 
   def volume_profiles
-    []
+    @volume_profiles ||=
+      references(:cloud_volume_types).map do |ems_ref|
+        connection.request(:get_volume_profile, :name => ems_ref)
+      end
   end
 
   def resource_groups
@@ -102,6 +107,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
         add_target(:vms, target.ems_ref)
       when Flavor
         add_target(:flavors, target.ems_ref)
+      when ManageIQ::Providers::CloudManager::AuthKeyPair
+        add_target(:auth_key_pairs, target.ems_ref)
       when AvailabilityZone
         add_target(:availability_zones, target.ems_ref)
       when SecurityGroup
@@ -110,8 +117,12 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
         add_target(:cloud_networks, target.ems_ref)
       when CloudSubnet
         add_target(:cloud_subnets, target.ems_ref)
+      when FloatingIp
+        add_target(:floating_ips, target.ems_ref)
       when CloudVolume
         add_target(:cloud_volumes, target.ems_ref)
+      when CloudVolumeType
+        add_target(:cloud_volume_types, target.ems_ref)
       when ResourceGroup
         add_target(:resource_groups, target.ems_ref)
       end
