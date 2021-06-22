@@ -20,6 +20,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
           :autosave    => true,
           :dependent   => :destroy,
           :inverse_of  => :parent_manager
+
   before_create :ensure_managers
   before_update :ensure_managers_zone
 

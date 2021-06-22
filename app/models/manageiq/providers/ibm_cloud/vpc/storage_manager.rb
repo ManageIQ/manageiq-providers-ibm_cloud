@@ -9,7 +9,6 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager < ManageIQ::Providers::
            :authentication_status_ok?,
            :authentications,
            :authentication_for_summary,
-           :zone,
            :connect,
            :verify_credentials,
            :with_provider_connection,
