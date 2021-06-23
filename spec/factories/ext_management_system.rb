@@ -19,6 +19,12 @@ FactoryBot.define do
 end
 
 FactoryBot.define do
+  factory :ems_ibm_cloud_vpc_network,
+          :class  => "ManageIQ::Providers::IbmCloud::VPC::NetworkManager",
+          :parent => :ems_cloud
+end
+
+FactoryBot.define do
   factory :ems_ibm_cloud_object_storage_object,
           :class  => "ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager",
           :parent => :ems_storage
