@@ -20,6 +20,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
       assert_ems_counts
       assert_specific_vm
+      assert_specific_flavor
       assert_specific_resource_group
       assert_specific_security_group
       assert_specific_cloud_volume_type
@@ -116,6 +117,19 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     # Check that ems_ref is not nil and has a value which follows the guidance in https://cloud.ibm.com/apidocs/vpc#list-keys
     expect(vm.key_pairs.first.ems_ref).to_not be_nil
     expect(vm.key_pairs.first.ems_ref).to match(/^[-0-9a-z_]{1,64}/)
+  end
+
+  def assert_specific_flavor
+    flavor = check_resource_fetch(ems, :flavors, 'mx2-2x16')
+    expect(flavor).to have_attributes(
+      :name      => 'mx2-2x16',
+      :cpus      => 2,
+      :cpu_cores => 2,
+      :memory    => 18_432,
+      :ems_ref   => 'mx2-2x16',
+      :type      => 'ManageIQ::Providers::IbmCloud::VPC::CloudManager::Flavor',
+      :enabled   => true
+    )
   end
 
   # Test a resource_group record is properly persisted.
