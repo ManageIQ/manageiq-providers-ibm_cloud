@@ -51,25 +51,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager::CloudS
     }
   end
 
-  def delete_cloud_subnet_queue(userid)
-    task_opts = {
-      :action => "creating cloud subnet, userid: #{userid}",
-      :userid => userid
-    }
-
-    queue_opts = {
-      :class_name  => self.class.name,
-      :method_name => 'raw_delete_cloud_subnet',
-      :instance_id => id,
-      :priority    => MiqQueue::HIGH_PRIORITY,
-      :role        => 'ems_operations',
-      :zone        => ext_management_system.my_zone,
-      :args        => []
-    }
-
-    MiqTask.generic_action_with_callback(task_opts, queue_opts)
-  end
-
   def raw_delete_cloud_subnet
     cloud_instance_id = ext_management_system.parent_manager.uid_ems
     ext_management_system.with_provider_connection(:service => 'PCloudNetworksApi') do |api|
