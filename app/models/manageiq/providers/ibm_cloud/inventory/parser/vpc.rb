@@ -179,12 +179,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
       memory = flavor&.dig(:memory, :value)
       memory_mb = Integer(memory) * 1024 if memory
       persister.flavors.build(
-        :ems_ref   => flavor[:name],
-        :name      => flavor[:name],
-        :cpus      => flavor&.dig(:vcpu_count, :value),
-        :cpu_cores => flavor&.dig(:vcpu_count, :value),
-        :memory    => memory_mb,
-        :enabled   => true
+        :ems_ref         => flavor[:name],
+        :name            => flavor[:name],
+        :cpu_total_cores => flavor&.dig(:vcpu_count, :value),
+        :memory          => memory_mb,
+        :enabled         => true
       )
     end
   end
