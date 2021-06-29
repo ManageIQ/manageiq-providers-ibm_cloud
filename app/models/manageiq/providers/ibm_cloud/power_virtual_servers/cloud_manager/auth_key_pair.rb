@@ -1,7 +1,7 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyPair < ManageIQ::Providers::CloudManager::AuthKeyPair
   def self.raw_create_key_pair(ext_management_system, create_options)
     ext_management_system.with_provider_connection(:service => "PCloudTenantsSSHKeysApi") do |api|
-      tenant_id = ext_management_system.tenant_id(api.api_client)
+      tenant_id = ext_management_system.pcloud_tenant_id(api.api_client)
       ssh_key   = IbmCloudPower::SSHKey.new(
         :name    => create_options['name'],
         :ssh_key => create_options['public_key']
