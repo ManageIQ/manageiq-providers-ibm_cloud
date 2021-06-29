@@ -55,7 +55,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
     true
   end
 
-  def tenant_id(connection = nil)
+  def pcloud_tenant_id(connection = nil)
     connection ||= connect
     parse_crn(connection.default_headers["Crn"])[:scope].split("/").last
   end

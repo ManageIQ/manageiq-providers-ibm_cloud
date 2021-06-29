@@ -52,7 +52,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   end
 
   def sshkeys
-    @sshkeys ||= tenants_api.pcloud_tenants_get(tenant_id).ssh_keys
+    @sshkeys ||= tenants_api.pcloud_tenants_get(pcloud_tenant_id).ssh_keys
   end
 
   def system_pools
@@ -79,8 +79,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     @cloud_instance_id ||= cloud_manager.uid_ems
   end
 
-  def tenant_id
-    cloud_manager.tenant_id(connection)
+  def pcloud_tenant_id
+    cloud_manager.pcloud_tenant_id(connection)
   end
 
   def images_api
