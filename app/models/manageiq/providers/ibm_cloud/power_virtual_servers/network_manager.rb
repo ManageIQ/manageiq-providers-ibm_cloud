@@ -53,23 +53,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
     raw_create_cloud_subnet(self, options)
   end
 
-  def create_cloud_subnet_queue(userid, options = {})
-    task_opts = {
-      :action => "creating Cloud Subnet for user #{userid}",
-      :userid => userid
-    }
-    queue_opts = {
-      :class_name  => self.class.name,
-      :method_name => 'create_cloud_subnet',
-      :instance_id => id,
-      :priority    => MiqQueue::HIGH_PRIORITY,
-      :role        => 'ems_operations',
-      :zone        => ext_management_system.my_zone,
-      :args        => [options]
-    }
-    MiqTask.generic_action_with_callback(task_opts, queue_opts)
-  end
-
   def self.raw_create_cloud_subnet(ext_management_system, options)
     cloud_instance_id = ext_management_system.parent_manager.uid_ems
 
