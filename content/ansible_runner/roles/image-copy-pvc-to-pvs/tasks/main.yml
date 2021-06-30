@@ -1,6 +1,7 @@
 - name: set sessions directory
   set_fact:
     sessions_dir: '/home/sessions'
+    powervc_rc:   '/opt/ibm/powervc/powervcrc'
 
 - name: execute role
   block:
@@ -12,7 +13,7 @@
       register: session_dir
 
     - name: execute PVC image export to FS
-      shell: source /opt/ibm/powervc/powervcrc && powervc-image export -i "{{image_id}}" -p "{{session_dir.path}}/{{session_id}}.ova"
+      shell: source {{powervc_rc}} && powervc-image export -i "{{image_id}}" -p "{{session_dir.path}}/{{session_id}}.ova"
 
     - name: copy the image 'upload.py' python script
       copy: src=files/upload_ova_to_bucket.py dest="{{session_dir.path}}/upload_ova_to_bucket.py" mode=700
@@ -21,7 +22,7 @@
       template: src=templates/credentials.aes dest="{{session_dir.path}}/credentials.aes" mode=700
 
     - name: execute OVA to COS bucket upload script
-      shell: source /home/sessions/venv/bin/activate && python3.6 "{{session_dir.path}}/upload_ova_to_bucket.py" "{{session_dir.path}}/{{session_id}}.ova"
+      shell: source {{sessions_dir}}/venv/bin/activate && python3.6 "{{session_dir.path}}/upload_ova_to_bucket.py" "{{session_dir.path}}/{{session_id}}.ova"
       environment:
         CREDS_AES_KEY: "{{creds_aes_key}}"
         CREDS_AES_IV:  "{{creds_aes_iv}}"

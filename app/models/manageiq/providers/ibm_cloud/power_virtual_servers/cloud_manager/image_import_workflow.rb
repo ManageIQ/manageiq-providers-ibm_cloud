@@ -1,35 +1,25 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow < ManageIQ::Providers::AnsiblePlaybookWorkflow
   def load_transitions
-    self.state ||= 'initialize'
-
-    {
-      :initializing      => {'initialize'         => 'waiting_to_start'},
-      :start             => {'waiting_to_start'   => 'pre_execute'},
-      :pre_execute       => {'pre_execute'        => 'execute'},
-      :execute           => {'execute'            => 'running'},
-      :poll_runner       => {'running'            => 'running'},
-      :post_execute      => {'running'            => 'post_execute_poll'},
-      :post_execute_poll => {'post_execute_poll'  => 'post_execute_poll'},
-      :finish            => {'*'                  => 'finished'},
-      :abort_job         => {'*'                  => 'aborting'},
-      :cancel            => {'*'                  => 'canceling'},
-      :error             => {'*'                  => '*'}
-    }
+    super.merge(
+      :post_execute      => {'running' => 'post_execute_poll'},
+      :post_execute_poll => {'post_execute_poll' => 'post_execute_poll'}
+    )
   end
 
   def post_execute
     ems = ExtManagementSystem.find(options[:ems_id])
 
     body = {
-      source:         'url',
-      imageName:      options[:miq_img][:name],
-      osType:         options[:miq_img][:os],
-      imageFilename: "#{options[:session_id]}.ova",
+      :source        => 'url',
+      :imageName     => options[:miq_img][:name],
+      :osType        => options[:miq_img][:os],
+      :diskType      => options[:diskType],
+      :imageFilename => "#{options[:session_id]}.ova",
       **options[:cos_pvs_creds]
     }
 
     ems.with_provider_connection(:service => 'PCloudImagesApi') do |api|
-      response = api.pcloud_cloudinstances_images_post(ems.uid_ems, body, opts = {})
+      response = api.pcloud_cloudinstances_images_post(ems.uid_ems, body, {})
       context[:task_id] = response.taskref.task_id
 
       started_on = Time.now.utc
@@ -37,7 +27,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
       miq_task.update!(:started_on => started_on)
     end
 
-    route_signal(:post_execute_poll, 'importing image into PVS', 'running')
+    cleanup_git_repository
+
+    queue_signal(:post_execute_poll, 'importing image into PVS', 'running')
   end
 
   def post_execute_poll(*args)
@@ -74,11 +66,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
       end
     end
 
-    route_signal(signal, msg, status)
+    queue_signal(signal, msg, status)
   end
 
   def post_poll_cleanup
     return if options[:keep_ova] == true
+
     cos = ExtManagementSystem.find(options[:cos_id])
     cos.remove_object(options[:bucket_name], options[:session_id] + '.ova')
   end
