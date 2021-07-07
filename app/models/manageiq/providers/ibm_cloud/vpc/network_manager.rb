@@ -6,6 +6,8 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager < ManageIQ::Providers::
 
   include ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
 
+  supports :cloud_subnet_create
+
   delegate :authentication_check,
            :authentication_status,
            :authentication_status_ok?,
@@ -43,5 +45,9 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager < ManageIQ::Providers::
 
   def self.description
     @description ||= "IBM Cloud VPC Network".freeze
+  end
+
+  def create_cloud_subnet(options)
+    CloudSubnet.raw_create_cloud_subnet(self, options)
   end
 end
