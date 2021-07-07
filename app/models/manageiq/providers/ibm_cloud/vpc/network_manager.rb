@@ -47,6 +47,10 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager < ManageIQ::Providers::
     @description ||= "IBM Cloud VPC Network".freeze
   end
 
+  def create_cloud_network(options)
+    CloudNetwork.raw_create_cloud_network(self, options)
+  end
+
   def create_cloud_subnet(options)
     CloudSubnet.raw_create_cloud_subnet(self, options)
   end

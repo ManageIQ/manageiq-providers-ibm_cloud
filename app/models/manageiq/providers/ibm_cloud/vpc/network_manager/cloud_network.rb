@@ -1,12 +1,22 @@
 class ManageIQ::Providers::IbmCloud::VPC::NetworkManager::CloudNetwork < ::CloudNetwork
   include ProviderObjectMixin
 
+  supports :create
   supports :delete do
     if ext_management_system.nil?
       unsupported_reason_add(:delete_cloud_network, _("The Cloud Network is not connected to an active %{table}") % {
         :table => ui_lookup(:table => "ext_management_systems")
       })
     end
+  end
+
+  def self.raw_create_cloud_network(ext_management_system, options)
+    ext_management_system.with_provider_connection do |connection|
+      connection.request(:create_vpc, :name => options[:name])
+    end
+  rescue => err
+    _log.error("cloud_network=[#{options[:name]}], error: #{err}")
+    raise
   end
 
   def raw_delete_cloud_network(_options = {})
