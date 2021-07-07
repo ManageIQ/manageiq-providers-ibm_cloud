@@ -264,14 +264,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
 
   def cloud_volume_types
     # get only the active storage
-    collector.storage_types.each do |v|
-      next unless v.state == 'active'
-
+    collector.storage_types.storage_types_capacity.each do |v|
       persister.cloud_volume_types.build(
-        :type        => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudVolumeType",
-        :ems_ref     => v.type,
-        :name        => v.type,
-        :description => v.description
+        :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudVolumeType",
+        :ems_ref => v.storage_type,
+        :name    => v.storage_type
       )
     end
   end

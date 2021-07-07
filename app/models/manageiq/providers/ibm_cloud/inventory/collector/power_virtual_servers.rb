@@ -60,9 +60,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   end
 
   def storage_types
-    # TODO: The Power Cloud API does not yet have a call to retrieve
-    # available storage types.
-    ::Settings.ems_refresh.ibm_cloud_power_virtual_servers.storage_types
+    @storage_types ||= storage_capacity_api.pcloud_storagecapacity_types_getall(cloud_instance_id)
   end
 
   private
@@ -97,6 +95,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
 
   def sap_api
     @sap_api ||= IbmCloudPower::PCloudSAPApi.new(connection)
+  end
+
+  def storage_capacity_api
+    @storage_capacity_api ||= IbmCloudPower::PCloudStorageCapacityApi.new(connection)
   end
 
   def system_pools_api
