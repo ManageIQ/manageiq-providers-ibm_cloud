@@ -844,6 +844,49 @@ http_interactions:
   recorded_at: Wed, 07 Jul 2021 12:30:58 GMT
 - request:
     method: get
+    uri: https://sao.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/3ea904f1-67df-4ae0-960f-e13ffa469f12/images/69ba10f9-4784-4e47-b377-55b60b975def
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:sao01:a/1fdf5effc3f945688c021cd0a8b45c4d:3ea904f1-67df-4ae0-960f-e13ffa469f12::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '542'
+      Connection:
+      - keep-alive
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+    body:
+      encoding: UTF-8
+      string: '{"creationDate":"2021-03-03T09:50:16.000Z","imageID":"69ba10f9-4784-4e47-b377-55b60b975def","lastUpdateDate":"2021-06-07T15:37:23.000Z","name":"Linux-CentOS-8-3","servers":[],"size":250,"specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","operatingSystem":"rhel"},"state":"active","storagePool":"Tier1-Flash-2","storageType":"tier1","volumes":[{"bootable":true,"name":"Imported
+        image volume","size":250,"volumeID":"f96db5b0-7393-4081-b4dd-0dec53d8b200"}]}
+
+        '
+    http_version:
+  recorded_at: Wed, 07 Jul 2021 12:31:02 GMT
+- request:
+    method: get
     uri: https://sao.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/3ea904f1-67df-4ae0-960f-e13ffa469f12/volumes/56627cc4-9e5b-4508-9f93-657efbbb8daf
     body:
       encoding: US-ASCII
@@ -927,6 +970,49 @@ http_interactions:
         '
     http_version:
   recorded_at: Wed, 07 Jul 2021 12:31:08 GMT
+- request:
+    method: get
+    uri: https://sao.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/3ea904f1-67df-4ae0-960f-e13ffa469f12/images/bc57fa98-e7a0-470b-9018-a7b71a3d2a0f
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:sao01:a/1fdf5effc3f945688c021cd0a8b45c4d:3ea904f1-67df-4ae0-960f-e13ffa469f12::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '530'
+      Connection:
+      - keep-alive
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+    body:
+      encoding: UTF-8
+      string: '{"creationDate":"2020-11-24T12:49:14.000Z","imageID":"bc57fa98-e7a0-470b-9018-a7b71a3d2a0f","lastUpdateDate":"2021-06-07T15:37:23.000Z","name":"7100-05-05","servers":[],"size":20,"specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"big-endian","hypervisorType":"phyp","operatingSystem":"aix"},"state":"active","storagePool":"Tier3-Flash-1","storageType":"tier3","volumes":[{"bootable":true,"name":"Imported
+        image volume","size":20,"volumeID":"1fe792ef-4de3-4193-927f-e2bef376df05"}]}
+
+        '
+    http_version:
+  recorded_at: Wed, 07 Jul 2021 12:31:09 GMT
 - request:
     method: get
     uri: https://sao.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/3ea904f1-67df-4ae0-960f-e13ffa469f12/volumes/0f8535b9-5c45-4154-a89e-e458b41551f7
