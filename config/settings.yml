@@ -17,19 +17,6 @@
     :refresh_interval: 15.minutes
   :ibm_cloud_power_virtual_servers:
     :refresh_interval: 15.minutes
-    :storage_types:
-    - :description: Tier 1 (NVMe-based flash storage)
-      :state: active
-      :type: tier1
-    - :description: Tier 3 (SSD flash storage)
-      :state: active
-      :type: tier3
-    - :description: SSD (Legacy)
-      :state: active
-      :type: ssd-legacy
-    - :description: Standard (Legacy)
-      :state: active
-      :type: standard-legacy
 :log:
   :level_ibm_cloud: info
 :workers:
