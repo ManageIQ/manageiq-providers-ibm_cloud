@@ -30,6 +30,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     sshkeys
   end
 
+  def architecture(image_id)
+    img_to_arch[image_id] ||= collector.image(image_id).specifications.architecture
+  end
+
   def pvm_instances
     collector.pvm_instances.each do |instance_reference|
       instance = collector.pvm_instance(instance_reference.pvm_instance_id)
@@ -53,7 +57,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       ps_hw = persister.hardwares.build(
         :vm_or_template  => ps_vmi,
         :cpu_total_cores => instance.virtual_cores&.assigned,
-        :cpu_type        => img_to_arch[instance.image_id],
+        :cpu_type        => architecture(instance.image_id),
         :memory_mb       => instance.memory * 1024,
         :guest_os        => OS_MIQ_NAMES_MAP[instance.os_type]
       )
