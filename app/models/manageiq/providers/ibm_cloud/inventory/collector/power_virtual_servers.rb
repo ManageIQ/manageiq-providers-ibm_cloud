@@ -32,6 +32,15 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     @images ||= images_api.pcloud_cloudinstances_images_getall(cloud_instance_id).images || []
   end
 
+  def image_architecture(image_id)
+    image = image(image_id)
+    architecture = image&.specifications&.architecture
+    if image&.specifications&.endianness == 'little-endian'
+      architecture << 'le'
+    end
+    architecture
+  end
+
   def volumes
     @volumes ||= volumes_api.pcloud_cloudinstances_volumes_getall(cloud_instance_id).volumes || []
   end

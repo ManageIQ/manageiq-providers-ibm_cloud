@@ -3,7 +3,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   require_nested :NetworkManager
   require_nested :StorageManager
 
-  attr_reader :img_to_arch, :subnet_to_ext_ports
+  attr_reader :subnet_to_ext_ports
 
   OS_MIQ_NAMES_MAP = {
     'aix'    => 'unix_aix',
@@ -15,7 +15,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
 
   def initialize
     super
-    @img_to_arch         = {}
     @subnet_to_ext_ports = {}
   end
 
@@ -28,10 +27,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     pvm_instances
     networks
     sshkeys
-  end
-
-  def architecture(image_id)
-    img_to_arch[image_id] ||= collector.image(image_id).specifications.architecture
   end
 
   def pvm_instances
@@ -57,7 +52,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       ps_hw = persister.hardwares.build(
         :vm_or_template  => ps_vmi,
         :cpu_total_cores => instance.virtual_cores&.assigned,
-        :cpu_type        => architecture(instance.image_id),
+        :cpu_type        => collector.image_architecture(instance.image_id),
         :memory_mb       => instance.memory * 1024,
         :guest_os        => OS_MIQ_NAMES_MAP[instance.os_type]
       )
@@ -116,12 +111,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
 
   def images
     collector.images.each do |image|
-      arch = image.specifications.architecture
-      if image.specifications.endianness == 'little-endian'
-        arch << 'le'
-      end
-      img_to_arch[id] = arch
-
       ps_image = persister.miq_templates.build(
         :uid_ems            => image.image_id,
         :ems_ref            => image.image_id,
