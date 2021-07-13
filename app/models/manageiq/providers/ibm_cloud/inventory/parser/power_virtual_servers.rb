@@ -251,12 +251,12 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         end
 
         persister.flavors.build(
-          :type        => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile",
-          :ems_ref     => value.profile_id,
-          :name        => value.profile_id,
-          :cpus        => value.cores,
-          :memory      => value.memory&.gigabytes,
-          :description => description
+          :type            => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile",
+          :ems_ref         => value.profile_id,
+          :name            => value.profile_id,
+          :cpu_total_cores => value.cores,
+          :memory          => value.memory&.gigabytes,
+          :description     => description
         )
       end
     end

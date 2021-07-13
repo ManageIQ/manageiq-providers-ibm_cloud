@@ -122,13 +122,12 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
   def assert_specific_flavor
     flavor = check_resource_fetch(ems, :flavors, 'mx2-2x16')
     expect(flavor).to have_attributes(
-      :name      => 'mx2-2x16',
-      :cpus      => 2,
-      :cpu_cores => 2,
-      :memory    => 18_432,
-      :ems_ref   => 'mx2-2x16',
-      :type      => 'ManageIQ::Providers::IbmCloud::VPC::CloudManager::Flavor',
-      :enabled   => true
+      :name            => 'mx2-2x16',
+      :cpu_total_cores => 2,
+      :memory          => 18_432,
+      :ems_ref         => 'mx2-2x16',
+      :type            => 'ManageIQ::Providers::IbmCloud::VPC::CloudManager::Flavor',
+      :enabled         => true
     )
   end
 
