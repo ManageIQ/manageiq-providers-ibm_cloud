@@ -34,7 +34,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   supports_not :volume_availability_zones
 
   def image_name
-    "ibm"
+    "ibm_cloud"
   end
 
   def ensure_managers

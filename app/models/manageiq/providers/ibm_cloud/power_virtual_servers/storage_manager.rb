@@ -30,7 +30,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
   supports :cloud_volume_create
 
   def image_name
-    "ibm"
+    "ibm_cloud"
   end
 
   def self.ems_type
