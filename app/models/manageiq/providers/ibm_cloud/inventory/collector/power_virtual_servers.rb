@@ -19,12 +19,26 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     pvm_instances_api.pcloud_pvminstances_get(cloud_instance_id, instance_id)
   end
 
-  def image(img_id)
-    images_api.pcloud_cloudinstances_images_get(cloud_instance_id, img_id)
+  def image(image_id)
+    image = images.detect { |img| img.image_id == image_id }
+    unless image
+      image = images_api.pcloud_cloudinstances_images_get(cloud_instance_id, image_id)
+      images << image
+    end
+    image
   end
 
   def images
     @images ||= images_api.pcloud_cloudinstances_images_getall(cloud_instance_id).images || []
+  end
+
+  def image_architecture(image_id)
+    image = image(image_id)
+    architecture = image&.specifications&.architecture
+    if image&.specifications&.endianness == 'little-endian'
+      architecture << 'le'
+    end
+    architecture
   end
 
   def volumes
