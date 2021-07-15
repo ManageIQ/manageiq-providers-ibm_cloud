@@ -22,6 +22,7 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager < ManageIQ::Providers::
            :allow_nil => true
 
   supports :cloud_volume
+  supports :cloud_volume_create
 
   def image_name
     "ibm"
