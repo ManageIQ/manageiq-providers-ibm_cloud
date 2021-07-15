@@ -49,7 +49,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   end
 
   def image_name
-    'ibm'
+    'ibm_cloud'
   end
 
   def self.hostname_required?

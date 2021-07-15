@@ -109,7 +109,7 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
   end
 
   def image_name
-    "ibm"
+    "ibm_cloud"
   end
 
   def cos_creds

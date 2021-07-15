@@ -27,7 +27,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :name               => image[:name],
         :description        => image&.dig(:operating_system, :display_name),
         :location           => collector.manager.provider_region,
-        :vendor             => "ibm",
+        :vendor             => "ibm_cloud",
         :connection_state   => "connected",
         :raw_power_state    => "never",
         :template           => true,
@@ -49,7 +49,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :flavor            => persister.flavors.lazy_find(instance&.dig(:profile, :name)),
         :key_pairs         => instance_key_pairs(instance[:id]),
         :name              => instance[:name],
-        :vendor            => "ibm",
+        :vendor            => "ibm_cloud",
         :connection_state  => "connected",
         :raw_power_state   => instance[:status],
         :uid_ems           => instance[:id]
