@@ -8,7 +8,7 @@ describe ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager do
   end
 
   describe "#catalog_types" do
-    let(:ems) { FactoryBot.create(:ems_ibm_cloud_object_storage_object) }
+    let(:ems) { FactoryBot.create(:ems_ibm_cloud_object_storage_storage) }
 
     it "catalog_types" do
       expect(ems.catalog_types).to be_empty

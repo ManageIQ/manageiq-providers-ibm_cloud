@@ -1,0 +1,7 @@
+- name:  import image file to IBM Cloud Object Storage
+  gather_facts: no
+  hosts: powervc
+
+  roles:
+    - role: image-copy-pvc-to-pvs
+

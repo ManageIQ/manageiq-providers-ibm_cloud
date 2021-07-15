@@ -126,7 +126,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
                       ]
                     }
                   ]
-                }
+                },
               ]
             ]
           }
@@ -134,16 +134,6 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
       }.freeze
     end
 
-    # Verify Credentials
-    # args:
-    # {
-    #   "uid_ems"         => "",
-    #   "authentications" => {
-    #     "default" => {
-    #       "auth_key" => "",
-    #     }
-    #   }
-    # }
     def verify_credentials(args)
       pcloud_guid = args["uid_ems"]
       auth_key = args.dig("authentications", "default", "auth_key")
