@@ -30,6 +30,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
 
   def image(image_id)
     connection.request(:get_image, :id => image_id)
+  rescue IBMCloudSdkCore::ApiException
+    nil
   end
 
   def keys
