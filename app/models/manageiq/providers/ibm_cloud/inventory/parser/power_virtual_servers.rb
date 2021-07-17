@@ -3,7 +3,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   require_nested :NetworkManager
   require_nested :StorageManager
 
-  attr_reader :img_to_arch, :subnet_to_ext_ports
+  attr_reader :subnet_to_ext_ports
 
   OS_MIQ_NAMES_MAP = {
     'aix'    => 'unix_aix',
@@ -15,7 +15,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
 
   def initialize
     super
-    @img_to_arch         = {}
     @subnet_to_ext_ports = {}
   end
 
@@ -53,7 +52,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       ps_hw = persister.hardwares.build(
         :vm_or_template  => ps_vmi,
         :cpu_total_cores => instance.virtual_cores&.assigned,
-        :cpu_type        => img_to_arch[instance.image_id],
+        :cpu_type        => collector.image_architecture(instance.image_id),
+        :bitness         => 64,
         :memory_mb       => instance.memory * 1024,
         :guest_os        => OS_MIQ_NAMES_MAP[instance.os_type]
       )
@@ -111,32 +111,23 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   end
 
   def images
-    collector.images.each do |image_ref|
-      ibm_image = collector.image(image_ref.image_id)
-      id = ibm_image.image_id
-
-      arch = ibm_image.specifications.architecture
-      if ibm_image.specifications.endianness == 'little-endian'
-        arch << 'le'
-      end
-      img_to_arch[id] = arch
-
+    collector.images.each do |image|
       ps_image = persister.miq_templates.build(
-        :uid_ems            => id,
-        :ems_ref            => id,
-        :name               => ibm_image.name,
-        :description        => ibm_image.specifications.image_type,
+        :uid_ems            => image.image_id,
+        :ems_ref            => image.image_id,
+        :name               => image.name,
+        :description        => image.specifications.image_type,
         :location           => "unknown",
         :vendor             => "ibm",
         :raw_power_state    => "never",
         :template           => true,
-        :storage_profile_id => persister.cloud_volume_types.lazy_find(ibm_image.storage_type),
-        :format             => ibm_image.storage_type
+        :storage_profile_id => persister.cloud_volume_types.lazy_find(image.storage_type),
+        :format             => image.storage_type
       )
 
       persister.operating_systems.build(
         :vm_or_template => ps_image,
-        :product_name   => OS_MIQ_NAMES_MAP[ibm_image.specifications.operating_system]
+        :product_name   => OS_MIQ_NAMES_MAP[image.specifications.operating_system]
       )
     end
   end
