@@ -53,6 +53,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :vm_or_template  => ps_vmi,
         :cpu_total_cores => instance.virtual_cores&.assigned,
         :cpu_type        => collector.image_architecture(instance.image_id),
+        :bitness         => 64,
         :memory_mb       => instance.memory * 1024,
         :guest_os        => OS_MIQ_NAMES_MAP[instance.os_type]
       )
