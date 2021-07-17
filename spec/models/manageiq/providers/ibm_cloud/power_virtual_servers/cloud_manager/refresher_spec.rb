@@ -117,7 +117,9 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :cpu_sockets     => 1,
         :cpu_total_cores => 1,
         :memory_mb       => 2048,
-        :guest_os        => 'unix_aix'
+        :guest_os        => 'unix_aix',
+        :cpu_type        => 'ppc64',
+        :bitness         => 64
       )
 
       expect(vm.operating_system).to have_attributes(
