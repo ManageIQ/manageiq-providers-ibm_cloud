@@ -24,7 +24,7 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager < ManageIQ::Providers::
   supports :cloud_volume_create
 
   def image_name
-    "ibm"
+    "ibm_cloud"
   end
 
   def self.ems_type

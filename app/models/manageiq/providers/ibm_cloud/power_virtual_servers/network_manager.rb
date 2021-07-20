@@ -28,7 +28,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
            :allow_nil => true
 
   def image_name
-    "ibm"
+    "ibm_cloud"
   end
 
   def self.validate_authentication_args(params)
