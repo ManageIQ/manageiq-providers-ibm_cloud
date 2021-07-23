@@ -1,0 +1,263 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://s3.us-east.cloud-object-storage.appdomain.cloud/
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.114.0 ruby/2.6.5 x86_64-linux aws-sdk-s3/1.94.0
+      X-Amz-Date:
+      - 20210503T132421Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=IBM_CLOUD_OBJECT_STORAGE_ACCESS_KEY/20210503/us-south/s3/aws4_request,
+        SignedHeaders=host;IBM_POWER_VC_DEFAULTS_USER_ID-agent;x-amz-content-sha256;x-amz-date,
+        Signature=5c40742c4b6f287af3d23fd274b003bb59033efbafc08b30f52b87f545409a1e
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 May 2021 13:24:22 GMT
+      X-Clv-Request-Id:
+      - 8aabff3e-d122-4b85-b259-ba4ec48c0f19
+      Server:
+      - Cleversafe
+      X-Clv-S3-Version:
+      - '2.5'
+      Accept-Ranges:
+      - bytes
+      X-Amz-Request-Id:
+      - 8aabff3e-d122-4b85-b259-ba4ec48c0f19
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '723'
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><ListAllMyBucketsResult
+        xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Owner><ID>960f1ca0-8a54-402b-9747-f980a84bd312</ID><DisplayName>960f1ca0-8a54-402b-9747-f980a84bd312</DisplayName></Owner><Buckets><Bucket><Name>bucket-for-export</Name><CreationDate>2020-11-24T13:42:22.025Z</CreationDate></Bucket><Bucket><Name>roks-c03jjjed0ft0tc1kd2cg-6e58</Name><CreationDate>2021-01-19T19:58:08.104Z</CreationDate></Bucket><Bucket><Name>roks-c1mriasd0s1lkcr2a6ig-1f5b</Name><CreationDate>2021-04-07T13:52:45.177Z</CreationDate></Bucket><Bucket><Name>test-bucket-isgandar</Name><CreationDate>2021-04-29T13:39:01.622Z</CreationDate></Bucket></Buckets></ListAllMyBucketsResult>
+    http_version:
+  recorded_at: Mon, 03 May 2021 13:24:22 GMT
+- request:
+    method: get
+    uri: https://s3.us-east.cloud-object-storage.appdomain.cloud/bucket-for-export?location
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.114.0 ruby/2.6.5 x86_64-linux aws-sdk-s3/1.94.0
+      X-Amz-Date:
+      - 20210503T132422Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=IBM_CLOUD_OBJECT_STORAGE_ACCESS_KEY/20210503/us-south/s3/aws4_request,
+        SignedHeaders=host;IBM_POWER_VC_DEFAULTS_USER_ID-agent;x-amz-content-sha256;x-amz-date,
+        Signature=314ade91e549210308249fa1fb105d0f894293cc71fa0c731898ac6f49e49045
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Mon, 03 May 2021 13:24:24 GMT
+      X-Clv-Request-Id:
+      - e2fd1ceb-dc65-4796-bfec-4c787b6abcbd
+      Server:
+      - Cleversafe
+      X-Clv-S3-Version:
+      - '2.5'
+      Accept-Ranges:
+      - bytes
+      X-Amz-Request-Id:
+      - e2fd1ceb-dc65-4796-bfec-4c787b6abcbd
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '285'
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Error><Code>NoSuchBucket</Code><Message>The
+        specified bucket does not exist.</Message><Resource>/bucket-for-export/</Resource><RequestId>e2fd1ceb-dc65-4796-bfec-4c787b6abcbd</RequestId><httpStatusCode>404</httpStatusCode></Error>
+    http_version:
+  recorded_at: Mon, 03 May 2021 13:24:24 GMT
+- request:
+    method: get
+    uri: https://s3.us-east.cloud-object-storage.appdomain.cloud/roks-c03jjjed0ft0tc1kd2cg-6e58?location
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.114.0 ruby/2.6.5 x86_64-linux aws-sdk-s3/1.94.0
+      X-Amz-Date:
+      - 20210503T132424Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=IBM_CLOUD_OBJECT_STORAGE_ACCESS_KEY/20210503/us-south/s3/aws4_request,
+        SignedHeaders=host;IBM_POWER_VC_DEFAULTS_USER_ID-agent;x-amz-content-sha256;x-amz-date,
+        Signature=90eb4c38e446518de9584d2f9738a76275881d116027877edce0939aac41f58e
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Mon, 03 May 2021 13:24:25 GMT
+      X-Clv-Request-Id:
+      - 0c21698e-d0f8-4c77-a125-67ae8108871f
+      Server:
+      - Cleversafe
+      X-Clv-S3-Version:
+      - '2.5'
+      Accept-Ranges:
+      - bytes
+      X-Amz-Request-Id:
+      - 0c21698e-d0f8-4c77-a125-67ae8108871f
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '298'
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Error><Code>NoSuchBucket</Code><Message>The
+        specified bucket does not exist.</Message><Resource>/roks-c03jjjed0ft0tc1kd2cg-6e58/</Resource><RequestId>0c21698e-d0f8-4c77-a125-67ae8108871f</RequestId><httpStatusCode>404</httpStatusCode></Error>
+    http_version:
+  recorded_at: Mon, 03 May 2021 13:24:25 GMT
+- request:
+    method: get
+    uri: https://s3.us-east.cloud-object-storage.appdomain.cloud/roks-c1mriasd0s1lkcr2a6ig-1f5b?location
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.114.0 ruby/2.6.5 x86_64-linux aws-sdk-s3/1.94.0
+      X-Amz-Date:
+      - 20210503T132425Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=IBM_CLOUD_OBJECT_STORAGE_ACCESS_KEY/20210503/us-south/s3/aws4_request,
+        SignedHeaders=host;IBM_POWER_VC_DEFAULTS_USER_ID-agent;x-amz-content-sha256;x-amz-date,
+        Signature=415041950ec367f87d7ba264bb5b139450641d0d37a535e739fa3e6b0f425640
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Mon, 03 May 2021 13:24:26 GMT
+      X-Clv-Request-Id:
+      - 6e211a34-eade-4027-a23b-fd34f6f42024
+      Server:
+      - Cleversafe
+      X-Clv-S3-Version:
+      - '2.5'
+      Accept-Ranges:
+      - bytes
+      X-Amz-Request-Id:
+      - 6e211a34-eade-4027-a23b-fd34f6f42024
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '298'
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Error><Code>NoSuchBucket</Code><Message>The
+        specified bucket does not exist.</Message><Resource>/roks-c1mriasd0s1lkcr2a6ig-1f5b/</Resource><RequestId>6e211a34-eade-4027-a23b-fd34f6f42024</RequestId><httpStatusCode>404</httpStatusCode></Error>
+    http_version:
+  recorded_at: Mon, 03 May 2021 13:24:26 GMT
+- request:
+    method: get
+    uri: https://s3.us-east.cloud-object-storage.appdomain.cloud/test-bucket-isgandar?location
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.114.0 ruby/2.6.5 x86_64-linux aws-sdk-s3/1.94.0
+      X-Amz-Date:
+      - 20210503T132426Z
+      X-Amz-Content-Sha256:
+      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=IBM_CLOUD_OBJECT_STORAGE_ACCESS_KEY/20210503/us-south/s3/aws4_request,
+        SignedHeaders=host;IBM_POWER_VC_DEFAULTS_USER_ID-agent;x-amz-content-sha256;x-amz-date,
+        Signature=1acb9bc2e93affcc92a3d290b7333fe4452525e116b75516e111449f1d956b24
+      Content-Length:
+      - '0'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Mon, 03 May 2021 13:24:27 GMT
+      X-Clv-Request-Id:
+      - 46b13373-eb5d-4ce4-abd9-3e91951b773a
+      Server:
+      - Cleversafe
+      X-Clv-S3-Version:
+      - '2.5'
+      Accept-Ranges:
+      - bytes
+      X-Amz-Request-Id:
+      - 46b13373-eb5d-4ce4-abd9-3e91951b773a
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '288'
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Error><Code>NoSuchBucket</Code><Message>The
+        specified bucket does not exist.</Message><Resource>/test-bucket-isgandar/</Resource><RequestId>46b13373-eb5d-4ce4-abd9-3e91951b773a</RequestId><httpStatusCode>404</httpStatusCode></Error>
+    http_version:
+  recorded_at: Mon, 03 May 2021 13:24:27 GMT
+recorded_with: VCR 5.1.0

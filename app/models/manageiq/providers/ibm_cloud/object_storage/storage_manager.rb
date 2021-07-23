@@ -31,14 +31,12 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
                     :isRequired             => true,
                     :validationDependencies => %w[type zone_id uid_ems],
                     :fields                 => [
-                      {
-                        :component  => "text-field",
+                      { :component  => "text-field",
                         :name       => "provider_region",
                         :id         => "provider_region",
                         :label      => _("Region"),
                         :isRequired => true,
-                        :validate   => [{:type => "required"}],
-                      },
+                        :validate   => [{:type => "required"}],},
                       {
                         :component  => "text-field",
                         :name       => "uid_ems",
@@ -205,5 +203,13 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
     }
 
     Aws.const_get(:S3)::Resource.new(options).client
+  end
+
+  def remove_object(bucket_name, object_name)
+    connect.delete_object(:bucket => bucket_name, :key => object_name)
+  end
+
+  def queue_name_for_ems_refresh
+    queue_name
   end
 end

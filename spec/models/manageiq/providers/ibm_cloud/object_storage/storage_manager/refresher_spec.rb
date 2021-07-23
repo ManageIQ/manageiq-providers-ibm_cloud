@@ -10,7 +10,7 @@ describe ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager::Refresher
       secret_key = Rails.application.secrets.ibm_cloud_object_storage[:secret_key]
 
       FactoryBot.create(
-        :ems_ibm_cloud_object_storage_object,
+        :ems_ibm_cloud_object_storage_storage,
         :uid_ems         => uid_ems,
         :provider_region => "us-south",
         :endpoints       => [FactoryBot.create(
