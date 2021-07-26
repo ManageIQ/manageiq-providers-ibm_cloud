@@ -64,26 +64,26 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
     def assert_table_counts
       expect(Flavor.count).to eq(51)
-      expect(Vm.count).to eq(2)
-      expect(OperatingSystem.count).to eq(7)
-      expect(MiqTemplate.count).to eq(5)
-      expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to eq(46)
-      expect(CloudVolume.count).to eq(4)
+      expect(Vm.count).to eq(3)
+      expect(OperatingSystem.count).to eq(10)
+      expect(MiqTemplate.count).to eq(7)
+      expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to eq(53)
+      expect(CloudVolume.count).to eq(5)
       expect(CloudNetwork.count).to eq(3)
       expect(CloudSubnet.count).to eq(3)
-      expect(NetworkPort.count).to eq(4)
-      expect(CloudSubnetNetworkPort.count).to eq(4)
+      expect(NetworkPort.count).to eq(5)
+      expect(CloudSubnetNetworkPort.count).to eq(5)
     end
 
     def assert_ems_counts
-      expect(ems.vms.count).to eq(2)
-      expect(ems.miq_templates.count).to eq(5)
-      expect(ems.operating_systems.count).to eq(7)
-      expect(ems.key_pairs.count).to eq(46)
+      expect(ems.vms.count).to eq(3)
+      expect(ems.miq_templates.count).to eq(7)
+      expect(ems.operating_systems.count).to eq(10)
+      expect(ems.key_pairs.count).to eq(53)
       expect(ems.network_manager.cloud_networks.count).to eq(3)
       expect(ems.network_manager.cloud_subnets.count).to eq(3)
-      expect(ems.network_manager.network_ports.count).to eq(4)
-      expect(ems.storage_manager.cloud_volumes.count).to eq(4)
+      expect(ems.network_manager.network_ports.count).to eq(5)
+      expect(ems.storage_manager.cloud_volumes.count).to eq(5)
       expect(ems.storage_manager.cloud_volume_types.count).to eq(2)
     end
 
@@ -103,7 +103,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :uid_ems          => "b898b0cd-463b-4b05-90d3-b98f73234e8f",
         :ems_ref          => "b898b0cd-463b-4b05-90d3-b98f73234e8f",
         :location         => "unknown",
-        :name             => "powervs-aix",
+        :name             => "rdr-powervs-aix",
         :description      => "PVM Instance",
         :vendor           => "ibm",
         :power_state      => "on",
@@ -125,6 +125,18 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(vm.operating_system).to have_attributes(
         :product_name => "unix_aix",
         :version      => "AIX 7.1, 7100-05-05-1939"
+      )
+
+      expect(vm.advanced_settings.find { |setting| setting['name'] == 'entitled_processors' }).to have_attributes(
+        :value        => "0.25"
+      )
+
+      expect(vm.advanced_settings.find { |setting| setting['name'] == 'processor_type' }).to have_attributes(
+        :value        => "shared"
+      )
+
+      expect(vm.advanced_settings.find { |setting| setting['name'] == 'pin_policy' }).to have_attributes(
+        :value        => "none"
       )
 
       expect(vm.cloud_networks.pluck(:ems_ref))
