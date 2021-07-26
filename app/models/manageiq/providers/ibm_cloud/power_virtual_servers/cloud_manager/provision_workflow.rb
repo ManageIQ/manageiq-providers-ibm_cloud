@@ -148,6 +148,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     end
   end
 
+  def validate_pin_policy(_field, _values, _dlg, _fld, value)
+    return _('VM pinning policy can only be none, soft, or hard') unless ['none', 'soft', 'hard'].include?(value)
+  end
+
   def validate_ip_address(_field, _values, _dlg, _fld, value)
     return if value.blank?
 
