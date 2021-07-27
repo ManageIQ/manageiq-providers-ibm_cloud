@@ -9,14 +9,20 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
     %w[auth_key]
   end
 
-  # Return a cloudtools vpc object.
+  # Return either a cloudtools vpc or activity tracker object.
   # @param options [Hash] Hash of options. Default to an empty Hash.
-  # @return [ManageIQ::Providers::IbmCloud::CloudTools::Vpc]
+  # @return [ManageIQ::Providers::IbmCloud::CloudTools::Vpc] or
+  # [ManageIQ::Providers::IbmCloud::CloudTools::ActivityTracker]
   def connect(options = {})
     key = authentication_key(options[:auth_type])
     region = options[:provider_region] || provider_region
     sdk = self.class.raw_connect(key)
-    sdk.vpc(:region => region)
+    if options[:service] == 'events'
+      service_key = authentication_key("events")
+      sdk.events(:region => region, :service_key => service_key)
+    else
+      sdk.vpc(:region => region)
+    end
   end
 
   # Same as calling connect.

@@ -55,6 +55,10 @@ module ManageIQ
           @vpc ||= CloudTools::Vpc.new(:cloudtools => self, :region => region, :version => version, :generation => generation)
         end
 
+        def events(service_key:, region: 'us-east')
+          @events ||= CloudTools::ActivityTracker.new(:cloudtools => self, :region => region, :service_key => service_key)
+        end
+
         # Get a class that accesses the IBM Cloud Resource Manager API.
         # @return [CloudTools::ResourceController] the CloudTools Resource Manager SDK wrapper.
         def resource
