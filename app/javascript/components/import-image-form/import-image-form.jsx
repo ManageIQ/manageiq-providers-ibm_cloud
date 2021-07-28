@@ -80,7 +80,7 @@ const ImportImageForm = ({ dispatch }) => {
     };
 
     const onCancel = () => {
-        dispatch({ type: "FormButtons.init", payload: { newRecord: true, pristine: true } });
+        dispatch({ type: 'FormButtons.reset' });
     };
 
     return (<div id="ignore_form_changes"><MiqFormRenderer initialize={initialize} schema={createSchema(providers, images, storages, buckets, diskTypes, state, setState)} showFormControls={false} onCancel={onCancel} onSubmit={onSubmit}/></div>)
