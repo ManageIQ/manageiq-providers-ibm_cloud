@@ -8,6 +8,12 @@
           :critical:
           - IBM_CLOUD_POWER_VIRTUAL_SERVERS_instance_power_on
           - IBM_CLOUD_POWER_VIRTUAL_SERVERS_instance_power_off
+  :ems_ibm_cloud_vpc:
+    :event_handling:
+      :event_groups:
+        :addition:
+          :critical:
+          - is.instance.instance.create
 
 :ems_refresh:
   :ibm_vpc:
@@ -22,6 +28,8 @@
     :event_catcher:
       :event_catcher_ibm_cloud_power_virtual_servers:
         :poll: 20.seconds
+      :event_catcher_vpc:
+        :poll: 15.seconds
     :queue_worker_base:
       :ems_refresh_worker:
         :ems_refresh_worker_ibm_cloud_power_virtual_servers: {}
