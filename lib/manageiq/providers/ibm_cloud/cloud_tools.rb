@@ -2,7 +2,6 @@
 
 require 'logging'
 require 'ibm_vpc'
-require 'ibm_cloud_activity_tracker'
 
 require_relative 'cloud_tools/sdk'
 dir_name = File.basename(__FILE__).split('.')[0]
