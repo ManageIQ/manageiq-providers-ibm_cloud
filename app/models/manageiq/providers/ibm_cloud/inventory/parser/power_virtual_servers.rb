@@ -2,6 +2,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   require_nested :CloudManager
   require_nested :NetworkManager
   require_nested :StorageManager
+  require_nested :TargetCollection
 
   attr_reader :subnet_to_ext_ports
 
