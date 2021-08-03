@@ -7,7 +7,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
 
     pending.each do |dst_id, pending_jobs|
       break if running[dst_id].present?
-      pending_job = pending_jobs.detect { |pending_job| busy_src_ids.exclude?(pending_job.options[:src_provider_id]) }
+      pending_job = pending_jobs.detect { |x| busy_src_ids.exclude?(x.options[:src_provider_id]) }
 
       if not pending_job.nil?
         busy_src_ids << pending_job.options[:src_provider_id]
