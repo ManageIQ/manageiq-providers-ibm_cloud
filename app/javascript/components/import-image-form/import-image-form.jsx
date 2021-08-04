@@ -75,13 +75,24 @@ const ImportImageForm = ({ dispatch }) => {
         dispatch({ type: 'FormButtons.callbacks',   payload: { addClicked: () => formOptions.submit() }});
     };
 
-    const submitValues = (values) => {
+    const onSubmit = (values) => {
         API.post(API_CLOUD_TEMPL, {...values, action: 'import', "dst_provider_id": ManageIQ.record.recordId}).then(({ results }) => window.add_flash("Image Import Request Submitted!"));
     };
 
-    return (<div id="ignore_form_changes"><MiqFormRenderer initialize={initialize} schema={createSchema(providers, images, storages, buckets, diskTypes, state, setState)} showFormControls={false} onSubmit={submitValues}/></div>)
+    const onCancel = () => {
+        dispatch({ type: 'FormButtons.reset' });
+    };
+
+    return (<div id="ignore_form_changes"><MiqFormRenderer initialize={initialize} schema={createSchema(providers, images, storages, buckets, diskTypes, state, setState)} showFormControls={false} onCancel={onCancel} onSubmit={onSubmit}/></div>)
 };
 
-ImportImageForm.propTypes = { dispatch: PropTypes.func.isRequired };
+ImportImageForm.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    closefunc: PropTypes.func.isRequired
+};
+
+ImportImageForm.defaultProps = {
+    closefunc: () => { ManageIQ.redux.store.dispatch({ type: 'FormButtons.reset' }) }
+};
 
 export default connect()(ImportImageForm);
