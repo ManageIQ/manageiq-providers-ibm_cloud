@@ -1,19 +1,19 @@
 ---
 dims:
 created_on: 2021-07-28 18:04:00.000000 Z
-title: "Detailed Installed PowerVC VM Report"
+title: "Detailed Installed PowerVC and PowerVS VM Report"
 conditions: !ruby/object:MiqExpression
   exp:
     INCLUDES:
       field: Vm.ext_management_system-emstype_description
-      value: IBM PowerVC
+      value: IBM Power
   context_type: 
   col_details: 
   ruby: 
 updated_on: 2021-07-28 18:04:00.000000 Z
 order: Ascending
 graph:
-menu_name: "Detailed Installed PowerVC VM Report"
+menu_name: "Detailed Installed PowerVC and PowerVS VM Report"
 rpt_group: Custom
 priority: 10
 col_order:
@@ -25,7 +25,7 @@ col_order:
 - processor_share_type
 - hardware.cpu_total_cores
 - hardware.disks.device_type
-- pin_policy
+- processor_pin_policy
 - hardware.num_disks
 - hardware.disks.size
 - ipaddresses
@@ -56,7 +56,7 @@ cols:
 - os_image_name
 - entitled_processors
 - processor_share_type
-- pin_policy
+- processor_pin_policy
 - ipaddresses
 - mac_addresses
 template_type: report

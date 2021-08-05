@@ -25,7 +25,7 @@ col_order:
 - processor_share_type
 - hardware.cpu_total_cores
 - hardware.disks.device_type
-- pin_policy
+- processor_pin_policy
 - hardware.num_disks
 - hardware.disks.size
 - ipaddresses
@@ -56,7 +56,7 @@ cols:
 - os_image_name
 - entitled_processors
 - processor_share_type
-- pin_policy
+- processor_pin_policy
 - ipaddresses
 - mac_addresses
 template_type: report
