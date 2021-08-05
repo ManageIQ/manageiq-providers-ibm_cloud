@@ -13,6 +13,11 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::EventCatcher::Runner < M
     event_monitor_handle.stop
   end
 
+  def queue_event(event)
+    event_hash = ManageIQ::Providers::IbmCloud::VPC::CloudManager::EventParser.event_to_hash(event, @cfg[:ems_id])
+    EmsEvent.add_queue('add', @cfg[:ems_id], event_hash)
+  end
+
   private
 
   def event_monitor_handle
