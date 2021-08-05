@@ -1,0 +1,38 @@
+- name: set sessions directory
+  set_fact:
+    sessions_dir: '/home/sessions'
+    powervc_rc:   '/opt/ibm/powervc/powervcrc'
+
+- name: Perform Node Validation
+  block:
+    - name: 'Check if the session directory exists'
+      stat:
+        path: "{{sessions_dir}}"
+      register: p
+
+    - fail: msg='Session directory cannot be found'
+      when: not(p.stat.isdir is defined and p.stat.isdir)
+
+    - name: 'Check if the PowerVC RC file is in place'
+      stat:
+        path: "{{powervc_rc}}"
+      register: p
+
+    - fail: msg='PowerVC RC file cannot be found'
+      when: not(p.stat.exists and p.stat.isreg)
+
+    - name: 'Check if the "powervc-image" is present'
+      shell: which powervc-image
+      register: p
+      ignore_errors: true
+
+    - fail: msg='Application missing "powervc-image"'
+      when: not(p.rc is defined and p.rc == 0)
+
+    - name: 'Try listing images with "powervc-image"'
+      shell: source {{powervc_rc}} && powervc-image list
+      register: p
+      ignore_errors: true
+
+    - fail: msg='Unable to properly run "powervc-image", check the RC file'
+      when: not(p.rc is defined and p.rc == 0)
