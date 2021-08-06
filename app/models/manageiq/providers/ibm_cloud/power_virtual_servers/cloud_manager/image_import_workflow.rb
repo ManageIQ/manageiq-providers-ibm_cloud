@@ -1,4 +1,6 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow < ManageIQ::Providers::AnsiblePlaybookWorkflow
+  require_nested :ImportDispatcher
+
   def load_transitions
     super.merge(
       :post_execute      => {'running' => 'post_execute_poll'},

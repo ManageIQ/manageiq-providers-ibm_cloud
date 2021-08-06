@@ -80,18 +80,20 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     }
 
     workflow_opts = {
-      :keep_ova      => options['keep_ova'],
-      :session_id    => session_id,
-      :ems_id        => ext_management_system.id,
-      :cos_id        => options['obj_storage_id'],
-      :bucket_name   => bucket,
-      :diskType      => diskType,
-      :miq_img       => miq_img_by_ids(options['src_provider_id'], options['src_image_id']),
-      :cos_pvs_creds => cos_pvs_creds,
-      :playbook_path => ManageIQ::Providers::IbmCloud::Engine.root.join("content/ansible_runner/import.yaml"),
+      :keep_ova        => options['keep_ova'],
+      :session_id      => session_id,
+      :ems_id          => ext_management_system.id,
+      :src_provider_id => options['src_provider_id'].to_i,
+      :cos_id          => options['obj_storage_id'],
+      :bucket_name     => bucket,
+      :diskType        => diskType,
+      :miq_img         => miq_img_by_ids(options['src_provider_id'], options['src_image_id']),
+      :cos_pvs_creds   => cos_pvs_creds,
+      :playbook_path   => ManageIQ::Providers::IbmCloud::Engine.root.join("content/ansible_runner/import.yaml"),
     }
 
     _log.info("execute image import playbook")
+
     ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow.create_job({}, extra_vars, workflow_opts, hosts, credentials, :poll_interval => 5.seconds)
   end
 
