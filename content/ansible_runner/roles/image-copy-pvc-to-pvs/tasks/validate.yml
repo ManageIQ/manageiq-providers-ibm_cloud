@@ -10,6 +10,10 @@
         path: "{{sessions_dir}}"
       register: p
 
+    # TODO: (optional) check if there is enough space in {{sessions_dir}}
+
+    # TODO: (optional) check if the sessions directory is writable
+
     - fail: msg='Session directory cannot be found'
       when: not(p.stat.isdir is defined and p.stat.isdir)
 
@@ -36,3 +40,20 @@
 
     - fail: msg='Unable to properly run "powervc-image", check the RC file'
       when: not(p.rc is defined and p.rc == 0)
+
+    # TODO: try to copy sample file to target
+    # if the corresp. lib is missing then notify user
+
+    - name: 'Check if the virtual environment exists'
+      stat:
+        path: "{{sessions_dir}}/venv"
+      register: p
+
+    - fail: msg='Virtual environenmet cannot be found'
+      when: not(p.stat.isdir is defined and p.stat.isdir)
+
+    # TODO: try to activate the virtual-environment
+
+    # TODO: check if python version is suitable
+
+    # TODO: check if required python packages are present
