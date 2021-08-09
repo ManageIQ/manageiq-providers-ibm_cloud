@@ -10,12 +10,21 @@
         path: "{{sessions_dir}}"
       register: p
 
-    # TODO: (optional) check if there is enough space in {{sessions_dir}}
-
-    # TODO: (optional) check if the sessions directory is writable
-
     - fail: msg='Session directory cannot be found'
       when: not(p.stat.isdir is defined and p.stat.isdir)
+
+    # TODO: do we check for some minimal seession directory size?
+
+    - block:
+        - name: test if file copy works properly
+          copy: src=files/sample.txt dest="{{sessions_dir}}/{{session_id}}" mode=700
+      rescue:
+        - fail:
+            msg: >-
+              Unable to copy files to PowerVC node. Check if the target directory exists and is writable
+              and if "SElinux" is enabled on then install "libselinux-python" on the PowerVC node.
+      always:
+        - file: state=absent path="{{sessions_dir}}/{{session_id}}"
 
     - name: 'Check if the PowerVC RC file is in place'
       stat:
@@ -41,9 +50,6 @@
     - fail: msg='Unable to properly run "powervc-image", check the RC file'
       when: not(p.rc is defined and p.rc == 0)
 
-    # TODO: try to copy sample file to target
-    # if the corresp. lib is missing then notify user
-
     - name: 'Check if the virtual environment exists'
       stat:
         path: "{{sessions_dir}}/venv"
@@ -52,7 +58,13 @@
     - fail: msg='Virtual environenmet cannot be found'
       when: not(p.stat.isdir is defined and p.stat.isdir)
 
-    # TODO: try to activate the virtual-environment
+    - name: 'Try to activate the virtual-environment'
+      shell: source "{{sessions_dir}}/venv/bin/activate"
+      register: p
+      ignore_errors: true
+
+    - fail: msg='Unable to activate virtual environment, make sure it is set-up properly'
+      when: not(p.rc is defined and p.rc == 0)
 
     # TODO: check if python version is suitable
 
