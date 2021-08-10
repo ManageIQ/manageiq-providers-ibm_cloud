@@ -66,6 +66,34 @@
     - fail: msg='Unable to activate virtual environment, make sure it is set-up properly'
       when: not(p.rc is defined and p.rc == 0)
 
-    # TODO: check if python version is suitable
+    - name: 'Check Python major version'
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python -c 'import sys; print(sys.version_info.major);'
+      register: p
+      ignore_errors: true
 
-    # TODO: check if required python packages are present
+    - fail: msg='Python Version 3 is not available inside the virtual environment'
+      when: not(p.rc is defined and p.rc == 0 and p.stdout == '3')
+
+    - name: 'Check if "pathlib" is installed'
+      shell: source "{{sessions_dir}}/venv/bin/activate"; pip list | grep pathlib;
+      register: p
+      ignore_errors: true
+
+    - fail: msg='The "pathlib" Python package is missing'
+      when: not(p.rc is defined and p.rc == 0)
+
+    - name: 'Check if "pycryptodome" is installed'
+      shell: source "{{sessions_dir}}/venv/bin/activate"; pip list | grep pycryptodome;
+      register: p
+      ignore_errors: true
+
+    - fail: msg='The "pycryptodome" Python package is missing'
+      when: not(p.rc is defined and p.rc == 0)
+
+    - name: 'Check if "ibm-cos-sdk" is installed'
+      shell: source "{{sessions_dir}}/venv/bin/activate"; pip list | grep ibm-cos-sdk;
+      register: p
+      ignore_errors: true
+
+    - fail: msg='The "ibm-cos-sdk" Python package is missing'
+      when: not(p.rc is defined and p.rc == 0)
