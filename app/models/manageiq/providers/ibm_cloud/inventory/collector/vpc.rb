@@ -46,6 +46,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
     connection.collection(:list_security_groups)
   end
 
+  def cloud_database_flavors
+    ManageIQ::Providers::IbmCloud::DatabaseTypes.all
+  end
+
   def cloud_networks
     connection.collection(:list_vpcs)
   end
@@ -74,6 +78,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
 
   def tags_by_crn(crn)
     connection.cloudtools.tagging.collection(:list_tags, :attached_to => crn, :providers => ["ghost"]).to_a
+  end
+
+  def resources
+    resource_list = connection.cloudtools.resource.controller.collection(:list_resource_instances)
+    resource_list.select { |resource| resource[:resource_plan_id].match(/databases-for-*/)}
   end
 
   # Fetch resource groups from ResourceController SDK.

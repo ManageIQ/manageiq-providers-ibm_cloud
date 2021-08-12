@@ -17,6 +17,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
 
   def initialize_cloud_inventory_collections
     add_cloud_collection(:vms)
+    add_cloud_collection(:cloud_databases)
     add_cloud_collection(:hardwares)
     add_cloud_collection(:availability_zones)
     add_cloud_collection(:operating_systems)
@@ -29,6 +30,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_cloud_collection(:vm_and_template_labels)
     add_cloud_collection(:vm_and_template_taggings)
     add_cloud_collection(:resource_groups)
+    add_cloud_database_flavors
   end
 
   def initialize_network_inventory_collections
@@ -44,5 +46,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
   def initialize_storage_inventory_collections
     add_storage_collection(:cloud_volumes)
     add_storage_collection(:cloud_volume_types)
+  end
+
+  def add_cloud_database_flavors(extra_properties = {})
+    add_collection(cloud, :cloud_database_flavors, extra_properties) do |builder|
+      builder.add_properties(:strategy => :local_db_find_references) if targeted?
+    end
   end
 end
