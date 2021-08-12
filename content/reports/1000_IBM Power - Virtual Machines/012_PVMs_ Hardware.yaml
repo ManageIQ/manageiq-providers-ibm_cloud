@@ -1,0 +1,77 @@
+---
+dims:
+created_on: 2021-07-28 18:04:00.000000 Z
+title: "Detailed Installed PowerVC VM Report"
+conditions: !ruby/object:MiqExpression
+  exp:
+    INCLUDES:
+      field: Vm.ext_management_system-emstype_description
+      value: IBM PowerVC
+  context_type: 
+  col_details: 
+  ruby: 
+updated_on: 2021-07-28 18:04:00.000000 Z
+order: Ascending
+graph:
+menu_name: "Detailed Installed PowerVC VM Report"
+rpt_group: Custom
+priority: 10
+col_order:
+- ext_management_system.name
+- name
+- os_image_name
+- hardware.memory_mb
+- entitled_processors
+- processor_share_type
+- hardware.cpu_total_cores
+- hardware.disks.device_type
+- processor_pin_policy
+- hardware.num_disks
+- hardware.disks.size
+- ipaddresses
+- mac_addresses
+timeline:
+id: 10000
+file_mtime:
+categories:
+rpt_type: Custom
+filename:
+include:
+  ext_management_system:
+    columns:
+    - name
+  hardware:
+    columns:
+    - memory_mb
+    - cpu_total_cores
+    - num_disks
+    include:
+      disks:
+        columns:
+        - device_type
+        - size
+db: Vm
+cols:
+- name
+- os_image_name
+- entitled_processors
+- processor_share_type
+- processor_pin_policy
+- ipaddresses
+- mac_addresses
+template_type: report
+group: y
+headers:
+- Provider Name
+- Name
+- OS Name
+- RAM (GB)
+- Entitled Processors
+- Processor Mode
+- vCPUs
+- Disk Tier
+- Pin Policy
+- "# of Disks"
+- Disk Size (GB)
+- IP Addresses
+- MAC Addresses
