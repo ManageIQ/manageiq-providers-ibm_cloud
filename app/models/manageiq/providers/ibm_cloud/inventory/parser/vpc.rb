@@ -6,6 +6,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def parse
     floating_ips
+    cloud_databases
+    cloud_database_flavors
     cloud_networks
     cloud_subnets
     security_groups
@@ -222,6 +224,29 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :network_ports => sg[:network_interfaces].to_a.map do |nic|
           persister.network_ports.lazy_find(nic[:id])
         end
+      )
+    end
+  end
+
+  def cloud_databases
+    collector.database_instances.each do |db|
+      persister.cloud_databases.build(
+        :ems_ref => db["guid"],
+        :name    => db["name"],
+        :status  => db["state"]
+      )
+    end
+  end
+
+  def cloud_database_flavors
+    collector.cloud_database_flavors.each do |flavor|
+      persister.cloud_database_flavors.build(
+        :ems_ref  => flavor[:name],
+        :name     => flavor[:name],
+        :enabled  => true,
+        :cpus     => flavor[:vcpu],
+        :memory   => flavor[:memory],
+        :max_size => flavor[:max_size]
       )
     end
   end
