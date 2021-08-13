@@ -22,6 +22,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
       assert_specific_cloud_volume_type
       assert_specific_cloud_subnet
       assert_specific_floating_ip
+      assert_specific_cloud_database_flavor
       assert_vm_labels
     end
   end
@@ -45,7 +46,6 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
               :global_transaction_id => "5678"
             )
           )
-
         EmsRefresh.refresh(target)
 
         expect(target.reload).to be_archived
@@ -193,6 +193,18 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
     check_obscured_ip(floating_ip, :address, '150.239.208.80')
     check_obscured_ip(floating_ip, :fixed_ip_address, internal_ip_address.to_s)
+  end
+
+  def assert_specific_cloud_database_flavor
+    cloud_database_flavor = ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabaseFlavor.find_by(:name => "medium")
+    expect(cloud_database_flavor).to have_attributes(
+      :ems_ref  => "medium",
+      :name     => "medium",
+      :enabled  => true,
+      :cpus     => 10,
+      :memory   => 42949672960,
+      :max_size => 429496729600
+    )
   end
 
   # IP Addresses are obscured when they are saved to VCR. This may fail on the first recording.
