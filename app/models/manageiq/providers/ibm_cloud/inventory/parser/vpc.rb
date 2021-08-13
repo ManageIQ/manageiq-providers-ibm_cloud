@@ -229,11 +229,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   end
 
   def cloud_databases
-    collector.resources.each do |resource|
+    collector.database_instances.each do |db|
       persister.cloud_databases.build(
-        :ems_ref => resource["guid"],
-        :name    => resource["name"],
-        :status  => resource["state"]
+        :ems_ref => db["guid"],
+        :name    => db["name"],
+        :status  => db["state"]
       )
     end
   end

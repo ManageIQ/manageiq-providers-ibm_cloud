@@ -80,9 +80,12 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
     connection.cloudtools.tagging.collection(:list_tags, :attached_to => crn, :providers => ["ghost"]).to_a
   end
 
-  def resources
-    resource_list = connection.cloudtools.resource.controller.collection(:list_resource_instances)
-    resource_list.select { |resource| resource[:resource_plan_id].match(/databases-for-*/)}
+  def resource_instances
+    @resource_instances ||= connection.cloudtools.resource.controller.collection(:list_resource_instances)
+  end
+
+  def database_instances
+    @database_instances ||= resource_instances.select { |res| res[:resource_plan_id].match?(/databases-for-*/)}
   end
 
   # Fetch resource groups from ResourceController SDK.

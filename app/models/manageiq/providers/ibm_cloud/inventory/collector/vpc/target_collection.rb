@@ -84,10 +84,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
       end
   end
 
-  def resources
+  def resource_instances
     []
   end
- 
+
+  def database_instances
+    []
+  end
+
   def resource_groups
     @resource_groups ||=
       references(:resource_groups).map do |ems_ref|
