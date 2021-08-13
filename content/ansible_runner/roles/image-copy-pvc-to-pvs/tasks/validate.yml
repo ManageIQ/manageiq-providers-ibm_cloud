@@ -13,8 +13,6 @@
     - fail: msg='Session directory cannot be found'
       when: not(p.stat.isdir is defined and p.stat.isdir)
 
-    # TODO: do we check for some minimal seession directory size?
-
     - block:
         - name: test if file copy works properly
           copy: src=files/sample.txt dest="{{sessions_dir}}/{{session_id}}" mode=700
@@ -49,6 +47,24 @@
 
     - fail: msg='Unable to properly run "powervc-image", check the RC file'
       when: not(p.rc is defined and p.rc == 0)
+
+    - name: 'Check if the image with this ID exists'
+      shell: source {{powervc_rc}} && powervc-image list | grep '{{image_id}}'
+      register: p
+
+    - fail: msg='Unable to find powervc image by this ID'
+      when: not(p.rc is defined and p.rc == 0)
+
+    - name: 'Get the image size in Gigabytes'
+      shell: source {{powervc_rc}} && powervc-image list | grep '{{image_id}}' | tr -d '\t ' |  awk -F '|' '{print $6}'
+      register: p
+
+    - name: 'Get available space in the sessions directory'
+      shell: df -BG "{{sessions_dir}}" | tail -n 1 | awk '{print substr($3, 1, length($3)-1)}'
+      register: s
+
+    - fail: msg='Not enough space for exporting this image to the local storage'
+      when: (p.stdout | int) >= (s.stdout | int)
 
     - name: 'Check if the virtual environment exists'
       stat:
