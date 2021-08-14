@@ -25,6 +25,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     rescue IbmCloudPower::ApiError => err
       error_message = JSON.parse(err.response_body)["description"]
       _log.warn("ImageID not found: #{error_message}")
+    end
+
+    begin
+      images_by_id[image_id] ||= images_api.pcloud_cloudinstances_stockimages_get(cloud_instance_id, image_id)
+    rescue IbmCloudPower::ApiError => err
+      error_message = JSON.parse(err.response_body)["description"]
+      _log.warn("ImageID not found in stock catalog: #{error_message}")
       nil
     end
   end
