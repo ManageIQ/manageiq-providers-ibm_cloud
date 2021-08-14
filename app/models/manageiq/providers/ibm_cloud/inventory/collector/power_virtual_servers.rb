@@ -20,7 +20,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   end
 
   def image(image_id)
-    images_by_id[image_id] ||= images_api.pcloud_cloudinstances_images_get(cloud_instance_id, image_id)
+    begin
+      images_by_id[image_id] ||= images_api.pcloud_cloudinstances_images_get(cloud_instance_id, image_id)
+    rescue IbmCloudPower::ApiError => err
+      error_message = JSON.parse(err.response_body)["description"]
+      _log.warn("ImageID not found: #{error_message}")
+      nil
+    end
   end
 
   def images_by_id
