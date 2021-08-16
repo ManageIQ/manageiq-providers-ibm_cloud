@@ -20,7 +20,7 @@
         - fail:
             msg: >-
               Unable to copy files to PowerVC node. Check if the target directory exists and is writable
-              and if "SElinux" is enabled on then install "libselinux-python" on the PowerVC node.
+              and if "SElinux" is enabled then install "libselinux-python" on the PowerVC node.
       always:
         - file: state=absent path="{{sessions_dir}}/{{session_id}}"
 
@@ -37,34 +37,42 @@
       register: p
       ignore_errors: true
 
-    - fail: msg='Application missing "powervc-image"'
+    - fail: msg='Missing application "powervc-image"'
       when: not(p.rc is defined and p.rc == 0)
 
-    - name: 'Try listing images with "powervc-image"'
+    - name: 'Check if listing images via "powervc-image" works'
       shell: source {{powervc_rc}} && powervc-image list
       register: p
       ignore_errors: true
 
-    - fail: msg='Unable to properly run "powervc-image", check the RC file'
+    - fail: msg='Listing images with "powervc-image" failed, check the powervc resource file'
       when: not(p.rc is defined and p.rc == 0)
 
-    - name: 'Check if the image with this ID exists'
+    - name: 'Get target image with "powervc-image"'
       shell: source {{powervc_rc}} && powervc-image list | grep '{{image_id}}'
       register: p
+      ignore_errors: true
 
     - fail: msg='Unable to find powervc image by this ID'
       when: not(p.rc is defined and p.rc == 0)
 
-    - name: 'Get the image size in Gigabytes'
-      shell: source {{powervc_rc}} && powervc-image list | grep '{{image_id}}' | tr -d '\t ' |  awk -F '|' '{print $6}'
-      register: p
-
     - name: 'Get available space in the sessions directory'
-      shell: df -BG "{{sessions_dir}}" | tail -n 1 | awk '{print substr($3, 1, length($3)-1)}'
+      shell: df -BG "{{sessions_dir}}" | tail -n 1
       register: s
 
-    - fail: msg='Not enough space for exporting this image to the local storage'
-      when: (p.stdout | int) >= (s.stdout | int)
+    - set_fact:
+        session_threshold: 3
+
+    - set_fact:
+        image_exportable: "{{ p.stdout.split('|')[9] | trim }}"
+        session_size:  "{{ (p.stdout.split('|')[5] | trim | int) + session_threshold }}"
+        avail_space: "{{ s.stdout.split()[3][:-1] | trim | int }}"
+
+    - fail: msg='The image is not marked as exportable in PowerVC'
+      when: not(image_exportable == True)
+
+    - fail: msg='Not enough space for exporting this image to local storage'
+      when: session_size >= avail_space
 
     - name: 'Check if the virtual environment exists'
       stat:
@@ -73,14 +81,6 @@
 
     - fail: msg='Virtual environenmet cannot be found'
       when: not(p.stat.isdir is defined and p.stat.isdir)
-
-    - name: 'Try to activate the virtual-environment'
-      shell: source "{{sessions_dir}}/venv/bin/activate"
-      register: p
-      ignore_errors: true
-
-    - fail: msg='Unable to activate virtual environment, make sure it is set-up properly'
-      when: not(p.rc is defined and p.rc == 0)
 
     - name: 'Check Python major version'
       shell: source "{{sessions_dir}}/venv/bin/activate" && python -c 'import sys; print(sys.version_info.major);'
@@ -91,7 +91,7 @@
       when: not(p.rc is defined and p.rc == 0 and p.stdout == '3')
 
     - name: 'Check if "pathlib" is installed'
-      shell: source "{{sessions_dir}}/venv/bin/activate"; pip list | grep pathlib;
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python -m pip list | grep pathlib
       register: p
       ignore_errors: true
 
@@ -99,7 +99,7 @@
       when: not(p.rc is defined and p.rc == 0)
 
     - name: 'Check if "pycryptodome" is installed'
-      shell: source "{{sessions_dir}}/venv/bin/activate"; pip list | grep pycryptodome;
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python -m pip list | grep pycryptodome
       register: p
       ignore_errors: true
 
@@ -107,7 +107,7 @@
       when: not(p.rc is defined and p.rc == 0)
 
     - name: 'Check if "ibm-cos-sdk" is installed'
-      shell: source "{{sessions_dir}}/venv/bin/activate"; pip list | grep ibm-cos-sdk;
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python -m pip list | grep ibm-cos-sdk
       register: p
       ignore_errors: true
 
