@@ -40,12 +40,16 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     architecture
   end
 
-  def volumes
-    @volumes ||= volumes_api.pcloud_cloudinstances_volumes_getall(cloud_instance_id).volumes || []
+  def volume(volume_id)
+    volumes_by_id[volume_id] ||= volumes_api.pcloud_cloudinstances_volumes_get(cloud_instance_id, volume_id)
   end
 
-  def volume(volume_id)
-    volumes_api.pcloud_cloudinstances_volumes_get(cloud_instance_id, volume_id)
+  def volumes_by_id
+    @volumes_by_id ||= volumes_api.pcloud_cloudinstances_volumes_getall(cloud_instance_id).volumes.index_by(&:volume_id)
+  end
+
+  def volumes
+    volumes_by_id.values
   end
 
   def networks
