@@ -2,8 +2,8 @@ import os
 import sys
 import json
 import ntpath
-
 import base64
+
 from pathlib import Path
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad

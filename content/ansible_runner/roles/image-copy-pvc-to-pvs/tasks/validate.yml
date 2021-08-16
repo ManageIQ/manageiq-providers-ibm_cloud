@@ -1,0 +1,115 @@
+- name: set sessions directory
+  set_fact:
+    sessions_dir: '/home/sessions'
+    powervc_rc:   '/opt/ibm/powervc/powervcrc'
+
+- name: Perform Node Validation
+  block:
+    - name: 'Check if the session directory exists'
+      stat:
+        path: "{{sessions_dir}}"
+      register: p
+
+    - fail: msg='Session directory cannot be found'
+      when: not(p.stat.isdir is defined and p.stat.isdir)
+
+    - block:
+        - name: test if file copy works properly
+          copy: src=files/sample.txt dest="{{sessions_dir}}/{{session_id}}" mode=700
+      rescue:
+        - fail:
+            msg: >-
+              Unable to copy files to PowerVC node. Check if the target directory exists and is writable
+              and if "SElinux" is enabled then install "libselinux-python" on the PowerVC node.
+      always:
+        - file: state=absent path="{{sessions_dir}}/{{session_id}}"
+
+    - name: 'Check if the PowerVC RC file is in place'
+      stat:
+        path: "{{powervc_rc}}"
+      register: p
+
+    - fail: msg='PowerVC RC file cannot be found'
+      when: not(p.stat.exists and p.stat.isreg)
+
+    - name: 'Check if the "powervc-image" is present'
+      shell: which powervc-image
+      register: p
+      ignore_errors: true
+
+    - fail: msg='Missing application "powervc-image"'
+      when: not(p.rc is defined and p.rc == 0)
+
+    - name: 'Check if listing images via "powervc-image" works'
+      shell: source {{powervc_rc}} && powervc-image list
+      register: p
+      ignore_errors: true
+
+    - fail: msg='Listing images with "powervc-image" failed, check the powervc resource file'
+      when: not(p.rc is defined and p.rc == 0)
+
+    - name: 'Get target image with "powervc-image"'
+      shell: source {{powervc_rc}} && powervc-image list | grep '{{image_id}}'
+      register: p
+      ignore_errors: true
+
+    - fail: msg='Unable to find powervc image by this ID'
+      when: not(p.rc is defined and p.rc == 0)
+
+    - name: 'Get available space in the sessions directory'
+      shell: df -BG "{{sessions_dir}}" | tail -n 1
+      register: s
+
+    - set_fact:
+        session_threshold: 3
+
+    - set_fact:
+        image_exportable: "{{ p.stdout.split('|')[9] | trim }}"
+        session_size:  "{{ (p.stdout.split('|')[5] | trim | int) + session_threshold }}"
+        avail_space: "{{ s.stdout.split()[3][:-1] | trim | int }}"
+
+    - fail: msg='The image is not marked as exportable in PowerVC'
+      when: not(image_exportable == True)
+
+    - fail: msg='Not enough space for exporting this image to local storage'
+      when: session_size >= avail_space
+
+    - name: 'Check if the virtual environment exists'
+      stat:
+        path: "{{sessions_dir}}/venv"
+      register: p
+
+    - fail: msg='Virtual environenmet cannot be found'
+      when: not(p.stat.isdir is defined and p.stat.isdir)
+
+    - name: 'Check Python major version'
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python -c 'import sys; print(sys.version_info.major);'
+      register: p
+      ignore_errors: true
+
+    - fail: msg='Python Version 3 is not available inside the virtual environment'
+      when: not(p.rc is defined and p.rc == 0 and p.stdout == '3')
+
+    - name: 'Check if "pathlib" is installed'
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python -m pip list | grep pathlib
+      register: p
+      ignore_errors: true
+
+    - fail: msg='The "pathlib" Python package is missing'
+      when: not(p.rc is defined and p.rc == 0)
+
+    - name: 'Check if "pycryptodome" is installed'
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python -m pip list | grep pycryptodome
+      register: p
+      ignore_errors: true
+
+    - fail: msg='The "pycryptodome" Python package is missing'
+      when: not(p.rc is defined and p.rc == 0)
+
+    - name: 'Check if "ibm-cos-sdk" is installed'
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python -m pip list | grep ibm-cos-sdk
+      register: p
+      ignore_errors: true
+
+    - fail: msg='The "ibm-cos-sdk" Python package is missing'
+      when: not(p.rc is defined and p.rc == 0)
