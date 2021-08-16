@@ -153,9 +153,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   end
 
   def volumes
-    collector.volumes.each do |volume_ref|
-      vol = collector.volume(volume_ref.volume_id)
-
+    collector.volumes.each do |vol|
       persister.cloud_volumes.build(
         :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
         :ems_ref           => vol.volume_id,
