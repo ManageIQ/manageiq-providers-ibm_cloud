@@ -13,6 +13,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   require_nested :Vm
 
   supports :provisioning
+  supports :storage_manager
 
   include ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   delegate :cloud_volumes, :to => :storage_manager
@@ -53,6 +54,10 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
 
   def image_name
     'ibm_cloud'
+  end
+
+  def block_storage_manager
+    storage_manager
   end
 
   def self.hostname_required?
