@@ -1,7 +1,6 @@
 - name: set sessions directory
   set_fact:
     sessions_dir: '/home/sessions'
-    powervc_rc:   '/opt/ibm/powervc/powervcrc'
 
 - name: execute role
   block:

@@ -54,7 +54,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
   def self.raw_import_image(ext_management_system, options = {})
     session_id = SecureRandom.uuid
 
-    location, user, password = node_creds(options['src_provider_id'])
+    location, user, password, rcfile = node_creds(options['src_provider_id'])
     hosts = ["[powervc]\n#{location}\n[powervc:vars]\nansible_connection=ssh\nansible_user=#{user}\nansible_ssh_pass=#{password}"]
 
     guid, apikey, region, endpoint, access_key, secret_key = cos_creds(options['obj_storage_id'])
@@ -74,6 +74,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
       :session_id    => session_id,
       :provider_id   => options['src_provider_id'],
       :image_id      => image_ems_ref(options['src_image_id']),
+      :powervc_rc    => rcfile,
       :credentials   => encr_cos_creds,
       :creds_aes_key => encr_cos_key,
       :creds_aes_iv  => encr_cos_iv
@@ -123,10 +124,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
 
   private_class_method def self.node_creds(provider_id)
     powervc = ExtManagementSystem.find(provider_id)
-    endp = powervc.endpoint
+    node_endp = powervc.endpoint(:node)
+    def_endp = powervc.endpoint(:default)
     auth = powervc.node_auth
 
-    return endp.hostname, auth.userid, auth.password
+    return def_endp.hostname, auth.userid, auth.password, node_endp.options
   end
 
   private_class_method def self.image_ems_ref(bucket_id)
