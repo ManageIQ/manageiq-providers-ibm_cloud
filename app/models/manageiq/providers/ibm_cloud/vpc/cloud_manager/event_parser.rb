@@ -2,7 +2,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::EventParser
   def self.event_to_hash(event, ems_id)
     event_hash = {
       :event_type => event["action"],
-      :source     => "IBM_CLOUD_VPC",
+      :source     => "IBMCloud-VPC",
       :ems_id     => ems_id,
       :ems_ref    => event["_id"],
       :timestamp  => event["eventTime"],
@@ -10,7 +10,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::EventParser
     }
 
     case event_hash[:event_type]
-    when 'is.instance.instance.create'
+    when /^is\.instance/
       parse_vm_event!(event, event_hash)
     end
 
@@ -18,10 +18,10 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::EventParser
   end
 
   def self.parse_vm_event!(event, event_hash)
-    return if event['responseData'].nil?
+    vm_ref = event.dig('target', 'id').match(/::instance:(?<instance_id>\S+)$/)
+    return if vm_ref.nil?
 
-    event_hash[:vm_uid_ems] = event.dig('responseData', 'id')
-    event_hash[:vm_ems_ref] = event.dig('responseData', 'id')
-    event_hash[:vm_name]    = event.dig('responseData', 'name')
+    event_hash[:vm_uid_ems] = vm_ref.named_captures["instance_id"]
+    event_hash[:vm_ems_ref] = vm_ref.named_captures["instance_id"]
   end
 end
