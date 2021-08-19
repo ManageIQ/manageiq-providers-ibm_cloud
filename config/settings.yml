@@ -14,6 +14,37 @@
         :addition:
           :critical:
           - is.instance.instance.create
+          - is.instance.action.create
+          - is.instance.console-access-token.create
+          - is.instance.volume-attachment.create
+          - is.instance.network-interface.create
+        :update:
+          :critical:
+          - is.instance.instance.update
+          - is.instance.instance.read
+          - is.instance.console.read
+          - is.instance.network-interface_floating-ip.attach
+          - is.instance.network-interface_floating-ip.detach
+          - is.instance.volume-attachment.update
+          - is.instance.volume-attachment.read
+          - is.instance.network-interface.update
+          - is.instance.network-interface.read
+          - is.instance.network-interface_floating-ip.read
+          - is.instance.disk.read
+          - is.instance.disk.update
+        :deletion:
+          :critical:
+          - is.instance.instance.delete
+          - is.instance.action.delete
+          - is.instance.volume-attachment.delete
+          - is.instance.network-interface.delete
+          - is.instance.disk.wipe
+          - is.instance.gpu.wipe
+        :power:
+          :critical:
+          - is.instance.instance.start
+          - is.instance.instance.stop
+          - is.instance.instance.volume-stop
 
 :ems_refresh:
   :ibm_vpc:
