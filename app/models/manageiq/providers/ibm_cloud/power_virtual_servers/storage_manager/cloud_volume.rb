@@ -1,5 +1,9 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudVolume < ::CloudVolume
   supports :create
+  supports :delete_volume do
+    unsupported_reason_add(:delete_volume, _("the volume is not connected to an active Provider")) unless ext_management_system
+    unsupported_reason_add(:delete_volume, _("cannot delete volume that is in use.")) if status == "in-use"
+  end
   supports_not :snapshot_create
   supports_not :update
   supports :attach_volume do
@@ -141,16 +145,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   rescue => e
     _log.error("volume=[#{volume_params}], error: #{e}")
     raise MiqException::MiqVolumeCreateError, e.to_s, e.backtrace
-  end
-
-  def validate_delete_volume
-    msg = validate_volume
-    return {:available => msg[:available], :message => msg[:message]} unless msg[:available]
-    if status == "in-use"
-      return validation_failed(_("Delete Volume"), _("Can't delete volume that is in use."))
-    end
-
-    {:available => true, :message => nil}
   end
 
   def raw_delete_volume

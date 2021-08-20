@@ -17,10 +17,10 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
   let(:status) { "available" }
   let(:multi_attachment) { false }
 
-  describe "#validate_delete_volume" do
+  describe "#supports?(:delete_volume)" do
     context "when available" do
       it "validation passes" do
-        expect(cloud_volume.validate_delete_volume[:available]).to be_truthy
+        expect(cloud_volume.supports?(:delete_volume)).to be_truthy
       end
     end
 
@@ -28,7 +28,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
       let(:status) { "in-use" }
 
       it "validation fails" do
-        expect(cloud_volume.validate_delete_volume[:available]).to be_falsy
+        expect(cloud_volume.supports?(:delete_volume)).to be_falsy
       end
     end
 
@@ -36,7 +36,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
       let(:ems_storage) { nil }
 
       it "validation fails" do
-        expect(cloud_volume.validate_delete_volume[:available]).to be_falsy
+        expect(cloud_volume.supports?(:delete_volume)).to be_falsy
       end
     end
   end
