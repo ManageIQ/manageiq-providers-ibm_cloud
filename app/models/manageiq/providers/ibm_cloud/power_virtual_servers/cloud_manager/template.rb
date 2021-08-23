@@ -67,17 +67,14 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     cos_pvs_creds = {:region => region, :bucketName => bucket, :accessKey => access_key, :secretKey => secret_key}
 
     encr_cos_creds, encr_cos_key, encr_cos_iv = encrypt_with_aes(cos_ans_creds)
-
-    credentials = []
+    import_creds = set_import_auth(options['dst_provider_id'], encr_cos_key, encr_cos_iv, encr_cos_creds)
+    credentials = [import_creds]
 
     extra_vars = {
-      :session_id    => session_id,
-      :provider_id   => options['src_provider_id'],
-      :image_id      => image_ems_ref(options['src_image_id']),
-      :powervc_rc    => rcfile,
-      :credentials   => encr_cos_creds,
-      :creds_aes_key => encr_cos_key,
-      :creds_aes_iv  => encr_cos_iv
+      :session_id  => session_id,
+      :provider_id => options['src_provider_id'],
+      :image_id    => image_ems_ref(options['src_image_id']),
+      :powervc_rc  => rcfile,
     }
 
     workflow_opts = {
@@ -90,6 +87,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
       :diskType        => diskType,
       :miq_img         => miq_img_by_ids(options['src_provider_id'], options['src_image_id']),
       :cos_pvs_creds   => cos_pvs_creds,
+      :import_creds_id => import_creds,
       :playbook_path   => ManageIQ::Providers::IbmCloud::Engine.root.join("content/ansible_runner/run.yml"),
     }
 
@@ -99,6 +97,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
 
   def validate_delete_image
     validate_unsupported(_("Delete Cloud Template Operation"))
+  end
+
+  private_class_method def self.set_import_auth(dst_provider_id, key, iv, encr_cos_creds)
+    powervs = ExtManagementSystem.find(dst_provider_id)
+    powervs.create_import_auth(key, iv, encr_cos_creds)
   end
 
   private_class_method def self.encrypt_with_aes(creds)

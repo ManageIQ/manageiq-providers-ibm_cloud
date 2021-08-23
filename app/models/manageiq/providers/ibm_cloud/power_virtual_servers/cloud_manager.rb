@@ -22,6 +22,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
           :inverse_of  => :parent_manager,
           :dependent   => :destroy
 
+  has_many :import_auths,
+           :foreign_key => :resource_id,
+           :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow::ImageImportAuth",
+           :autosave    => true,
+           :dependent   => :destroy
+
   has_many :system_types,
            :foreign_key => :ems_id,
            :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType"
@@ -56,6 +62,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   def ensure_storage_manager
     build_storage_manager unless storage_manager
     storage_manager.name = "#{name} Block Storage Manager"
+  end
+
+  def create_import_auth(key, iv, creds)
+    import_auths.build unless import_auths
+    import_auths.create!(:auth_key => key, :auth_key_password => iv, :password => creds).id
+  end
+
+  def remove_import_auth(id)
+    import_auths.destroy(id)
   end
 
   def self.hostname_required?

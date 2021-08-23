@@ -23,8 +23,9 @@
     - name: execute OVA to COS bucket upload script
       shell: source {{sessions_dir}}/venv/bin/activate && python3.6 "{{session_dir.path}}/upload_ova_to_bucket.py" "{{session_dir.path}}/{{session_id}}.ova"
       environment:
-        CREDS_AES_KEY: "{{creds_aes_key}}"
-        CREDS_AES_IV:  "{{creds_aes_iv}}"
+        CREDS_AES_KEY: "{{ lookup('env','CREDS_AES_KEY') }}"
+        CREDS_AES_IV:  "{{ lookup('env','CREDS_AES_IV')  }}"
+
   always:
     - name: perform cleanup
       file: state=absent path="{{session_dir.path}}"
