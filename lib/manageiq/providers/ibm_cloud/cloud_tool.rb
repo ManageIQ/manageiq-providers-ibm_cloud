@@ -59,6 +59,10 @@ module ManageIQ
           @events ||= CloudTools::ActivityTracker.new(:cloudtools => self, :region => region, :service_key => service_key)
         end
 
+        def databases(region: 'us-east')
+          @databases ||= CloudTools::CloudDatabases.new(:cloudtools => self, :region => region)
+        end
+
         # Get a class that accesses the IBM Cloud Resource Manager API.
         # @return [CloudTools::ResourceController] the CloudTools Resource Manager SDK wrapper.
         def resource

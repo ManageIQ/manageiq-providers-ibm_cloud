@@ -2,20 +2,16 @@
 small:
   :name: small
   :memory: 10737418240
-  :max_size: 107374182400
   :vcpu: 3
 medium:
   :name: medium
   :memory: 42949672960
-  :max_size: 429496729600
   :vcpu: 10
 large:
   :name: large
   :memory: 85899345920
-  :max_size: 858993459200
   :vcpu: 20
 extra-large:
   :name: extra-large
   :memory: 118111600640
-  :max_size: 1181116006400
   :vcpu: 28
