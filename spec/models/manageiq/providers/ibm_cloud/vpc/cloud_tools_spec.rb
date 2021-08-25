@@ -2,7 +2,7 @@
 
 describe ManageIQ::Providers::IbmCloud::CloudTools do
   let(:vcr_location) { 'manageiq/providers/ibm_cloud/cloudtools' }
-  let(:api_key) { Rails.application.secrets.ibmcvs.try(:[], :api_key) || 'IBMCVS_API_KEY' }
+  let(:api_key) { Rails.application.secrets.ibm_cloud_vpc[:api_key] }
   let(:vpc) { ManageIQ::Providers::IbmCloud::CloudTool.new(:api_key => api_key).vpc(:region => 'us-east') }
 
   it 'raises error on empty apikey' do
