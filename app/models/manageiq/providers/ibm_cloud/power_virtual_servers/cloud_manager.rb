@@ -65,7 +65,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   end
 
   def create_import_auth(key, iv, creds)
-    import_auths.build unless import_auths
     import_auths.create!(:auth_key => key, :auth_key_password => iv, :password => creds).id
   end
 
