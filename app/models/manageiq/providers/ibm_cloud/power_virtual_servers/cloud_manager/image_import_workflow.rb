@@ -72,8 +72,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
   end
 
   def post_poll_cleanup
-    return if options[:keep_ova] == true
+    ems = ExtManagementSystem.find(options[:ems_id])
+    ems.remove_import_auth(options[:import_creds_id])
 
+    return if options[:keep_ova] == true
     cos = ExtManagementSystem.find(options[:cos_id])
     cos.remove_object(options[:bucket_name], options[:session_id] + '.ova')
   end
