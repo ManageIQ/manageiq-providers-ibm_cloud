@@ -23,8 +23,8 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
   end
 
   # Used in with_provider_object to scope SDK to this instance.
-  def provider_object(vpc)
-    vpc.instances.instance(ems_ref)
+  def provider_object(connect)
+    connect.vpc(:region => ext_management_system.provider_region).instances.instance(ems_ref)
   end
 
   # Send a start action to IBM Cloud. Wait for state to change to started, then update the raw_power_state.

@@ -96,7 +96,8 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager::CloudVolume < ::CloudV
     volume[:iops] = options[:iops].to_i if options[:volume_type] == 'custom'
 
     ext_management_system.with_provider_connection do |connection|
-      connection.request(:create_volume, :volume_prototype => volume)
+      connection.vpc(:region => ext_management_system.parent_manager.provider_region)
+                .request(:create_volume, :volume_prototype => volume)
     end
   rescue => err
     _log.error("cloud_volume=[#{options[:name]}], error: #{err}")
@@ -105,7 +106,8 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager::CloudVolume < ::CloudV
 
   def raw_delete_volume
     with_provider_connection do |connection|
-      connection.request(:delete_volume, :id => ems_ref)
+      connection.vpc(:region => ext_management_system.parent_manager.provider_region)
+                .request(:delete_volume, :id => ems_ref)
     end
   rescue => err
     _log.error("cloud_volume=[#{name}], error: #{err}")

@@ -8,14 +8,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   def images
     @images ||=
       references(:miq_templates).map do |ems_ref|
-        connection.request(:get_image, :id => ems_ref)
+        vpc.request(:get_image, :id => ems_ref)
       end
   end
 
   def vms
     @vms ||=
       references(:vms).map do |ems_ref|
-        connection.request(:get_instance, :id => ems_ref)
+        vpc.request(:get_instance, :id => ems_ref)
       rescue IBMCloudSdkCore::ApiException
         nil
       end.compact
@@ -24,63 +24,63 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   def flavors
     @flavors ||=
       references(:flavors).map do |ems_ref|
-        connection.request(:get_instance_profile, :name => ems_ref)
+        vpc.request(:get_instance_profile, :name => ems_ref)
       end
   end
 
   def keys
     @keys ||=
       references(:auth_key_pairs).map do |ems_ref|
-        connection.request(:get_key, :id => ems_ref)
+        vpc.request(:get_key, :id => ems_ref)
       end
   end
 
   def availability_zones
     @availability_zones ||=
       references(:availability_zones).map do |ems_ref|
-        connection.request(:get_region_zone, :region_name => manager.provider_region, :name => ems_ref)
+        vpc.request(:get_region_zone, :region_name => manager.provider_region, :name => ems_ref)
       end
   end
 
   def security_groups
     @security_groups ||=
       references(:security_groups).map do |ems_ref|
-        connection.request(:get_security_group, :id => ems_ref)
+        vpc.request(:get_security_group, :id => ems_ref)
       end
   end
 
   def cloud_networks
     @cloud_networks ||=
       references(:cloud_networks).map do |ems_ref|
-        connection.request(:get_vpc, :id => ems_ref)
+        vpc.request(:get_vpc, :id => ems_ref)
       end
   end
 
   def cloud_subnets
     @cloud_subnets ||=
       references(:cloud_subnets).map do |ems_ref|
-        connection.request(:get_subnet, :id => ems_ref)
+        vpc.request(:get_subnet, :id => ems_ref)
       end
   end
 
   def floating_ips
     @floating_ips ||=
       references(:floating_ips).map do |ems_ref|
-        connection.request(:get_floating_ip, :id => ems_ref)
+        vpc.request(:get_floating_ip, :id => ems_ref)
       end
   end
 
   def volumes
     @volumes ||=
       references(:cloud_volumes).map do |ems_ref|
-        connection.request(:get_volume, :id => ems_ref)
+        vpc.request(:get_volume, :id => ems_ref)
       end
   end
 
   def volume_profiles
     @volume_profiles ||=
       references(:cloud_volume_types).map do |ems_ref|
-        connection.request(:get_volume_profile, :name => ems_ref)
+        vpc.request(:get_volume_profile, :name => ems_ref)
       end
   end
 
@@ -95,7 +95,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
   def resource_groups
     @resource_groups ||=
       references(:resource_groups).map do |ems_ref|
-        connection.cloudtools.resource.manager.request(:get_resource_group, :id => ems_ref)
+        vpc.cloudtools.resource.manager.request(:get_resource_group, :id => ems_ref)
       end
   end
 
