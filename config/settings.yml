@@ -54,6 +54,7 @@
     :refresh_interval: 15.minutes
   :ibm_cloud_power_virtual_servers:
     :refresh_interval: 15.minutes
+    :allow_targeted_refresh: true
 :log:
   :level_ibm_cloud: info
 :workers:
