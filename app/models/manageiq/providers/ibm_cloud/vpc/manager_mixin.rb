@@ -9,7 +9,7 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
     %w[auth_key]
   end
 
-  # Return either a cloudtools vpc or activity tracker object.
+  # Return a cloudtools object.
   # @param options [Hash] Hash of options. Default to an empty Hash.
   # @return [ManageIQ::Providers::IbmCloud::CloudTools::Vpc] or
   # [ManageIQ::Providers::IbmCloud::CloudTools::ActivityTracker]

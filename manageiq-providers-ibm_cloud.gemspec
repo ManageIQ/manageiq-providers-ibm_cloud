@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "ibm_cloud_resource_controller", "~> 2.0"
   spec.add_dependency "ibm-cloud-sdk", "~> 0.1"
   spec.add_dependency "ibm_cloud_activity_tracker", "~> 0.1"
+  spec.add_dependency "ibm_cloud_databases", "~> 0.1"
   spec.add_dependency "ibm_cloud_global_tagging", "~> 0.1"
   spec.add_dependency "ibm_vpc", "~> 0.1"
 
