@@ -12,7 +12,8 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager::CloudNetwork < ::Cloud
 
   def self.raw_create_cloud_network(ext_management_system, options)
     ext_management_system.with_provider_connection do |connection|
-      connection.request(:create_vpc, :name => options[:name])
+      connection.vpc(:region => ext_management_system.parent_manager.provider_region)
+                .request(:create_vpc, :name => options[:name])
     end
   rescue => err
     _log.error("cloud_network=[#{options[:name]}], error: #{err}")
@@ -21,7 +22,8 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager::CloudNetwork < ::Cloud
 
   def raw_delete_cloud_network(_options = {})
     with_provider_connection do |connection|
-      connection.request(:delete_vpc, :id => ems_ref)
+      connection.vpc(:region => ext_management_system.parent_manager.provider_region)
+                .request(:delete_vpc, :id => ems_ref)
     end
   rescue => err
     notification_options = {

@@ -12,14 +12,19 @@ describe ManageIQ::Providers::IbmCloud::VPC::NetworkManager::CloudNetwork do
 
   describe 'cloud network actions' do
     let(:connection) do
+      double("ManageIQ::Providers::IbmCloud::CloudTools")
+    end
+
+    let(:vpc) do
       double("ManageIQ::Providers::IbmCloud::CloudTools::Vpc")
     end
 
     before { allow(ems.network_manager).to receive(:with_provider_connection).and_yield(connection) }
+    before { allow(connection).to receive(:vpc).with(:region => ems.provider_region).and_return(vpc) }
 
     context '#create_cloud_network' do
       it 'creates the cloud network' do
-        expect(connection).to receive(:request).with(:create_vpc, :name => 'test')
+        expect(vpc).to receive(:request).with(:create_vpc, :name => 'test')
         ems.network_manager.create_cloud_network({:name => 'test'})
       end
     end
@@ -28,7 +33,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::NetworkManager::CloudNetwork do
       before { NotificationType.seed }
 
       it 'deletes the cloud network' do
-        expect(connection).to receive(:request).with(:delete_vpc, :id => cloud_network.ems_ref)
+        expect(vpc).to receive(:request).with(:delete_vpc, :id => cloud_network.ems_ref)
         cloud_network.raw_delete_cloud_network
       end
 
@@ -39,7 +44,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::NetworkManager::CloudNetwork do
           :transaction_id        => "1234",
           :global_transaction_id => "5678"
         )
-        expect(connection).to receive(:request)
+        expect(vpc).to receive(:request)
           .with(:delete_vpc, :id => cloud_network.ems_ref)
           .and_raise(exception)
 

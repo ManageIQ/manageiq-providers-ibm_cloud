@@ -49,7 +49,8 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager::CloudSubnet < ::CloudS
     }
 
     ext_management_system.with_provider_connection do |connection|
-      connection.request(:create_subnet, :subnet_prototype => subnet)
+      connection.vpc(:region => ext_management_system.parent_manager.provider_region)
+                .request(:create_subnet, :subnet_prototype => subnet)
     end
   rescue => err
     _log.error("subnet=[#{options[:name]}], error: #{err}")
@@ -58,7 +59,8 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager::CloudSubnet < ::CloudS
 
   def raw_delete_cloud_subnet
     with_provider_connection do |connection|
-      connection.request(:delete_subnet, :id => ems_ref)
+      connection.vpc(:region => ext_management_system.parent_manager.provider_region)
+                .request(:delete_subnet, :id => ems_ref)
     end
   rescue => err
     _log.error("subnet=[#{name}], error: #{err}")
