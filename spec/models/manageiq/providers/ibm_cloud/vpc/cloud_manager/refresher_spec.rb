@@ -35,8 +35,10 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
       it "with a deleted vm" do
         connection = double("IbmCloud::CloudTool")
+        vpc = double("IbmCloud::CloudTool::VPC")
         allow(ems).to receive(:connect).and_return(connection)
-        expect(connection).to receive(:request)
+        allow(connection).to receive(:vpc).with(:region => ems.provider_region).and_return(vpc)
+        expect(vpc).to receive(:request)
           .with(:get_instance, :id => target.ems_ref)
           .and_raise(
             IBMCloudSdkCore::ApiException.new(
@@ -202,8 +204,8 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
       :name     => "medium",
       :enabled  => true,
       :cpus     => 10,
-      :memory   => 42949672960,
-      :max_size => 429496729600
+      :memory   => 42_949_672_960,
+      :max_size => 429_496_729_600
     )
   end
 

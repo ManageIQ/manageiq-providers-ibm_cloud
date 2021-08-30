@@ -15,14 +15,7 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   # [ManageIQ::Providers::IbmCloud::CloudTools::ActivityTracker]
   def connect(options = {})
     key = authentication_key(options[:auth_type])
-    region = options[:provider_region] || provider_region
-    sdk = self.class.raw_connect(key)
-    if options[:service] == 'events'
-      service_key = authentication_key("events")
-      sdk.events(:region => region, :service_key => service_key)
-    else
-      sdk.vpc(:region => region)
-    end
+    self.class.raw_connect(key)
   end
 
   # Same as calling connect.
@@ -30,7 +23,7 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   # @param options [Hash] Connection options.
   # @return [ManageIQ::Providers::IbmCloud::CloudTools::Vpc]
   def verify_credentials(_auth_type = nil, options = {})
-    connect(options).cloudtools.authenticator
+    connect(options).authenticator
   end
 
   module ClassMethods

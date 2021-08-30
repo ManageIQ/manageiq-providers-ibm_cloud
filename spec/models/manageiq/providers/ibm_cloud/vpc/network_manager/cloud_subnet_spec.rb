@@ -17,14 +17,19 @@ describe ManageIQ::Providers::IbmCloud::VPC::NetworkManager::CloudSubnet do
 
   describe 'cloud subnet actions' do
     let(:connection) do
+      double("ManageIQ::Providers::IbmCloud::CloudTools")
+    end
+
+    let(:vpc) do
       double("ManageIQ::Providers::IbmCloud::CloudTools::Vpc")
     end
 
     before { allow(ems.network_manager).to receive(:with_provider_connection).and_yield(connection) }
+    before { allow(connection).to receive(:vpc).with(:region => ems.provider_region).and_return(vpc) }
 
     context '#create_cloud_subnet' do
       it 'creates the cloud subnet' do
-        expect(connection).to receive(:request).with(:create_subnet,
+        expect(vpc).to receive(:request).with(:create_subnet,
                                                      :subnet_prototype => {
                                                        :vpc             => {
                                                          :id => cloud_network.ems_ref
@@ -41,7 +46,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::NetworkManager::CloudSubnet do
 
     context '#raw_delete_cloud_subnet' do
       it 'deletes the cloud subnet' do
-        expect(connection).to receive(:request).with(:delete_subnet, :id => cloud_subnet.ems_ref)
+        expect(vpc).to receive(:request).with(:delete_subnet, :id => cloud_subnet.ems_ref)
         cloud_subnet.raw_delete_cloud_subnet
       end
     end
