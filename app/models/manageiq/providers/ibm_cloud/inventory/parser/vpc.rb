@@ -230,10 +230,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def cloud_databases
     collector.database_instances.each do |db|
+      db_info = collector.database_info(db[:id])
       persister.cloud_databases.build(
-        :ems_ref => db["guid"],
-        :name    => db["name"],
-        :status  => db["state"]
+        :ems_ref      => db[:guid],
+        :name         => db[:name],
+        :status       => db[:state],
+        :db_engine    => (db_info[:db_engine] unless db_info.nil?),
+        :used_storage => (db_info[:used_storage] unless db_info.nil?),
+        :max_storage  => (db_info[:max_storage] unless db_info.nil?)
       )
     end
   end
@@ -241,12 +245,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   def cloud_database_flavors
     collector.cloud_database_flavors.each do |flavor|
       persister.cloud_database_flavors.build(
-        :ems_ref  => flavor[:name],
-        :name     => flavor[:name],
-        :enabled  => true,
-        :cpus     => flavor[:vcpu],
-        :memory   => flavor[:memory],
-        :max_size => flavor[:max_size]
+        :ems_ref => flavor[:name],
+        :name    => flavor[:name],
+        :enabled => true,
+        :cpus    => flavor[:vcpu],
+        :memory  => flavor[:memory]
       )
     end
   end

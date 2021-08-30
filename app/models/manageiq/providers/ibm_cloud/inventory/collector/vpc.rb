@@ -12,6 +12,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
     @vpc ||= connection.vpc(:region => manager.provider_region)
   end
 
+  def databases
+    @databases ||= connection.databases(:region => manager.provider_region)
+  end
+
   def vms
     vpc.instances.all
   end
@@ -89,7 +93,19 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
   end
 
   def database_instances
-    @database_instances ||= resource_instances.select { |res| res[:resource_plan_id].match?(/databases-for-*/)}
+    @database_instances ||= resource_instances.select { |res| res[:resource_plan_id].include?("databases-for-") }
+  end
+
+  def database_info(database_id)
+    deployment_info = databases.request(:get_deployment_info, :id => database_id)
+    scaling_info = databases.request(:list_deployment_scaling_groups, :id => database_id)[:groups].first
+    {
+      :db_engine    => deployment_info.dig(:deployment, :version),
+      :used_storage => scaling_info.dig(:disk, :allocation_mb)&.megabytes,
+      :max_storage  => scaling_info.dig(:disk, :maximum_mb)&.megabytes
+    }
+  rescue IBMCloudSdkCore::ApiException
+    nil
   end
 
   # Fetch resource groups from ResourceController SDK.

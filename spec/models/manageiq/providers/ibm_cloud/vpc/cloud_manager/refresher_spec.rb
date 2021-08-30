@@ -22,6 +22,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
       assert_specific_cloud_volume_type
       assert_specific_cloud_subnet
       assert_specific_floating_ip
+      assert_specific_cloud_database
       assert_specific_cloud_database_flavor
       assert_vm_labels
     end
@@ -197,15 +198,26 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     check_obscured_ip(floating_ip, :fixed_ip_address, internal_ip_address.to_s)
   end
 
+  def assert_specific_cloud_database
+    cloud_database = ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase.find_by(:name => "gsaPointProcPostgreSQLDR")
+    expect(cloud_database).to have_attributes(
+      :ems_ref      => "79f86763-5d06-445c-a847-47351667401b",
+      :name         => "gsaPointProcPostgreSQLDR",
+      :status       => "active",
+      :db_engine    => "11",
+      :used_storage => 10_737_418_240,
+      :max_storage  => 7_696_581_394_432
+    )
+  end
+
   def assert_specific_cloud_database_flavor
     cloud_database_flavor = ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabaseFlavor.find_by(:name => "medium")
     expect(cloud_database_flavor).to have_attributes(
-      :ems_ref  => "medium",
-      :name     => "medium",
-      :enabled  => true,
-      :cpus     => 10,
-      :memory   => 42_949_672_960,
-      :max_size => 429_496_729_600
+      :ems_ref => "medium",
+      :name    => "medium",
+      :enabled => true,
+      :cpus    => 10,
+      :memory  => 42_949_672_960
     )
   end
 
