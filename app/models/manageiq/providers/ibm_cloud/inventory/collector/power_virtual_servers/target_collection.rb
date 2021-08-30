@@ -10,16 +10,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers::
   end
 
   def images
-    @images ||= begin
-      references(:miq_templates).map do |ems_ref|
-        images_api.pcloud_cloudinstances_images_get(cloud_instance_id, ems_ref)
-      rescue IbmCloudPower::ApiError => err
-        error_message = JSON.parse(err.response_body)["description"]
-        _log.debug("ImageID not found: #{error_message}")
-        nil
-      end
-    end
-    @images.compact
+    @images ||= references(:miq_templates).map do |ems_ref|
+      images_api.pcloud_cloudinstances_images_get(cloud_instance_id, ems_ref)
+    rescue IbmCloudPower::ApiError => err
+      error_message = JSON.parse(err.response_body)["description"]
+      _log.debug("ImageID not found: #{error_message}")
+      nil
+    end.compact
   end
 
   def flavors
@@ -31,16 +28,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers::
   end
 
   def volumes
-    @volumes ||= begin
-      references(:cloud_volumes).map do |ems_ref|
-        volumes_api.pcloud_cloudinstances_volumes_get(cloud_instance_id, ems_ref)
-      rescue IbmCloudPower::ApiError => err
-        error_message = JSON.parse(err.response_body)["description"]
-        _log.debug("VolumeID not found: #{error_message}")
-        nil
-      end
-    end
-    @volumes.compact
+    @volumes ||= references(:cloud_volumes).map do |ems_ref|
+      volumes_api.pcloud_cloudinstances_volumes_get(cloud_instance_id, ems_ref)
+    rescue IbmCloudPower::ApiError => err
+      error_message = JSON.parse(err.response_body)["description"]
+      _log.debug("VolumeID not found: #{error_message}")
+      nil
+    end.compact
   end
 
   def pvm_instances_by_id
@@ -48,29 +42,23 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers::
   end
 
   def pvm_instances
-    @pvm_instances ||= begin
-      references(:vms).map do |ems_ref|
-        pvm_instances_api.pcloud_pvminstances_get(cloud_instance_id, ems_ref)
-      rescue IbmCloudPower::ApiError => err
-        error_message = JSON.parse(err.response_body)["description"]
-        _log.debug("PVMInstanceID not found: #{error_message}")
-        nil
-      end
-    end
-    @pvm_instances.compact
+    @pvm_instances ||= references(:vms).map do |ems_ref|
+      pvm_instances_api.pcloud_pvminstances_get(cloud_instance_id, ems_ref)
+    rescue IbmCloudPower::ApiError => err
+      error_message = JSON.parse(err.response_body)["description"]
+      _log.debug("PVMInstanceID not found: #{error_message}")
+      nil
+    end.compact
   end
 
   def networks
-    @networks ||= begin
-      references(:cloud_networks).map do |ems_ref|
-        networks_api.pcloud_networks_get(cloud_instance_id, ems_ref)
-      rescue IbmCloudPower::ApiError => err
-        error_message = JSON.parse(err.response_body)["description"]
-        _log.debug("NetworkID not found: #{error_message}")
-        nil
-      end
-    end
-    @networks.compact
+    @networks ||= references(:cloud_networks).map do |ems_ref|
+      networks_api.pcloud_networks_get(cloud_instance_id, ems_ref)
+    rescue IbmCloudPower::ApiError => err
+      error_message = JSON.parse(err.response_body)["description"]
+      _log.debug("NetworkID not found: #{error_message}")
+      nil
+    end.compact
   end
 
   def sshkeys
