@@ -2,6 +2,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   require_nested :CloudManager
   require_nested :NetworkManager
   require_nested :StorageManager
+  require_nested :TargetCollection
 
   def collect
     connection
@@ -11,12 +12,20 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     @cloud_instance ||= cloud_instances_api.pcloud_cloudinstances_get(cloud_instance_id)
   end
 
-  def pvm_instances
-    @pvm_instances ||= pvm_instances_api.pcloud_pvminstances_getall(cloud_instance_id).pvm_instances || []
+  def pvm_instance(pvm_instance_id)
+    pvm_instances_by_id[pvm_instance_id] ||= pvm_instances_api.pcloud_pvminstances_get(cloud_instance_id, pvm_instance_id)
+  rescue IbmCloudPower::ApiError => err
+    error_message = JSON.parse(err.response_body)["description"]
+    _log.debug("PVMInstanceID not found: #{error_message}")
+    nil
   end
 
-  def pvm_instance(instance_id)
-    pvm_instances_api.pcloud_pvminstances_get(cloud_instance_id, instance_id)
+  def pvm_instances_by_id
+    @pvm_instances_by_id ||= {}
+  end
+
+  def pvm_instances
+    @pvm_instances ||= pvm_instances_api.pcloud_pvminstances_getall(cloud_instance_id).pvm_instances || []
   end
 
   def image(image_id)
