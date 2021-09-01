@@ -65,9 +65,9 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     def assert_table_counts
       expect(Flavor.count).to eq(51)
       expect(Vm.count).to eq(3)
-      expect(OperatingSystem.count).to eq(10)
-      expect(MiqTemplate.count).to eq(7)
-      expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to eq(53)
+      expect(OperatingSystem.count).to eq(9)
+      expect(MiqTemplate.count).to eq(6)
+      expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to eq(57)
       expect(CloudVolume.count).to eq(5)
       expect(CloudNetwork.count).to eq(3)
       expect(CloudSubnet.count).to eq(3)
@@ -77,9 +77,9 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
     def assert_ems_counts
       expect(ems.vms.count).to eq(3)
-      expect(ems.miq_templates.count).to eq(7)
-      expect(ems.operating_systems.count).to eq(10)
-      expect(ems.key_pairs.count).to eq(53)
+      expect(ems.miq_templates.count).to eq(6)
+      expect(ems.operating_systems.count).to eq(9)
+      expect(ems.key_pairs.count).to eq(57)
       expect(ems.network_manager.cloud_networks.count).to eq(3)
       expect(ems.network_manager.cloud_subnets.count).to eq(3)
       expect(ems.network_manager.network_ports.count).to eq(5)
@@ -137,6 +137,10 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
       expect(vm.advanced_settings.find { |setting| setting['name'] == 'pin_policy' }).to have_attributes(
         :value        => "none"
+      )
+
+      expect(vm.advanced_settings.find { |setting| setting['name'] == 'placement_group' }).to have_attributes(
+        :value        => nil
       )
 
       expect(vm.cloud_networks.pluck(:ems_ref))
@@ -210,7 +214,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :ems_ref     => "97156faf-2d0a-4932-b862-1048652ec511",
         :name        => "97156faf-2d0a-4932-b862-1048652ec511",
         :mac_address => "fa:d9:90:05:76:21",
-        :status      => "ACTIVE",
+        :status      => "DOWN",
         :device_ref  => "b898b0cd-463b-4b05-90d3-b98f73234e8f"
       )
 
