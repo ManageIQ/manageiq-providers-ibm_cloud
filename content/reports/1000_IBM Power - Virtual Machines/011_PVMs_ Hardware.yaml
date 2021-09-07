@@ -7,9 +7,9 @@ conditions: !ruby/object:MiqExpression
     INCLUDES:
       field: Vm.ext_management_system-emstype_description
       value: IBM Power Systems Virtual Servers
-  context_type: 
-  col_details: 
-  ruby: 
+  context_type:
+  col_details:
+  ruby:
 updated_on: 2021-07-28 18:04:00.000000 Z
 order: Ascending
 graph:
@@ -26,6 +26,7 @@ col_order:
 - hardware.cpu_total_cores
 - hardware.disks.device_type
 - processor_pin_policy
+- placement_group
 - hardware.num_disks
 - hardware.disks.size
 - ipaddresses
@@ -57,6 +58,7 @@ cols:
 - entitled_processors
 - processor_share_type
 - processor_pin_policy
+- placement_group
 - ipaddresses
 - mac_addresses
 template_type: report
@@ -71,6 +73,7 @@ headers:
 - vCPUs
 - Disk Tier
 - Pin Policy
+- Placement Group
 - "# of Disks"
 - Disk Size (GB)
 - IP Addresses

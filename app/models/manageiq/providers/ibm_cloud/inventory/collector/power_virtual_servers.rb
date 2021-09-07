@@ -53,6 +53,18 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     images_by_id.values
   end
 
+  def placement_groups_by_id
+    @placement_groups_by_id ||= placement_groups_api.pcloud_placementgroups_getall(cloud_instance_id).placement_groups.index_by(&:id)
+  end
+
+  def placement_group(placement_group_id)
+    placement_groups_by_id[placement_group_id] ||= placement_groups_api.pcloud_placementgroups_get(cloud_instance_id, placement_group_id)
+  rescue IbmCloudPower::ApiError => err
+    error_message = JSON.parse(err.response_body)["description"]
+    _log.debug("Placement group with id #{placement_group_id} does not exist: #{error_message}")
+    nil
+  end
+
   def image_architecture(image_id)
     image = image(image_id)
     architecture = image&.specifications&.architecture
@@ -118,6 +130,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
 
   def pcloud_tenant_id
     cloud_manager.pcloud_tenant_id(connection)
+  end
+
+  def placement_groups_api
+    @placement_groups_api ||= IbmCloudPower::PCloudPlacementGroupsApi.new(connection)
   end
 
   def images_api
