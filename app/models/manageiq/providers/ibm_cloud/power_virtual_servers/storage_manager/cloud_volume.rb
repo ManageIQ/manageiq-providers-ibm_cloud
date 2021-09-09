@@ -119,10 +119,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     }
   end
 
-  def self.validate_create_volume(ext_management_system)
-    validate_volume(ext_management_system)
-  end
-
   def self.raw_create_volume(ext_management_system, options)
     volume = nil
     volume_params = nil
