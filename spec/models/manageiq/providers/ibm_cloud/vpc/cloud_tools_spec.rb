@@ -217,4 +217,18 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
     expect(response).to be_a(Enumerator)
     expect(response.next).to be_a(Hash)
   end
+
+  it 'Raises error with non-existent method.' do
+    vpc = described_class.new(:api_key => api_key).vpc(:region => 'us-east')
+    bad_method = :list_instancess
+
+    expect { vpc.request(bad_method) }.to raise_error(StandardError, 'IbmVpc::VpcV1 does not contain a method list_instancess')
+    expect { vpc.collection(bad_method).first }.to raise_error(StandardError, 'IbmVpc::VpcV1 does not contain a method list_instancess')
+  end
+
+  it 'Raises error in collection when method is not a list.' do
+    vpc = described_class.new(:api_key => api_key).vpc(:region => 'us-east')
+
+    expect { vpc.collection(:get_instance) }.to raise_error(StandardError, 'Provided call_back get_instance does not start with list. This method is for paginating list methods.')
+  end
 end
