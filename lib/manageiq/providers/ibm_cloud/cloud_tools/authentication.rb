@@ -61,38 +61,56 @@ module ManageIQ
             # @return [void]
             def initialize(bearer_info, logger: nil)
               @logger = define_logger(logger)
-              @bearer_info = verify_info(bearer_info)
+              @bearer_info = bearer_info
               super({:bearer_token => bearer_info[:token]})
             end
 
             # @return [Hash{Symbol=>String, Integer}] bearer hash with token, expire_time and api_key as keys.
             attr_reader :bearer_info
 
-            private
-
-            # Verify that the bearer token hasn't expired. If it has and an API Key is present try to get a new bearer token.
-            #
-            # @return [Hash{Symbol => String, Integer}] @see #bearer_info
-            def verify_info(bearer_info)
-              # Raise standard error if expiration time expires in the next 10 second.
-              if expired?(bearer_info[:expire_time])
-                raise 'Bearer token has expired.' if bearer_info[:api_key].nil?
-
-                @logger.info('Bearer token expired. Fetching new one using API Key.')
-                return IamAuth.new(bearer_info[:api_key]).bearer_info
-              end
-              bearer_info
+            def authenticate(headers)
+              verify_bearer
+              super(headers)
             end
 
-            # Check to see if the token expiry time has elapsed.
-            # @param expire_time [Integer, NilClass] The token expiry time provided by IAM.
+            private
+
+            # Check to see if bearer token has expired. If it has fetch a new one.
+            # @return [void]
+            def verify_bearer
+              if expired?(@bearer_info[:expire_time])
+                @bearer_info = new_bearer(@bearer_info)
+                @bearer_token = @bearer_info[:token]
+              end
+            end
+
+            # Get a new bearer token.
+            # @param bearer_info [Hash{Symbol=>String, Integer}] Bearer info hash from IamAuth
+            # @return [Hash{Symbol=>String, Integer}] Bearer info hash from IamAuth
+            def new_bearer(bearer_info)
+              raise 'Bearer token has expired and unable to refresh. An api key is not present in bearer_info hash.' if bearer_info[:api_key].nil?
+
+              @logger.info('Bearer token expired. Fetching new one using API Key.')
+              IamAuth.new(bearer_info[:api_key]).bearer_info
+            end
+
+            # Check to see if the token expire_time has elapsed.
+            # @param expire_time [Integer, NilClass] The token expire_time provided by IAM.
             #
             # @return [Boolean] True is expired. False is valid.
             def expired?(expire_time)
-              return true if expire_time.nil?
+              return false if expire_time.nil? # Assume that expire check is disabled.
+
+              return true unless expire_time.respond_to?(:to_i) # Verify that expire_time can be converted into an integer.
+
+              # If expire_time is a string then ensure that it only has digits.
+              if expire_time.respond_to?(:match?)
+                return true unless expire_time.match?('^\d+$') # rubocop:disable Style/SoleNestedConditional
+              end
 
               # Checks to see if the expire time will elapse in the next 10 seconds.
-              Time.now.to_i >= (expire_time - 10)
+              # True if now is greater than expire time. False if now is less than expire time.
+              Time.now.to_i >= (expire_time.to_i - 10)
             end
 
             # Define a new logger.
