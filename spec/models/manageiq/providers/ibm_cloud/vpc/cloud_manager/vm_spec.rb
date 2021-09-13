@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm do
+describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm, :vcr do
   let(:ems) do
     FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "us-east").tap do |ems|
       ems.authentications << FactoryBot.create(:authentication, :auth_key => 'IBM_CLOUD_VPC_API_KEY')

@@ -30,7 +30,7 @@ def replace_token_contents(response)
 end
 
 # Sanitize VPC VCR files.
-def vpc_sanitizier(interaction)
+def vpc_sanitizer(interaction)
   # Mask bearer token in recorded file.
   interaction.request.headers['Authorization'] = 'Bearer xxxxxx' if interaction.request.headers.key?('Authorization')
   # Replace IP V4 Addresses
@@ -42,12 +42,17 @@ end
 
 VCR.configure do |config|
   # config.debug_logger = $stdout # Keep for debugging tests.
+
+  # Configure VCR to use rspec metadata.
+  config.hook_into(:webmock)
+  config.configure_rspec_metadata!
+
   config.ignore_hosts('codeclimate.com') if ENV['CI']
   config.cassette_library_dir = File.join(ManageIQ::Providers::IbmCloud::Engine.root, 'spec/vcr_cassettes')
 
   config.before_record do |i|
     replace_token_contents(i.response) if i.request.uri == "https://iam.cloud.ibm.com/identity/token"
-    vpc_sanitizier(i) if i.request.uri.match?('iaas.cloud.ibm')
+    vpc_sanitizer(i) if i.request.uri.match?('iaas.cloud.ibm')
   end
 
   secrets = Rails.application.secrets
