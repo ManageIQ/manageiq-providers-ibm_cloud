@@ -1,12 +1,13 @@
 class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::CloudManager
   require_nested :AuthKeyPair
-  require_nested :RefreshWorker
-  require_nested :Refresher
+  require_nested :EventCatcher
+  require_nested :LoggingMixin
   require_nested :Provision
   require_nested :ProvisionWorkflow
+  require_nested :RefreshWorker
+  require_nested :Refresher
   require_nested :Template
   require_nested :Vm
-  require_nested :LoggingMixin
 
   supports :provisioning
 
