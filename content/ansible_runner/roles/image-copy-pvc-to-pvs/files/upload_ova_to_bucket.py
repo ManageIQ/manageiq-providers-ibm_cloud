@@ -53,8 +53,6 @@ def upload_file(bucket_name, item_name, file_path):
     try:
         future = transfer_mgr.upload(file_path, bucket_name, item_name)
         future.result()
-    except Exception as e:
-        print("unable to upload file: {0}".format(e))
     finally:
         transfer_mgr.shutdown()
 

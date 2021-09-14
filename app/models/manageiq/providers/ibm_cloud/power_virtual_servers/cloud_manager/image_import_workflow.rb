@@ -8,7 +8,38 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
     )
   end
 
+  def trunc_err_msg(error_msg)
+    max_err_sz = 1024
+    trunc_msg = '[TRUNCATED OUTPUT - see full description in the server logs];' if !error_msg.nil? && (error_msg.length > max_err_sz)
+    "#{trunc_msg}#{error_msg&.truncate(max_err_sz)}"
+  end
+
+  def process_runner_result(result)
+    context[:ansible_runner_return_code] = result.return_code
+    context[:ansible_runner_stdout]      = result.parsed_stdout
+
+    if result.return_code != 0
+      fail_line = context[:ansible_runner_stdout].detect { |line| line['stdout'].include?("fatal:") }
+      error_match = fail_line&.fetch('stdout')&.match(/"msg": "(.*)"/)
+      error_dsc = "'#{error_match[1]}'" unless error_match.nil?
+
+      message = "ansible playbook failed with the message: '#{trunc_err_msg(error_dsc)}'"
+      signal = :abort
+      status = 'error'
+      _log.error("ansible playbook failed with the message: \n'#{result.parsed_stdout.join("\n")}'")
+      queue_signal(signal, message, status)
+    else
+      message = 'ansible playbook completed, starting import from the cloud object storage'
+      signal = :post_execute
+      status = 'ok'
+      set_status(message, status)
+      queue_signal(signal)
+    end
+  end
+
   def post_execute
+    cleanup_git_repository
+
     ems = ExtManagementSystem.find(options[:ems_id])
 
     body = {
@@ -20,87 +51,115 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
       **options[:cos_pvs_creds]
     }
 
+    message = nil
+    signal = nil
+    status = nil
+
     ems.with_provider_connection(:service => 'PCloudImagesApi') do |api|
       response = api.pcloud_cloudinstances_images_post(ems.uid_ems, body, {})
       context[:task_id] = response.taskref.task_id
+      update!(:context => context)
 
-      started_on = Time.now.utc
-      update!(:context => context, :started_on => started_on)
-      miq_task.update!(:started_on => started_on)
+      message = 'initiated OVA file importing from the cloud object storage'
+      signal = :post_execute_poll
+      status = 'ok'
+    rescue => e
+      message = "failed to initiate OVA file importing from the cloud object storage: '#{trunc_err_msg(e.message)}'"
+      signal = :abort
+      status = 'error'
+      _log.error("OVA image import failure: '#{e.message}'")
     end
 
-    cleanup_git_repository
-
-    queue_signal(:post_execute_poll, 'importing image into PVS', 'running')
+    set_status(message, status)
+    queue_signal(signal, message, status)
   end
 
-  def post_execute_poll(*args)
-    msg, status = args
-    set_status(msg, status)
+  def try_extract_api_error(api_e)
+    JSON.parse(api_e.response_body)["description"] if api_e.response_body
+  rescue JSON::ParserError => e
+    _log.warn("unable to parse the error description as a JSON: '#{e.message}'")
+  end
 
+  def post_execute_poll(*_args)
     ems = ExtManagementSystem.find(options[:ems_id])
+    max_retries = 10
 
-    msg    = nil
-    status = nil
-    signal = nil
+    message = nil
+    signal  = nil
+    status  = nil
+    deliver = nil
 
     ems.with_provider_connection(:service => 'PCloudTasksApi') do |api|
-      response = api.pcloud_tasks_get(context[:task_id])
+      begin
+        response = api.pcloud_tasks_get(context[:task_id])
+      rescue IbmCloudPower::ApiError => e
+        retr = context[:retry].to_i
+        raise "unable to get task status after #{max_retries} tries, see server logs" if retr >= max_retries
+        context[:retry] = retr + 1
+
+        error_dsc = trunc_err_msg(try_extract_api_error(e))
+        message = "failed to retrieve cloud-task: '#{error_dsc}'; try #{retr + 1}/#{max_retries}"
+        deliver = Time.now.utc + 1.minute
+        signal = :post_execute_poll
+        status = 'error'
+        break
+      end
 
       case response.status
-      when 'capturing', 'downloading', 'creating', 'deleting', 'compressing', 'loading', 'started', 'uploading'
-        signal = :post_execute_poll
-        msg = 'importing image into PVS, current state is: ' + response.status
-        status = 'running'
-      when 'completed'
-        signal = :finish
-        msg = 'importing image into PVS has completed'
-        status = 'ok'
-      when 'failed'
-        signal = :error
-        msg = 'importing image into PVS has failed'
-        status = 'error'
-      else
-        signal = :error
-        msg = 'PVS API has responded with a non-standard status for a cloud-task: ' + response.status
-        status = 'error'
-        _log.warn(msg)
+        when 'capturing', 'downloading', 'creating', 'deleting', 'compressing', 'loading', 'started', 'uploading'
+          context[:retry] = 0
+          message = "importing image into PVS, current state is: '#{response.status}'"
+          signal = :post_execute_poll
+          status = 'ok'
+        when 'completed'
+          message = 'importing image into image registry has completed'
+          signal = :finish
+          status = 'ok'
+        when 'failed'
+          raise "importing into image registry failed: '#{trunc_err_msg(response.status)}'"
+        else
+          raise "incompatible API, unexpected status: '#{response.status}'"
       end
+    rescue => e
+      signal = :abort
+      status = 'error'
+      message = e.message
+    ensure
+      update!(:context => context)
+      set_status(message, status)
+      queue_signal(signal, message, status, :deliver_on => deliver)
     end
-
-    queue_signal(signal, msg, status)
   end
 
-  def post_poll_cleanup
+  def post_poll_cleanup(*args)
     ems = ExtManagementSystem.find(options[:ems_id])
     ems.remove_import_auth(options[:import_creds_id])
-
     return if options[:keep_ova] == true
-    cos = ExtManagementSystem.find(options[:cos_id])
-    cos.remove_object(options[:bucket_name], options[:session_id] + '.ova')
+
+    begin
+      cos = ExtManagementSystem.find(options[:cos_id])
+      cos.remove_object(options[:bucket_name], "#{options[:session_id]}.ova")
+    rescue => e
+      result = args[0]
+      set_status("#{result}; cleanup result: cannot remove transient OVA image: #{trunc_err_msg(e.message)}", 'error')
+      _log.error("#{result}; cleanup result: cannot remove transient OVA image: #{e.message}")
+    end
   end
 
   def finish(*args)
     super(*args)
-    post_poll_cleanup
+    post_poll_cleanup(*args)
   end
 
-  def error(*args)
+  def abort(*args)
     super(*args)
-    post_poll_cleanup
+    # TODO: how to handle fatal error (roll-back changes)?
+    post_poll_cleanup(*args)
   end
 
   def cancel(*args)
     super(*args)
-
-    # TODO: should we remove the image here if already importing?
-    post_poll_cleanup
-  end
-
-  def abort_job(*args)
-    super(*args)
-
-    # TODO: should we remove the image here if already importing?
-    post_poll_cleanup
+    # TODO: how to handle user cancellation (roll-back changes)?
+    post_poll_cleanup(*args)
   end
 end
