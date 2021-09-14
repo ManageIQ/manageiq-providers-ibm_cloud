@@ -3,6 +3,6 @@ class ManageIQ::Providers::IbmCloud::ContainerManager::RefreshWorker < ManageIQ:
   require_nested :WatchThread
 
   def self.settings_name
-    :event_catcher_ibm_cloud_iks
+    :ems_refresh_worker_ibm_cloud_iks
   end
 end
