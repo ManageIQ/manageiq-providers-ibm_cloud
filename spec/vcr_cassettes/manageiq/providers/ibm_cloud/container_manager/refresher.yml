@@ -58,7 +58,7 @@ http_interactions:
   recorded_at: Sun, 12 Sep 2021 19:27:04 GMT
 - request:
     method: get
-    uri: https://c103.ca-tor.containers.cloud.ibm.com:31821/api/v1
+    uri: https://ibm-cloud-iks-hostname:1234/api/v1
     body:
       encoding: US-ASCII
       string: ''
@@ -96,7 +96,7 @@ http_interactions:
   recorded_at: Sun, 12 Sep 2021 19:37:39 GMT
 - request:
     method: get
-    uri: https://c103.ca-tor.containers.cloud.ibm.com:31821/api/v1/nodes?limit=1000
+    uri: https://ibm-cloud-iks-hostname:1234/api/v1/nodes?limit=1000
     body:
       encoding: US-ASCII
       string: ''
@@ -189,7 +189,7 @@ http_interactions:
   recorded_at: Sun, 12 Sep 2021 19:37:39 GMT
 - request:
     method: get
-    uri: https://c103.ca-tor.containers.cloud.ibm.com:31821/api/v1/namespaces?limit=1000
+    uri: https://ibm-cloud-iks-hostname:1234/api/v1/namespaces?limit=1000
     body:
       encoding: US-ASCII
       string: ''
@@ -228,7 +228,7 @@ http_interactions:
   recorded_at: Sun, 12 Sep 2021 19:37:39 GMT
 - request:
     method: get
-    uri: https://c103.ca-tor.containers.cloud.ibm.com:31821/api/v1/resourcequotas?limit=1000
+    uri: https://ibm-cloud-iks-hostname:1234/api/v1/resourcequotas?limit=1000
     body:
       encoding: US-ASCII
       string: ''
@@ -267,7 +267,7 @@ http_interactions:
   recorded_at: Sun, 12 Sep 2021 19:37:39 GMT
 - request:
     method: get
-    uri: https://c103.ca-tor.containers.cloud.ibm.com:31821/api/v1/limitranges?limit=1000
+    uri: https://ibm-cloud-iks-hostname:1234/api/v1/limitranges?limit=1000
     body:
       encoding: US-ASCII
       string: ''
@@ -306,7 +306,7 @@ http_interactions:
   recorded_at: Sun, 12 Sep 2021 19:37:39 GMT
 - request:
     method: get
-    uri: https://c103.ca-tor.containers.cloud.ibm.com:31821/api/v1/replicationcontrollers?limit=1000
+    uri: https://ibm-cloud-iks-hostname:1234/api/v1/replicationcontrollers?limit=1000
     body:
       encoding: US-ASCII
       string: ''
@@ -345,7 +345,7 @@ http_interactions:
   recorded_at: Sun, 12 Sep 2021 19:37:40 GMT
 - request:
     method: get
-    uri: https://c103.ca-tor.containers.cloud.ibm.com:31821/api/v1/persistentvolumeclaims?limit=1000
+    uri: https://ibm-cloud-iks-hostname:1234/api/v1/persistentvolumeclaims?limit=1000
     body:
       encoding: US-ASCII
       string: ''
@@ -384,7 +384,7 @@ http_interactions:
   recorded_at: Sun, 12 Sep 2021 19:37:40 GMT
 - request:
     method: get
-    uri: https://c103.ca-tor.containers.cloud.ibm.com:31821/api/v1/persistentvolumes?limit=1000
+    uri: https://ibm-cloud-iks-hostname:1234/api/v1/persistentvolumes?limit=1000
     body:
       encoding: US-ASCII
       string: ''
@@ -423,7 +423,7 @@ http_interactions:
   recorded_at: Sun, 12 Sep 2021 19:37:40 GMT
 - request:
     method: get
-    uri: https://c103.ca-tor.containers.cloud.ibm.com:31821/api/v1/pods?limit=1000
+    uri: https://ibm-cloud-iks-hostname:1234/api/v1/pods?limit=1000
     body:
       encoding: US-ASCII
       string: ''
@@ -631,7 +631,7 @@ http_interactions:
   recorded_at: Sun, 12 Sep 2021 19:37:40 GMT
 - request:
     method: get
-    uri: https://c103.ca-tor.containers.cloud.ibm.com:31821/api/v1/services?limit=1000
+    uri: https://ibm-cloud-iks-hostname:1234/api/v1/services?limit=1000
     body:
       encoding: US-ASCII
       string: ''
@@ -670,7 +670,7 @@ http_interactions:
   recorded_at: Sun, 12 Sep 2021 19:37:40 GMT
 - request:
     method: get
-    uri: https://c103.ca-tor.containers.cloud.ibm.com:31821/api/v1/endpoints?limit=1000
+    uri: https://ibm-cloud-iks-hostname:1234/api/v1/endpoints?limit=1000
     body:
       encoding: US-ASCII
       string: ''
