@@ -80,4 +80,7 @@ VCR.configure do |config|
   secrets.ibm_cloud_vpc.each_key do |secret|
     config.define_cassette_placeholder(secrets.ibm_cloud_vpc_defaults[secret]) { secrets.ibm_cloud_vpc[secret] }
   end
+  secrets.iks.each_key do |secret|
+    config.define_cassette_placeholder(secrets.iks_defaults[secret]) { secrets.iks[secret] }
+  end
 end

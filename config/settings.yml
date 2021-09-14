@@ -55,6 +55,12 @@
   :ibm_cloud_power_virtual_servers:
     :refresh_interval: 15.minutes
     :allow_targeted_refresh: true
+  :iks:
+    :refresh_interval: 15.minutes
+    :streaming_refresh: true
+    :chunk_size: 1_000
+    :inventory_collections:
+      :saver_strategy: batch
 :log:
   :level_ibm_cloud: info
 :workers:
@@ -64,8 +70,11 @@
         :poll: 20.seconds
       :event_catcher_vpc:
         :poll: 15.seconds
+      :event_catcher_ibm_cloud_iks:
+        :poll: 15.seconds
     :queue_worker_base:
       :ems_refresh_worker:
         :ems_refresh_worker_ibm_cloud_power_virtual_servers: {}
         :ems_refresh_worker_ibm_cloud_vpc: {}
         :ems_refresh_worker_ibm_cloud_object_storage: {}
+        :ems_refresh_worker_ibm_cloud_iks: {}
