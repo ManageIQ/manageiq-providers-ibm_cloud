@@ -9,6 +9,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
       :full_data  => event
     }
 
+    _log.debug("event_hash=#{event_hash}")
     case event_hash[:event_type]
     when /^pvm-instance/
       parse_vm_event!(event, event_hash)
@@ -18,11 +19,14 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
   end
 
   def self.parse_vm_event!(event, event_hash)
-    return if event[:metadata][:pvm_instance_id].nil?
+    pvm_instance_name = event[:message].split('\'')[1]
+    vm = Vm.find_by(:name => pvm_instance_name)
+    return if vm.nil?
 
     # The uid_ems/ems_ref should match the attributes that you set in the inventory
     # parser since they will be used to lookup the VM object by the MiqEventHandler
-    event_hash[:vm_uid_ems] = "8283634d-5215-4706-a0d8-9a8f8e9dfc01"  # TODO: Get real PVM ID
-    event_hash[:vm_ems_ref] = "8283634d-5215-4706-a0d8-9a8f8e9dfc01"  # TODO: Get real PVM ID
+    event_hash[:vm_uid_ems] = vm.uid_ems
+    event_hash[:vm_ems_ref] = vm.ems_ref
+    event_hash[:vm_name] = vm.name
   end
 end

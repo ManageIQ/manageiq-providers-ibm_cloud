@@ -19,7 +19,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventCat
     from_time = Time.now.utc.to_i
 
     loop do
-      ems.with_provider_connection(:service => "PCloudEventsApi") do |api|
+      ems.with_provider_connection(:service => 'PCloudEventsApi') do |api|
         # Could also use IBM Cloud Activity Tracker like the VPC provider
         events = api.pcloud_events_getsince(ems.uid_ems, from_time).events
         from_time = Time.now.utc.to_i

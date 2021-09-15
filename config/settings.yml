@@ -6,16 +6,16 @@
       :event_groups:
         :addition:
           :critical:
-          - pvm-instance.instance.create
+          - pvm-instance.create
         :update:
           :critical:
-          - pvm-instance.instance.update
+          - pvm-instance.update
         :deletion:
           :critical:
-          - pvm-instance.instance.delete
+          - pvm-instance.delete
         :power:
           :critical:
-          - pvm-instance.instance.stop
+          - pvm-instance.stop
   :ems_ibm_cloud_vpc:
     :additional_regions: {}
     :disabled_regions: []
@@ -77,7 +77,7 @@
   :worker_base:
     :event_catcher:
       :event_catcher_ibm_cloud_power_virtual_servers:
-        :poll: 20.seconds
+        :poll: 15.seconds
       :event_catcher_vpc:
         :poll: 15.seconds
       :event_catcher_ibm_cloud_iks:
