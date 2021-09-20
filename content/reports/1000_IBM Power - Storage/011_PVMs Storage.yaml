@@ -1,0 +1,93 @@
+---
+title: Power Virtual Server Cloud Volume List
+rpt_group: Custom
+rpt_type: Custom
+priority: 20
+db: CloudVolume
+cols:
+  - name
+  - size
+  - bootable
+  - volume_type
+  - href_slug
+  - status
+  - health_state
+include:
+  vms:
+    columns:
+      - name
+  hardwares:
+    columns:
+      - num_disks
+  availability_zone:
+    columns:
+      - name
+col_order:
+  - name
+  - vms.name
+  - size
+  - bootable
+  - volume_type
+  - href_slug
+  - hardwares.num_disks
+  - availability_zone.name
+  - status
+  - health_state
+headers:
+  - Name
+  - VM Name
+  - Size
+  - Bootable
+  - Volume Type
+  - Href Slug
+  - Hardware Number of Disks
+  - Availability Zone Name
+  - Status
+  - Health State Code
+conditions: !ruby/object:MiqExpression
+  exp:
+    INCLUDES:
+      field: CloudVolume.ext_management_system-emstype_description
+      value: IBM Power Systems Virtual Servers
+  context_type:
+  col_details:
+  ruby:
+order: Ascending
+sortby:
+group:
+graph:
+dims:
+filename:
+file_mtime:
+categories: []
+timeline:
+id: 10111
+template_type: report
+where_clause:
+db_options: {}
+generate_cols:
+generate_rows:
+col_formats:
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+tz:
+time_profile_id:
+display_filter:
+col_options: {}
+rpt_options:
+  :pdf:
+    :page_size: US-Letter
+  :queue_timeout:
+miq_group_id: 2
+user_id: 1
+menu_name: Power Virtual Server Cloud Volume List
+userid: admin
+group_description: EvmGroup-super_administrator
