@@ -39,6 +39,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
         :description       => _("PVM Instance"),
         :ems_ref           => instance.pvm_instance_id,
+        :ems_created_on    => instance.creation_date,
         :flavor            => persister.flavors.lazy_find(instance.sys_type),
         :location          => _("unknown"),
         :name              => instance.server_name,
