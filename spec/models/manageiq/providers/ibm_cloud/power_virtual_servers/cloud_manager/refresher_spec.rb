@@ -112,6 +112,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :format           => "tier3",
         :type             => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm"
       )
+      expect(vm.ems_created_on).to be_a(ActiveSupport::TimeWithZone)
+      expect(vm.ems_created_on.to_s).to eql("2021-07-07 03:14:53 UTC")
 
       expect(vm.hardware).to have_attributes(
         :cpu_sockets     => 1,
