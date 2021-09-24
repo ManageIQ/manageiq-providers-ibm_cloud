@@ -77,10 +77,6 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager::CloudVolume < ::CloudV
     }
   end
 
-  def self.validate_create_volume(ext_management_system)
-    validate_volume(ext_management_system)
-  end
-
   def self.raw_create_volume(ext_management_system, options)
     options = options.with_indifferent_access
     volume = {
