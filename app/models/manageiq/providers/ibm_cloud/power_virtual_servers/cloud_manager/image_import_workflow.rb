@@ -134,6 +134,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
   def post_poll_cleanup(*args)
     ems = ExtManagementSystem.find(options[:ems_id])
     ems.remove_import_auth(options[:import_creds_id])
+    ems.remove_ssh_auth(options[:ssh_creds_id]) if options[:ssh_creds_id]
     return if options[:keep_ova] == true
 
     begin

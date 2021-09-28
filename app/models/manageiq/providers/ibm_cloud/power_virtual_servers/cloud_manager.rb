@@ -28,6 +28,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
            :autosave    => true,
            :dependent   => :destroy
 
+  has_many :ssh_auths,
+           :foreign_key => :resource_id,
+           :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow::SshAnsibleAuth",
+           :autosave    => true,
+           :dependent   => :destroy
+
   has_many :system_types,
            :foreign_key => :ems_id,
            :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType"
@@ -68,8 +74,16 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
     import_auths.create!(:auth_key => key, :auth_key_password => iv, :password => creds).id
   end
 
+  def create_ssh_pkey_auth(pkey, unlock)
+    ssh_auths.create!(:auth_key => pkey, :auth_key_password => unlock).id
+  end
+
   def remove_import_auth(id)
     import_auths.destroy(id)
+  end
+
+  def remove_ssh_auth(id)
+    ssh_auths.destroy(id)
   end
 
   def self.hostname_required?
