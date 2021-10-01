@@ -14,7 +14,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::Provision::Payload
     logger(__method__).debug("Final IBM VPC provision workflow form options. #{options}")
     payload = {
       :name                      => get_option(:vm_target_name),
-      :keys                      => [{:id => get_option(:guest_access_key_pair)}],
+      :keys                      => [{:id => guest_access_key_pair}],
       :profile                   => {:name => get_option_last(:provision_type)},
       :image                     => {:id => vm_image[:ems_ref]},
       :zone                      => {:name => get_option_last(:placement_availability_zone)},
@@ -98,5 +98,17 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::Provision::Payload
     }
   rescue => e
     logger(__method__).log_backtrace(e)
+  end
+
+  def guest_access_key_pair
+    response = source.with_provider_connection do |connect|
+      connect.vpc(:region => source.ext_management_system.provider_region)
+             .request(:list_keys)
+    end
+
+    auth_key = response[:keys].find { |key| key[:name] == get_option(:guest_access_key_pair) }
+    return if auth_key.nil?
+
+    auth_key[:id]
   end
 end

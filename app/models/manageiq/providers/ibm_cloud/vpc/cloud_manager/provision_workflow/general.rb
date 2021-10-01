@@ -32,7 +32,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
   # @param _options [void]
   # @return [Array<Hash<String: String>>] An array of hashes with ems_ref as key and name as value.
   def guest_access_key_pairs_to_keys(_options = {})
-    @guest_access_key_pairs_to_keys ||= string_dropdown(ar_ems.key_pairs)
+    @guest_access_key_pairs_to_keys ||= string_dropdown(ar_ems.key_pairs, :key => :name)
   rescue => e
     logger(__method__).ui_exception(e)
   end
