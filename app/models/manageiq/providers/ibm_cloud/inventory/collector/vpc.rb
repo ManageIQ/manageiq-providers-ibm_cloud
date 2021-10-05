@@ -88,12 +88,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
     vpc.cloudtools.tagging.collection(:list_tags, :attached_to => crn, :providers => ["ghost"]).to_a
   end
 
-  def resource_instances
-    @resource_instances ||= vpc.cloudtools.resource.controller.collection(:list_resource_instances)
-  end
-
   def database_instances
-    @database_instances ||= resource_instances.select { |res| res[:resource_plan_id].include?("databases-for-") }
+    @database_instances ||= vpc.cloudtools.resource.controller.collection(:list_resource_instances, :resource_plan_id => 'databases-for-*')
   end
 
   def database_info(database_id)

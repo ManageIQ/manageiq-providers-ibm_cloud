@@ -84,10 +84,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
       end
   end
 
-  def resource_instances
-    []
-  end
-
   def database_instances
     []
   end
