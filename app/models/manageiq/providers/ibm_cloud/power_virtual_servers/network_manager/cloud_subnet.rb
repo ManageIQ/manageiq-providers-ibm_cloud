@@ -1,4 +1,5 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager::CloudSubnet < ::CloudSubnet
+  supports :create
   supports :delete do
     if number_of(:vms) > 0
       unsupported_reason_add(:delete, _("The Network has active VMIs related to it"))
