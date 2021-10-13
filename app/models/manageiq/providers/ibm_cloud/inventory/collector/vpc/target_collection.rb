@@ -70,6 +70,26 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
       end
   end
 
+  def load_balancers
+    []
+  end
+
+  def load_balancer_listeners
+    []
+  end
+
+  def load_balancer_pools
+    []
+  end
+
+  def load_balancer_pool_members
+    []
+  end
+
+  def load_balancer_health_checks
+    []
+  end
+
   def volumes
     @volumes ||=
       references(:cloud_volumes).map do |ems_ref|

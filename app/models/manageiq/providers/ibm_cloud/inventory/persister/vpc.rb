@@ -38,9 +38,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_network_collection(:cloud_networks)
     add_network_collection(:cloud_subnets)
     add_network_collection(:floating_ips)
+    add_network_collection(:load_balancers)
+    add_network_collection(:load_balancer_listeners)
+    add_network_collection(:load_balancer_pools)
+    add_network_collection(:load_balancer_pool_members)
+    add_network_collection(:load_balancer_health_checks)
     add_network_collection(:network_ports)
     add_network_collection(:cloud_subnet_network_ports)
-    add_network_collection(:load_balancers)
   end
 
   def initialize_storage_inventory_collections

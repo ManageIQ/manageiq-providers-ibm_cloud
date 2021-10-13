@@ -5,7 +5,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
 
   let(:ems) do
     api_key = Rails.application.secrets.ibm_cloud_vpc[:api_key]
-    FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "us-south").tap do |ems|
+    FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "ca-tor").tap do |ems|
       ems.authentications << FactoryBot.create(:authentication, :auth_key => api_key)
     end
   end
@@ -27,6 +27,8 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
         assert_specific_cloud_volume_type
         assert_specific_cloud_subnet
         assert_specific_floating_ip
+        assert_specific_load_balancer
+        assert_specific_load_balancer_pool
         assert_specific_cloud_database
         assert_specific_cloud_database_flavor
         assert_specific_vm
@@ -72,7 +74,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
   def assert_specific_vm
     vm = ems.vms.find_by(:name => 'rake-instance')
     check_count(vm, :ipaddresses, 2)
-    expect(vm.availability_zone.name).to eq('us-south-1')
+    expect(vm.availability_zone.name).to eq('ca-tor-1')
     expect(vm.cpu_total_cores).to eq(2)
     expect(vm.hardware.memory_mb).to eq(8_192)
     expect(vm.hardware.cpu_total_cores).to eq(2)
@@ -152,7 +154,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     check_relationship(cloud_subnet, :cloud_network_id, cloud_network)
 
     # Test availability_zone relationship.
-    availability_zone = check_resource_fetch(ems, :availability_zones, 'us-south-1')
+    availability_zone = check_resource_fetch(ems, :availability_zones, 'ca-tor-1')
     check_relationship(cloud_subnet, :availability_zone_id, availability_zone)
 
     # Test remaining fields.
@@ -201,6 +203,47 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
       :enabled => true,
       :cpus    => 10,
       :memory  => 42_949_672_960
+    )
+  end
+
+  def assert_specific_load_balancer
+    load_balancer = ManageIQ::Providers::IbmCloud::VPC::NetworkManager::LoadBalancer.find_by(:name => "rake-balancer")
+    expect(load_balancer).to have_attributes(
+      :name => "rake-balancer",
+      :type => "ManageIQ::Providers::IbmCloud::VPC::NetworkManager::LoadBalancer"
+    )
+    assert_specific_load_balancer_listener(load_balancer.id)
+    assert_specific_load_balancer_health_check(load_balancer.id)
+  end
+
+  def assert_specific_load_balancer_listener(load_balancer_id)
+    load_balancer_listener = ManageIQ::Providers::IbmCloud::VPC::NetworkManager::LoadBalancerListener.find_by(:load_balancer_id => load_balancer_id)
+    expect(load_balancer_listener).to have_attributes(
+      :load_balancer_protocol   => "http",
+      :instance_protocol        => "http",
+      :load_balancer_port_range => 8080...8081,
+      :type                     => "ManageIQ::Providers::IbmCloud::VPC::NetworkManager::LoadBalancerListener"
+    )
+  end
+
+  def assert_specific_load_balancer_pool
+    load_balancer_pool = ManageIQ::Providers::IbmCloud::VPC::NetworkManager::LoadBalancerPool.find_by(:name => "rake-pool")
+    expect(load_balancer_pool).to have_attributes(
+      :name                    => "rake-pool",
+      :load_balancer_algorithm => "round_robin",
+      :protocol                => "http",
+      :type                    => "ManageIQ::Providers::IbmCloud::VPC::NetworkManager::LoadBalancerPool"
+    )
+  end
+
+  def assert_specific_load_balancer_health_check(load_balancer_id)
+    load_balancer_health_check = ManageIQ::Providers::IbmCloud::VPC::NetworkManager::LoadBalancerHealthCheck.find_by(:load_balancer_id => load_balancer_id)
+    expect(load_balancer_health_check).to have_attributes(
+      :protocol => "http",
+      :url_path => "/",
+      :interval => 5,
+      :timeout  => 2,
+      :type     => "ManageIQ::Providers::IbmCloud::VPC::NetworkManager::LoadBalancerHealthCheck"
     )
   end
 

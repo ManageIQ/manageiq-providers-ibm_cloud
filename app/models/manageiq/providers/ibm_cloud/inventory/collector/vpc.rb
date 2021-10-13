@@ -70,6 +70,24 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
     vpc.collection(:list_floating_ips)
   end
 
+  def load_balancers
+    vpc.request(:list_load_balancers)[:load_balancers]
+  end
+
+  def load_balancer_listeners(load_balancer_id)
+    vpc.request(:list_load_balancer_listeners, :load_balancer_id => load_balancer_id)[:listeners]
+  end
+
+  def load_balancer_pools(load_balancer_id)
+    vpc.request(:list_load_balancer_pools, :load_balancer_id => load_balancer_id)[:pools]
+  end
+
+  def load_balancer_pool_members(load_balancer_id, pool_id)
+    vpc.request(:list_load_balancer_pool_members,
+                :load_balancer_id => load_balancer_id,
+                :pool_id          => pool_id)[:members]
+  end
+
   def volumes
     vpc.collection(:list_volumes)
   end

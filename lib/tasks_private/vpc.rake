@@ -22,7 +22,7 @@ namespace :vcr do
     token = IBMCloudSdkCore::IAMTokenManager.new(:apikey => apikey).access_token
     auth = IBMCloudSdkCore::BearerTokenAuthenticator.new(:bearer_token => token)
 
-    connection = IbmVpc::VpcV1.new(:authenticator => auth)
+    connection = IbmVpc::VpcV1.new(:authenticator => auth, :service_url => "https://ca-tor.iaas.cloud.ibm.com/v1")
     resource_controller = IbmCloudResourceController::ResourceControllerV2.new(:authenticator => auth)
 
     # Create resources
@@ -30,7 +30,7 @@ namespace :vcr do
       default_resource_group_id = `ibmcloud resource group default --id | tr -d '\n'`
       cloud_db_id = resource_controller.create_resource_instance(
         :name             => 'rake-db',
-        :target           => 'bluemix-us-south',
+        :target           => 'bluemix-ca-tor',
         :resource_group   => default_resource_group_id,
         :resource_plan_id => 'databases-for-postgresql-standard'
       ).result['id']
@@ -52,9 +52,9 @@ namespace :vcr do
       },
       :name            => 'rake-subnet',
       :zone            => {
-        :name => 'us-south-1'
+        :name => 'ca-tor-1'
       },
-      :ipv4_cidr_block => '10.240.0.0/24'
+      :ipv4_cidr_block => '10.249.1.0/24'
     }
     subnet_id = connection.create_subnet(:subnet_prototype => subnet_prototype).result['id']
     volume_prototype = {
@@ -62,7 +62,7 @@ namespace :vcr do
         :name => '5iops-tier'
       },
       :zone     => {
-        :name => 'us-south-1'
+        :name => 'ca-tor-1'
       },
       :name     => 'rake-vol',
       :capacity => 10
@@ -88,7 +88,7 @@ namespace :vcr do
       },
       :name                      => 'rake-instance',
       :zone                      => {
-        :name => 'us-south-1'
+        :name => 'ca-tor-1'
       },
       :vpc                       => {
         :id => network_id
@@ -97,7 +97,7 @@ namespace :vcr do
         :name => "bx2-2x8"
       },
       :image                     => {
-        :id => 'r006-5e390f7b-0469-4ac1-b589-2fea307c1c5a'
+        :id => 'r038-ea70cf5b-93f0-4871-a31e-f0030484149e'
       },
       :keys                      => [
         {
@@ -130,6 +130,45 @@ namespace :vcr do
       status = connection.get_floating_ip(:id => floating_ip_id).result['status']
     end
 
+    load_balancer_listener_prototype = {
+      :protocol => "http",
+      :port     => 8080,
+      :port_min => 8080,
+      :port_max => 8080
+    }
+    load_balancer_health_monitor_prototype = {
+      :delay       => 5,
+      :max_retries => 2,
+      :timeout     => 2,
+      :type        => "http",
+      :url_path    => "/"
+    }
+    network_interface_addr = connection.get_instance_network_interface(:instance_id => instance_id, :id => network_interface_id).result["primary_ipv4_address"]
+    load_balancer_pool_member_prototype = {
+      :port   => 80,
+      :target => {:address => network_interface_addr}
+    }
+    load_balancer_pool_prototype = {
+      :algorithm      => "round_robin",
+      :health_monitor => load_balancer_health_monitor_prototype,
+      :protocol       => "http",
+      :members        => [load_balancer_pool_member_prototype],
+      :name           => "rake-pool"
+    }
+    load_balancer_prototype = {
+      :is_public => true,
+      :subnets   => [{:id => subnet_id}],
+      :listeners => [load_balancer_listener_prototype],
+      :name      => "rake-balancer",
+      :pools     => [load_balancer_pool_prototype]
+    }
+    load_balancer_id = connection.create_load_balancer(load_balancer_prototype).result["id"]
+    status = connection.get_load_balancer(:id => load_balancer_id).result['provisioning_status']
+    until status == 'active'
+      sleep(10)
+      status = connection.get_load_balancer(:id => load_balancer_id).result['provisioning_status']
+    end
+
     # Generate VCRs
     spec_file = spec_dir.join("vpc/cloud_manager/refresher_spec.rb")
     `bundle exec rspec #{spec_file} --tag full_refresh`
@@ -144,6 +183,13 @@ namespace :vcr do
     # Cleanup resources
   ensure
     resource_controller.delete_resource_instance(:id => cloud_db_id) unless cloud_db_id.nil?
+    connection.delete_load_balancer(:id => load_balancer_id) unless load_balancer_id.nil?
+    20.times do
+      connection.get_load_balancer(:id => load_balancer_id)
+      sleep(10)
+    rescue IBMCloudSdkCore::ApiException
+      break
+    end
     connection.delete_floating_ip(:id => floating_ip_id) unless floating_ip_id.nil?
     20.times do
       connection.get_floating_ip(:id => floating_ip_id)
@@ -154,14 +200,14 @@ namespace :vcr do
     connection.delete_volume(:id => volume_id) unless volume_id.nil?
     connection.delete_instance(:id => instance_id) unless instance_id.nil?
     connection.delete_instance(:id => target_instance_id) unless target_instance_id.nil?
-    20.times do
+    30.times do
       connection.get_instance(:id => instance_id)
       sleep(10)
     rescue IBMCloudSdkCore::ApiException
       break
     end
 
-    20.times do
+    30.times do
       connection.get_instance(:id => target_instance_id)
       sleep(10)
     rescue IBMCloudSdkCore::ApiException
