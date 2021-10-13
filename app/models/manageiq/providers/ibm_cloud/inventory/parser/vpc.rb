@@ -10,6 +10,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     cloud_database_flavors
     cloud_networks
     cloud_subnets
+    load_balancers
     security_groups
     availability_zones
     auth_key_pairs
@@ -310,6 +311,64 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     return nil if match.nil?
 
     match[:inst_id]
+  end
+
+  def load_balancers
+    collector.load_balancers.each do |lb|
+      persister_lb = persister.load_balancers.build(
+        :name    => lb[:name],
+        :ems_ref => lb[:id]
+      )
+      load_balancer_listeners(persister_lb, lb[:id])
+      load_balancer_pools(persister_lb, lb[:id])
+    end
+  end
+
+  def load_balancer_listeners(persister_lb, load_balancer_id)
+    collector.load_balancer_listeners(load_balancer_id).each do |listener|
+      persister.load_balancer_listeners.build(
+        :ems_ref                  => listener[:id],
+        :load_balancer_protocol   => listener[:protocol],
+        :instance_protocol        => listener[:protocol],
+        :load_balancer_port_range => listener[:port_min]..listener[:port_max],
+        :load_balancer            => persister_lb
+      )
+    end
+  end
+
+  def load_balancer_pools(persister_lb, load_balancer_id)
+    collector.load_balancer_pools(load_balancer_id).each do |pool|
+      persister.load_balancer_pools.build(
+        :ems_ref                 => pool[:id],
+        :name                    => pool[:name],
+        :load_balancer_algorithm => pool[:algorithm],
+        :protocol                => pool[:protocol]
+      )
+      load_balancer_pool_members(load_balancer_id, pool[:id])
+      load_balancer_health_checks(persister_lb, pool)
+    end
+  end
+
+  def load_balancer_pool_members(load_balancer_id, pool_id)
+    collector.load_balancer_pool_members(load_balancer_id, pool_id).each do |member|
+      persister.load_balancer_pool_members.build(
+        :ems_ref => member[:id],
+        :address => member&.dig(:target, :address),
+        :port    => member[:port]
+      )
+    end
+  end
+
+  def load_balancer_health_checks(persister_lb, pool)
+    persister.load_balancer_health_checks.build(
+      :ems_ref       => pool[:id],
+      :protocol      => pool&.dig(:health_monitor, :type),
+      :port          => pool&.dig(:health_monitor, :port),
+      :url_path      => pool&.dig(:health_monitor, :url_path),
+      :interval      => pool&.dig(:health_monitor, :delay),
+      :timeout       => pool&.dig(:health_monitor, :timeout),
+      :load_balancer => persister_lb
+    )
   end
 
   def volumes
