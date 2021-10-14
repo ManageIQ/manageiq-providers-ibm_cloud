@@ -95,6 +95,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
       rescue IbmCloudPower::ApiError => e
         retr = context[:retry].to_i
         raise "unable to get task status after #{max_retries} tries, see server logs" if retr >= max_retries
+
         context[:retry] = retr + 1
 
         error_dsc = trunc_err_msg(try_extract_api_error(e))
@@ -106,19 +107,19 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
       end
 
       case response.status
-        when 'capturing', 'downloading', 'creating', 'deleting', 'compressing', 'loading', 'started', 'uploading'
-          context[:retry] = 0
-          message = "importing image into PVS, current state is: '#{response.status}'"
-          signal = :post_execute_poll
-          status = 'ok'
-        when 'completed'
-          message = 'importing image into image registry has completed'
-          signal = :finish
-          status = 'ok'
-        when 'failed'
-          raise "importing into image registry failed: '#{trunc_err_msg(response.status)}'"
-        else
-          raise "incompatible API, unexpected status: '#{response.status}'"
+      when 'capturing', 'downloading', 'creating', 'deleting', 'compressing', 'loading', 'started', 'uploading'
+        context[:retry] = 0
+        message = "importing image into PVS, current state is: '#{response.status}'"
+        signal = :post_execute_poll
+        status = 'ok'
+      when 'completed'
+        message = 'importing image into image registry has completed'
+        signal = :finish
+        status = 'ok'
+      when 'failed'
+        raise "importing into image registry failed: '#{trunc_err_msg(response.status)}'"
+      else
+        raise "incompatible API, unexpected status: '#{response.status}'"
       end
     rescue => e
       signal = :abort
