@@ -30,7 +30,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
 
   has_many :ssh_auths,
            :foreign_key => :resource_id,
-           :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow::SshAnsibleAuth",
+           :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow::SshPkeyAuth",
            :autosave    => true,
            :dependent   => :destroy
 
