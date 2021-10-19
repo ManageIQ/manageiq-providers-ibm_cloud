@@ -54,21 +54,25 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
   def self.raw_import_image(ext_management_system, options = {})
     session_id = SecureRandom.uuid
 
-    location, user, password, rcfile = node_creds(options['src_provider_id'])
-    hosts = ["[powervc]\n#{location}\n[powervc:vars]\nansible_connection=ssh\nansible_user=#{user}\nansible_ssh_pass=#{password}"]
-
+    location, node_auth, rcfile = node_creds(options['src_provider_id'])
     guid, apikey, region, endpoint, access_key, secret_key = cos_creds(options['obj_storage_id'])
-
     bucket = bucket_name(options['bucket_id'])
-
     diskType = CloudVolumeType.find(options['disk_type_id']).name
 
     cos_ans_creds = {:resource_instance_id => guid, :apikey => apikey, :bucket_name => bucket, :url_endpoint => endpoint}
     cos_pvs_creds = {:region => region, :bucketName => bucket, :accessKey => access_key, :secretKey => secret_key}
-
     encr_cos_creds, encr_cos_key, encr_cos_iv = encrypt_with_aes(cos_ans_creds)
+
+    host = "[powervc]\n#{location}\n[powervc:vars]\nansible_connection=ssh\nansible_user=#{node_auth.userid}"
+
+    if node_auth.options == 'pkey'
+      ssh_creds = set_ssh_pkey_auth(options['dst_provider_id'], node_auth.auth_key, node_auth.auth_key_password)
+    else
+      host = "#{host}\nansible_ssh_pass=#{node_auth.password}"
+    end
+
     import_creds = set_import_auth(options['dst_provider_id'], encr_cos_key, encr_cos_iv, encr_cos_creds)
-    credentials = [import_creds]
+    credentials  = [import_creds, ssh_creds].compact
 
     extra_vars = {
       :session_id  => session_id,
@@ -88,11 +92,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
       :miq_img         => miq_img_by_ids(options['src_provider_id'], options['src_image_id']),
       :cos_pvs_creds   => cos_pvs_creds,
       :import_creds_id => import_creds,
+      :ssh_creds_id    => ssh_creds,
       :playbook_path   => ManageIQ::Providers::IbmCloud::Engine.root.join("content/ansible_runner/run.yml"),
     }
 
     _log.info("execute image import playbook")
-    ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow.create_job({}, extra_vars, workflow_opts, hosts, credentials, :poll_interval => 5.seconds)
+    ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow.create_job({}, extra_vars, workflow_opts, [host], credentials, :poll_interval => 5.seconds)
   end
 
   def validate_delete_image
@@ -102,6 +107,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
   private_class_method def self.set_import_auth(dst_provider_id, key, iv, encr_cos_creds)
     powervs = ExtManagementSystem.find(dst_provider_id)
     powervs.create_import_auth(key, iv, encr_cos_creds)
+  end
+
+  private_class_method def self.set_ssh_pkey_auth(dst_provider_id, pkey, unlock)
+    powervs = ExtManagementSystem.find(dst_provider_id)
+    powervs.create_ssh_pkey_auth(pkey, unlock)
   end
 
   private_class_method def self.encrypt_with_aes(creds)
@@ -131,7 +141,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     def_endp = powervc.endpoint(:default)
     auth = powervc.node_auth
 
-    return def_endp.hostname, auth.userid, auth.password, node_endp.options
+    return def_endp.hostname, auth, node_endp.options
   end
 
   private_class_method def self.image_ems_ref(bucket_id)
