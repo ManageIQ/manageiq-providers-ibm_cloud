@@ -27,6 +27,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
         assert_specific_cloud_volume_type
         assert_specific_cloud_subnet
         assert_specific_floating_ip
+        assert_specific_network_acl_rule
         assert_specific_load_balancer
         assert_specific_load_balancer_pool
         assert_specific_cloud_database
@@ -244,6 +245,17 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
       :interval => 5,
       :timeout  => 2,
       :type     => "ManageIQ::Providers::IbmCloud::VPC::NetworkManager::LoadBalancerHealthCheck"
+    )
+  end
+
+  def assert_specific_network_acl_rule
+    network_acl_rule = ems.network_manager.cloud_network_firewall_rules.find_by(:name => "rake-network-rake-acl-rake-acl-rule")
+    expect(network_acl_rule).to have_attributes(
+      :name             => "rake-network-rake-acl-rake-acl-rule",
+      :host_protocol    => "all",
+      :direction        => "inbound",
+      :source_ip_range  => "127.0.0.0/0",
+      :network_protocol => "allow"
     )
   end
 

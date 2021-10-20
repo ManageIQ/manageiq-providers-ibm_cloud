@@ -56,6 +56,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
       end
   end
 
+  def network_acls
+    []
+  end
+
   def cloud_subnets
     @cloud_subnets ||=
       references(:cloud_subnets).map do |ems_ref|
