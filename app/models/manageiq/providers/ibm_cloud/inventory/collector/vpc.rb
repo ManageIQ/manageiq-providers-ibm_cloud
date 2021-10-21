@@ -54,6 +54,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
     vpc.collection(:list_security_groups)
   end
 
+  def network_acls
+    vpc.collection(:list_network_acls)
+  end
+
   def cloud_database_flavors
     ManageIQ::Providers::IbmCloud::DatabaseTypes.all
   end

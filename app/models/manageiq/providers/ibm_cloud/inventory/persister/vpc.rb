@@ -36,6 +36,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
   def initialize_network_inventory_collections
     add_network_collection(:security_groups)
     add_network_collection(:cloud_networks)
+    add_network_collection(:firewall_rules)
+    add_cloud_network_firewall_rules
     add_network_collection(:cloud_subnets)
     add_network_collection(:floating_ips)
     add_network_collection(:load_balancers)
@@ -55,6 +57,16 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
   def add_cloud_database_flavors(extra_properties = {})
     add_collection(cloud, :cloud_database_flavors, extra_properties) do |builder|
       builder.add_properties(:strategy => :local_db_find_references) if targeted?
+    end
+  end
+
+  def add_cloud_network_firewall_rules
+    add_network_collection(:cloud_network_firewall_rules) do |builder|
+      builder.add_properties(
+        :parent_inventory_collections => %i(cloud_networks),
+        :manager_ref_allowed_nil      => %i(source_security_group port end_port),
+        :model_class                  => FirewallRule
+      )
     end
   end
 end

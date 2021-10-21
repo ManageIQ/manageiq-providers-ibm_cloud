@@ -169,6 +169,21 @@ namespace :vcr do
       status = connection.get_load_balancer(:id => load_balancer_id).result['provisioning_status']
     end
 
+    network_acl_rule_prototype = {
+      :name        => "rake-acl-rule",
+      :action      => "allow",
+      :source      => "0.0.0.0/0",
+      :destination => "0.0.0.0/0",
+      :direction   => "inbound",
+      :protocol    => "all"
+    }
+    network_acl_prototype = {
+      :vpc   => {:id => network_id},
+      :name  => "rake-acl",
+      :rules => [network_acl_rule_prototype]
+    }
+    network_acl_id = connection.create_network_acl(:network_acl_prototype => network_acl_prototype).result["id"]
+
     # Generate VCRs
     spec_file = spec_dir.join("vpc/cloud_manager/refresher_spec.rb")
     `bundle exec rspec #{spec_file} --tag full_refresh`
@@ -221,6 +236,8 @@ namespace :vcr do
     rescue IBMCloudSdkCore::ApiException
       break
     end
+
+    connection.delete_network_acl(:id => network_acl_id) unless network_acl_id.nil?
     connection.delete_key(:id => auth_key_id) unless auth_key_id.nil?
     connection.delete_vpc(:id => network_id) unless network_id.nil?
   end

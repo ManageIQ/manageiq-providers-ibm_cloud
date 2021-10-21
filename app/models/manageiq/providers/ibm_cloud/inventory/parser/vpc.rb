@@ -12,6 +12,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     cloud_subnets
     load_balancers
     security_groups
+    network_acls
     availability_zones
     auth_key_pairs
     flavors
@@ -218,7 +219,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
 
   def security_groups
     collector.security_groups.each do |sg|
-      persister.security_groups.build(
+      persister_security_group = persister.security_groups.build(
         :cloud_network => persister.cloud_networks.lazy_find(sg&.dig(:vpc, :id)),
         :ems_ref       => sg[:id],
         :name          => sg[:name],
@@ -226,6 +227,39 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
           persister.network_ports.lazy_find(nic[:id])
         end
       )
+
+      sg[:rules].each do |sg_rule|
+        persister.firewall_rules.build(
+          :name                  => "#{sg[:name]}-#{sg_rule[:protocol]}-#{sg_rule[:direction]}",
+          :ems_ref               => sg_rule[:id],
+          :host_protocol         => sg_rule[:protocol],
+          :direction             => sg_rule[:direction],
+          :source_ip_range       => sg_rule&.dig(:remote, :cidr_block),
+          :resource              => persister_security_group,
+          :port                  => sg_rule[:port_min],
+          :end_port              => sg_rule[:port_max],
+          :source_security_group => persister_security_group
+        )
+      end
+    end
+  end
+
+  def network_acls
+    collector.network_acls.each do |acl|
+      acl[:rules].each do |acl_rule|
+        persister.cloud_network_firewall_rules.build(
+          :name                  => "#{acl&.dig(:vpc, :name)}-#{acl[:name]}-#{acl_rule[:name]}",
+          :ems_ref               => acl_rule[:id],
+          :host_protocol         => acl_rule[:protocol],
+          :direction             => acl_rule[:direction],
+          :source_ip_range       => acl_rule[:source],
+          :network_protocol      => acl_rule[:action],
+          :port                  => nil,
+          :end_port              => nil,
+          :source_security_group => nil,
+          :resource              => persister.cloud_networks.lazy_find(acl&.dig(:vpc, :id))
+        )
+      end
     end
   end
 
@@ -277,6 +311,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :name              => cs[:name],
         :status            => "active",
         :ip_version        => cs[:ip_version],
+        :gateway           => cs&.dig(:public_gateway, :name),
         :network_protocol  => cs[:ip_version]
       )
     end
