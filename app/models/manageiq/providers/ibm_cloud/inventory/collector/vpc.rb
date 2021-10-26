@@ -70,6 +70,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
     vpc.collection(:list_subnets)
   end
 
+  def vpn_gateways
+    vpc.collection(:list_vpn_gateways)
+  end
+
+  def vpn_gateway_connections(vpn_id)
+    vpc.request(:list_vpn_gateway_connections, :vpn_gateway_id => vpn_id)[:connections]
+  end
+
   def floating_ips
     vpc.collection(:list_floating_ips)
   end

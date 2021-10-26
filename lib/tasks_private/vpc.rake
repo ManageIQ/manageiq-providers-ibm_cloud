@@ -184,6 +184,25 @@ namespace :vcr do
     }
     network_acl_id = connection.create_network_acl(:network_acl_prototype => network_acl_prototype).result["id"]
 
+    vpn_gateway_prototype = {
+      :subnet => {:id => subnet_id},
+      :name   => "rake-gateway"
+    }
+    vpn_gateway_id = connection.create_vpn_gateway(:vpn_gateway_prototype => vpn_gateway_prototype).result["id"]
+    status = connection.get_vpn_gateway(:id => vpn_gateway_id).result['status']
+    until status == 'available'
+      sleep(10)
+      status = connection.get_vpn_gateway(:id => vpn_gateway_id).result['status']
+    end
+
+    vpn_connection_prototype = {
+      :name         => "rake-connection",
+      :peer_address => "169.21.50.5",
+      :psk          => "abc123"
+    }
+    connection.create_vpn_gateway_connection(:vpn_gateway_id                   => vpn_gateway_id,
+                                             :vpn_gateway_connection_prototype => vpn_connection_prototype)
+
     # Generate VCRs
     spec_file = spec_dir.join("vpc/cloud_manager/refresher_spec.rb")
     `bundle exec rspec #{spec_file} --tag full_refresh`
@@ -224,6 +243,14 @@ namespace :vcr do
 
     30.times do
       connection.get_instance(:id => target_instance_id)
+      sleep(10)
+    rescue IBMCloudSdkCore::ApiException
+      break
+    end
+
+    connection.delete_vpn_gateway(:id => vpn_gateway_id) unless vpn_gateway_id.nil?
+    30.times do
+      connection.get_vpn_gateway(:id => vpn_gateway_id)
       sleep(10)
     rescue IBMCloudSdkCore::ApiException
       break

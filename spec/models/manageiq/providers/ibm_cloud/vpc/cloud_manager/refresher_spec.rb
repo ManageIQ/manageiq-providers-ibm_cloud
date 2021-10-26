@@ -33,6 +33,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
         assert_specific_cloud_database
         assert_specific_cloud_database_flavor
         assert_specific_vm
+        assert_specific_vpn_gateway
       end
     end
   end
@@ -256,6 +257,15 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
       :direction        => "inbound",
       :source_ip_range  => "127.0.0.0/0",
       :network_protocol => "allow"
+    )
+  end
+
+  def assert_specific_vpn_gateway
+    network_router = ManageIQ::Providers::IbmCloud::VPC::NetworkManager::NetworkRouter.find_by(:name => "vpn-rake-gateway-rake-connection")
+    expect(network_router).to have_attributes(
+      :name           => "vpn-rake-gateway-rake-connection",
+      :admin_state_up => true,
+      :type           => "ManageIQ::Providers::IbmCloud::VPC::NetworkManager::NetworkRouter"
     )
   end
 

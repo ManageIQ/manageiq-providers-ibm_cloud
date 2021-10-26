@@ -45,6 +45,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
     add_network_collection(:load_balancer_pools)
     add_network_collection(:load_balancer_pool_members)
     add_network_collection(:load_balancer_health_checks)
+    add_network_collection(:network_routers)
     add_network_collection(:network_ports)
     add_network_collection(:cloud_subnet_network_ports)
   end

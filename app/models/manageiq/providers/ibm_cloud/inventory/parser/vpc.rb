@@ -10,6 +10,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
     cloud_database_flavors
     cloud_networks
     cloud_subnets
+    vpn_gateways
     load_balancers
     security_groups
     network_acls
@@ -314,6 +315,24 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :gateway           => cs&.dig(:public_gateway, :name),
         :network_protocol  => cs[:ip_version]
       )
+    end
+  end
+
+  def vpn_gateways
+    collector.vpn_gateways.each do |vpn|
+      collector.vpn_gateway_connections(vpn[:id]).each do |conn|
+        persister.network_routers.build(
+          :name             => "vpn-#{vpn[:name]}-#{conn[:name]}",
+          :ems_ref          => conn[:id],
+          :admin_state_up   => conn[:admin_state_up],
+          :status           => conn[:status],
+          :extra_attributes => {
+            :cloud_subnet_id => vpn&.dig(:subnet, :id),
+            :peer_address    => conn[:peer_address],
+            :gateway_members => vpn[:members]
+          }
+        )
+      end
     end
   end
 
