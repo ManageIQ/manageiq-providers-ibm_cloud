@@ -67,6 +67,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
       end
   end
 
+  def vpn_gateways
+    []
+  end
+
   def floating_ips
     @floating_ips ||=
       references(:floating_ips).map do |ems_ref|

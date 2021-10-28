@@ -3,6 +3,15 @@ namespace :vcr do
   require 'ibm_cloud_resource_controller'
   require 'ibm_vpc'
 
+  def with_retry(retry_count: 30, retry_sleep: 10)
+    retry_count.times do
+      yield
+      sleep(retry_sleep)
+    rescue IBMCloudSdkCore::ApiException
+      break
+    end
+  end
+
   base_dir = ManageIQ::Providers::IbmCloud::Engine.root.join("spec")
   cass_dir = base_dir.join("vcr_cassettes/manageiq/providers/ibm_cloud")
   spec_dir = base_dir.join("models/manageiq/providers/ibm_cloud")
@@ -184,6 +193,25 @@ namespace :vcr do
     }
     network_acl_id = connection.create_network_acl(:network_acl_prototype => network_acl_prototype).result["id"]
 
+    vpn_gateway_prototype = {
+      :subnet => {:id => subnet_id},
+      :name   => "rake-gateway"
+    }
+    vpn_gateway_id = connection.create_vpn_gateway(:vpn_gateway_prototype => vpn_gateway_prototype).result["id"]
+    status = connection.get_vpn_gateway(:id => vpn_gateway_id).result['status']
+    until status == 'available'
+      sleep(10)
+      status = connection.get_vpn_gateway(:id => vpn_gateway_id).result['status']
+    end
+
+    vpn_connection_prototype = {
+      :name         => "rake-connection",
+      :peer_address => "169.21.50.5",
+      :psk          => "abc123"
+    }
+    connection.create_vpn_gateway_connection(:vpn_gateway_id                   => vpn_gateway_id,
+                                             :vpn_gateway_connection_prototype => vpn_connection_prototype)
+
     # Generate VCRs
     spec_file = spec_dir.join("vpc/cloud_manager/refresher_spec.rb")
     `bundle exec rspec #{spec_file} --tag full_refresh`
@@ -199,43 +227,22 @@ namespace :vcr do
   ensure
     resource_controller.delete_resource_instance(:id => cloud_db_id) unless cloud_db_id.nil?
     connection.delete_load_balancer(:id => load_balancer_id) unless load_balancer_id.nil?
-    20.times do
-      connection.get_load_balancer(:id => load_balancer_id)
-      sleep(10)
-    rescue IBMCloudSdkCore::ApiException
-      break
-    end
+    with_retry { connection.get_load_balancer(:id => load_balancer_id) }
+
     connection.delete_floating_ip(:id => floating_ip_id) unless floating_ip_id.nil?
-    20.times do
-      connection.get_floating_ip(:id => floating_ip_id)
-      sleep(10)
-    rescue IBMCloudSdkCore::ApiException
-      break
-    end
+    with_retry { connection.get_floating_ip(:id => floating_ip_id) }
+
     connection.delete_volume(:id => volume_id) unless volume_id.nil?
     connection.delete_instance(:id => instance_id) unless instance_id.nil?
     connection.delete_instance(:id => target_instance_id) unless target_instance_id.nil?
-    30.times do
-      connection.get_instance(:id => instance_id)
-      sleep(10)
-    rescue IBMCloudSdkCore::ApiException
-      break
-    end
+    with_retry { connection.get_instance(:id => instance_id) }
+    with_retry { connection.get_instance(:id => target_instance_id) }
 
-    30.times do
-      connection.get_instance(:id => target_instance_id)
-      sleep(10)
-    rescue IBMCloudSdkCore::ApiException
-      break
-    end
+    connection.delete_vpn_gateway(:id => vpn_gateway_id) unless vpn_gateway_id.nil?
+    with_retry { connection.get_vpn_gateway(:id => vpn_gateway_id) }
 
     connection.delete_subnet(:id => subnet_id) unless subnet_id.nil?
-    20.times do
-      connection.get_subnet(:id => subnet_id)
-      sleep(10)
-    rescue IBMCloudSdkCore::ApiException
-      break
-    end
+    with_retry { connection.get_subnet(:id => subnet_id) }
 
     connection.delete_network_acl(:id => network_acl_id) unless network_acl_id.nil?
     connection.delete_key(:id => auth_key_id) unless auth_key_id.nil?
