@@ -73,6 +73,8 @@
       :event_catcher_ibm_cloud_iks:
         :poll: 15.seconds
     :queue_worker_base:
+      :ems_metrics_collector_worker:
+        :ems_metrics_collector_worker_vpc: {}
       :ems_refresh_worker:
         :ems_refresh_worker_ibm_cloud_power_virtual_servers: {}
         :ems_refresh_worker_ibm_cloud_vpc: {}

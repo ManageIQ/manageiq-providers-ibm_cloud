@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "ibm_cloud_databases", "~> 0.1"
   spec.add_dependency "ibm_cloud_global_tagging", "~> 0.1"
   spec.add_dependency "ibm_vpc", "~> 0.1"
+  spec.add_dependency "rest-client", "~> 2.1"
 
   spec.add_development_dependency "manageiq-style"
   spec.add_development_dependency "simplecov"
