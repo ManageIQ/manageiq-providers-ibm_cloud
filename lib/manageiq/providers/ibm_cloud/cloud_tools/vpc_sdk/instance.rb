@@ -72,6 +72,15 @@ module ManageIQ
               @parent.request(:delete_instance, :id => id)
             end
 
+            def resize(instance, new_flavor_name)
+              @parent.request(:update_instance,
+                              :id             => instance[:id],
+                              :instance_patch => {
+                                :name    => instance[:name],
+                                :profile => {:name => new_flavor_name}
+                              })
+            end
+
             # Wait for the VM instance to be have a started status.
             # @param sleep_time [Integer] The time to sleep between refreshes.
             # @param timeout [Integer] The number of seconds before raising an error.

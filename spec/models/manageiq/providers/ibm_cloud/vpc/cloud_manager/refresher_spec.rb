@@ -103,7 +103,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
     expect(flavor).to have_attributes(
       :name            => 'bx2-2x8',
       :cpu_total_cores => 2,
-      :memory          => 8_192,
+      :memory          => 8_589_934_592,
       :ems_ref         => 'bx2-2x8',
       :type            => 'ManageIQ::Providers::IbmCloud::VPC::CloudManager::Flavor',
       :enabled         => true
