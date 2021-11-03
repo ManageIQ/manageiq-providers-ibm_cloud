@@ -182,12 +182,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   def flavors
     collector.flavors.each do |flavor|
       memory = flavor&.dig(:memory, :value)
-      memory_mb = Integer(memory) * 1024 if memory
+      disk = flavor[:disks].first&.dig(:size, :value) || 0
       persister.flavors.build(
         :ems_ref         => flavor[:name],
         :name            => flavor[:name],
         :cpu_total_cores => flavor&.dig(:vcpu_count, :value),
-        :memory          => memory_mb,
+        :memory          => memory&.gigabytes,
+        :root_disk_size  => disk&.gigabytes,
         :enabled         => true
       )
     end

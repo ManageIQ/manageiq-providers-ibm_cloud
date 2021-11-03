@@ -108,6 +108,19 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     update!(:raw_power_state => "stopping")
   end
 
+  supports :resize do
+    unsupported_reason_add(:resize, _('The VM is not powered off')) unless current_state == "off"
+  end
+
+  def raw_resize(new_flavor)
+    with_provider_object do |instance|
+      instance.resize(instance, new_flavor.name)
+    rescue IBMCloudSdkCore::ApiException => e
+      Notification.create(:type => :vm_resize_error, :options => {:subject => instance[:name], :error => e.error})
+      raise MiqException::MiqProvisionError, e.to_s
+    end
+  end
+
   private
 
   # Update the saved status based on the SDK returned status.
