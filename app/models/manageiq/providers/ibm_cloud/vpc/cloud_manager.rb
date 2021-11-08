@@ -13,6 +13,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   require_nested :Template
   require_nested :Vm
 
+  supports :catalog
   supports :provisioning
   supports :storage_manager
 
@@ -96,5 +97,9 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
 
   def self.label_mapping_prefix
     "ibm"
+  end
+
+  def self.catalog_types
+    {"ibm_cloud_vpc" => N_("IBM VPC")}
   end
 end
