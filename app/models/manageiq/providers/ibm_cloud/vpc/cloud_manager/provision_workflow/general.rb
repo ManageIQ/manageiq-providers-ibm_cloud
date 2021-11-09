@@ -6,7 +6,10 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
   # @param _options [void]
   # @return [Hash] Hash with ems_ref as key and name as value.
   def provision_type_to_profile(_options = {})
-    @provision_type_to_profile ||= index_dropdown(ar_ems.flavors)
+    @provision_type_to_profile ||= begin
+      flavors = resources_for_ui[:ems] ? ar_ems.flavors : ManageIQ::Providers::IbmCloud::VPC::CloudManager::Flavor.all
+      index_dropdown(flavors)
+    end
   rescue => e
     logger(__method__).ui_exception(e)
   end
@@ -32,7 +35,10 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
   # @param _options [void]
   # @return [Array<Hash<String: String>>] An array of hashes with ems_ref as key and name as value.
   def guest_access_key_pairs_to_keys(_options = {})
-    @guest_access_key_pairs_to_keys ||= string_dropdown(ar_ems.key_pairs)
+    @guest_access_key_pairs_to_keys ||= begin
+      key_pairs = resources_for_ui[:ems] ? ar_ems.key_pairs : ManageIQ::Providers::IbmCloud::VPC::CloudManager::AuthKeyPair.all
+      string_dropdown(key_pairs)
+    end
   rescue => e
     logger(__method__).ui_exception(e)
   end
@@ -41,7 +47,10 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
   # @param _options [void]
   # @return [Array<Hash<String: String>>] An array of hashes containing the resource group id and name.
   def resource_groups_to_resource_groups(_options = {})
-    @resource_groups_to_resource_groups ||= string_dropdown(ar_ems.resource_groups)
+    @resource_groups_to_resource_groups ||= begin
+      resource_groups = resources_for_ui[:ems] ? ar_ems.resource_groups : ManageIQ::Providers::IbmCloud::VPC::CloudManager::ResourceGroup.all
+      string_dropdown(resource_groups)
+    end
   rescue => e
     logger(__method__).ui_exception(e)
   end

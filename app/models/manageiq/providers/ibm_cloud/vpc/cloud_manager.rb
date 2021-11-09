@@ -100,6 +100,6 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   end
 
   def self.catalog_types
-    {"ibm_cloud_vpc" => N_("IBM VPC")}
+    {"IbmCloud::VPC" => N_("IBM VPC")}
   end
 end
