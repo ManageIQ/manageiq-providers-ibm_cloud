@@ -22,6 +22,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
         ems.reload
 
         assert_specific_flavor
+        assert_specific_availability_zone
         assert_specific_security_group
         assert_specific_cloud_volume
         assert_specific_cloud_volume_type
@@ -108,6 +109,12 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
       :type            => 'ManageIQ::Providers::IbmCloud::VPC::CloudManager::Flavor',
       :enabled         => true
     )
+  end
+
+  def assert_specific_availability_zone
+    az = check_resource_fetch(ems, :availability_zones, "ca-tor-1")
+    class_type = 'ManageIQ::Providers::IbmCloud::VPC::CloudManager::AvailabilityZone'
+    check_attribute_values(az, class_type, 'ca-tor-1')
   end
 
   # Test a resource_group record is properly persisted.

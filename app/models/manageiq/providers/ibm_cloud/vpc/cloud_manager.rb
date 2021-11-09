@@ -1,5 +1,6 @@
 class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::CloudManager
   require_nested :AuthKeyPair
+  require_nested :AvailabilityZone
   require_nested :CloudDatabase
   require_nested :CloudDatabaseFlavor
   require_nested :EventCatcher
