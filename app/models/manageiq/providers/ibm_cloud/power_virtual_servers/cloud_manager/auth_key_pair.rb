@@ -1,4 +1,5 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyPair < ManageIQ::Providers::CloudManager::AuthKeyPair
+  supports :create
   supports :delete
 
   def self.raw_create_key_pair(ext_management_system, create_options)
