@@ -18,17 +18,17 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventCat
   def poll
     from_time = Time.now.utc.to_i
 
+    pcloud_events_api = ems.connect(:service => "PCloudEventsApi")
     loop do
-      ems.with_provider_connection(:service => 'PCloudEventsApi') do |api|
-        # Could also use IBM Cloud Activity Tracker like the VPC provider
-        events = api.pcloud_events_getsince(ems.uid_ems, from_time).events
-        from_time = Time.now.utc.to_i
-
-        break if stop_polling
-
-        events.each { |event| yield event.to_hash }
+      begin
+        events = pcloud_events_api.pcloud_events_getsince(@ems.uid_ems, from_time).events
+      # TODO: Only rescue token experation exception
+      rescue Exception => e
+        pcloud_events_api = ems.connect(:service => "PCloudEventsApi")
       end
-
+      from_time = Time.now.utc.to_i
+      events.each { |event| yield event.to_hash }
+      break if stop_polling
       sleep(poll_sleep)
     end
   end
