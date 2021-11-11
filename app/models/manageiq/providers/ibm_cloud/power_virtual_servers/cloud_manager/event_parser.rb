@@ -1,5 +1,6 @@
 module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventParser
   def self.event_to_hash(event, ems_id)
+    ems = ExtManagementSystem.find(ems_id)
     event_hash = {
       :event_type => "#{event[:resource]}.#{event[:action]}",
       :source     => "IBMCloud-PowerVS",
@@ -20,11 +21,9 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
 
   def self.parse_vm_event!(event, event_hash)
     pvm_instance_name = event[:message].split('\'')[1]
-    vm = Vm.find_by(:name => pvm_instance_name)
+    vm = ems.vms.find_by(:name => pvm_instance_name)
     return if vm.nil?
 
-    # The uid_ems/ems_ref should match the attributes that you set in the inventory
-    # parser since they will be used to lookup the VM object by the MiqEventHandler
     event_hash[:vm_uid_ems] = vm.uid_ems
     event_hash[:vm_ems_ref] = vm.ems_ref
     event_hash[:vm_name] = vm.name
