@@ -14,7 +14,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventCat
   end
 
   def queue_event(event)
-    log_prefix = "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventCatcher::Runner"
     _log.info("#{log_prefix} Caught event [#{event[:eventID]}]")
     event_hash = ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventParser.event_to_hash(event, @cfg[:ems_id])
     EmsEvent.add_queue('add', @cfg[:ems_id], event_hash)
