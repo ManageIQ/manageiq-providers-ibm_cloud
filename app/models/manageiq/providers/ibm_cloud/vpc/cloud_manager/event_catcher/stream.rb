@@ -32,9 +32,10 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::EventCatcher::Stream
 
       @from = @to
 
+      events.each { |event| yield event }
+
       break if stop_polling
 
-      events.each { |event| yield event }
       sleep(poll_sleep)
     end
   end
