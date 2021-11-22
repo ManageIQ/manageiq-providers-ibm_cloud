@@ -353,6 +353,12 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
         :name    => resource[:name]
       )
     end
+  rescue IBMCloudSdkCore::ApiException => err
+    # If the IBM Cloud API key used in the provider definition belongs to a service ID,
+    # collecting resource groups will fail as an account_id is required to make the API call
+    raise unless err.message.include?("Error: Can not get resource groups without account id in parameter by service id token")
+
+    nil
   end
 
   # Split tags on the first found colon. If no colons then value is an empty string.
