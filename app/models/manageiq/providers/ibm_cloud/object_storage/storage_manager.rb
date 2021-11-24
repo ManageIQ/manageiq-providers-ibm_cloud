@@ -2,7 +2,9 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
   require_nested :Refresher
   require_nested :RefreshWorker
 
-  supports :ems_storage_new
+  supports :create
+  supports :update
+
   include ManageIQ::Providers::StorageManager::ObjectMixin
 
   def self.params_for_create
@@ -92,10 +94,6 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
 
   def self.hostname_required?
     false
-  end
-
-  def self.supported_for_create?
-    true
   end
 
   def self.ems_type

@@ -9,6 +9,8 @@ class ManageIQ::Providers::IbmCloud::ContainerManager < ManageIQ::Providers::Kub
   require_nested :Refresher
   require_nested :RefreshWorker
 
+  supports :create
+
   def self.ems_type
     @ems_type ||= "iks".freeze
   end
