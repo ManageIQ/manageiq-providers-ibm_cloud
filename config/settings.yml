@@ -9,6 +9,8 @@
           - IBM_CLOUD_POWER_VIRTUAL_SERVERS_instance_power_on
           - IBM_CLOUD_POWER_VIRTUAL_SERVERS_instance_power_off
   :ems_ibm_cloud_vpc:
+    :additional_regions: {}
+    :disabled_regions: []
     :event_handling:
       :event_groups:
         :addition:
