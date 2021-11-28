@@ -1,6 +1,5 @@
 module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventParser
   def self.event_to_hash(event, ems_id)
-    ems = ExtManagementSystem.find(ems_id)
     event_hash = {
       :event_type => "#{event[:resource]}.#{event[:action]}",
       :source     => "IBMCloud-PowerVS",
@@ -22,6 +21,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
 
   def self.parse_vm_event!(event, event_hash)
     pvm_instance_name = event[:message].split('\'')[1]
+    ems = ExtManagementSystem.find(event_hash[:ems_id])
     vm = ems.vms.find_by(:name => pvm_instance_name)
     return if vm.nil?
 
