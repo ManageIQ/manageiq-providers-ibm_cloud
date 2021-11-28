@@ -16,6 +16,7 @@
         :power:
           :critical:
           - pvm-instance.stop
+          - pvm-instance.start
   :ems_ibm_cloud_vpc:
     :additional_regions: {}
     :disabled_regions: []
