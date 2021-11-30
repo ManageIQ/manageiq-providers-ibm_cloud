@@ -6,19 +6,22 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventTar
   end
 
   def parse
-    target_collection = InventoryRefresh::TargetCollection.new(
-      :manager => ems_event.ext_management_system,
-      :event   => ems_event
-    )
+    targets = []
 
     case ems_event[:event_type]
+    when /^pvm-instance\.create/
+      targets << ems_event.ext_management_system
+    when /^pvm-instance\.update/
+      targets << ems_event.ext_management_system
     when /^pvm-instance/
-      target_collection.add_target(
+      targets << InventoryRefresh::Target.new(
         :association => :vms,
-        :manager_ref => {:ems_ref => ems_event[:vm_ems_ref]}
+        :manager_ref => {:ems_ref => ems_event[:vm_ems_ref]},
+        :manager_id  => ems_event.ext_management_system.id,
+        :event_id    => ems_event.id
       )
     end
 
-    target_collection.targets
+    targets
   end
 end
