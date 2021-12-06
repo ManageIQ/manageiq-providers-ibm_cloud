@@ -4,10 +4,19 @@
       :dal12: us-south.power-iaas.cloud.ibm.com
     :event_handling:
       :event_groups:
+        :addition:
+          :critical:
+          - pvm-instance.create
+        :update:
+          :critical:
+          - pvm-instance.update
+        :deletion:
+          :critical:
+          - pvm-instance.delete
         :power:
           :critical:
-          - IBM_CLOUD_POWER_VIRTUAL_SERVERS_instance_power_on
-          - IBM_CLOUD_POWER_VIRTUAL_SERVERS_instance_power_off
+          - pvm-instance.stop
+          - pvm-instance.start
   :ems_ibm_cloud_vpc:
     :additional_regions: {}
     :disabled_regions: []
@@ -69,7 +78,7 @@
   :worker_base:
     :event_catcher:
       :event_catcher_ibm_cloud_power_virtual_servers:
-        :poll: 20.seconds
+        :poll: 30.seconds
       :event_catcher_vpc:
         :poll: 15.seconds
       :event_catcher_ibm_cloud_iks:

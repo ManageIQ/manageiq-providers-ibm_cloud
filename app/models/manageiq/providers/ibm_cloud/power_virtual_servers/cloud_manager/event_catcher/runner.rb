@@ -14,30 +14,14 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventCat
   end
 
   def queue_event(event)
-    _log.info("#{log_prefix} Caught event [#{event[:id]}]")
-    event_hash = event_to_hash(event, @cfg[:ems_id])
+    _log.info("#{log_prefix} Caught event [#{event[:eventID]}]")
+    event_hash = ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventParser.event_to_hash(event, @cfg[:ems_id])
     EmsEvent.add_queue('add', @cfg[:ems_id], event_hash)
   end
 
   private
 
-  def event_to_hash(event, ems_id)
-    {
-      :event_type => "IBM_CLOUD_VIRTUAL_SERVERS#{event[:name]}",
-      :source     => 'IBM_CLOUD_VIRTUAL_SERVERS',
-      :timestamp  => event[:timestamp],
-      :vm_ems_ref => event[:vm_ems_ref],
-      :full_data  => event,
-      :ems_id     => ems_id
-    }
-  end
-
   def event_monitor_handle
-    @event_monitor_handle ||= begin
-      self.class.parent::Stream.new(
-        @ems,
-        :poll_sleep => worker_settings[:poll]
-      )
-    end
+    @event_monitor_handle ||= self.class.parent::Stream.new(@ems)
   end
 end

@@ -1,5 +1,6 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageIQ::Providers::CloudManager
   require_nested :AuthKeyPair
+  require_nested :EventCatcher
   require_nested :Refresher
   require_nested :RefreshWorker
   require_nested :Provision
