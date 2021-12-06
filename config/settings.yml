@@ -78,7 +78,7 @@
   :worker_base:
     :event_catcher:
       :event_catcher_ibm_cloud_power_virtual_servers:
-        :poll: 15.seconds
+        :poll: 30.seconds
       :event_catcher_vpc:
         :poll: 15.seconds
       :event_catcher_ibm_cloud_iks:

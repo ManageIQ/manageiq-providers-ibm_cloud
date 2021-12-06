@@ -4,7 +4,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventCat
   def initialize(ems, options = {})
     @ems = ems
     @stop_polling = false
-    @poll_sleep = options[:poll_sleep] || 20.seconds
+    @poll_sleep = options[:poll_sleep] || 30.seconds
   end
 
   def start
@@ -25,10 +25,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventCat
       events = pcloud_events_api.pcloud_events_getsince(@ems.uid_ems, from_time).events
 
       from_time = Time.now.utc.to_i
-      events.each { |event| yield event.to_hash }
-      break if stop_polling
 
       sleep(poll_sleep)
+
+      events.each { |event| yield event.to_hash }
+      break if stop_polling
     rescue IbmCloudPower::ApiError => e
       raise unless e.code == 403 && retry_connection
 
