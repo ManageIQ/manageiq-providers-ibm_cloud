@@ -134,40 +134,30 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC::TargetCollection
     target.targets.each do |target|
       case target
       when MiqTemplate
-        add_target(:miq_templates, target.ems_ref)
+        add_target!(:miq_templates, target.ems_ref)
       when Vm
-        add_target(:vms, target.ems_ref)
+        add_target!(:vms, target.ems_ref)
       when Flavor
-        add_target(:flavors, target.ems_ref)
+        add_target!(:flavors, target.ems_ref)
       when ManageIQ::Providers::CloudManager::AuthKeyPair
-        add_target(:auth_key_pairs, target.ems_ref)
+        add_target!(:auth_key_pairs, target.ems_ref)
       when AvailabilityZone
-        add_target(:availability_zones, target.ems_ref)
+        add_target!(:availability_zones, target.ems_ref)
       when SecurityGroup
-        add_target(:security_groups, target.ems_ref)
+        add_target!(:security_groups, target.ems_ref)
       when CloudNetwork
-        add_target(:cloud_networks, target.ems_ref)
+        add_target!(:cloud_networks, target.ems_ref)
       when CloudSubnet
-        add_target(:cloud_subnets, target.ems_ref)
+        add_target!(:cloud_subnets, target.ems_ref)
       when FloatingIp
-        add_target(:floating_ips, target.ems_ref)
+        add_target!(:floating_ips, target.ems_ref)
       when CloudVolume
-        add_target(:cloud_volumes, target.ems_ref)
+        add_target!(:cloud_volumes, target.ems_ref)
       when CloudVolumeType
-        add_target(:cloud_volume_types, target.ems_ref)
+        add_target!(:cloud_volume_types, target.ems_ref)
       when ResourceGroup
-        add_target(:resource_groups, target.ems_ref)
+        add_target!(:resource_groups, target.ems_ref)
       end
     end
-  end
-
-  def add_target(association, ems_ref)
-    return if ems_ref.blank?
-
-    target.add_target(:association => association, :manager_ref => {:ems_ref => ems_ref})
-  end
-
-  def references(collection)
-    target.manager_refs_by_association&.dig(collection, :ems_ref)&.to_a&.compact || []
   end
 end
