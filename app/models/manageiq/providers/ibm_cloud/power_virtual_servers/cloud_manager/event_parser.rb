@@ -32,9 +32,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
         :name   => pvm_instance_name
       )
 
-      if vm.nil?
-        return
-      end
+      return if vm.nil?
 
       event_hash[:vm_uid_ems] = vm.uid_ems
       event_hash[:vm_ems_ref] = vm.ems_ref
