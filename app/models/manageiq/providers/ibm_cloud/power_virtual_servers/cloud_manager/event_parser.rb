@@ -7,7 +7,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
       :ems_ref    => event[:eventID],
       :timestamp  => event[:time],
       :full_data  => event,
-      :username   => event[:user][:email]
+      :username   => event.dig(:user, :email)
     }
 
     _log.debug("event_hash=#{event_hash}")
