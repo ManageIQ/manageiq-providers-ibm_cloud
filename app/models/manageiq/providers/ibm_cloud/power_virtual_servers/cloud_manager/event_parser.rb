@@ -25,6 +25,8 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
     else
       pvm_instance_name = event[:message].split('\'')[1]
 
+      # PowerVS VMs and Templates are required to have unique names within
+      # service instance.
       vm = VmOrTemplate.find_by(
         :ems_id => event_hash[:ems_id],
         :name   => pvm_instance_name
