@@ -1,0 +1,122 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://iam.cloud.ibm.com/identity/token
+    body:
+      encoding: UTF-8
+      string: grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=OofdoH2oph9nB6RJDN1dnM5RBdc97-tzSE_1A6DQG3JB&response_type=cloud_iam
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - application/json
+      Connection:
+      - close
+      User-Agent:
+      - http.rb/4.4.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      Transaction-Id:
+      - aWFtaWQtNi4xMS0xMjMzNC02YzNkY2JkLTc2NmJiZGZiODgtcHpsZ3Q-408140f2c0f24a1f9e9ae7e159ac9471
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '1553'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Date:
+      - Mon, 06 Dec 2021 19:22:50 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - sessioncookie="a5409b2a80fda932"; Path=/; Secure; HttpOnly
+      Akamai-Grn:
+      - 0.640fd017.1638818570.2098386d
+      X-Proxy-Upstream-Service-Time:
+      - '102'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"eyJraWQiOiIyMDIxMTExNzA4MjAiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC02NjQwMDIyWU5RIiwiaWQiOiJJQk1pZC02NjQwMDIyWU5RIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiOTQ1ZjU4NGEtMjJlYS00N2ZjLWJmYjktNmRhMTIzODcyNzJmIiwiaWRlbnRpZmllciI6IjY2NDAwMjJZTlEiLCJnaXZlbl9uYW1lIjoiTmFzYXIiLCJmYW1pbHlfbmFtZSI6IktoYW4iLCJuYW1lIjoiTmFzYXIgS2hhbiIsImVtYWlsIjoiTmFzYXIuS2hhbkBpYm0uY29tIiwic3ViIjoiTmFzYXIuS2hhbkBpYm0uY29tIiwiYXV0aG4iOnsic3ViIjoiTmFzYXIuS2hhbkBpYm0uY29tIiwiaWFtX2lkIjoiSUJNaWQtNjY0MDAyMllOUSIsIm5hbWUiOiJOYXNhciBLaGFuIiwiZ2l2ZW5fbmFtZSI6Ik5hc2FyIiwiZmFtaWx5X25hbWUiOiJLaGFuIiwiZW1haWwiOiJOYXNhci5LaGFuQGlibS5jb20ifSwiYWNjb3VudCI6eyJib3VuZGFyeSI6Imdsb2JhbCIsInZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiOTEyMjA0NiIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2Mzg4MTg1NjcsImV4cCI6MTYzODgyMjE2NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.p2D-3BpgbBwqk77EoxW7tbFN6TgcTdrqh3rQrt5RX8JBNiRqCP9Kygdwyg_lhUJa1QdEVhrqPseyIfGZOol9Hq65EJ-kBpzOtNgP4YUK4PxNTMySUCme94HbeTtWY-I6FVdhvCJ8ZcVa5jA4gFMrx0PVygqerwPjTyf2Ox-5jgB3gIoYsY7PEoEcKRN0-dNuEUZbKjargcI9Dgjzl_nWzs6LmEUcyNPxAznFMBpAQI0NLNQJmsn_v8nQk7scYxYbA6FImmSzwiByN_Oa42yR6kCNfEvTkLOc2bWYH1Y7Nt8WqDyL_z-DrQA-fk1lNYdRg4UouZbbEfwEC1BWJP5hWQ","refresh_token":"not_supported","ims_user_id":9122046,"token_type":"Bearer","expires_in":3600,"expiration":1638822167,"scope":"ibm
+        openid"}'
+    http_version:
+  recorded_at: Mon, 06 Dec 2021 19:22:50 GMT
+- request:
+    method: post
+    uri: https://ca-tor.monitoring.cloud.ibm.com/api/data
+    body:
+      encoding: UTF-8
+      string: '{"last":170,"sampling":60,"filter":"ibm_resource_name = ''test123''","metrics":[{"id":"ibm_is_instance_cpu_usage_percentage","aggregations":{"time":"avg"}},{"id":"ibm_is_instance_memory_usage_percentage","aggregations":{"time":"avg"}},{"id":"ibm_is_instance_network_in_bytes","aggregations":{"time":"avg"}},{"id":"ibm_is_instance_network_out_bytes","aggregations":{"time":"avg"}},{"id":"ibm_is_instance_volume_read_bytes","aggregations":{"time":"avg"}},{"id":"ibm_is_instance_volume_write_bytes","aggregations":{"time":"avg"}}],"dataSourceType":"host"}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer eyJraWQiOiIyMDIxMTExNzA4MjAiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC02NjQwMDIyWU5RIiwiaWQiOiJJQk1pZC02NjQwMDIyWU5RIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiOTQ1ZjU4NGEtMjJlYS00N2ZjLWJmYjktNmRhMTIzODcyNzJmIiwiaWRlbnRpZmllciI6IjY2NDAwMjJZTlEiLCJnaXZlbl9uYW1lIjoiTmFzYXIiLCJmYW1pbHlfbmFtZSI6IktoYW4iLCJuYW1lIjoiTmFzYXIgS2hhbiIsImVtYWlsIjoiTmFzYXIuS2hhbkBpYm0uY29tIiwic3ViIjoiTmFzYXIuS2hhbkBpYm0uY29tIiwiYXV0aG4iOnsic3ViIjoiTmFzYXIuS2hhbkBpYm0uY29tIiwiaWFtX2lkIjoiSUJNaWQtNjY0MDAyMllOUSIsIm5hbWUiOiJOYXNhciBLaGFuIiwiZ2l2ZW5fbmFtZSI6Ik5hc2FyIiwiZmFtaWx5X25hbWUiOiJLaGFuIiwiZW1haWwiOiJOYXNhci5LaGFuQGlibS5jb20ifSwiYWNjb3VudCI6eyJib3VuZGFyeSI6Imdsb2JhbCIsInZhbGlkIjp0cnVlLCJic3MiOiJjNTZjOWEyNjhkMjNlMWIzMzlhYzE0Nzc0MzU4MTMzYyIsImltc191c2VyX2lkIjoiOTEyMjA0NiIsImZyb3plbiI6dHJ1ZSwiaW1zIjoiMTE2MDQ0NyJ9LCJpYXQiOjE2Mzg4MTg1NjcsImV4cCI6MTYzODgyMjE2NywiaXNzIjoiaHR0cHM6Ly9pYW0uY2xvdWQuaWJtLmNvbS9pZGVudGl0eSIsImdyYW50X3R5cGUiOiJ1cm46aWJtOnBhcmFtczpvYXV0aDpncmFudC10eXBlOmFwaWtleSIsInNjb3BlIjoiaWJtIG9wZW5pZCIsImNsaWVudF9pZCI6ImRlZmF1bHQiLCJhY3IiOjEsImFtciI6WyJwd2QiXX0.p2D-3BpgbBwqk77EoxW7tbFN6TgcTdrqh3rQrt5RX8JBNiRqCP9Kygdwyg_lhUJa1QdEVhrqPseyIfGZOol9Hq65EJ-kBpzOtNgP4YUK4PxNTMySUCme94HbeTtWY-I6FVdhvCJ8ZcVa5jA4gFMrx0PVygqerwPjTyf2Ox-5jgB3gIoYsY7PEoEcKRN0-dNuEUZbKjargcI9Dgjzl_nWzs6LmEUcyNPxAznFMBpAQI0NLNQJmsn_v8nQk7scYxYbA6FImmSzwiByN_Oa42yR6kCNfEvTkLOc2bWYH1Y7Nt8WqDyL_z-DrQA-fk1lNYdRg4UouZbbEfwEC1BWJP5hWQ
+      Ibminstanceid:
+      - 238fa410-548f-4d71-af83-8d8bcd91a122
+      Content-Length:
+      - '550'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 06 Dec 2021 19:22:51 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - INGRESSCOOKIE=1638818572.224.18264.703813; Expires=Tue, 07-Dec-21 19:22:51
+        GMT; Max-Age=86400; Path=/api; Secure; HttpOnly
+      Vary:
+      - Accept-Encoding, User-Agent
+      - Access-Control-Request-Headers
+      - Access-Control-Request-Method
+      - Origin
+      X-Sysdig-Req:
+      - mp47e:c0
+      X-Draios-Api-Version:
+      - 5.1.0.10711
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      X-Frame-Options:
+      - DENY
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":[{"t":1638818460,"d":[0,1.718254,6734946,6292204,4.9565013333334E7,546062336]},{"t":1638818520,"d":[0.054104,1.717754,6735898,6293098,4.9565013333334E7,5.46088277333334E8]}],"start":1638818400,"end":1638818520}'
+    http_version:
+  recorded_at: Mon, 06 Dec 2021 19:22:51 GMT
+recorded_with: VCR 5.1.0

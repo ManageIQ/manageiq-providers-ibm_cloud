@@ -45,23 +45,72 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
             :name      => 'endpoints-subform',
             :title     => _("Endpoint"),
             :fields    => [
-              {
-                :component              => 'validate-provider-credentials',
-                :name                   => 'authentications.default.valid',
-                :skipSubmit             => true,
-                :isRequired             => true,
-                :validationDependencies => %w[type zone_id provider_region],
-                :fields                 => [
-                  {
-                    :component  => "password-field",
-                    :name       => "authentications.default.auth_key",
-                    :label      => _("IBM Cloud API Key"),
-                    :type       => "password",
-                    :isRequired => true,
-                    :validate   => [{:type => "required"}]
-                  },
-                ],
-              },
+              :component => 'tabs',
+              :name      => 'tabs',
+              :fields    => [
+                {
+                  :component => 'tab-item',
+                  :id        => 'default-tab',
+                  :name      => 'default-tab',
+                  :title     => _('Default'),
+                  :fields    => [
+                    {
+                      :component              => 'validate-provider-credentials',
+                      :name                   => 'authentications.default.valid',
+                      :skipSubmit             => true,
+                      :isRequired             => true,
+                      :validationDependencies => %w[type zone_id provider_region],
+                      :fields                 => [
+                        {
+                          :component  => "password-field",
+                          :name       => "authentications.default.auth_key",
+                          :label      => _("IBM Cloud API Key"),
+                          :type       => "password",
+                          :isRequired => true,
+                          :validate   => [{:type => "required"}]
+                        },
+                      ],
+                    }
+                  ]
+                },
+                {
+                  :component => 'tab-item',
+                  :id        => 'metrics-tab',
+                  :name      => 'metrics-tab',
+                  :title     => _('Metrics'),
+                  :fields    => [
+                    {
+                      :component    => 'protocol-selector',
+                      :id           => 'metrics_selection',
+                      :name         => 'metrics_selection',
+                      :skipSubmit   => true,
+                      :initialValue => 'none',
+                      :label        => _('Type'),
+                      :options      => [
+                        {
+                          :label => _('Disabled'),
+                          :value => 'none',
+                        },
+                        {
+                          :label => _('Enabled'),
+                          :value => 'enable_metrics',
+                        },
+                      ],
+                    },
+                    {
+                      :component  => 'password-field',
+                      :id         => 'endpoints.metrics.options.monitoring_instance_id',
+                      :name       => 'endpoints.metrics.options.monitoring_instance_id',
+                      :label      => _('IBM Cloud Monitoring Instance GUID'),
+                      :isRequired => true,
+                      :condition  => {
+                        :when => "metrics_selection",
+                        :is   => 'enable_metrics',
+                      },
+                    },
+                  ]
+                }
+              ]
             ],
           },
         ],

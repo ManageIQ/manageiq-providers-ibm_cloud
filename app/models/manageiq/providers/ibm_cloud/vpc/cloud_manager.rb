@@ -6,6 +6,8 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   require_nested :EventCatcher
   require_nested :Flavor
   require_nested :LoggingMixin
+  require_nested :MetricsCapture
+  require_nested :MetricsCollectorWorker
   require_nested :Provision
   require_nested :ProvisionWorkflow
   require_nested :RefreshWorker
@@ -13,6 +15,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   require_nested :Template
   require_nested :Vm
 
+  supports :metrics
   supports :provisioning
   supports :storage_manager
 
