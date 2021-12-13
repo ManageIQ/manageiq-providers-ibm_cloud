@@ -20,6 +20,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
            :default_endpoint,
            :endpoints,
            :key_pairs,
+           :snapshots,
            :to        => :parent_manager,
            :allow_nil => true
 

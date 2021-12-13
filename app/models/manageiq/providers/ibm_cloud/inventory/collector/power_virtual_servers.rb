@@ -114,6 +114,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     @storage_types ||= storage_capacity_api.pcloud_storagecapacity_types_getall(cloud_instance_id)
   end
 
+  def snapshots
+    @snapshots ||= snapshots_api.pcloud_cloudinstances_snapshots_getall(cloud_instance_id).snapshots || []
+  end
+
   private
 
   def connection
@@ -170,5 +174,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
 
   def cloud_instances_api
     @cloud_instances_api ||= IbmCloudPower::PCloudInstancesApi.new(connection)
+  end
+
+  def snapshots_api
+    @snapshots_api ||= IbmCloudPower::PCloudSnapshotsApi.new(connection)
   end
 end

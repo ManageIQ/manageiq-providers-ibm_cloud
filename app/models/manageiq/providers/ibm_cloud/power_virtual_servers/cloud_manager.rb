@@ -41,6 +41,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
            :foreign_key => :ems_id,
            :class_name  => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType"
 
+  has_many :snapshots, :through => :vms_and_templates
+
   before_create :ensure_managers
   before_update :ensure_managers_zone
 
