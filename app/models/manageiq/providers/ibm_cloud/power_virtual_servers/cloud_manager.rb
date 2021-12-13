@@ -42,6 +42,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   before_create :ensure_managers
   before_update :ensure_managers_zone
 
+  supports :create
   supports :provisioning
   supports_not :volume_availability_zones
 

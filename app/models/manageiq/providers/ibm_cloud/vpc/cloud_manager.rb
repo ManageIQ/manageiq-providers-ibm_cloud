@@ -15,6 +15,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
   require_nested :Template
   require_nested :Vm
 
+  supports :create
   supports :metrics
   supports :provisioning
   supports :storage_manager
