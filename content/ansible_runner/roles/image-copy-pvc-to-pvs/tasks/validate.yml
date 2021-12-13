@@ -82,15 +82,15 @@
       when: not(p.stat.isdir is defined and p.stat.isdir)
 
     - name: 'Check Python major version'
-      shell: source "{{sessions_dir}}/venv/bin/activate" && python -c 'import sys; print(sys.version_info.major);'
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python3 --version
       register: p
       ignore_errors: true
 
     - fail: msg='Python Version 3 is not available inside the virtual environment'
-      when: not(p.rc is defined and p.rc == 0 and p.stdout == '3')
+      when: not(p.rc is defined and p.rc == 0)
 
     - name: 'Check if "pathlib" is installed'
-      shell: source "{{sessions_dir}}/venv/bin/activate" && python -m pip list | grep pathlib
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python3 -m pip list | grep pathlib
       register: p
       ignore_errors: true
 
@@ -98,7 +98,7 @@
       when: not(p.rc is defined and p.rc == 0)
 
     - name: 'Check if "pycryptodome" is installed'
-      shell: source "{{sessions_dir}}/venv/bin/activate" && python -m pip list | grep pycryptodome
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python3 -m pip list | grep pycryptodome
       register: p
       ignore_errors: true
 
@@ -106,7 +106,7 @@
       when: not(p.rc is defined and p.rc == 0)
 
     - name: 'Check if "ibm-cos-sdk" is installed'
-      shell: source "{{sessions_dir}}/venv/bin/activate" && python -m pip list | grep ibm-cos-sdk
+      shell: source "{{sessions_dir}}/venv/bin/activate" && python3 -m pip list | grep ibm-cos-sdk
       register: p
       ignore_errors: true
 
