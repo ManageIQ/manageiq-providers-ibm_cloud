@@ -155,7 +155,7 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
     begin
       raw_connect(region, endpoint, access_key, secret_key).list_buckets({}, :params => {:max_keys => 1})
     rescue Aws::Errors::ServiceError, Seahorse::Client::NetworkingError => err
-      error_message = JSON.parse(err.response_body)["message"]
+      error_message = err.message
       _log.error("Access/Secret authentication failed: #{err.code} #{error_message}")
       raise MiqException::MiqInvalidCredentialsError, error_message
     end
@@ -169,7 +169,7 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
       iam_token_api = IbmCloudIam::TokenOperationsApi.new
       token = iam_token_api.get_token_api_key("urn:ibm:params:oauth:grant-type:apikey", api_key)
     rescue IbmCloudIam::ApiError => err
-      error_message = JSON.parse(err.response_body)["message"]
+      error_message = err.message
       _log.error("IAM authentication failed: #{err.code} #{error_message}")
       raise MiqException::MiqInvalidCredentialsError, error_message
     end

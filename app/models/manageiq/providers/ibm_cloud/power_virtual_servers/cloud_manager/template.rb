@@ -97,7 +97,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     }
 
     _log.info("execute image import playbook")
-    ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow.create_job({}, extra_vars, workflow_opts, [host], credentials, :poll_interval => 5.seconds)
+    ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow.create_job({}, extra_vars, workflow_opts, [host], credentials, :poll_interval => 5.seconds, :timeout => 3.hours)
   end
 
   def validate_delete_image

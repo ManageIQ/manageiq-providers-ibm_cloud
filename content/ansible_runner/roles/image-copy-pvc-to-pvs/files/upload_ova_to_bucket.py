@@ -1,7 +1,6 @@
 import os
 import sys
 import json
-import ntpath
 import base64
 
 from pathlib import Path
@@ -57,4 +56,4 @@ def upload_file(bucket_name, item_name, file_path):
         transfer_mgr.shutdown()
 
 
-upload_file(COS_BUCKET_LOCATION, ntpath.basename(IMAGE_FILE), IMAGE_FILE)
+upload_file(COS_BUCKET_LOCATION, os.path.basename(IMAGE_FILE), IMAGE_FILE)
