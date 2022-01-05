@@ -7,7 +7,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
       :ems_ref    => event[:eventID],
       :timestamp  => event[:time],
       :full_data  => event,
-      :username   => event[:user][:email]
+      :username   => event.dig(:user, :email)
     }
 
     _log.debug("event_hash=#{event_hash}")
@@ -25,14 +25,14 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
     else
       pvm_instance_name = event[:message].split('\'')[1]
 
+      # PowerVS VMs and Templates are required to have unique names within
+      # service instance.
       vm = VmOrTemplate.find_by(
         :ems_id => event_hash[:ems_id],
         :name   => pvm_instance_name
       )
 
-      if vm.nil?
-        return
-      end
+      return if vm.nil?
 
       event_hash[:vm_uid_ems] = vm.uid_ems
       event_hash[:vm_ems_ref] = vm.ems_ref
