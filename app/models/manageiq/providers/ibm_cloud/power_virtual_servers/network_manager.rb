@@ -2,6 +2,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
   require_nested :Refresher
   require_nested :CloudNetwork
   require_nested :CloudSubnet
+  require_nested :LoadBalancer
   require_nested :NetworkPort
   require_nested :NetworkRouter
   require_nested :SecurityGroup
