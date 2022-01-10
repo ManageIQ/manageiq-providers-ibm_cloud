@@ -4,10 +4,15 @@ class ManageIQ::Providers::IbmCloud::ContainerManager < ManageIQ::Providers::Kub
   require_nested :Container
   require_nested :ContainerGroup
   require_nested :ContainerNode
+  require_nested :ContainerTemplate
+  require_nested :ContainerVolume
   require_nested :EventCatcher
   require_nested :EventParser
   require_nested :Refresher
   require_nested :RefreshWorker
+  require_nested :ServiceInstance
+  require_nested :ServiceOffering
+  require_nested :ServiceParametersSet
 
   supports :create
 
