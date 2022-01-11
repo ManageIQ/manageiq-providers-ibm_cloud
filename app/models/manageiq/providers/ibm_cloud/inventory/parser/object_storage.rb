@@ -12,26 +12,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::ObjectStorage < ManageIQ
   def buckets
     collector.buckets.each do |bucket|
       bucket_id = bucket['name']
+      total_size = total_count = 0
 
-      total_size, total_count = process_bucket(bucket_id)
-
-      persister.cloud_object_store_containers.build(
-        :ems_ref      => bucket_id,
-        :key          => bucket_id,
-        :bytes        => total_size,
-        :object_count => total_count
-      )
-    end
-  end
-
-  def process_bucket(bucket_id)
-    total_size = total_count = 0
-
-    BUCKET_TAB_LIMIT.times do
-      objects = collector.objects(bucket_id)
-      token = objects[:continuation_token]
-
-      (objects[:contents] || []).each do |object|
+      collector.objects(bucket_id) do |object|
         total_size += object[:size]
         total_count += 1
 
@@ -45,9 +28,12 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::ObjectStorage < ManageIQ
         )
       end
 
-      break if token.blank?
+      persister.cloud_object_store_containers.build(
+        :ems_ref      => bucket_id,
+        :key          => bucket_id,
+        :bytes        => total_size,
+        :object_count => total_count
+      )
     end
-
-    return total_size, total_count
   end
 end
