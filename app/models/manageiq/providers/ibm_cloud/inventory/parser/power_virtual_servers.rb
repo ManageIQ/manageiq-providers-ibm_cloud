@@ -28,6 +28,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     pvm_instances
     networks
     sshkeys
+    snapshots
   end
 
   def pvm_instances
@@ -302,6 +303,20 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       :name    => persister.cloud_manager.name,
       :ems_ref => persister.cloud_manager.uid_ems
     )
+  end
+
+  def snapshots
+    collector.snapshots.each do |snapshot|
+      persister.snapshots.build(
+        :uid            => snapshot.snapshot_id,
+        :uid_ems        => snapshot.snapshot_id,
+        :ems_ref        => snapshot.snapshot_id,
+        :name           => snapshot.name,
+        :description    => snapshot.description,
+        :create_time    => snapshot.creation_date,
+        :vm_or_template => persister.vms.lazy_find(snapshot.pvm_instance_id)
+      )
+    end
   end
 
   def software_licenses_description(software_licenses)

@@ -6,6 +6,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   supports :reset do
     unsupported_reason_add(:reset, _("The VM is not powered on")) unless current_state == "on"
   end
+  supports :snapshots
 
   supports_not :suspend
 

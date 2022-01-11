@@ -5,7 +5,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
   context "#refresh" do
     let(:ems) do
-      uid_ems  = "3ea904f1-67df-4ae0-960f-e13ffa469f12"
+      uid_ems  = "8fa27c40-827c-4568-8813-79b398e9cd27"
       auth_key = Rails.application.secrets.ibm_cloud_power[:api_key]
 
       FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud, :uid_ems => uid_ems, :provider_region => "us-south").tap do |ems|
@@ -63,27 +63,27 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def assert_table_counts
-      expect(Flavor.count).to eq(51)
-      expect(Vm.count).to eq(3)
-      expect(OperatingSystem.count).to eq(9)
-      expect(MiqTemplate.count).to eq(6)
-      expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to eq(57)
-      expect(CloudVolume.count).to eq(5)
-      expect(CloudNetwork.count).to eq(3)
-      expect(CloudSubnet.count).to eq(3)
-      expect(NetworkPort.count).to eq(5)
-      expect(CloudSubnetNetworkPort.count).to eq(5)
+      expect(Flavor.count).to eq(56)
+      expect(Vm.count).to eq(1)
+      expect(OperatingSystem.count).to eq(2)
+      expect(MiqTemplate.count).to eq(1)
+      expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to eq(50)
+      expect(CloudVolume.count).to eq(2)
+      expect(CloudNetwork.count).to eq(2)
+      expect(CloudSubnet.count).to eq(2)
+      expect(NetworkPort.count).to eq(2)
+      expect(CloudSubnetNetworkPort.count).to eq(3)
     end
 
     def assert_ems_counts
-      expect(ems.vms.count).to eq(3)
-      expect(ems.miq_templates.count).to eq(6)
-      expect(ems.operating_systems.count).to eq(9)
-      expect(ems.key_pairs.count).to eq(57)
-      expect(ems.network_manager.cloud_networks.count).to eq(3)
-      expect(ems.network_manager.cloud_subnets.count).to eq(3)
-      expect(ems.network_manager.network_ports.count).to eq(5)
-      expect(ems.storage_manager.cloud_volumes.count).to eq(5)
+      expect(ems.vms.count).to eq(1)
+      expect(ems.miq_templates.count).to eq(1)
+      expect(ems.operating_systems.count).to eq(2)
+      expect(ems.key_pairs.count).to eq(50)
+      expect(ems.network_manager.cloud_networks.count).to eq(2)
+      expect(ems.network_manager.cloud_subnets.count).to eq(2)
+      expect(ems.network_manager.network_ports.count).to eq(2)
+      expect(ems.storage_manager.cloud_volumes.count).to eq(2)
       expect(ems.storage_manager.cloud_volume_types.count).to eq(2)
     end
 
@@ -98,12 +98,12 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def assert_specific_vm
-      vm = ems.vms.find_by(:ems_ref => "b898b0cd-463b-4b05-90d3-b98f73234e8f")
+      vm = ems.vms.find_by(:ems_ref => "039d63f7-c658-499f-8c15-02a146899917")
       expect(vm).to have_attributes(
-        :uid_ems          => "b898b0cd-463b-4b05-90d3-b98f73234e8f",
-        :ems_ref          => "b898b0cd-463b-4b05-90d3-b98f73234e8f",
+        :uid_ems          => "039d63f7-c658-499f-8c15-02a146899917",
+        :ems_ref          => "039d63f7-c658-499f-8c15-02a146899917",
         :location         => "unknown",
-        :name             => "rdr-powervs-aix",
+        :name             => "rdr-miq-test-vm",
         :description      => "PVM Instance",
         :vendor           => "ibm_cloud",
         :power_state      => "on",
@@ -113,7 +113,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :type             => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm"
       )
       expect(vm.ems_created_on).to be_a(ActiveSupport::TimeWithZone)
-      expect(vm.ems_created_on.to_s).to eql("2021-07-07 03:14:53 UTC")
+      expect(vm.ems_created_on.to_s).to eql("2022-01-06 20:54:24 UTC")
 
       expect(vm.hardware).to have_attributes(
         :cpu_sockets     => 1,
@@ -126,7 +126,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
       expect(vm.operating_system).to have_attributes(
         :product_name => "unix_aix",
-        :version      => "AIX 7.1, 7100-05-05-1939"
+        :version      => "AIX 7.2, 7200-05-01-2038"
       )
 
       expect(vm.advanced_settings.find { |setting| setting['name'] == 'entitled_processors' }).to have_attributes(
@@ -146,25 +146,29 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       )
 
       expect(vm.cloud_networks.pluck(:ems_ref))
-        .to match_array(["2126f163-ab11-471a-95a5-7003f23ae9e2-pub-vlan", "caf12e74-8b75-46db-8bd0-4aded9fcfbc5-vlan"])
+        .to match_array(["ebc60295-6b51-435a-92db-21a925832cdf-vlan", "4b30b3df-4b2d-4567-ac22-16330998bf2c-pub-vlan"])
 
       expect(vm.cloud_subnets.pluck(:ems_ref))
-        .to match_array(["2126f163-ab11-471a-95a5-7003f23ae9e2", "caf12e74-8b75-46db-8bd0-4aded9fcfbc5"])
+        .to match_array(["ebc60295-6b51-435a-92db-21a925832cdf", "4b30b3df-4b2d-4567-ac22-16330998bf2c"])
       expect(vm.cloud_subnets.pluck(:name))
-        .to match_array(["private-network-1", "public-192_168_172_72-29-VLAN_2037"])
+        .to match_array(["hiro-test-network", "public-192_168_165_88-29-VLAN_2039"])
 
       expect(vm.network_ports.pluck(:ems_ref))
-        .to match_array(["7c276396-b967-4228-846c-c7b1b6b17858", "97156faf-2d0a-4932-b862-1048652ec511"])
+        .to match_array(["9cfb491a-a736-4663-8ed4-841b613d162a", "2121a828-51d8-43ad-bacb-29be8e04fd59"])
       expect(vm.network_ports.pluck(:mac_address))
-        .to match_array(["fa:d9:90:05:76:20", "fa:d9:90:05:76:21"])
+        .to match_array(["fa:16:3e:ca:2a:ab", "fa:58:59:da:78:20"])
+
+      expect(vm.snapshots.count).to eq(2)
+      expect(vm.snapshots.pluck(:ems_ref))
+        .to match_array(["b145643f-2228-4f3b-bfa8-aeade1333ac4", "f14012a9-7d3d-494b-9bc9-cfe85633bed1"])
     end
 
     def assert_specific_template
-      template = ems.miq_templates.find_by(:ems_ref => "0dbe9ca3-a65a-432e-adf4-71115b479414")
+      template = ems.miq_templates.find_by(:ems_ref => "7eb025ee-10cd-4668-a930-8ac4f17a3245")
       expect(template).to have_attributes(
-        :uid_ems          => "0dbe9ca3-a65a-432e-adf4-71115b479414",
-        :ems_ref          => "0dbe9ca3-a65a-432e-adf4-71115b479414",
-        :name             => "7100-05-05",
+        :uid_ems          => "7eb025ee-10cd-4668-a930-8ac4f17a3245",
+        :ems_ref          => "7eb025ee-10cd-4668-a930-8ac4f17a3245",
+        :name             => "7200-05-01",
         :description      => "stock",
         :vendor           => "ibm_cloud",
         :power_state      => "never",
@@ -183,10 +187,10 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def assert_specific_cloud_network
-      cloud_network = ems.network_manager.cloud_networks.find_by(:ems_ref => "2126f163-ab11-471a-95a5-7003f23ae9e2-pub-vlan")
+      cloud_network = ems.network_manager.cloud_networks.find_by(:ems_ref => "4b30b3df-4b2d-4567-ac22-16330998bf2c-pub-vlan")
       expect(cloud_network).to have_attributes(
-        :ems_ref => "2126f163-ab11-471a-95a5-7003f23ae9e2-pub-vlan",
-        :name    => "public-192_168_172_72-29-VLAN_2037-pub-vlan",
+        :ems_ref => "4b30b3df-4b2d-4567-ac22-16330998bf2c-pub-vlan",
+        :name    => "public-192_168_165_88-29-VLAN_2039-pub-vlan",
         :cidr    => "",
         :status  => "active",
         :enabled => true,
@@ -195,49 +199,49 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def assert_specific_cloud_subnet
-      cloud_subnet = ems.network_manager.cloud_subnets.find_by(:ems_ref => "2126f163-ab11-471a-95a5-7003f23ae9e2")
+      cloud_subnet = ems.network_manager.cloud_subnets.find_by(:ems_ref => "ebc60295-6b51-435a-92db-21a925832cdf")
       expect(cloud_subnet.availability_zone&.ems_ref).to eq(ems.uid_ems)
       expect(cloud_subnet).to have_attributes(
-        :ems_ref          => "2126f163-ab11-471a-95a5-7003f23ae9e2",
-        :name             => "public-192_168_172_72-29-VLAN_2037",
-        :cidr             => "127.0.0.72/29",
+        :ems_ref          => "ebc60295-6b51-435a-92db-21a925832cdf",
+        :name             => "hiro-test-network",
+        :cidr             => "127.0.0.0/24",
         :status           => "active",
-        :gateway          => "127.0.0.73",
+        :gateway          => "127.0.0.1",
         :network_protocol => "IPv4",
-        :dns_nameservers  => ["127.0.0.9"],
-        :extra_attributes => {:ip_version => "4", :network_type => "pub-vlan"},
+        :dns_nameservers  => ["127.0.0.1"],
+        :extra_attributes => {:ip_version => "4", :network_type => "vlan"},
         :type             => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager::CloudSubnet"
       )
     end
 
     def assert_specific_network_port
-      network_port = ems.network_manager.network_ports.find_by(:ems_ref => "97156faf-2d0a-4932-b862-1048652ec511")
+      network_port = ems.network_manager.network_ports.find_by(:ems_ref => "2121a828-51d8-43ad-bacb-29be8e04fd59")
       expect(network_port).to have_attributes(
-        :ems_ref     => "97156faf-2d0a-4932-b862-1048652ec511",
-        :name        => "97156faf-2d0a-4932-b862-1048652ec511",
-        :mac_address => "fa:d9:90:05:76:21",
-        :status      => "DOWN",
-        :device_ref  => "b898b0cd-463b-4b05-90d3-b98f73234e8f"
+        :ems_ref     => "2121a828-51d8-43ad-bacb-29be8e04fd59",
+        :name        => "2121a828-51d8-43ad-bacb-29be8e04fd59",
+        :mac_address => "fa:58:59:da:78:20",
+        :status      => "ACTIVE",
+        :device_ref  => "039d63f7-c658-499f-8c15-02a146899917"
       )
 
-      expect(network_port.cloud_subnets.count).to eq(1)
+      expect(network_port.cloud_subnets.count).to eq(2)
       expect(network_port.cloud_subnet_network_ports.pluck(:address))
-        .to match_array(["127.0.0.145"])
+        .to match_array(["127.0.0.222", "127.0.0.94"])
     end
 
     def assert_specific_cloud_volume
-      cloud_volume = ems.storage_manager.cloud_volumes.find_by(:ems_ref => "332a6789-e493-4664-981f-e3d90c902ac4")
+      cloud_volume = ems.storage_manager.cloud_volumes.find_by(:ems_ref => "c962bf00-527b-4f53-87b7-6bd0daac4de5")
       expect(cloud_volume.availability_zone&.ems_ref).to eq(ems.uid_ems)
-      expect(cloud_volume.creation_time.to_s).to eql("2021-07-07 01:55:28 UTC")
+      expect(cloud_volume.creation_time.to_s).to eql("2022-01-06 20:53:44 UTC")
       expect(cloud_volume).to have_attributes(
-        :ems_ref          => "332a6789-e493-4664-981f-e3d90c902ac4",
-        :name             => "jaytest1",
-        :status           => "available",
+        :ems_ref          => "c962bf00-527b-4f53-87b7-6bd0daac4de5",
+        :name             => "hiro-test-vol",
+        :status           => "in-use",
         :bootable         => false,
         :description      => "IBM Cloud Block-Storage Volume",
-        :volume_type      => "tier1",
-        :size             => 10.gigabyte,
-        :multi_attachment => true
+        :volume_type      => "tier3",
+        :size             => 1.gigabyte,
+        :multi_attachment => false
       )
     end
 

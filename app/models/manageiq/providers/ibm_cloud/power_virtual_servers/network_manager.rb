@@ -25,6 +25,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
            :hostname,
            :default_endpoint,
            :endpoints,
+           :snapshots,
            :to        => :parent_manager,
            :allow_nil => true
 
