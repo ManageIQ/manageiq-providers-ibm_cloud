@@ -6,6 +6,7 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager < ManageIQ::Providers::
   require_nested :LoadBalancerPool
   require_nested :LoadBalancerPoolMember
   require_nested :LoadBalancerHealthCheck
+  require_nested :NetworkPort
   require_nested :NetworkRouter
   require_nested :SecurityGroup
 

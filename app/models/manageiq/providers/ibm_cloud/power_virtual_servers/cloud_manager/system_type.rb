@@ -1,2 +1,2 @@
-class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType < ::Flavor
+class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType < ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Flavor
 end
