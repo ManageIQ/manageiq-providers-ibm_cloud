@@ -1,6 +1,8 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Collector::ObjectStorage < ManageIQ::Providers::IbmCloud::Inventory::Collector
   require_nested :StorageManager
 
+  BUCKET_TAB_LIMIT = 1000
+
   def buckets
     buckets = []
 
@@ -16,9 +18,15 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::ObjectStorage < Manag
     buckets
   end
 
-  def objects(bucket_id, token = nil)
-    params = token.nil? ? {:continuation_token => token} : {}
-    connection.list_objects_v2({:bucket => bucket_id}, params)
+  def objects(bucket_id)
+    params = {}
+    BUCKET_TAB_LIMIT.times do
+      objects = connection.list_objects_v2({:bucket => bucket_id}, params)
+      params = {:continuation_token => objects[:continuation_token]}
+      objects[:contents].to_a.each { |content| yield content }
+
+      break if params[:contiuation_token].nil?
+    end
   end
 
   private
