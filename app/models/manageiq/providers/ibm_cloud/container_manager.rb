@@ -5,7 +5,6 @@ class ManageIQ::Providers::IbmCloud::ContainerManager < ManageIQ::Providers::Kub
   require_nested :ContainerGroup
   require_nested :ContainerNode
   require_nested :ContainerTemplate
-  require_nested :ContainerVolume
   require_nested :EventCatcher
   require_nested :EventParser
   require_nested :Refresher
