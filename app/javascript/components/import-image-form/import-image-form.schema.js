@@ -64,6 +64,16 @@ const createSchema = (providers, images, storages, buckets, diskTypes, state, se
     },
 
     {
+      component: componentTypes.SELECT,
+      name: 'timeout',
+      id: 'timeout',
+      label: __('Workflow max. timeout'),
+      isRequired: true,
+      initialValue: 3,
+      options: Array.from(Array(24).keys()).map((h) => {return {label: (h+1) + " hours", value: (h+1)} }),
+    },
+
+    {
       component: componentTypes.CHECKBOX,
       name: 'keep_ova',
       id: 'keep_ova',
