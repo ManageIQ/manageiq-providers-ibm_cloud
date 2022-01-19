@@ -68,16 +68,17 @@ db_options: {}
 generate_cols:
 generate_rows:
 col_formats:
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
+  - :String Truncated to 50 Characters with Elipses (...)
+  - :String Truncated to 50 Characters with Elipses (...)
+  - :String Truncated to 50 Characters with Elipses (...)
+  - :Suffixed Bytes (B, KB, MB, GB)
+  - :Boolean (Yes/No)
+  - :String Truncated to 50 Characters with Elipses (...)
+  - :String Truncated to 50 Characters with Elipses (...)
+  - :Number (1,234)
+  - :String Truncated to 50 Characters with Elipses (...)
+  - :String Truncated to 50 Characters with Elipses (...)
+  - :String Truncated to 50 Characters with Elipses (...)
 tz:
 time_profile_id:
 display_filter:
