@@ -13,6 +13,9 @@ cols:
   - status
   - health_state
 include:
+  ext_management_system:
+    columns:
+    - emstype_description
   vms:
     columns:
       - name
@@ -23,6 +26,7 @@ include:
     columns:
       - name
 col_order:
+  - ext_management_system.emstype_description
   - name
   - vms.name
   - size
@@ -34,6 +38,7 @@ col_order:
   - status
   - health_state
 headers:
+  - Provider Type
   - Name
   - VM Name
   - Size
@@ -68,6 +73,7 @@ db_options: {}
 generate_cols:
 generate_rows:
 col_formats:
+  - :String Truncated to 50 Characters with Elipses (...)
   - :String Truncated to 50 Characters with Elipses (...)
   - :String Truncated to 50 Characters with Elipses (...)
   - :Suffixed Bytes (B, KB, MB, GB)

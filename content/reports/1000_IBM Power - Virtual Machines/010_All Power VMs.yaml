@@ -17,6 +17,7 @@ menu_name: All Power VMs
 rpt_group: Custom
 priority: 10
 col_order:
+- ext_management_system.emstype_description
 - ext_management_system.name
 - name
 - os_image_name
@@ -40,6 +41,7 @@ filename:
 include:
   ext_management_system:
     columns:
+    - emstype_description
     - name
   hardware:
     columns:
@@ -64,6 +66,7 @@ cols:
 template_type: report
 group: y
 headers:
+- Provider Type
 - Provider Name
 - Name
 - OS Name
@@ -79,6 +82,7 @@ headers:
 - IP Addresses
 - MAC Addresses
 col_formats:
+- :String Truncated to 50 Characters with Elipses (...)
 - :String Truncated to 50 Characters with Elipses (...)
 - :String Truncated to 50 Characters with Elipses (...)
 - :String Truncated to 50 Characters with Elipses (...)
