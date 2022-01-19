@@ -67,7 +67,7 @@ headers:
 - Provider Name
 - Name
 - OS Name
-- RAM (GB)
+- RAM
 - Entitled Processors
 - Processor Mode
 - vCPUs
@@ -75,6 +75,21 @@ headers:
 - Pin Policy
 - Placement Group
 - "# of Disks"
-- Disk Size (GB)
+- Disk Size
 - IP Addresses
 - MAC Addresses
+col_formats:
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :Suffixed Megabytes (MB, GB)
+- :Number, 2 Decimals (1,234.00)
+- :String Truncated to 50 Characters with Elipses (...)
+- :Number (1,234)
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :Number (1,234)
+- :Suffixed Bytes (B, KB, MB, GB)
+-
+-
