@@ -44,7 +44,14 @@ headers:
   - Availability Zone Name
   - Status
   - Health State Code
-conditions:
+conditions: !ruby/object:MiqExpression
+  exp:
+    INCLUDES:
+      field: CloudVolume.ext_management_system-emstype_description
+      value: IBM Power
+  context_type:
+  col_details:
+  ruby:
 order: Ascending
 sortby:
 group:
