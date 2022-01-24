@@ -1,19 +1,19 @@
 ---
 dims:
 created_on: 2021-07-28 18:04:00.000000 Z
-title: "Detailed Installed PowerVC and PowerVS VM Report"
+title: IBM PowerVS VMs
 conditions: !ruby/object:MiqExpression
   exp:
     INCLUDES:
       field: Vm.ext_management_system-emstype_description
-      value: IBM Power
+      value: IBM Power Systems Virtual Servers
   context_type:
   col_details:
   ruby:
-updated_on: 2021-07-28 18:04:00.000000 Z
+updated_on: 2022-01-19 20:00:00.000000 Z
 order: Ascending
 graph:
-menu_name: "Detailed Installed PowerVC and PowerVS VM Report"
+menu_name: PowerVS VMs
 rpt_group: Custom
 priority: 10
 col_order:
@@ -32,7 +32,7 @@ col_order:
 - ipaddresses
 - mac_addresses
 timeline:
-id: 10010
+id: 10011
 file_mtime:
 categories:
 rpt_type: Custom
@@ -67,7 +67,7 @@ headers:
 - Provider Name
 - Name
 - OS Name
-- RAM (GB)
+- RAM
 - Entitled Processors
 - Processor Mode
 - vCPUs
@@ -75,6 +75,21 @@ headers:
 - Pin Policy
 - Placement Group
 - "# of Disks"
-- Disk Size (GB)
+- Disk Size
 - IP Addresses
 - MAC Addresses
+col_formats:
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :Suffixed Megabytes (MB, GB)
+- :Number, 2 Decimals (1,234.00)
+- :String Truncated to 50 Characters with Elipses (...)
+- :Number (1,234)
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :Number (1,234)
+- :Suffixed Bytes (B, KB, MB, GB)
+-
+-

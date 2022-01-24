@@ -1,22 +1,23 @@
 ---
 dims:
 created_on: 2021-07-28 18:04:00.000000 Z
-title: "Detailed Installed PowerVC VM Report"
+title: IBM Power VMs
 conditions: !ruby/object:MiqExpression
   exp:
     INCLUDES:
       field: Vm.ext_management_system-emstype_description
-      value: IBM PowerVC
+      value: IBM Power
   context_type:
   col_details:
   ruby:
-updated_on: 2021-07-28 18:04:00.000000 Z
+updated_on: 2022-01-19 20:00:00.000000 Z
 order: Ascending
 graph:
-menu_name: "Detailed Installed PowerVC VM Report"
+menu_name: All Power VMs
 rpt_group: Custom
 priority: 10
 col_order:
+- ext_management_system.emstype_description
 - ext_management_system.name
 - name
 - os_image_name
@@ -32,7 +33,7 @@ col_order:
 - ipaddresses
 - mac_addresses
 timeline:
-id: 10012
+id: 10010
 file_mtime:
 categories:
 rpt_type: Custom
@@ -40,6 +41,7 @@ filename:
 include:
   ext_management_system:
     columns:
+    - emstype_description
     - name
   hardware:
     columns:
@@ -64,10 +66,11 @@ cols:
 template_type: report
 group: y
 headers:
+- Provider Type
 - Provider Name
 - Name
 - OS Name
-- RAM (GB)
+- RAM
 - Entitled Processors
 - Processor Mode
 - vCPUs
@@ -75,6 +78,22 @@ headers:
 - Pin Policy
 - Placement Group
 - "# of Disks"
-- Disk Size (GB)
+- Disk Size
 - IP Addresses
 - MAC Addresses
+col_formats:
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :Suffixed Megabytes (MB, GB)
+- :Number, 2 Decimals (1,234.00)
+- :String Truncated to 50 Characters with Elipses (...)
+- :Number (1,234)
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :String Truncated to 50 Characters with Elipses (...)
+- :Number (1,234)
+- :Suffixed Bytes (B, KB, MB, GB)
+-
+-
