@@ -53,6 +53,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
 
   def self.raw_import_image(ext_management_system, options = {})
     session_id = SecureRandom.uuid
+    wrkfl_timeout = options['timeout'].to_i.hours
 
     location, node_auth, rcfile = node_creds(options['src_provider_id'])
     guid, apikey, region, endpoint, access_key, secret_key = cos_creds(options['obj_storage_id'])
@@ -97,7 +98,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     }
 
     _log.info("execute image import playbook")
-    ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow.create_job({}, extra_vars, workflow_opts, [host], credentials, :poll_interval => 5.seconds, :timeout => 3.hours)
+    ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow.create_job({}, extra_vars, workflow_opts, [host], credentials, :poll_interval => 5.seconds, :timeout => wrkfl_timeout)
   end
 
   def validate_delete_image
