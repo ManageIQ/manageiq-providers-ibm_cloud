@@ -46,6 +46,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   before_create :ensure_managers
   before_update :ensure_managers_zone
 
+  supports :catalog
   supports :create
   supports :provisioning
   supports_not :volume_availability_zones
@@ -102,5 +103,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
 
   def self.description
     @description ||= "IBM Power Systems Virtual Servers".freeze
+  end
+
+  def self.catalog_types
+    {"IbmCloud::PowerVirtualServers" => N_("IBM PowerVS")}
   end
 end
