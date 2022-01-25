@@ -1,6 +1,6 @@
 ---
-:name: miq_provision_ibm_dialogs_template
-:description: Sample VM Provisioning Dialog
+:name: miq_provision_ibm_powervs_vm_dialog
+:description: IBM PowerVS VM Provisioning Dialog
 :dialog_type: MiqProvisionWorkflow
 :content:
   :buttons:

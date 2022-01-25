@@ -11,7 +11,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def self.default_dialog_file
-    'miq_provision_ibm_dialogs_template'
+    'miq_provision_ibm_powervs_vm_dialog'
   end
 
   def get_timezones(_options = {})
