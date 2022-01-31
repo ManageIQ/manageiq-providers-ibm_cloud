@@ -1,0 +1,362 @@
+---
+version: 4
+terraform_version: 1.1.4
+serial: 11
+lineage: 24cd23bb-4cf9-799d-73db-854be522e7c8
+outputs:
+  progress:
+    value: 0
+    type: number
+  status:
+    value: ACTIVE
+    type: string
+resources:
+- mode: data
+  type: ibm_pi_catalog_images
+  name: catalog_images
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      id: 2022-02-04 14:01:32.639342347 +0000 UTC
+      images:
+      - architecture: ppc64
+        container_format: bare
+        creation_date: '2021-02-03T12:47:10.000Z'
+        description: ''
+        disk_format: raw
+        endianness: big-endian
+        href: "/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/stock-images/1f78dcb3-1f4b-4083-9b69-467bdaa99559"
+        hypervisor_type: phyp
+        image_id: 1f78dcb3-1f4b-4083-9b69-467bdaa99559
+        image_type: ''
+        last_update_date: '2021-06-07T15:45:20.000Z'
+        name: '7100-05-05'
+        operating_system: aix
+        state: active
+        storage_pool: Tier3-Flash-1
+        storage_type: tier3
+      - architecture: ppc64
+        container_format: bare
+        creation_date: '2021-02-17T07:41:01.000Z'
+        description: ''
+        disk_format: raw
+        endianness: big-endian
+        href: "/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/stock-images/8a1ab27b-fcb7-4ba3-9d31-c46b4620fd3a"
+        hypervisor_type: phyp
+        image_id: 8a1ab27b-fcb7-4ba3-9d31-c46b4620fd3a
+        image_type: ''
+        last_update_date: '2021-06-07T15:45:19.000Z'
+        name: '7100-05-07'
+        operating_system: aix
+        state: active
+        storage_pool: Tier3-Flash-1
+        storage_type: tier3
+      - architecture: ppc64
+        container_format: bare
+        creation_date: '2021-02-03T12:45:26.000Z'
+        description: ''
+        disk_format: raw
+        endianness: big-endian
+        href: "/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/stock-images/1fb5feb5-d3ea-4047-a689-d70ac2e93322"
+        hypervisor_type: phyp
+        image_id: 1fb5feb5-d3ea-4047-a689-d70ac2e93322
+        image_type: ''
+        last_update_date: '2021-06-07T15:45:20.000Z'
+        name: '7200-04-01'
+        operating_system: aix
+        state: active
+        storage_pool: Tier3-Flash-1
+        storage_type: tier3
+      - architecture: ppc64
+        container_format: bare
+        creation_date: '2021-02-17T07:18:34.000Z'
+        description: ''
+        disk_format: raw
+        endianness: big-endian
+        href: "/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/stock-images/c1853aa5-f337-404b-9b02-836153589597"
+        hypervisor_type: phyp
+        image_id: c1853aa5-f337-404b-9b02-836153589597
+        image_type: ''
+        last_update_date: '2021-06-07T15:45:19.000Z'
+        name: '7200-05-01'
+        operating_system: aix
+        state: active
+        storage_pool: Tier3-Flash-1
+        storage_type: tier3
+      - architecture: ppc64
+        container_format: bare
+        creation_date: '2021-02-17T12:20:13.000Z'
+        description: ''
+        disk_format: raw
+        endianness: big-endian
+        href: "/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/stock-images/9e081111-8954-44b2-a3a9-2cd72947c032"
+        hypervisor_type: phyp
+        image_id: 9e081111-8954-44b2-a3a9-2cd72947c032
+        image_type: ''
+        last_update_date: '2021-06-07T15:45:19.000Z'
+        name: IBMi-71-11-001
+        operating_system: ibmi
+        state: active
+        storage_pool: Tier3-Flash-1
+        storage_type: tier3
+      - architecture: ppc64
+        container_format: bare
+        creation_date: '2021-02-23T18:25:17.000Z'
+        description: ''
+        disk_format: raw
+        endianness: big-endian
+        href: "/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/stock-images/68432d04-9ee4-4d97-b191-5477031da966"
+        hypervisor_type: phyp
+        image_id: 68432d04-9ee4-4d97-b191-5477031da966
+        image_type: ''
+        last_update_date: '2021-06-07T15:45:19.000Z'
+        name: IBMi-71-11-002
+        operating_system: ibmi
+        state: active
+        storage_pool: Tier3-Flash-1
+        storage_type: tier3
+      - architecture: ppc64
+        container_format: bare
+        creation_date: '2021-02-03T12:36:47.000Z'
+        description: ''
+        disk_format: raw
+        endianness: big-endian
+        href: "/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/stock-images/f9b433c1-8bf8-4204-b5d6-8314877b9931"
+        hypervisor_type: phyp
+        image_id: f9b433c1-8bf8-4204-b5d6-8314877b9931
+        image_type: ''
+        last_update_date: '2021-06-07T15:45:20.000Z'
+        name: IBMi-72-09-003
+        operating_system: ibmi
+        state: active
+        storage_pool: Tier3-Flash-1
+        storage_type: tier3
+      - architecture: ppc64
+        container_format: bare
+        creation_date: '2021-02-03T12:51:51.000Z'
+        description: ''
+        disk_format: raw
+        endianness: big-endian
+        href: "/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/stock-images/18026a6a-f194-4449-b626-09b43c0778bb"
+        hypervisor_type: phyp
+        image_id: 18026a6a-f194-4449-b626-09b43c0778bb
+        image_type: ''
+        last_update_date: '2021-06-07T15:45:19.000Z'
+        name: IBMi-73-07-001
+        operating_system: ibmi
+        state: active
+        storage_pool: Tier3-Flash-1
+        storage_type: tier3
+      - architecture: ppc64
+        container_format: bare
+        creation_date: '2021-02-03T12:39:43.000Z'
+        description: ''
+        disk_format: raw
+        endianness: big-endian
+        href: "/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/stock-images/a3962d19-aaee-495a-bf7f-2d51722d90f9"
+        hypervisor_type: phyp
+        image_id: a3962d19-aaee-495a-bf7f-2d51722d90f9
+        image_type: ''
+        last_update_date: '2021-06-07T15:45:20.000Z'
+        name: IBMi-74-01-001
+        operating_system: ibmi
+        state: active
+        storage_pool: Tier3-Flash-1
+        storage_type: tier3
+      - architecture: ppc64
+        container_format: bare
+        creation_date: '2021-03-03T08:03:49.000Z'
+        description: ''
+        disk_format: raw
+        endianness: little-endian
+        href: "/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/stock-images/0dabccd7-c3f5-4fae-86d4-aedd43b1e3eb"
+        hypervisor_type: phyp
+        image_id: 0dabccd7-c3f5-4fae-86d4-aedd43b1e3eb
+        image_type: ''
+        last_update_date: '2021-06-07T15:45:19.000Z'
+        name: Linux-CentOS-8-3
+        operating_system: rhel
+        state: active
+        storage_pool: Tier3-Flash-1
+        storage_type: tier3
+      - architecture: ppc64
+        container_format: bare
+        creation_date: '2021-02-03T12:41:19.000Z'
+        description: ''
+        disk_format: raw
+        endianness: little-endian
+        href: "/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/stock-images/597d2f3c-4394-4d4e-81e5-2dbdccc17ac3"
+        hypervisor_type: phyp
+        image_id: 597d2f3c-4394-4d4e-81e5-2dbdccc17ac3
+        image_type: ''
+        last_update_date: '2021-06-07T15:45:20.000Z'
+        name: sles12sp4
+        operating_system: sles
+        state: active
+        storage_pool: Tier3-Flash-1
+        storage_type: tier3
+      pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
+      sap:
+      vtl:
+    sensitive_attributes: []
+- mode: data
+  type: ibm_pi_image
+  name: power_images
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      architecture: ppc64
+      hypervisor: phyp
+      id: 5383d1f8-8872-4657-a771-9047b4158ac5
+      image_type: stock
+      operatingsystem: aix
+      pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
+      pi_image_name: '7100-05-05'
+      size: 20
+      state: active
+      storage_pool: Tier3-Flash-1
+      storage_type: tier3
+    sensitive_attributes: []
+- mode: data
+  type: ibm_pi_network
+  name: power_network
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      available_ip_count: 152
+      cidr: 192.168.100.0/24
+      gateway: 192.168.100.101
+      id: 459df01a-b183-47f5-996d-c7e2807c03e5
+      jumbo: true
+      name: miq-net
+      pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
+      pi_network_name: miq-net
+      type: vlan
+      used_ip_count: 1
+      used_ip_percent: 0
+      vlan_id: 379
+    sensitive_attributes: []
+- mode: data
+  type: ibm_pi_network
+  name: public_network
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      available_ip_count: 4
+      cidr: 192.168.165.88/29
+      gateway: 192.168.165.89
+      id: dfcbcdc8-f43c-4fdd-b3bf-89a74649be15
+      jumbo: true
+      name: public-192_168_165_88-29-VLAN_2039
+      pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
+      pi_network_name: public-192_168_165_88-29-VLAN_2039
+      type: pub-vlan
+      used_ip_count: 1
+      used_ip_percent: 20
+      vlan_id: 2039
+    sensitive_attributes: []
+- mode: managed
+  type: ibm_pi_instance
+  name: pvminstance
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      health_status: OK
+      id: 8fa27c40-827c-4568-8813-79b398e9cd27/233766bf-34f5-4776-a1d8-7db1d194e263
+      instance_id: 233766bf-34f5-4776-a1d8-7db1d194e263
+      max_memory: 32
+      max_processors: 8
+      max_virtual_cores: 8
+      min_memory: 2
+      min_processors: 0.25
+      min_virtual_cores: 1
+      operating_system: AIX 7.1, 7100-05-05-1939
+      os_type: aix
+      pi_affinity_instance:
+      pi_affinity_policy:
+      pi_affinity_volume:
+      pi_anti_affinity_instances:
+      pi_anti_affinity_volumes:
+      pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
+      pi_health_status: WARNING
+      pi_image_id: 3b4c7b26-19bd-4eee-b4f0-a53b2785e46c
+      pi_instance_name: rdr-miq-test-1
+      pi_key_pair_name: miq-pvs
+      pi_license_repository_capacity: 0
+      pi_memory: 4
+      pi_migratable: false
+      pi_network:
+      - external_ip: ''
+        ip_address: 192.168.100.175
+        mac_address: fa:fb:b1:be:9b:20
+        network_id: 459df01a-b183-47f5-996d-c7e2807c03e5
+        network_name: miq-net
+        type: fixed
+      - external_ip: 169.54.112.220
+        ip_address: 192.168.165.92
+        mac_address: fa:fb:b1:be:9b:21
+        network_id: dfcbcdc8-f43c-4fdd-b3bf-89a74649be15
+        network_name: public-192_168_165_88-29-VLAN_2039
+        type: fixed
+      pi_pin_policy: none
+      pi_placement_group_id:
+      pi_proc_type: shared
+      pi_processors: 1
+      pi_progress: 0
+      pi_replicants: 1
+      pi_replication_policy: none
+      pi_replication_scheme: suffix
+      pi_sap_profile_id:
+      pi_storage_connection:
+      pi_storage_pool: Tier3-Flash-1
+      pi_storage_pool_affinity: true
+      pi_storage_type: tier3
+      pi_sys_type: s922
+      pi_user_data:
+      pi_virtual_cores_assigned: 1
+      pi_volume_ids:
+      - b48e4c42-7e27-477f-b3ec-f5483d735157
+      pin_policy: none
+      status: ACTIVE
+      timeouts:
+    sensitive_attributes: []
+    private: eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo3MjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInVwZGF0ZSI6MzYwMDAwMDAwMDAwMH19
+    dependencies:
+    - data.ibm_pi_catalog_images.catalog_images
+    - data.ibm_pi_image.power_images
+    - data.ibm_pi_network.power_network
+    - data.ibm_pi_network.public_network
+    - ibm_pi_volume.power_volume
+- mode: managed
+  type: ibm_pi_volume
+  name: power_volume
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      delete_on_termination:
+      id: 8fa27c40-827c-4568-8813-79b398e9cd27/b48e4c42-7e27-477f-b3ec-f5483d735157
+      pi_affinity_instance:
+      pi_affinity_policy:
+      pi_affinity_volume:
+      pi_anti_affinity_instances:
+      pi_anti_affinity_volumes:
+      pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
+      pi_volume_name: rdr-miq-volume
+      pi_volume_pool: Tier3-Flash-1
+      pi_volume_shareable: true
+      pi_volume_size: 20
+      pi_volume_type: tier3
+      timeouts:
+      volume_id: b48e4c42-7e27-477f-b3ec-f5483d735157
+      volume_status: in-use
+      wwn: 60050768108101DA100000000000EDC7
+    sensitive_attributes: []
+    private: eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=
+    dependencies:
+    - data.ibm_pi_catalog_images.catalog_images
