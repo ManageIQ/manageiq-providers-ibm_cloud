@@ -16,6 +16,17 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm::Ope
     raise MiqException::MiqVmSnapshotError, err.to_s
   end
 
+  def raw_revert_to_snapshot(snapshot_id)
+    with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
+      snapshot = Snapshot.find(snapshot_id)
+      req = IbmCloudPower::SnapshotRestore.new({:force => false}) # would not force restore, if VM is not shut down
+      api.pcloud_pvminstances_snapshots_restore_post(cloud_instance_id, ems_ref, snapshot.uid_ems, req)
+    end
+  rescue => err
+    create_notification(:vm_snapshot_failure, :error => err.to_s, :snapshot_op => "restore")
+    raise MiqException::MiqVmSnapshotError, err.to_s
+  end
+
   def raw_remove_snapshot(snapshot_id)
     with_provider_connection(:service => 'PCloudSnapshotsApi') do |api|
       snapshot = Snapshot.find(snapshot_id)
