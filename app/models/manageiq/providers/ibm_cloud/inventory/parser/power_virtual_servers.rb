@@ -307,12 +307,15 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
 
   def snapshots
     collector.snapshots.each do |snapshot|
+      # API does not return the total size of snapshot so we have to sum the size of the associated volumes
+      total_size = snapshot.volume_snapshots.keys.sum { |vol| collector.volume(vol).size&.gigabytes.to_i }
       persister.snapshots.build(
         :uid            => snapshot.snapshot_id,
         :uid_ems        => snapshot.snapshot_id,
         :ems_ref        => snapshot.snapshot_id,
         :name           => snapshot.name,
         :description    => snapshot.description,
+        :total_size     => total_size,
         :create_time    => snapshot.creation_date,
         :vm_or_template => persister.vms.lazy_find(snapshot.pvm_instance_id)
       )
