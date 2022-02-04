@@ -17,6 +17,8 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
       parse_network_event!(event, event_hash)
     when /^pvm-instance/
       parse_vm_event!(event, event_hash)
+    when /^volume/
+      parse_volume_event!(event, event_hash)
     end
 
     event_hash
@@ -49,5 +51,11 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
       event_hash[:vm_ems_ref] = vm.ems_ref
       event_hash[:vm_name]    = vm.name
     end
+  end
+
+  def self.parse_volume_event!(_event, event_hash)
+    # The PCloudEvent API doesn't provide adequate metadata to parse at this
+    # time. Adding this methods as a placeholder for future updates.
+    event_hash
   end
 end
