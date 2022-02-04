@@ -13,6 +13,8 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
 
     _log.debug("event_hash=#{event_hash}")
     case event_hash[:event_type]
+    when /^image/
+      parse_image_event!(event, event_hash)
     when /^network/
       parse_network_event!(event, event_hash)
     when /^pvm-instance/
@@ -22,6 +24,18 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
     end
 
     event_hash
+  end
+
+  def self.parse_image_event!(event, event_hash)
+    if ['delete'].include?(event[:action])
+      image_id = event.dig(:metadata, :imageID)
+
+      return if image_id.nil?
+
+      event_hash[:vm_ems_ref] = image_id
+    else
+      event_hash
+    end
   end
 
   def self.parse_network_event!(event, event_hash)

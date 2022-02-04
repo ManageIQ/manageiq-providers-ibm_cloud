@@ -6,6 +6,7 @@
       :event_groups:
         :addition:
           :critical:
+          - image.import
           - network.create
           - pvm-instance.create
           - volume.create

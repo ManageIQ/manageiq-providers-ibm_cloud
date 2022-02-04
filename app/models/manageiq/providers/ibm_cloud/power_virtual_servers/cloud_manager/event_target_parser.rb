@@ -9,6 +9,17 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventTar
     targets = []
 
     case ems_event[:event_type]
+    when /^image\.delete/
+      targets << InventoryRefresh::Target.new(
+        :association => :miq_templates,
+        :manager_ref => {:ems_ref => ems_event[:vm_ems_ref]},
+        :manager_id  => ems_event.ext_management_system.id,
+        :event_id    => ems_event.id
+      )
+    when /^image/
+      if ems_event[:message].include?("successfully imported into image catalog")
+        targets << ems_event.ext_management_system
+      end
     when /^network/
       network_manager = ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager.find_by(:parent_ems_id => ems_event[:ems_id])
       targets << InventoryRefresh::Target.new(
