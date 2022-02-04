@@ -13,11 +13,21 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
 
     _log.debug("event_hash=#{event_hash}")
     case event_hash[:event_type]
+    when /^network/
+      parse_network_event!(event, event_hash)
     when /^pvm-instance/
       parse_vm_event!(event, event_hash)
     end
 
     event_hash
+  end
+
+  def self.parse_network_event!(event, event_hash)
+    subnet_id = event.dig(:metadata, :networkID)
+
+    return if subnet_id.nil?
+
+    event_hash[:vm_ems_ref] = subnet_id
   end
 
   def self.parse_vm_event!(event, event_hash)

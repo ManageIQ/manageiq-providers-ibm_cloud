@@ -6,12 +6,15 @@
       :event_groups:
         :addition:
           :critical:
+          - network.create
           - pvm-instance.create
         :update:
           :critical:
+          - network.update
           - pvm-instance.update
         :deletion:
           :critical:
+          - network.delete
           - pvm-instance.delete
         :power:
           :critical:
