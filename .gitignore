@@ -25,3 +25,9 @@
 !/.yarn/releases
 !/.yarn/sdks
 !/.yarn/versions
+
+/lib/tasks_private/terraform/terraform.*
+/lib/tasks_private/terraform/*.log
+/lib/tasks_private/terraform/.terraform
+/lib/tasks_private/terraform/.terraform*
+/lib/tasks_private/terraform/.byebug*

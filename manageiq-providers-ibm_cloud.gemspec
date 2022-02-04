@@ -30,5 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rest-client", "~> 2.1"
 
   spec.add_development_dependency "manageiq-style"
+  spec.add_development_dependency "ruby-terraform"
   spec.add_development_dependency "simplecov"
 end
