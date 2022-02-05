@@ -1,6 +1,6 @@
 # ManageIQ::Providers::IbmCloud
 
-[![Build Status](https://travis-ci.com/ManageIQ/manageiq-providers-ibm_cloud.svg?branch=master)](https://travis-ci.com/github/ManageIQ/manageiq-providers-ibm_cloud)
+[![CI](https://github.com/ManageIQ/manageiq-providers-ibm_cloud/actions/workflows/ci.yaml/badge.svg)](https://github.com/ManageIQ/manageiq-providers-ibm_cloud/actions/workflows/ci.yaml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/41e71ad240a79b0be9d9/maintainability)](https://codeclimate.com/github/ManageIQ/manageiq-providers-ibm_cloud/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/41e71ad240a79b0be9d9/test_coverage)](https://codeclimate.com/github/ManageIQ/manageiq-providers-ibm_cloud/test_coverage)
 
