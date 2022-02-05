@@ -20,7 +20,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
   end
 
   def self.parse_vm_event!(event, event_hash)
-    if ['update', 'create'].include?(event['type'])
+    if ['update', 'create'].include?(event[:action])
       event_hash
     else
       pvm_instance_name = event[:message].split('\'')[1]
