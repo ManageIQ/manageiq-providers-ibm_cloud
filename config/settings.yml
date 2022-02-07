@@ -6,13 +6,20 @@
       :event_groups:
         :addition:
           :critical:
+          - image.import
+          - network.create
           - pvm-instance.create
+          - volume.create
         :update:
           :critical:
+          - network.update
           - pvm-instance.update
+          - volume.update
         :deletion:
           :critical:
+          - network.delete
           - pvm-instance.delete
+          - volume.delete
         :power:
           :critical:
           - pvm-instance.stop

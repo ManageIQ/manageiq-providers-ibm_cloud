@@ -6,21 +6,48 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
       :ems_id     => ems_id,
       :ems_ref    => event[:eventID],
       :timestamp  => event[:time],
+      :message    => event[:message],
       :full_data  => event,
       :username   => event.dig(:user, :email)
     }
 
     _log.debug("event_hash=#{event_hash}")
     case event_hash[:event_type]
+    when /^image/
+      parse_image_event!(event, event_hash)
+    when /^network/
+      parse_network_event!(event, event_hash)
     when /^pvm-instance/
       parse_vm_event!(event, event_hash)
+    when /^volume/
+      parse_volume_event!(event, event_hash)
     end
 
     event_hash
   end
 
+  def self.parse_image_event!(event, event_hash)
+    if ['delete'].include?(event[:action])
+      image_id = event.dig(:metadata, :imageID)
+
+      return if image_id.nil?
+
+      event_hash[:vm_ems_ref] = image_id
+    else
+      event_hash
+    end
+  end
+
+  def self.parse_network_event!(event, event_hash)
+    subnet_id = event.dig(:metadata, :networkID)
+
+    return if subnet_id.nil?
+
+    event_hash[:vm_ems_ref] = subnet_id
+  end
+
   def self.parse_vm_event!(event, event_hash)
-    if ['update', 'create'].include?(event['type'])
+    if ['update', 'create'].include?(event[:action])
       event_hash
     else
       pvm_instance_name = event[:message].split('\'')[1]
@@ -38,5 +65,11 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
       event_hash[:vm_ems_ref] = vm.ems_ref
       event_hash[:vm_name]    = vm.name
     end
+  end
+
+  def self.parse_volume_event!(_event, event_hash)
+    # The PCloudEvent API doesn't provide adequate metadata to parse at this
+    # time. Adding this methods as a placeholder for future updates.
+    event_hash
   end
 end
