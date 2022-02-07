@@ -12,7 +12,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventTar
     when /^image\.delete/
       targets << InventoryRefresh::Target.new(
         :association => :miq_templates,
-        :manager_ref => {:ems_ref => ems_event[:vm_ems_ref]},
+        :manager_ref => {:ems_ref => ems_event.vm_ems_ref},
         :manager_id  => ems_event.ext_management_system.id,
         :event_id    => ems_event.id
       )
