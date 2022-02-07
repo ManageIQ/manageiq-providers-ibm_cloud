@@ -21,11 +21,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventTar
         targets << ems_event.ext_management_system
       end
     when /^network/
-      network_manager = ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager.find_by(:parent_ems_id => ems_event[:ems_id])
       targets << InventoryRefresh::Target.new(
         :association => :cloud_subnets,
         :manager_ref => {:ems_ref => ems_event[:vm_ems_ref]},
-        :manager_id  => network_manager.id,
+        :manager_id  => ems_event.ext_management_system.network_manager.id,
         :event_id    => ems_event.id
       )
     when /^pvm-instance\.create/
@@ -40,8 +39,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventTar
         :event_id    => ems_event.id
       )
     when /^volume/
-      storage_manager = ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager.find_by(:parent_ems_id => ems_event[:ems_id])
-      targets << storage_manager
+      targets << ems_event.ext_management_system.storage_manager
     end
 
     targets
