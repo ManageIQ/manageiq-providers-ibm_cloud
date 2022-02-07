@@ -30,10 +30,6 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager::CloudVolume < ::CloudV
           :label        => _('Cloud Volume Type'),
           :includeEmpty => true,
           :isRequired   => true,
-          :condition    => {
-            :when => 'edit',
-            :is   => false,
-          },
           :options      => ems.cloud_volume_types.map do |cvt|
             {
               :label => cvt.name,
@@ -62,10 +58,6 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager::CloudVolume < ::CloudV
           :id           => 'availability_zone_id',
           :label        => _('Availability Zone'),
           :includeEmpty => true,
-          :condition    => {
-            :when => 'edit',
-            :is   => false,
-          },
           :options      => ems.parent_manager.volume_availability_zones.map do |az|
             {
               :label => az.name,

@@ -30,10 +30,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :id           => 'volume_type',
           :label        => _('Cloud Volume Type'),
           :includeEmpty => true,
-          :condition    => {
-            :when => 'edit',
-            :is   => false,
-          },
           :options      => ems.cloud_volume_types.map do |cvt|
             {
               :label => cvt.description,
@@ -55,10 +51,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :id           => 'affinity_policy',
           :label        => _('Affinity Policy'),
           :initialValue => 'Off',
-          :condition    => {
-            :when => 'edit',
-            :is   => false,
-          },
           :options      => [
             {
               :label => 'Off',
@@ -83,18 +75,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :validate     => [{:type => 'required'}],
           :includeEmpty => true,
           :condition    => {
-            :and => [
-              {
-                :not => {
-                  :when => 'affinity_policy',
-                  :is   => 'Off',
-                },
-              },
-              {
-                :when => 'edit',
-                :is   => false,
-              },
-            ],
+            :not => {
+              :when => 'affinity_policy',
+              :is   => 'Off',
+            },
           },
           :options      => ems.cloud_volumes.map do |cv|
             {
