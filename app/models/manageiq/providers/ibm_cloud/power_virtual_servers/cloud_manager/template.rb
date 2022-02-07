@@ -75,6 +75,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     import_creds = set_import_auth(options['dst_provider_id'], encr_cos_key, encr_cos_iv, encr_cos_creds)
     credentials  = [import_creds, ssh_creds].compact
 
+    # FIXME: fixing the value of the rcfile location until a secure way of
+    # FIXME: env variable passing is implemented in the corresp. playbook
+    rcfile = '/opt/ibm/powervc/powervcrc'
+
     extra_vars = {
       :session_id  => session_id,
       :provider_id => options['src_provider_id'],
@@ -142,7 +146,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     def_endp = powervc.endpoint(:default)
     auth = powervc.node_auth
 
-    return def_endp.hostname, auth, node_endp.options
+    rcfile = node_endp&.options
+    default_rcfile = '/opt/ibm/powervc/powervcrc'
+    return def_endp.hostname, auth, rcfile.present? ? rcfile : default_rcfile
   end
 
   private_class_method def self.image_ems_ref(bucket_id)
