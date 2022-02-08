@@ -66,6 +66,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
 
     host = "[powervc]\n#{location}\n[powervc:vars]\nansible_connection=ssh\nansible_user=#{node_auth.userid}"
 
+    # FIXME: setting this to PKey only authentication until a fix to the appearing of
+    # FIXME: the password in Logs/DB is implemented
+    node_auth.options = 'pkey'
+
     if node_auth.options == 'pkey'
       ssh_creds = set_ssh_pkey_auth(options['dst_provider_id'], node_auth.auth_key, node_auth.auth_key_password)
     else
