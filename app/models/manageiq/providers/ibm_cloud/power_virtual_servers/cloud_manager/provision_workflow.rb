@@ -22,6 +22,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     %i[name size shareable]
   end
 
+  def template_id
+    values&.dig(:src_vm_id, 0)
+  end
+
   def vm_image
     @vm_image ||= begin
       template_id = values&.dig(:src_vm_id, 0)
@@ -30,7 +34,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def sap_image?
-    vm_image.description == 'stock-sap'
+    !template_id.nil? && vm_image.description == 'stock-sap'
   end
 
   def sap_flavor
@@ -55,6 +59,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_instance_type(_options = {})
+    return {} if ar_ems.nil?
+
     if sap_image?
       {
         0 => "dedicated"
@@ -69,6 +75,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_sys_type(_options = {})
+    return {} if ar_ems.nil?
+
     flavor_type = "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::#{sap_image? ? 'SAPProfile' : 'SystemType'}"
 
     ar_sys_types = ar_ems.flavors.find_all { |flavor| flavor.type == flavor_type }
@@ -78,12 +86,16 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_storage_type(_options = {})
+    return {} if ar_ems.nil?
+
     ar_storage_types = ar_ems.cloud_volume_types
     storage_types = ar_storage_types&.map&.each_with_index { |storage_type, i| [i, storage_type['name']] }
     Hash[storage_types || none]
   end
 
   def allowed_guest_access_key_pairs(_options = {})
+    return {} if ar_ems.nil?
+
     ar_key_pairs = ar_ems.key_pairs
     key_pairs = ar_key_pairs&.map&.with_index(1) { |key_pair, i| [i, key_pair['name']] }
     none = [0, 'None']
@@ -91,6 +103,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_subnets(_options = {})
+    return {} if ar_ems.nil?
+
     ar_subnets = ar_ems.cloud_subnets
     subnets = ar_subnets&.collect { |subnet| [subnet[:ems_ref], subnet[:name]] }
     none = ['None', 'None (Must attach to new public network)']
@@ -98,6 +112,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def allowed_cloud_volumes(_options = {})
+    return {} if ar_ems.nil?
+
     storage_type = values&.dig(:storage_type, 1)
 
     ar_volumes = ar_ems.cloud_volumes.select do |cloud_volume|
@@ -169,7 +185,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   def ar_ems
     rui = resources_for_ui[:ems]
     ems = load_ar_obj(rui) if rui
-    raise MiqException::MiqProvisionError, _('A server-side error occurred in the provisioning workflow') if ems.nil?
 
     ems
   end

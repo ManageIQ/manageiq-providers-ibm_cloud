@@ -72,6 +72,18 @@
     :service:
       :description: General
       :fields:
+        :src_vm_id:
+          :values_from:
+            :options:
+              :tag_filters: []
+
+            :method: :allowed_templates
+          :description: Image
+          :required: true
+          :notes:
+          :display: :edit
+          :data_type: :integer
+          :notes_display: :hide
         :number_of_vms:
           :values:
             1: 1
