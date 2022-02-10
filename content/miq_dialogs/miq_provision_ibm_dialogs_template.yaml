@@ -87,7 +87,8 @@
         :vm_name:
           :description: Instance Name
           :required_method: :validate_regex
-          :required_regex: !ruby/regexp /^[a-zA-Z]+$/
+          :required_regex: !ruby/regexp /^[a-zA-Z0-9\-_]+$/
+          :required_regex_fail_details: Only letters (no accents), numbers, underscores and dashes are allowed.
           :required: true
           :display: :edit
           :data_type: :string
