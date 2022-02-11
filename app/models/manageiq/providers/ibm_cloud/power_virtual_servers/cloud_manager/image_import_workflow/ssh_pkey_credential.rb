@@ -10,7 +10,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
 
   def write_password_file
     password_hash = initialize_password_data
-    ssh_unlock_phrase = "^Enter passphrase for [a-zA-Z0-9\-\/]+\/ssh_key_data:".freeze
+    ssh_unlock_phrase = '^Enter passphrase for'.freeze
     password_hash[ssh_unlock_phrase] = auth.auth_key_password if auth.auth_key_password.present?
     File.write(password_file, password_hash.to_yaml) if password_hash.present?
   end
