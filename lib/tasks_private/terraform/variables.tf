@@ -1,7 +1,6 @@
 variable "ibmcloud_api_key" {
     description = "Denotes the IBM Cloud API key to use"
-    #default = "mKySq2ZPj2gNB91s1gh0DnhRviRvNf8enq-69IjT9exB" 
-    default = "AIgaxXO6blQD8go6MZmYr3nCCo9pkOI5o7ALwDjuiwM9"
+    type = string
 }
 
 variable "ibmcloud_region" {
@@ -12,7 +11,7 @@ variable "ibmcloud_region" {
 
 variable "vm_name" {
     description = "Name of the VM"
-    default     = "rdr-miq-test-04"
+    type = string
 }
 
 variable "power_instance_id" {
@@ -73,5 +72,6 @@ variable "image_name" {
 }
 
 variable "volume_name" {
-    default = "rdr-miq-volume"
+    description = "Name of the storage volume"
+    type = string
 }

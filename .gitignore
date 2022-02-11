@@ -31,3 +31,6 @@
 /lib/tasks_private/terraform/.terraform
 /lib/tasks_private/terraform/.terraform*
 /lib/tasks_private/terraform/.byebug*
+lib/tasks_private/terraform/snapshot/terraform.*
+/lib/tasks_private/terraform/snapshot/.terraform*
+/lib/tasks_private/terraform/snapshot/*.log

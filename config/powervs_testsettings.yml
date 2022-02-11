@@ -7,3 +7,4 @@ test:
   power_network_name: miq-net
   image_name: '7100-05-05'
   sys_type: s922
+  volume_name: rdr-miq-volume-1
