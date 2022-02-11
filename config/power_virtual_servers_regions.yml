@@ -6,46 +6,10 @@ eu-de:
   :name: eu-de
   :description: Frankfurt, Germany
   :hostname: eu-de.power-iaas.cloud.ibm.com
-ams:
-  :name: Amsterdam
-  :description: Amsterdam, Netherlands
-  :hostname: ams.power-iaas.cloud.ibm.com
-che:
-  :name: Chennai
-  :description: Chennai, India
-  :hostname: che.power-iaas.cloud.ibm.com
-ctu:
-  :name: Chengdu
-  :description: Chengdu, China
-  :hostname: ctu.power-iaas.cloud.ibm.com
-fra:
-  :name: Frankfurt
-  :description: Frankfurt, Germany
-  :hostname: fra.power-iaas.cloud.ibm.com
-hkg:
-  :name: Hong Kong
-  :description: Hong Kong, China
-  :hostname: hkg.power-iaas.cloud.ibm.com
-hou:
-  :name: Houston
-  :description: Houston, TX United States
-  :hostname: hou.power-iaas.cloud.ibm.com
 lon:
   :name: London
   :description: London, United Kingdom
   :hostname: lon.power-iaas.cloud.ibm.com
-mex:
-  :name: Mexico
-  :description: Mexico
-  :hostname: mex.power-iaas.cloud.ibm.com
-mel:
-  :name: Melbourne
-  :description: Melbourne, Austrailia
-  :hostname: mel.power-iaas.cloud.ibm.com
-mil:
-  :name: Milan
-  :description: Milan, Italy
-  :hostname: mil.power-iaas.cloud.ibm.com
 mon:
   :name: Montreal
   :description: Montreal, Canada
@@ -54,34 +18,10 @@ osa:
   :name: Osaka
   :description: Osaka, Japan
   :hostname: osa.power-iaas.cloud.ibm.com
-osl:
-  :name: Oslo
-  :description: Oslo, Norway
-  :hostname: osl.power-iaas.cloud.ibm.com
-par:
-  :name: Paris
-  :description: Paris, France
-  :hostname: par.power-iaas.cloud.ibm.com
 sao:
   :name: Sao Paulo
   :description: Sao Paulo, Brazil
   :hostname: sao.power-iaas.cloud.ibm.com
-seo:
-  :name: Seoul
-  :description: Seoul, South Korea
-  :hostname: seo.power-iaas.cloud.ibm.com
-sea:
-  :name: Seattle
-  :description: Seattle, WA United States
-  :hostname: sea.power-iaas.cloud.ibm.com
-sjc:
-  :name: San Jose
-  :description: San Jose, CA United States
-  :hostname: sjc.power-iaas.cloud.ibm.com
-sng:
-  :name: Singapore
-  :description: Singapore
-  :hostname: sng.power-iaas.cloud.ibm.com
 syd:
   :name: Sydney
   :description: Sydney, Austrailia
@@ -98,4 +38,3 @@ wdc:
   :name: Washington DC
   :description: Washington DC, United States
   :hostname: wdc.power-iaas.cloud.ibm.com
-  
