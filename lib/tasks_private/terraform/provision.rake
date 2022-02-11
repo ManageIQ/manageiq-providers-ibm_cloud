@@ -26,6 +26,12 @@ namespace :provision do
     destroy(config)
   end
 
+  desc "snapshot a vm"
+  task :snapshot => :apply do
+    config = setup
+    snapshot(config)
+  end
+
   def setup
     Dir.chdir(@terraform_dir)
 
@@ -57,6 +63,7 @@ namespace :provision do
         :power_instance_id   => config[:secret]["cloud_instance_id"],
         :ibmcloud_region     => config[:secret]["ibmcloud_region"],
         :vm_name             => config[:setting]["vm_name"],
+        :volume_name         => config[:setting]["volume_name"],
         :key_pair_name       => config[:setting]["key_pair_name"],
         :image_name          => config[:setting]["image_name"],
         :sys_type            => config[:setting]["sys_type"],
@@ -82,18 +89,50 @@ namespace :provision do
 
   def destroy(config)
     RubyTerraform.destroy(
+      :chdir        => 'snapshot',
+      :auto_approve => true,
+      :vars         => {
+        :ibmcloud_api_key  => config[:secret]["api_key"],
+        :power_instance_id => config[:secret]["cloud_instance_id"],
+        :ibmcloud_region   => config[:secret]["ibmcloud_region"],
+        :vm_name           => config[:setting]["vm_name"],
+      }
+    )
+    RubyTerraform.destroy(
       :auto_approve => true,
       :vars         => {
         :ibmcloud_api_key    => config[:secret]["api_key"],
         :power_instance_id   => config[:secret]["cloud_instance_id"],
         :ibmcloud_region     => config[:secret]["ibmcloud_region"],
         :vm_name             => config[:setting]["vm_name"],
+        :volume_name         => config[:setting]["volume_name"],
         :key_pair_name       => config[:setting]["key_pair_name"],
         :image_name          => config[:setting]["image_name"],
         :sys_type            => config[:setting]["sys_type"],
         :public_network_name => config[:setting]["public_network_name"],
         :power_network_name  => config[:setting]["power_network_name"]
       }
+    )
+  end
+
+  def snapshot(config)
+    RubyTerraform.init(
+      :chdir => 'snapshot'
+    )
+    RubyTerraform.plan(
+      :chdir => 'snapshot',
+      :out   => 'terraform.tfplan',
+      :vars  => {
+        :ibmcloud_api_key  => config[:secret]["api_key"],
+        :power_instance_id => config[:secret]["cloud_instance_id"],
+        :ibmcloud_region   => config[:secret]["ibmcloud_region"],
+        :vm_name           => config[:setting]["vm_name"],
+      }
+    )
+    RubyTerraform.apply(
+      :chdir        => 'snapshot',
+      :plan         => 'terraform.tfplan',
+      :auto_approve => true
     )
   end
 end

@@ -1,8 +1,8 @@
 ---
 version: 4
 terraform_version: 1.1.2
-serial: 99
-lineage: 1d89d1e6-e4df-0882-27ff-5c326342b8c7
+serial: 6
+lineage: e25252af-9104-e99b-b1fe-6bf32feeb773
 outputs:
   progress:
     value: 0
@@ -18,7 +18,7 @@ resources:
   instances:
   - schema_version: 0
     attributes:
-      id: 2022-02-11 01:53:18.2961422 +0000 UTC
+      id: 2022-02-04 23:02:12.853298207 +0000 UTC
       images:
       - architecture: ppc64
         container_format: bare
@@ -226,7 +226,7 @@ resources:
   instances:
   - schema_version: 0
     attributes:
-      available_ip_count: 150
+      available_ip_count: 152
       cidr: 192.168.100.0/24
       gateway: 192.168.100.101
       id: 459df01a-b183-47f5-996d-c7e2807c03e5
@@ -235,8 +235,8 @@ resources:
       pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
       pi_network_name: miq-net
       type: vlan
-      used_ip_count: 3
-      used_ip_percent: 1
+      used_ip_count: 1
+      used_ip_percent: 0
       vlan_id: 379
     sensitive_attributes: []
 - mode: data
@@ -246,7 +246,7 @@ resources:
   instances:
   - schema_version: 0
     attributes:
-      available_ip_count: 2
+      available_ip_count: 4
       cidr: 192.168.165.88/29
       gateway: 192.168.165.89
       id: dfcbcdc8-f43c-4fdd-b3bf-89a74649be15
@@ -255,8 +255,8 @@ resources:
       pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
       pi_network_name: public-192_168_165_88-29-VLAN_2039
       type: pub-vlan
-      used_ip_count: 3
-      used_ip_percent: 60
+      used_ip_count: 1
+      used_ip_percent: 20
       vlan_id: 2039
     sensitive_attributes: []
 - mode: managed
@@ -266,16 +266,16 @@ resources:
   instances:
   - schema_version: 0
     attributes:
-      health_status: OK
-      id: 8fa27c40-827c-4568-8813-79b398e9cd27/562b8150-a1c4-49ac-8f38-394afac437b6
-      instance_id: 562b8150-a1c4-49ac-8f38-394afac437b6
+      health_status: WARNING
+      id: 8fa27c40-827c-4568-8813-79b398e9cd27/e445a731-6f7f-4ce5-85ee-ddbc76648349
+      instance_id: e445a731-6f7f-4ce5-85ee-ddbc76648349
       max_memory: 32
       max_processors: 8
       max_virtual_cores: 8
       min_memory: 2
       min_processors: 0.25
       min_virtual_cores: 1
-      operating_system: AIX 7.1, 7100-05-05-1939
+      operating_system: 0.0.0.0.0.0
       os_type: aix
       pi_affinity_instance:
       pi_affinity_policy:
@@ -285,21 +285,21 @@ resources:
       pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
       pi_health_status: WARNING
       pi_image_id: 3b4c7b26-19bd-4eee-b4f0-a53b2785e46c
-      pi_instance_name: rdr-miq-test-1
+      pi_instance_name: rdr-miq-test-2
       pi_key_pair_name: miq-pvs
       pi_license_repository_capacity: 0
       pi_memory: 4
       pi_migratable: false
       pi_network:
       - external_ip: ''
-        ip_address: 192.168.100.250
-        mac_address: fa:6c:69:69:d1:20
+        ip_address: 192.168.100.123
+        mac_address: fa:c2:48:d8:3d:20
         network_id: 459df01a-b183-47f5-996d-c7e2807c03e5
         network_name: miq-net
         type: fixed
-      - external_ip: 169.54.112.219
-        ip_address: 192.168.165.91
-        mac_address: fa:6c:69:69:d1:21
+      - external_ip: 169.54.112.221
+        ip_address: 192.168.165.93
+        mac_address: fa:c2:48:d8:3d:21
         network_id: dfcbcdc8-f43c-4fdd-b3bf-89a74649be15
         network_name: public-192_168_165_88-29-VLAN_2039
         type: fixed
@@ -320,7 +320,7 @@ resources:
       pi_user_data:
       pi_virtual_cores_assigned: 1
       pi_volume_ids:
-      - aab2046a-aeb1-48ea-a8e5-2109cad5f8fc
+      - f4f88b36-946f-4d82-93b5-cef009a5ed68
       pin_policy: none
       status: ACTIVE
       timeouts:
@@ -340,22 +340,22 @@ resources:
   - schema_version: 0
     attributes:
       delete_on_termination:
-      id: 8fa27c40-827c-4568-8813-79b398e9cd27/aab2046a-aeb1-48ea-a8e5-2109cad5f8fc
+      id: 8fa27c40-827c-4568-8813-79b398e9cd27/f4f88b36-946f-4d82-93b5-cef009a5ed68
       pi_affinity_instance:
       pi_affinity_policy:
       pi_affinity_volume:
       pi_anti_affinity_instances:
       pi_anti_affinity_volumes:
       pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
-      pi_volume_name: rdr-miq-volume-1
+      pi_volume_name: rdr-miq-volume-2
       pi_volume_pool: Tier3-Flash-1
       pi_volume_shareable: true
       pi_volume_size: 20
       pi_volume_type: tier3
       timeouts:
-      volume_id: aab2046a-aeb1-48ea-a8e5-2109cad5f8fc
-      volume_status: in-use
-      wwn: 60050768108101DA100000000000EE10
+      volume_id: f4f88b36-946f-4d82-93b5-cef009a5ed68
+      volume_status: available
+      wwn: 60050768108101DA100000000000EDCA
     sensitive_attributes: []
     private: eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=
     dependencies:

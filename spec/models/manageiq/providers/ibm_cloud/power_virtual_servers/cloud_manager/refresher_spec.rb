@@ -82,26 +82,26 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
     def assert_table_counts
       expect(Flavor.count).to eq(56)
-      expect(Vm.count).to eq(1)
-      expect(OperatingSystem.count).to eq(5)
+      expect(Vm.count).to eq(3)
+      expect(OperatingSystem.count).to eq(7)
       expect(MiqTemplate.count).to eq(4)
       expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to be > 1
-      expect(CloudVolume.count).to eq(2)
+      expect(CloudVolume.count).to eq(6)
       expect(CloudNetwork.count).to eq(2)
       expect(CloudSubnet.count).to eq(2)
-      expect(NetworkPort.count).to eq(2)
-      expect(CloudSubnetNetworkPort.count).to eq(3)
+      expect(NetworkPort.count).to eq(6)
+      expect(CloudSubnetNetworkPort.count).to eq(9)
     end
 
     def assert_ems_counts
-      expect(ems.vms.count).to eq(1)
+      expect(ems.vms.count).to eq(3)
       expect(ems.miq_templates.count).to eq(4)
-      expect(ems.operating_systems.count).to eq(5)
+      expect(ems.operating_systems.count).to eq(7)
       expect(ems.key_pairs.count).to be > 1
       expect(ems.network_manager.cloud_networks.count).to eq(2)
       expect(ems.network_manager.cloud_subnets.count).to eq(2)
-      expect(ems.network_manager.network_ports.count).to eq(2)
-      expect(ems.storage_manager.cloud_volumes.count).to eq(2)
+      expect(ems.network_manager.network_ports.count).to eq(6)
+      expect(ems.storage_manager.cloud_volumes.count).to eq(6)
       expect(ems.storage_manager.cloud_volume_types.count).to eq(2)
     end
 
@@ -129,7 +129,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :type             => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm"
       )
       expect(vm.ems_created_on).to be_a(ActiveSupport::TimeWithZone)
-      expect(vm.ems_created_on.to_s).to eql("2022-02-04 04:14:36 UTC")
+      expect(vm.ems_created_on.to_s).to eql("2022-02-11 01:05:12 UTC")
 
       expect(vm.hardware).to have_attributes(
         :cpu_sockets     => 1,
@@ -159,6 +159,13 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(vm.advanced_settings.find { |setting| setting['name'] == 'placement_group' }).to have_attributes(
         :value        => nil
       )
+
+      expect(vm.snapshots.count).to eq(1)
+      expect(vm.snapshots.first).to have_attributes(
+        :name              => 'test-snapshot-1',
+        :vm_or_template_id => vm.id
+      )
+      expect(vm.snapshots.first.total_size).to be > 0
     end
 
     def assert_specific_template
