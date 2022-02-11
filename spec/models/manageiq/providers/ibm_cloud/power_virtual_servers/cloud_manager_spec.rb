@@ -38,7 +38,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager do
     let(:ems) { FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud) }
 
     it "catalog_types" do
-      expect(ems.catalog_types).to be_empty
+      expect(ems.catalog_types["IbmCloud::PowerVirtualServers"]).to eq "IBM PowerVS"
     end
   end
 end
