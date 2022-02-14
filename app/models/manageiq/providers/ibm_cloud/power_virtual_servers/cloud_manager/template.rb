@@ -55,7 +55,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     session_id = SecureRandom.uuid
     wrkfl_timeout = options['timeout'].to_i.hours
 
-    location, node_auth, rcfile = node_creds(options['src_provider_id'])
+    location, node_auth, _ = node_creds(options['src_provider_id'])
     guid, apikey, region, endpoint, access_key, secret_key = cos_creds(options['obj_storage_id'])
     bucket = bucket_name(options['bucket_id'])
     diskType = CloudVolumeType.find(options['disk_type_id']).name
