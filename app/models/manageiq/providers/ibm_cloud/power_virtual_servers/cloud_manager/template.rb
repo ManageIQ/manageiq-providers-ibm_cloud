@@ -148,7 +148,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
 
     rcfile = node_endp&.options
     default_rcfile = '/opt/ibm/powervc/powervcrc'
-    return def_endp.hostname, auth, rcfile.present? ? rcfile : default_rcfile
+    return def_endp.hostname, auth, rcfile.presence || default_rcfile
   end
 
   private_class_method def self.image_ems_ref(bucket_id)
