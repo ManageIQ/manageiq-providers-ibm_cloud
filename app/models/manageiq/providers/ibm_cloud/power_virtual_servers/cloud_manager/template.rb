@@ -55,7 +55,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     session_id = SecureRandom.uuid
     wrkfl_timeout = options['timeout'].to_i.hours
 
-    location, node_auth, rcfile = node_creds(options['src_provider_id'])
+    location, node_auth, _ = node_creds(options['src_provider_id'])
     guid, apikey, region, endpoint, access_key, secret_key = cos_creds(options['obj_storage_id'])
     bucket = bucket_name(options['bucket_id'])
     diskType = CloudVolumeType.find(options['disk_type_id']).name
@@ -78,6 +78,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
 
     import_creds = set_import_auth(options['dst_provider_id'], encr_cos_key, encr_cos_iv, encr_cos_creds)
     credentials  = [import_creds, ssh_creds].compact
+
+    # FIXME: fixing the value of the rcfile location until a secure way of
+    # FIXME: env variable passing is implemented in the corresp. playbook
+    rcfile = '/opt/ibm/powervc/powervcrc'
 
     extra_vars = {
       :session_id  => session_id,
@@ -146,7 +150,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     def_endp = powervc.endpoint(:default)
     auth = powervc.node_auth
 
-    return def_endp.hostname, auth, node_endp.options
+    rcfile = node_endp&.options
+    default_rcfile = '/opt/ibm/powervc/powervcrc'
+    return def_endp.hostname, auth, rcfile.presence || default_rcfile
   end
 
   private_class_method def self.image_ems_ref(bucket_id)
