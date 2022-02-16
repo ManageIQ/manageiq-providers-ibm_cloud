@@ -1,40 +1,44 @@
-us-south:
-  :name: us-south
-  :description: Dallas, TX United States (deprecated)
-  :hostname: us-south.power-iaas.cloud.ibm.com
+dal:
+  :name: dal
+  :description: Dallas, TX United States
+  :hostname: dal.power-iaas.cloud.ibm.com
 eu-de:
   :name: eu-de
   :description: Frankfurt, Germany
   :hostname: eu-de.power-iaas.cloud.ibm.com
 lon:
-  :name: London
+  :name: lon
   :description: London, United Kingdom
   :hostname: lon.power-iaas.cloud.ibm.com
 mon:
-  :name: Montreal
+  :name: mon
   :description: Montreal, Canada
   :hostname: mon.power-iaas.cloud.ibm.com
 osa:
-  :name: Osaka
+  :name: osa
   :description: Osaka, Japan
   :hostname: osa.power-iaas.cloud.ibm.com
 sao:
-  :name: Sao Paulo
+  :name: sao
   :description: Sao Paulo, Brazil
   :hostname: sao.power-iaas.cloud.ibm.com
 syd:
-  :name: Sydney
+  :name: syd
   :description: Sydney, Austrailia
   :hostname: syd.power-iaas.cloud.ibm.com
 tok:
-  :name: Tokyo
+  :name: tok
   :description: Tokyo, Japan
   :hostname: tok.power-iaas.cloud.ibm.com
 tor:
-  :name: Toronto
+  :name: tor
   :description: Toronto, Canada
   :hostname: tor.power-iaas.cloud.ibm.com
+us-east:
+  :name: us-east
+  :description: Washington DC, United States
+  :hostname: us-east.power-iaas.cloud.ibm.com
 wdc:
-  :name: Washington DC
+  :name: wdc
   :description: Washington DC, United States
   :hostname: wdc.power-iaas.cloud.ibm.com
