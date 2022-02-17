@@ -38,6 +38,10 @@ us-east:
   :name: us-east
   :description: Washington DC, United States
   :hostname: us-east.power-iaas.cloud.ibm.com
+us-south:
+  :name: us-south
+  :description: Dallas, TX United States
+  :hostname: us-south.power-iaas.cloud.ibm.com
 wdc:
   :name: wdc
   :description: Washington DC, United States
