@@ -55,13 +55,16 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     session_id = SecureRandom.uuid
     wrkfl_timeout = options['timeout'].to_i.hours
 
+    cos = ExtManagementSystem.find(options['obj_storage_id'])
+    raise MiqException::Error, _("unable to find cloud object storage by this id '#{options['obj_storage_id']}'") if cos.nil?
+
     location, node_auth, _ = node_creds(options['src_provider_id'])
-    guid, apikey, region, endpoint, access_key, secret_key = cos_creds(options['obj_storage_id'])
+    guid, apikey, region, endpoint, _, _ = cos.cos_creds
     bucket = bucket_name(options['bucket_id'])
     diskType = CloudVolumeType.find(options['disk_type_id']).name
 
+    cos_data = {:cos_id => cos.id, :region => region, :bucketName => bucket}
     cos_ans_creds = {:resource_instance_id => guid, :apikey => apikey, :bucket_name => bucket, :url_endpoint => endpoint}
-    cos_pvs_creds = {:region => region, :bucketName => bucket, :accessKey => access_key, :secretKey => secret_key}
     encr_cos_creds, encr_cos_key, encr_cos_iv = encrypt_with_aes(cos_ans_creds)
 
     host = "[powervc]\n#{location}\n[powervc:vars]\nansible_connection=ssh\nansible_user=#{node_auth.userid}"
@@ -99,7 +102,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
       :bucket_name     => bucket,
       :diskType        => diskType,
       :miq_img         => miq_img_by_ids(options['src_provider_id'], options['src_image_id']),
-      :cos_pvs_creds   => cos_pvs_creds,
+      :cos_data        => cos_data,
       :import_creds_id => import_creds,
       :ssh_creds_id    => ssh_creds,
       :playbook_path   => ManageIQ::Providers::IbmCloud::Engine.root.join("content/ansible_runner/run.yml"),
@@ -137,11 +140,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
   private_class_method def self.miq_img_by_ids(provider_id, image_id)
     powervc = ExtManagementSystem.find(provider_id)
     powervc.get_image_info(image_id)
-  end
-
-  private_class_method def self.cos_creds(provider_id)
-    cos = ExtManagementSystem.find(provider_id)
-    cos.cos_creds
   end
 
   private_class_method def self.node_creds(provider_id)
