@@ -46,7 +46,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
     cos_data = options[:cos_data]
 
     region = cos_data[:region]
-    bucketName = cos_data[:bucketName]
+    bucket_name = cos_data[:bucketName]
 
     cos = ExtManagementSystem.find(cos_data[:cos_id])
     raise MiqException::Error, _("unable to find cloud object storage by this id '#{options['obj_storage_id']}'") if cos.nil?
@@ -60,7 +60,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
       :diskType      => options[:diskType],
       :imageFilename => "#{options[:session_id]}.ova",
       :region        => region,
-      :bucketName    => bucketName,
+      :bucketName    => bucket_name,
       :accessKey     => access_key,
       :secretKey     => secret_key,
     }
