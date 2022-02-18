@@ -14,7 +14,7 @@ module ManageIQ
                                                           :button         => :import_image,
                                                           :modal_title    => N_('Image Import Workflow'),
                                                           :component_name => 'ImportImageForm'}},
-                           :klass => ::ApplicationHelper::Button::ButtonWithoutRbacCheck
+                           :klass => ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow::ImageImportButton
                          ),
                        ])
         end
