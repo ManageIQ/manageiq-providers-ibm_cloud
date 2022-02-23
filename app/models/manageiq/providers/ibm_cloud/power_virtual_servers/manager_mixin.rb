@@ -37,7 +37,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
   end
 
   def api_endpoint_url(location)
-    region = region.sub(/-*\d+$/, '')   # e.g. 'syd04' -> 'syd'
+    region = location.sub(/-*\d+$/, '')   # e.g. 'syd04' -> 'syd'; 'eu-de-2' -> 'eu-de'
     ManageIQ::Providers::IbmCloud::PowerVirtualServers::Regions.regions[region][:hostname]
   end
 
