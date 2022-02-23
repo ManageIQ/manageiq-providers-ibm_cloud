@@ -1,6 +1,6 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::Regions < ManageIQ::Providers::Regions
   class << self
-  private
+    private
 
     def ems_type
       :ibm_cloud_power_virtual_servers
