@@ -6,4 +6,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
   def disabled?
     return true unless role_allows_feature?
   end
+
+  def skipped?
+    !visible?
+  end
+
+  def visible?
+    true
+  end
 end
