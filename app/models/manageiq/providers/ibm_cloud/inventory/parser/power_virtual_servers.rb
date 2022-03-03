@@ -247,15 +247,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   end
 
   def sshkeys
+    require "sshkey"
     collector.sshkeys.each do |tkey|
-      tenant_key = {
-        :creationDate => tkey.creation_date,
-        :name         => tkey.name,
-        :sshKey       => tkey.ssh_key,
-      }
-
-      # save the tenant instance
-      persister.auth_key_pairs.build(:name => tenant_key[:name])
+      persister.auth_key_pairs.build(
+        :name        => tkey.name,
+        :public_key  => tkey.ssh_key,
+        :fingerprint => SSHKey.sha1_fingerprint(tkey.ssh_key)
+      )
     end
   end
 
