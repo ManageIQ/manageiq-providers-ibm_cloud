@@ -40,7 +40,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
   def post_execute
     cleanup_git_repository
 
-    ems = ExtManagementSystem.find(options[:ems_id])
+    ems = ExtManagementSystem.find_by(:id => options[:ems_id])
     raise MiqException::Error, _("unable to find ems by this id '#{options[:ems_id]}'") if ems.nil?
 
     cos_data = options[:cos_data]
@@ -48,7 +48,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
     region = cos_data[:region]
     bucket_name = cos_data[:bucketName]
 
-    cos = ExtManagementSystem.find(cos_data[:cos_id])
+    cos = ExtManagementSystem.find_by(:id => cos_data[:cos_id])
     raise MiqException::Error, _("unable to find cloud object storage by this id '#{options['obj_storage_id']}'") if cos.nil?
 
     _, _, _, _, access_key, secret_key = cos.cos_creds
