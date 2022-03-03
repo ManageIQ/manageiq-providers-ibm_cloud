@@ -48,8 +48,13 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
 
   supports :catalog
   supports :create
+  supports :native_console
   supports :provisioning
   supports_not :volume_availability_zones
+
+  def console_url
+    "https://cloud.ibm.com"
+  end
 
   def image_name
     "ibm_power_vs"
