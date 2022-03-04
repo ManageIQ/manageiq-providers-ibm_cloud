@@ -46,6 +46,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         assert_specific_cloud_subnet
         assert_specific_network_port
         assert_specific_cloud_volume
+        assert_volume_type_attribs
       end
     end
 
@@ -237,6 +238,14 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :status      => volume_data['volume_status'],
         :volume_type => volume_data['pi_volume_type']
       )
+    end
+
+    def assert_volume_type_attribs
+      voltypes = ems.storage_manager.cloud_volume_types
+      voltypes.each do |vtype|
+        expect(vtype[:name].length).to be > 0
+        expect(vtype[:description].length).to be > 0
+      end
     end
 
     def full_refresh(ems)
