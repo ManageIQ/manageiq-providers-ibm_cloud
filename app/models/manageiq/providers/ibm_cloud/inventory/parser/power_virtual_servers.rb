@@ -1,4 +1,5 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < ManageIQ::Providers::IbmCloud::Inventory::Parser
+  require 'openssl'
   require_nested :CloudManager
   require_nested :NetworkManager
   require_nested :StorageManager
@@ -258,11 +259,17 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   def sshkeys
     require "sshkey"
     collector.sshkeys.each do |tkey|
-      persister.auth_key_pairs.build(
-        :name        => tkey.name,
-        :public_key  => tkey.ssh_key,
-        :fingerprint => SSHKey.sha1_fingerprint(tkey.ssh_key)
-      )
+      cert = OpenSSL::X509::Certificate.new(tkey.ssh_key)
+      fingerprint = OpenSSL::Digest::SHA1.hexdigest(cert.to_der).scan(/../).join(':')
+      tenant_key = {
+        :creationDate => tkey.creation_date,
+        :name         => tkey.name,
+        :sshKey       => tkey.ssh_key,
+        :fingerprint  => fingerprint
+      }
+
+      # save the tenant instance
+      persister.auth_key_pairs.build(:name => tenant_key[:name])
     end
   end
 
