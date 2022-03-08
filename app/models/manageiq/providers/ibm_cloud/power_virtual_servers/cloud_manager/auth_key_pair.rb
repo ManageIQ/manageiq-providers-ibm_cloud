@@ -3,6 +3,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyP
   supports :delete
 
   def self.raw_create_key_pair(ext_management_system, create_options)
+    require "sshkey"
     ext_management_system.with_provider_connection(:service => "PCloudTenantsSSHKeysApi") do |api|
       tenant_id = ext_management_system.pcloud_tenant_id(api.api_client)
       ssh_key   = IbmCloudPower::SSHKey.new(
@@ -11,6 +12,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyP
       )
 
       api.pcloud_tenants_sshkeys_post(tenant_id, ssh_key)
+      {
+        :name        => create_options['name'],
+        :public_key  => create_options['public_key'],
+        :fingerprint => SSHKey.sha1_fingerprint(create_options['public_key'])
+      }
     end
   rescue => err
     _log.error("keypair=[#{create_options[:name]}], error: #{err}")
