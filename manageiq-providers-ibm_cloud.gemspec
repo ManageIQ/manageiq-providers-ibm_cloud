@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "ibm_vpc", "~> 0.1"
   spec.add_dependency "prometheus-api-client", "~> 0.6"
   spec.add_dependency "rest-client", "~> 2.1"
+  spec.add_dependency "sshkey", "~>1.8.0"
 
   spec.add_development_dependency "manageiq-style"
   spec.add_development_dependency "ruby-terraform"
