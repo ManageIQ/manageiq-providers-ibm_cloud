@@ -13,6 +13,8 @@ module ManageIQ
 
           # Return a new Activty Tracker SDK instance.
           def sdk_client
+            require 'ibm_cloud_activity_tracker'
+
             @sdk_params[:authenticator] = @cloudtools.authenticator
             @sdk_client ||= IbmCloudActivityTracker::ActivityTrackerApiV1.new(@sdk_params)
           end
