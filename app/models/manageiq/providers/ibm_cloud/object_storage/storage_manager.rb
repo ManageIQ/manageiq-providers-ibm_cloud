@@ -126,7 +126,7 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
     self.class.raw_connect(region, endpoint, access_key, secret_key)
   end
 
-  def verify_credentials(_args = {}, _options = {})
+  def verify_credentials(_auth_type = nil, _options = {}
     guid, apikey, region, endpoint, access_key, secret_key = cos_creds
     self.class.verify_bearer(region, endpoint, access_key, secret_key)
     self.class.verify_iam(guid, apikey)
