@@ -109,6 +109,43 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
                       },
                     },
                   ]
+                },
+                {
+                  :component => 'tab-item',
+                  :id        => 'events-tab',
+                  :name      => 'events-tab',
+                  :title     => _('Events'),
+                  :fields    => [
+                    {
+                      :component    => 'protocol-selector',
+                      :id           => 'events_selection',
+                      :name         => 'events_selection',
+                      :skipSubmit   => true,
+                      :initialValue => 'none',
+                      :label        => _('Type'),
+                      :options      => [
+                        {
+                          :label => _('Disabled'),
+                          :value => 'none',
+                        },
+                        {
+                          :label => _('Enabled'),
+                          :value => 'enable_events',
+                        },
+                      ],
+                    },
+                    {
+                      :component  => 'password-field',
+                      :id         => 'authentications.events.auth_key',
+                      :name       => 'authentications.events.auth_key',
+                      :label      => _('IBM Cloud Activity Tracker Instance Service Key'),
+                      :isRequired => true,
+                      :condition  => {
+                        :when => "events_selection",
+                        :is   => 'enable_events',
+                      },
+                    },
+                  ]
                 }
               ]
             ],
