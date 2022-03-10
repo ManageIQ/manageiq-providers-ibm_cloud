@@ -214,12 +214,10 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
   end
 
   def required_credential_fields(type)
-    if type == 'default'
-      [:auth_key]
-    elsif type == 'bearer'
-      [:password]
-    else
-      []
+    case type.to_s
+    when "default" %i[auth_key]
+    when "bearer"  %i[password]
+    else           []
     end
   end
 end
