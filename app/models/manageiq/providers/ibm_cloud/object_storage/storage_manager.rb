@@ -126,7 +126,7 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
     self.class.raw_connect(region, endpoint, access_key, secret_key)
   end
 
-  def verify_credentials(_args = {})
+  def verify_credentials(_args = {}, _options = {})
     guid, apikey, region, endpoint, access_key, secret_key = cos_creds
     self.class.verify_bearer(region, endpoint, access_key, secret_key)
     self.class.verify_iam(guid, apikey)
@@ -211,5 +211,15 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
 
   def queue_name_for_ems_refresh
     queue_name
+  end
+
+  def required_credential_fields(type)
+    if type == 'default'
+      [:auth_key]
+    elsif type == 'bearer'
+      [:password]
+    else
+      []
+    end
   end
 end
