@@ -37,19 +37,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :validate   => [{:type => 'required'}, {:type => 'min-number-value', :value => 0, :message => _('Size must be greater than or equal to 0')}],
         },
         {
-          :component    => 'select',
-          :name         => 'volume_type',
-          :id           => 'volume_type',
-          :label        => _('Cloud Volume Type'),
-          :includeEmpty => true,
-          :options      => ems.cloud_volume_types.map do |cvt|
-            {
-              :label => cvt.description,
-              :value => cvt.name,
-            }
-          end,
-        },
-        {
           :component => 'switch',
           :name      => 'multi_attachment',
           :id        => 'multi_attachment',
@@ -83,19 +70,34 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :name         => 'affinity_volume_id',
           :id           => 'affinity_volume_id',
           :label        => _('Affinity Volume'),
-          :isRequired   => true,
           :validate     => [{:type => 'required'}],
-          :includeEmpty => true,
           :condition    => {
-            :not => {
-              :when => 'affinity_policy',
-              :is   => 'Off',
-            },
+            :when    => 'affinity_policy',
+            :pattern => 'affinity$',
           },
+          :includeEmpty => true,
           :options      => ems.cloud_volumes.map do |cv|
             {
               :value => cv.name,
               :label => cv.name,
+            }
+          end,
+        },
+        {
+          :component    => 'select',
+          :name         => 'volume_type',
+          :id           => 'volume_type',
+          :label        => _('Cloud Volume Type'),
+          :validate     => [{:type => 'required'}],
+          :condition    => {
+            :when    => 'affinity_policy',
+            :pattern => '^Off$',
+          },
+          :includeEmpty => true,
+          :options      => ems.cloud_volume_types.map do |cvt|
+            {
+              :label => cvt.description,
+              :value => cvt.name,
             }
           end,
         },
