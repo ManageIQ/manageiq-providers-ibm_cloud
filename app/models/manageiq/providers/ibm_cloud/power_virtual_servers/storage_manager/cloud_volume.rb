@@ -135,6 +135,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     end
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
+    raise MiqException::MiqVolumeDeleteError, e.to_s, e.backtrace
   end
 
   def raw_attach_volume(vm_ems_ref, _device = nil)
