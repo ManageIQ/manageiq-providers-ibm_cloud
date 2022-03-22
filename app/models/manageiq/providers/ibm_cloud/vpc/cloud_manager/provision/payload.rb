@@ -22,7 +22,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::Provision::Payload
       :primary_network_interface => {
         :name            => 'eth0',
         :subnet          => {:id => get_option(:cloud_subnet)},
-        :security_groups => [{:id => get_option(:security_groups)}]
+        :security_groups => security_groups.map { |sg| {:id => sg.ems_ref} }
       },
       :volume_attachments        => cloud_volumes,
       :boot_volume_attachment    => {
