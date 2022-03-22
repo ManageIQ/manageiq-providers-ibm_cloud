@@ -40,7 +40,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Netw
 
   # Fetch a list of security groups.
   # @param _options [void]
-  # @return [Hash<String, String>] Hash with ems_ref as key and name as value.
+  # @return [Hash<Integer, String>] Hash with id as key and name as value.
   def security_group_to_security_group(_options = {})
     cloud_network = field(:cloud_network)
     return {} if cloud_network.nil?
@@ -48,7 +48,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Netw
     ar_security_group = ar_ems.security_groups.select do |security_group|
       security_group.cloud_network.ems_ref == cloud_network
     end
-    string_dropdown(ar_security_group)
+    index_dropdown(ar_security_group)
   rescue => e
     logger(__method__).ui_exception(e)
   end
