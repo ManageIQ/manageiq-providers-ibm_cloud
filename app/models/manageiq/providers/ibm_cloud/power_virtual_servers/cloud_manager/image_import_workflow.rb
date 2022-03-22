@@ -38,7 +38,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
   end
 
   def start
-    queue_signal(:pre_execute, :msg_timeout => options["timeout"]&.to_i&.hours&.seconds)
+    queue_signal(:pre_execute, :msg_timeout => options[:timeout])
   end
 
   def post_execute
