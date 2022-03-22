@@ -108,9 +108,9 @@
           :description: Interface Security Group
           :values_from:
             :method: security_group_to_security_group
-          :required: true
+          :required: false
           :display: :edit
-          :data_type: :string
+          :data_type: :array_integer
       :display: :show
 
     :hardware:
