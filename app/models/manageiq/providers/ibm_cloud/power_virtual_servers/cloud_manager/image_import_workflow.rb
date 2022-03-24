@@ -37,6 +37,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
     end
   end
 
+  def start
+    queue_signal(:pre_execute, :msg_timeout => options[:timeout])
+  end
+
   def post_execute
     cleanup_git_repository
 
