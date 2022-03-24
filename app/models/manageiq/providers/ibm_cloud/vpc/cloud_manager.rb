@@ -65,6 +65,10 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
     storage_manager
   end
 
+  def authentications_to_validate
+    authentication_for_providers.collect(&:authentication_type)
+  end
+
   def self.hostname_required?
     false
   end

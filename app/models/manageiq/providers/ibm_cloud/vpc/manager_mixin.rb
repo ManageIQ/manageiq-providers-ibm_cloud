@@ -19,11 +19,25 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   end
 
   # Same as calling connect.
-  # @param _auth_type [nil] Not used
+  # @param auth_type [nil]
   # @param options [Hash] Connection options.
-  # @return [ManageIQ::Providers::IbmCloud::CloudTools::Vpc]
-  def verify_credentials(_auth_type = nil, options = {})
+  # @return [ManageIQ::Providers::IbmCloud::CloudTools::Vpc] or [Boolean]
+  def verify_credentials(auth_type = nil, options = {})
+    case auth_type&.to_sym
+    when :events
+      verify_events_credentials(options)
+    else
+      verify_default_credentials(options)
+    end
+  end
+
+  def verify_default_credentials(options = {})
     connect(options).authenticator
+  end
+
+  def verify_events_credentials(options = {})
+    service_key = authentication_key("events")
+    connect(options).resource.controller.collection(:list_resource_keys).any? { |key| key.dig(:credentials, :service_key) == service_key }
   end
 
   module ClassMethods
