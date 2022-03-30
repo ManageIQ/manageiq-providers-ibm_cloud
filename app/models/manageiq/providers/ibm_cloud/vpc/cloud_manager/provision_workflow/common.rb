@@ -6,15 +6,10 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Comm
   # @raise [MiqException::MiqProvisionError] Unable to get a new object from server.
   # @return [ManageIQ::Providers::IbmCloud::VPC::CloudManager]
   def ar_ems
-    return @ar_ems unless @ar_ems.nil?
-
     rui = resources_for_ui[:ems]
     ems = load_ar_obj(rui) if rui
-    raise 'VPC EMS could not be found. Raising an exception.' if ems.nil?
 
-    @ar_ems = ems
-  rescue => e
-    logger(__method__).log_backtrace(e, :context_msg => 'Fetching ems for VPC cloud.')
+    ems
   end
 
   # Required method to display the provision workflow in UI.

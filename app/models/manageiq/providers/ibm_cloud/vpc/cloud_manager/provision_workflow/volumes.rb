@@ -12,10 +12,9 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
   # @param _options [void]
   # @return [Hash] Hash with ems_ref as key and name as value.
   def storage_type_to_profile(_options = {})
-    @storage_type_to_profile ||= begin
-      cloud_volume_types = resources_for_ui[:ems] ? ar_ems.cloud_volume_types : ManageIQ::Providers::IbmCloud::VPC::StorageManager::CloudVolumeType.all
-      string_dropdown(cloud_volume_types, :remove_fields => %w[custom])
-    end
+    return {} if ar_ems.nil?
+
+    @storage_type_to_profile ||= string_dropdown(ar_ems.cloud_volume_types, :remove_fields => %w[custom])
   rescue => e
     logger(__method__).ui_exception(e)
   end
@@ -24,13 +23,12 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
   # @param _options [void]
   # @return [Hash] Hash with ems_ref as key and name as value.
   def cloud_volumes_to_volumes(_options = {})
+    return {} if ar_ems.nil?
+
     zone = field(:placement_availability_zone)
     return {} if zone.nil?
 
-    all_cloud_volumes = resources_for_ui[:ems] ? ar_ems.cloud_volumes : ManageIQ::Providers::IbmCloud::VPC::StorageManager::CloudVolume.all
-    ar_volumes = all_cloud_volumes.select do |cloud_volume|
-      cloud_volume[:status] == 'available' && cloud_volume[:availability_zone_id] == zone
-    end
+    ar_volumes = ar_ems.cloud_volumes.select { |cloud_volume| cloud_volume[:status] == 'available' && cloud_volume[:availability_zone_id] == zone }
     string_dropdown(ar_volumes)
   rescue => e
     logger(__method__).ui_exception(e)
