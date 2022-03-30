@@ -65,6 +65,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     nil
   end
 
+  def placement_groups
+    @placement_groups ||= placement_groups_api.pcloud_placementgroups_getall(cloud_instance_id) || []
+  end
+
   def image_architecture(image_id)
     image = image(image_id)
     architecture = image&.specifications&.architecture

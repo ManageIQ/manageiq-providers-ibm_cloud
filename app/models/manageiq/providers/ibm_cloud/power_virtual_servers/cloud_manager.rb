@@ -5,6 +5,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   require_nested :Flavor
   require_nested :Refresher
   require_nested :RefreshWorker
+  require_nested :PlacementGroup
   require_nested :Provision
   require_nested :ProvisionWorkflow
   require_nested :Template

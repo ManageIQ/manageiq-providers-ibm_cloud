@@ -26,16 +26,8 @@
 !/.yarn/sdks
 !/.yarn/versions
 
-/lib/tasks_private/terraform/provision/.terraform
-/lib/tasks_private/terraform/provision/terraform.*
-/lib/tasks_private/terraform/provision/*.log
-
-/lib/tasks_private/terraform/placement_group/.terraform
-/lib/tasks_private/terraform/placement_group/terraform.*
-/lib/tasks_private/terraform/placement_group/*.log
-
-/lib/tasks_private/terraform/snapshot/.terraform
-/lib/tasks_private/terraform/snapshot/terraform.*
-/lib/tasks_private/terraform/snapshot/*.log
-
+/lib/tasks_private/terraform/**/terraform.*
+/lib/tasks_private/terraform/**/*.log
+/lib/tasks_private/terraform/**/.terraform
+/lib/tasks_private/terraform/**/.terraform*
 /lib/tasks_private/terraform/.byebug*

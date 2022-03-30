@@ -23,6 +23,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::PowerVirtualServers <
     add_cloud_collection(:hardwares)
     add_cloud_collection(:disks)
     add_cloud_collection(:operating_systems)
+    add_cloud_collection(:placement_groups)
     add_cloud_collection(:auth_key_pairs)
     add_cloud_collection(:miq_templates)
     add_cloud_collection(:snapshots)
