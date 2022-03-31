@@ -6,6 +6,8 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Netw
   # @param _options [void]
   # @return [Hash] Hash with ems_ref as key and name as value.
   def placement_availability_zone_to_zone(_options = {})
+    return {} if ar_ems.nil?
+
     @placement_availability_zone_to_zone ||= index_dropdown(ar_ems.availability_zones)
   rescue => e
     logger(__method__).ui_exception(e)
@@ -15,6 +17,8 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Netw
   # @param _options [void]
   # @return [Hash] Hash with ems_ref as key and name as value.
   def cloud_networks_to_vpc(_options = {})
+    return {} if ar_ems.nil?
+
     @cloud_networks_to_vpc ||= string_dropdown(ar_ems.cloud_networks)
   rescue => e
     logger(__method__).ui_exception(e)
@@ -24,6 +28,8 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Netw
   # @param _options [void]
   # @return [Hash] Hash with ems_ref as key and name as value.
   def cloud_subnets(_options = {})
+    return {} if ar_ems.nil?
+
     method_log = logger(__method__)
     zone = field(:placement_availability_zone)
     cloud_network = field(:cloud_network)
@@ -42,12 +48,12 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Netw
   # @param _options [void]
   # @return [Hash<Integer, String>] Hash with id as key and name as value.
   def security_group_to_security_group(_options = {})
+    return {} if ar_ems.nil?
+
     cloud_network = field(:cloud_network)
     return {} if cloud_network.nil?
 
-    ar_security_group = ar_ems.security_groups.select do |security_group|
-      security_group.cloud_network.ems_ref == cloud_network
-    end
+    ar_security_group = ar_ems.security_groups.select { |security_group| security_group.cloud_network.ems_ref == cloud_network }
     index_dropdown(ar_security_group)
   rescue => e
     logger(__method__).ui_exception(e)
