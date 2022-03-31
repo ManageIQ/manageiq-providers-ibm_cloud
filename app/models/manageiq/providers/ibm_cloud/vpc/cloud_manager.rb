@@ -17,6 +17,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
 
   supports :create
   supports :metrics
+  supports :catalog
   supports :provisioning
   supports :storage_manager
 
@@ -104,5 +105,9 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
 
   def self.label_mapping_prefix
     "ibm"
+  end
+
+  def self.catalog_types
+    {"IbmCloud::VPC" => N_("IBM VPC")}
   end
 end

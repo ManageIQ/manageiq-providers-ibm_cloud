@@ -6,6 +6,8 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
   # @param _options [void]
   # @return [Hash] Hash with ems_ref as key and name as value.
   def provision_type_to_profile(_options = {})
+    return {} if ar_ems.nil?
+
     @provision_type_to_profile ||= index_dropdown(ar_ems.flavors)
   rescue => e
     logger(__method__).ui_exception(e)
@@ -32,6 +34,8 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
   # @param _options [void]
   # @return [Array<Hash<String: String>>] An array of hashes with ems_ref as key and name as value.
   def guest_access_key_pairs_to_keys(_options = {})
+    return {} if ar_ems.nil?
+
     @guest_access_key_pairs_to_keys ||= string_dropdown(ar_ems.key_pairs)
   rescue => e
     logger(__method__).ui_exception(e)
@@ -41,6 +45,8 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Gene
   # @param _options [void]
   # @return [Array<Hash<String: String>>] An array of hashes containing the resource group id and name.
   def resource_groups_to_resource_groups(_options = {})
+    return {} if ar_ems.nil?
+
     @resource_groups_to_resource_groups ||= string_dropdown(ar_ems.resource_groups)
   rescue => e
     logger(__method__).ui_exception(e)

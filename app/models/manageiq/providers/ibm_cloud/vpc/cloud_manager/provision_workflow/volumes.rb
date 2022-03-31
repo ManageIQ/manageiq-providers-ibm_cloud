@@ -12,6 +12,8 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
   # @param _options [void]
   # @return [Hash] Hash with ems_ref as key and name as value.
   def storage_type_to_profile(_options = {})
+    return {} if ar_ems.nil?
+
     @storage_type_to_profile ||= string_dropdown(ar_ems.cloud_volume_types, :remove_fields => %w[custom])
   rescue => e
     logger(__method__).ui_exception(e)
@@ -21,12 +23,12 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Volu
   # @param _options [void]
   # @return [Hash] Hash with ems_ref as key and name as value.
   def cloud_volumes_to_volumes(_options = {})
+    return {} if ar_ems.nil?
+
     zone = field(:placement_availability_zone)
     return {} if zone.nil?
 
-    ar_volumes = ar_ems.cloud_volumes.select do |cloud_volume|
-      cloud_volume[:status] == 'available' && cloud_volume[:availability_zone_id] == zone
-    end
+    ar_volumes = ar_ems.cloud_volumes.select { |cloud_volume| cloud_volume[:status] == 'available' && cloud_volume[:availability_zone_id] == zone }
     string_dropdown(ar_volumes)
   rescue => e
     logger(__method__).ui_exception(e)
