@@ -20,6 +20,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   end
 
   def parse
+    ext_management_system
     availability_zones
     images
     flavors
@@ -29,6 +30,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     networks
     sshkeys
     snapshots
+  end
+
+  def ext_management_system
+    persister.ext_management_system.build(
+      :guid            => persister.manager.guid,
+      :provider_region => collector.provider_region
+    )
   end
 
   def pvm_instances
