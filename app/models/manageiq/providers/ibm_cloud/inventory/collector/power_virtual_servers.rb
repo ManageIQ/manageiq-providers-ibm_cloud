@@ -118,6 +118,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     @snapshots ||= snapshots_api.pcloud_cloudinstances_snapshots_getall(cloud_instance_id).snapshots || []
   end
 
+  def provider_region
+    @provider_region ||= cloud_manager.pcloud_location(connection)
+  end
+
   private
 
   def connection

@@ -24,9 +24,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     let(:ems) do
       uid_ems  = Rails.application.secrets.ibm_cloud_power[:cloud_instance_id]
       auth_key = Rails.application.secrets.ibm_cloud_power[:api_key]
-      region   = Rails.application.secrets.ibm_cloud_power[:ibmcloud_region]
 
-      FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud, :uid_ems => uid_ems, :provider_region => region).tap do |ems|
+      FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud, :uid_ems => uid_ems).tap do |ems|
         ems.authentications << FactoryBot.create(:authentication, :auth_key => auth_key)
       end
     end
@@ -47,6 +46,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         assert_specific_network_port
         assert_specific_cloud_volume
         assert_volume_type_attribs
+        assert_cloud_manager
       end
     end
 
@@ -74,6 +74,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         ems.reload
         assert_table_counts
         assert_specific_flavor
+        assert_cloud_manager
 
         full_refresh(ems.network_manager)
         assert_table_counts
@@ -104,6 +105,13 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(ems.network_manager.network_ports.count).to eq(6)
       expect(ems.storage_manager.cloud_volumes.count).to eq(6)
       expect(ems.storage_manager.cloud_volume_types.count).to eq(2)
+    end
+
+    def assert_cloud_manager
+      region = Rails.application.secrets.ibm_cloud_power[:ibmcloud_region]
+      expect(ems).to have_attributes(
+        :provider_region => "#{region}01"
+      )
     end
 
     def assert_specific_flavor
