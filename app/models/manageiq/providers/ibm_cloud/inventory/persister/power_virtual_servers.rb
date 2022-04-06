@@ -26,6 +26,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::PowerVirtualServers <
     add_cloud_collection(:auth_key_pairs)
     add_cloud_collection(:miq_templates)
     add_cloud_collection(:snapshots)
+    add_cloud_collection(:ext_management_system)
     add_advanced_settings
   end
 
