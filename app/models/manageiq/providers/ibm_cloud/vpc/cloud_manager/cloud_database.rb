@@ -1,6 +1,7 @@
 class ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase < ::CloudDatabase
   supports :create
   supports :delete
+  supports :update
 
   def self.raw_create_cloud_database(ext_management_system, options)
     ext_management_system.with_provider_connection do |connection|
@@ -19,6 +20,15 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase < ::CloudD
   def raw_delete_cloud_database
     with_provider_connection do |connection|
       connection.resource.controller.request(:delete_resource_instance, :id => ems_ref)
+    end
+  rescue => err
+    _log.error("cloud database=[#{name}], error: #{err}")
+    raise
+  end
+
+  def raw_update_cloud_database(options)
+    with_provider_connection do |connection|
+      connection.resource.controller.request(:update_resource_instance, :id => ems_ref, :name => options[:name])
     end
   rescue => err
     _log.error("cloud database=[#{name}], error: #{err}")
