@@ -41,5 +41,12 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase do
         cloud_database.delete_cloud_database
       end
     end
+
+    context '#update_cloud_database' do
+      it 'updates the cloud database' do
+        expect(resource_controller).to receive(:request).with(:update_resource_instance, :id => cloud_database.ems_ref, :name => "test-db-new")
+        cloud_database.update_cloud_database({:name => "test-db-new"})
+      end
+    end
   end
 end
