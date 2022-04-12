@@ -3,6 +3,60 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase < ::CloudD
   supports :delete
   supports :update
 
+  def self.params_for_create(ems)
+    {
+      :fields => [
+        {
+          :component => 'text-field',
+          :id        => 'name',
+          :name      => 'name',
+          :label     => _('Cloud Database'),
+        },
+        {
+          :component    => 'select',
+          :name         => 'resource_group_name',
+          :id           => 'resource_group_name',
+          :label        => _('Resource Group'),
+          :includeEmpty => true,
+          :isRequired   => true,
+          :options      => ems.resource_groups.map do |rg|
+            {
+              :label => rg.name,
+              :value => rg.name,
+            }
+          end,
+        },
+        {
+          :component    => 'select',
+          :name         => 'database',
+          :id           => 'database',
+          :label        => _('Cloud Database'),
+          :includeEmpty => true,
+          :isRequired   => true,
+          :options      => ["postgresql", "edb", "mysql", "datastax", "mongodb", "elasticsearch", "redis", "etcd"].map do |db|
+            {
+              :label => db,
+              :value => db,
+            }
+          end,
+        }
+      ],
+    }
+  end
+
+  def params_for_update
+    {
+      :fields => [
+        {
+          :component => 'text-field',
+          :id        => 'name',
+          :name      => 'name',
+          :label     => _('Rename Cloud Database'),
+        }
+      ],
+    }
+  end
+
   def self.raw_create_cloud_database(ext_management_system, options)
     ext_management_system.with_provider_connection do |connection|
       resource_group = ext_management_system.resource_groups.find_by!(:name => options[:resource_group_name])
