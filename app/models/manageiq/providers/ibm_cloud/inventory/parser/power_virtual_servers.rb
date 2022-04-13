@@ -8,6 +8,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
 
   OS_MIQ_NAMES_MAP = {
     'aix'    => 'unix_aix',
+    'rhcos'  => 'linux_coreos',
     'ibmi'   => 'ibm_i',
     'redhat' => 'linux_redhat',
     'rhel'   => 'linux_redhat',
