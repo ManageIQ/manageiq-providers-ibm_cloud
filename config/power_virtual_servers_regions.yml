@@ -24,7 +24,7 @@ sao:
   :hostname: sao.power-iaas.cloud.ibm.com
 syd:
   :name: syd
-  :description: Sydney, Austrailia
+  :description: Sydney, Australia
   :hostname: syd.power-iaas.cloud.ibm.com
 tok:
   :name: tok
