@@ -11,6 +11,14 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     end
   end
 
+  def image?
+    true
+  end
+
+  def snapshot?
+    false
+  end
+
   def provider_object(_connection = nil)
     ext_management_system.connect
   end

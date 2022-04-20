@@ -1,0 +1,84 @@
+---
+:name: miq_provision_ibm_powervs_dialogs_template
+:description: IBM PowerVS Instance Template Dialog
+:dialog_type: MiqProvisionWorkflow
+:content:
+  :buttons:
+  - :submit
+  - :cancel
+  :dialogs:
+    :requester:
+      :description: Request
+      :fields: {}
+      :display: :hide
+
+    :customize:
+      :description: Customization
+      :fields: {}
+      :display: :hide
+
+    :environment:
+      :description: Environment
+      :fields: {}
+      :display: :hide
+
+    :schedule:
+      :description: Schedule
+      :fields: {}
+      :display: :hide
+
+    :purpose:
+      :description: Purpose
+      :fields: {}
+      :display: :hide
+
+    :service:
+      :description: General
+      :fields:
+        :vm_name:
+          :description: Template Name
+          :required_method: :validate_regex
+          :required_regex: !ruby/regexp /^[a-zA-Z0-9\-_]+$/
+          :required_regex_fail_details: Only letters (no accents), numbers, underscores and dashes are allowed.
+          :required: true
+          :display: :edit
+          :data_type: :string
+          :min_length: 1
+          :max_length: 100
+      :display: :show
+
+    :hardware:
+      :description: Storage
+      :fields:
+        :storage_type:
+          :values:
+            image-catalog: "Image Catalog"
+            cloud-storage: "Cloud Storage"
+            both: "Both"
+          :description: Destination for the deployable image
+          :required: false
+          :display: :edit
+          :default: 1
+          :data_type: :integer
+      :display: :hide
+
+    :network:
+      :description: Network
+      :fields: {}
+      :display: :hide
+
+    :volume:
+      :description: Volume
+      :fields: {}
+      :display: :hide
+
+  :dialog_order:
+  - :service
+  - :hardware
+  - :customize   # unused
+  - :volumes     # unused
+  - :network     # unused
+  - :purpose     # unused
+  - :requester   # unused
+  - :environment # unused
+  - :schedule    # unused
