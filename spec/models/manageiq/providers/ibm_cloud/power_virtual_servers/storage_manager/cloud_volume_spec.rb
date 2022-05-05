@@ -41,13 +41,13 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
     end
   end
 
-  describe "#supports?(:attach_volume)" do
+  describe "#supports?(:attach)" do
     context "when available" do
       context "multi_attachment enabled" do
         let(:multi_attachment) { true }
 
         it "validation passes" do
-          expect(cloud_volume.supports?(:attach_volume)).to be_truthy
+          expect(cloud_volume.supports?(:attach)).to be_truthy
         end
       end
 
@@ -55,7 +55,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
         let(:multi_attachment) { false }
 
         it "validation passes" do
-          expect(cloud_volume.supports?(:attach_volume)).to be_truthy
+          expect(cloud_volume.supports?(:attach)).to be_truthy
         end
       end
     end
@@ -67,7 +67,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
         let(:multi_attachment) { true }
 
         it "validation passes" do
-          expect(cloud_volume.supports?(:attach_volume)).to be_truthy
+          expect(cloud_volume.supports?(:attach)).to be_truthy
         end
       end
 
@@ -75,7 +75,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
         let(:multi_attachment) { false }
 
         it "validation fails" do
-          expect(cloud_volume.supports?(:attach_volume)).to be_falsy
+          expect(cloud_volume.supports?(:attach)).to be_falsy
         end
       end
     end
@@ -84,7 +84,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
       let(:ems_storage) { nil }
 
       it "validation fails" do
-        expect(cloud_volume.supports?(:attach_volume)).to be_falsy
+        expect(cloud_volume.supports?(:attach)).to be_falsy
       end
     end
   end
@@ -92,7 +92,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
   describe "#supports?(:detach_volume)" do
     context "when available" do
       it "validation fails" do
-        expect(cloud_volume.supports?(:detach_volume)).to be_falsy
+        expect(cloud_volume.supports?(:detach)).to be_falsy
       end
     end
 
@@ -100,7 +100,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
       let(:status) { "in-use" }
 
       it "validation passes" do
-        expect(cloud_volume.supports?(:detach_volume)).to be_truthy
+        expect(cloud_volume.supports?(:detach)).to be_truthy
       end
     end
 
@@ -108,7 +108,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::Clo
       let(:ems_storage) { nil }
 
       it "validation fails" do
-        expect(cloud_volume.supports?(:detach_volume)).to be_falsy
+        expect(cloud_volume.supports?(:detach)).to be_falsy
       end
     end
   end
