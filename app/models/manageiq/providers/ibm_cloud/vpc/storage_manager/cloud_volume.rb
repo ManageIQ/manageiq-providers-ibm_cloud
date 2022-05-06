@@ -69,6 +69,19 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager::CloudVolume < ::CloudV
     }
   end
 
+  def params_for_attach
+    {
+      :fields => [
+        {
+          :component => 'text-field',
+          :name      => 'device_mountpoint',
+          :id        => 'device_mountpoint',
+          :label     => _('Device Mountpoint')
+        }
+      ]
+    }
+  end
+
   def self.raw_create_volume(ext_management_system, options)
     options = options.with_indifferent_access
     volume = {
