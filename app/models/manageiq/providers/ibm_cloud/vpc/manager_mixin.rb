@@ -193,7 +193,7 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
     def verify_credentials(args)
       raw_connect(auth_key(args))&.authenticator
     rescue IBMCloudSdkCore::ApiException => err
-      raise MiqException::MiqInvalidCredentialsError, _(err)
+      raise MiqException::MiqInvalidCredentialsError, err.error
     end
 
     # Get a new CloudTools class.
