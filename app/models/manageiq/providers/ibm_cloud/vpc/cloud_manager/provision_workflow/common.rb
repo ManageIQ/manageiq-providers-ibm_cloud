@@ -15,7 +15,8 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::Comm
   # Required method to display the provision workflow in UI.
   # @param _message [String]
   # @return [void]
-  def dialog_name_from_automate(_message = 'get_dialog_name')
+  def dialog_name_from_automate(message = 'get_dialog_name')
+    super(message, {'platform' => 'ibm_vpc'})
   end
 
   # Do any needed manipulation of the values hash.
