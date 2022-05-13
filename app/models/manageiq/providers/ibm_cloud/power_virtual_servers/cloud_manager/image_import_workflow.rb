@@ -1,4 +1,4 @@
-class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow < ::ImageImportJob
+class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow < ManageIQ::Providers::ImageImportJob
   def load_transitions
     super.merge(
       :post_execute      => {'running' => 'post_execute_poll'},
