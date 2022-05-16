@@ -28,10 +28,6 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
       specs['sys_type']      = get_option_last(:sys_type)
     end
 
-    # TODO: support multiple values
-    ip_addr = get_option_last(:ip_addr)
-    specs['networks'][0]['ipAddress'] = ip_addr unless !ip_addr || ip_addr.strip.blank?
-
     user_script_text = options[:user_script_text]
     user_script_text64 = Base64.encode64(user_script_text) unless user_script_text.nil?
     specs['user_data'] = user_script_text64 unless user_script_text64.nil?
@@ -48,6 +44,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
                         end
     attached_networks.concat(phase_context[:new_networks]).compact!
     specs['networks'] = attached_networks
+
+    # TODO: support multiple values
+    ip_addr = get_option_last(:ip_addr)
+    specs['networks'][0]['ipAddress'] = ip_addr unless !ip_addr || ip_addr.strip.blank?
 
     specs
   end
