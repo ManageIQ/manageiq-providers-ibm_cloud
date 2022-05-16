@@ -47,7 +47,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
     # TODO: support multiple values
     ip_addr = get_option_last(:ip_addr)
-    specs['networks'][0]['ipAddress'] = ip_addr unless !ip_addr || ip_addr.strip.blank?
+    specs['networks'][0]['ipAddress'] = ip_addr if ip_addr.present?
 
     specs
   end
