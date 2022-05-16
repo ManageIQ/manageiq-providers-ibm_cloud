@@ -18,7 +18,7 @@
         :ip_addr:
           :description: Specify an IPv4 address
           :required_method: :validate_ip_address
-          :required: true
+          :required: false
           :display: :edit
           :data_type: :string
           :min_length: 8
