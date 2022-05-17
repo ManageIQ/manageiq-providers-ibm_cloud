@@ -1,0 +1,182 @@
+---
+version: 4
+terraform_version: 0.13.5
+serial: 15
+lineage: f4167694-1f42-3334-126e-d2b33fc5c71b
+outputs:
+  progress:
+    value: 0
+    type: number
+  status:
+    value: ACTIVE
+    type: string
+resources:
+- mode: data
+  type: ibm_pi_image
+  name: power_images
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      architecture: ppc64
+      hypervisor: phyp
+      id: 589b5427-4693-4e94-a7bd-23a178ca745c
+      image_type: import
+      operatingsystem: rhel
+      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
+      pi_image_name: rhel-84-07122021
+      size: 120
+      state: active
+      storage_pool: Tier3-Flash-2
+      storage_type: tier3
+- mode: data
+  type: ibm_pi_network
+  name: power_network
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      available_ip_count: 215
+      cidr: 192.168.0.0/24
+      gateway: 192.168.0.1
+      id: b2f48036-4c01-4d01-b0eb-c510d2b03cc0
+      jumbo: false
+      name: ocp-net
+      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
+      pi_network_name: ocp-net
+      type: vlan
+      used_ip_count: 37
+      used_ip_percent: 14
+      vlan_id: 452
+- mode: data
+  type: ibm_pi_network
+  name: public_network
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      available_ip_count: 3
+      cidr: 192.168.154.96/29
+      gateway: 192.168.154.97
+      id: e765c07c-83e9-4e6f-b76f-4f5e3512c493
+      jumbo: false
+      name: ca-ocp-e2c9-syd04-pub-net
+      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
+      pi_network_name: ca-ocp-e2c9-syd04-pub-net
+      type: pub-vlan
+      used_ip_count: 2
+      used_ip_percent: 40
+      vlan_id: 2008
+- mode: managed
+  type: ibm_pi_instance
+  name: pvminstance
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      health_status: WARNING
+      id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8/8fccb9fe-836a-43eb-a212-64e6fb871597
+      instance_id: 8fccb9fe-836a-43eb-a212-64e6fb871597
+      max_memory: 32
+      max_processors: 8
+      max_virtual_cores: 8
+      min_memory: 2
+      min_processors: 0.25
+      min_virtual_cores: 1
+      operating_system: Linux/Red Hat Enterprise Linux 4.18.0-305.7.1.el8_4.ppc68.4
+        (Ootpa), 8.4 (Ootpa)
+      os_type: rhel
+      pi_affinity_instance:
+      pi_affinity_policy:
+      pi_affinity_volume:
+      pi_anti_affinity_instances:
+      pi_anti_affinity_volumes:
+      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
+      pi_health_status: WARNING
+      pi_image_id: 589b5427-4693-4e94-a7bd-23a178ca745c
+      pi_instance_name: miq-test-pg
+      pi_key_pair_name: miq-pvs
+      pi_license_repository_capacity: 0
+      pi_memory: 4
+      pi_migratable: false
+      pi_network:
+      - external_ip: 130.198.3.98
+        ip_address: 192.168.154.98
+        mac_address: fa:4e:20:74:fa:21
+        network_id: e765c07c-83e9-4e6f-b76f-4f5e3512c493
+        network_name: ca-ocp-e2c9-syd04-pub-net
+        type: fixed
+      - external_ip: ''
+        ip_address: 192.168.0.109
+        mac_address: fa:4e:20:74:fa:20
+        network_id: b2f48036-4c01-4d01-b0eb-c510d2b03cc0
+        network_name: ocp-net
+        type: fixed
+      pi_pin_policy: none
+      pi_placement_group_id: 5b2e0b8a-d437-4813-8ac7-40a93bba9efc
+      pi_proc_type: shared
+      pi_processors: 1
+      pi_progress: 0
+      pi_replicants: 1
+      pi_replication_policy: none
+      pi_replication_scheme: suffix
+      pi_sap_profile_id:
+      pi_storage_connection:
+      pi_storage_pool: Tier3-Flash-2
+      pi_storage_pool_affinity: true
+      pi_storage_type: tier3
+      pi_sys_type: s922
+      pi_user_data:
+      pi_virtual_cores_assigned: 1
+      pi_volume_ids:
+      - 5ca30162-05f5-447b-9778-2403437fc44c
+      pin_policy: none
+      status: ACTIVE
+      timeouts:
+    private: eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo3MjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInVwZGF0ZSI6MzYwMDAwMDAwMDAwMH19
+    dependencies:
+    - data.ibm_pi_image.power_images
+    - data.ibm_pi_network.power_network
+    - data.ibm_pi_network.public_network
+    - ibm_pi_placement_group.power_placement_group
+    - ibm_pi_volume.power_volume
+- mode: managed
+  type: ibm_pi_placement_group
+  name: power_placement_group
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8/5b2e0b8a-d437-4813-8ac7-40a93bba9efc
+      members: []
+      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
+      pi_placement_group_name: miq-placement-group
+      pi_placement_group_policy: affinity
+      placement_group_id: 5b2e0b8a-d437-4813-8ac7-40a93bba9efc
+      timeouts:
+    private: eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozNjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInVwZGF0ZSI6MzYwMDAwMDAwMDAwMH19
+- mode: managed
+  type: ibm_pi_volume
+  name: power_volume
+  provider: provider["registry.terraform.io/ibm-cloud/ibm"]
+  instances:
+  - schema_version: 0
+    attributes:
+      delete_on_termination:
+      id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8/5ca30162-05f5-447b-9778-2403437fc44c
+      pi_affinity_instance:
+      pi_affinity_policy:
+      pi_affinity_volume:
+      pi_anti_affinity_instances:
+      pi_anti_affinity_volumes:
+      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
+      pi_volume_name: rdr-miq-volume-1
+      pi_volume_pool: Tier3-Flash-2
+      pi_volume_shareable: true
+      pi_volume_size: 20
+      pi_volume_type: tier3
+      timeouts:
+      volume_id: 5ca30162-05f5-447b-9778-2403437fc44c
+      volume_status: available
+      wwn: 6005076810810256E8000000000041A0
+    private: eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=
