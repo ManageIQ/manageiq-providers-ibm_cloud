@@ -5,7 +5,6 @@ variable "ibmcloud_api_key" {
 
 variable "ibmcloud_region" {
     description = "Denotes which IBM Cloud region to connect to"
-    #default     = "mon"
     default     = "syd"
 }
 
@@ -16,8 +15,7 @@ variable "vm_name" {
 
 variable "power_instance_id" {
     description = "Power Virtual Server instance ID associated with your IBM Cloud account (note that this is NOT the API key)"
-    #default = "8fa27c40-827c-4568-8813-79b398e9cd27"
-    default = "749e3492-1ff4-4d45-b43c-513674930661"
+    default =  "888f9bf2-ab12-48c4-9dc5-8da65de951a8"
 }
 
 variable "memory" {
@@ -57,7 +55,7 @@ variable "power_network_name" {
 
 variable "public_network_name" {
     description = "networks that should be attached to the VM"
-    default     = "hiro-46-05f2-pub-net"
+    default     = "cm-test-syd-526e-syd04-pub-net"
 }
 
 variable "sys_type" {
@@ -67,11 +65,22 @@ variable "sys_type" {
 
 variable "image_name" {
     description = "Name of the image from which the VM should be deployed"
-    #default     = "7200-05-01"
-    default     = "7100-05-05"
+    default    = "rhel-84-07122021"
 }
 
 variable "volume_name" {
     description = "Name of the storage volume"
+    type = string
+}
+
+variable "placement_group_name" {
+    description = "placement group name"
+    default = "miq-placement-group"
+    type = string
+}
+
+variable "placement_group_policy" {
+    description = "placement group policy"
+    default = "affinity"
     type = string
 }

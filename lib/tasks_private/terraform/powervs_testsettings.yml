@@ -1,0 +1,26 @@
+---
+test:
+- testname: placement_group
+  vm_name: miq-test-pg
+  key_pair_name: miq-pvs
+  public_network_name: cm-test-syd-526e-syd04-pub-net
+  power_network_name: ocp-net
+  image_name: rhel-84-07122021
+  sys_type: s922
+  volume_name: rdr-miq-volume-1
+- testname: provision
+  vm_name: miq-test-2
+  key_pair_name: miq-pvs
+  public_network_name: cm-test-syd-526e-syd04-pub-net
+  power_network_name: ocp-net
+  image_name: rhel-84-07122021
+  sys_type: s922
+  volume_name: rdr-miq-volume-2
+- testname: snapshot
+  vm_name: miq-test-2
+  key_pair_name: miq-pvs
+  public_network_name: cm-test-syd-526e-syd04-pub-net
+  power_network_name: ocp-net
+  image_name: rhel-84-07122021
+  sys_type: s922
+  volume_name: rdr-miq-volume-2
