@@ -5,7 +5,6 @@ variable "ibmcloud_api_key" {
 
 variable "ibmcloud_region" {
     description = "Denotes which IBM Cloud region to connect to"
-    #default     = "mon"
     default     = "syd"
 }
 
@@ -16,8 +15,7 @@ variable "vm_name" {
 
 variable "power_instance_id" {
     description = "Power Virtual Server instance ID associated with your IBM Cloud account (note that this is NOT the API key)"
-    #default = "8fa27c40-827c-4568-8813-79b398e9cd27"
-    default = "749e3492-1ff4-4d45-b43c-513674930661"
+    type = string
 }
 
 variable "memory" {
@@ -52,12 +50,12 @@ variable "shareable" {
 
 variable "power_network_name" {
     description = "networks that should be attached to the VM"
-    default     = "ocp-net"
+    type = string
 }
 
 variable "public_network_name" {
     description = "networks that should be attached to the VM"
-    default     = "hiro-46-05f2-pub-net"
+    type = string
 }
 
 variable "sys_type" {
@@ -67,8 +65,7 @@ variable "sys_type" {
 
 variable "image_name" {
     description = "Name of the image from which the VM should be deployed"
-    #default     = "7200-05-01"
-    default     = "7100-05-05"
+    type = string
 }
 
 variable "volume_name" {

@@ -55,7 +55,7 @@ variable "power_network_name" {
 
 variable "public_network_name" {
     description = "networks that should be attached to the VM"
-    default     = "cm-test-syd-526e-syd04-pub-net"
+    type = string
 }
 
 variable "sys_type" {
@@ -65,10 +65,22 @@ variable "sys_type" {
 
 variable "image_name" {
     description = "Name of the image from which the VM should be deployed"
-    default     = "rhel-84-07122021"
+    type = string
 }
 
 variable "volume_name" {
     description = "Name of the storage volume"
+    type = string
+}
+
+variable "placement_group_name" {
+    description = "placement group name"
+    default = "miq-placement-group"
+    type = string
+}
+
+variable "placement_group_policy" {
+    description = "placement group policy"
+    default = "affinity"
     type = string
 }
