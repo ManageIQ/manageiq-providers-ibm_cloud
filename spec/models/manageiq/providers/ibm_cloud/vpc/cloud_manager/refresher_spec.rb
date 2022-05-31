@@ -37,6 +37,50 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
         assert_specific_vpn_gateway
       end
     end
+
+    it "child managers delegate refresh to the parent manager" do
+      2.times do
+        with_vcr { ems.network_manager.refresh }
+
+        ems.reload
+
+        assert_specific_flavor
+        assert_specific_availability_zone
+        assert_specific_security_group
+        assert_specific_cloud_volume
+        assert_specific_cloud_volume_type
+        assert_specific_cloud_subnet
+        assert_specific_floating_ip
+        assert_specific_network_acl_rule
+        assert_specific_load_balancer
+        assert_specific_load_balancer_pool
+        assert_specific_cloud_database
+        assert_specific_cloud_database_flavor
+        assert_specific_vm
+        assert_specific_vpn_gateway
+      end
+
+      2.times do
+        with_vcr { ems.storage_manager.refresh }
+
+        ems.reload
+
+        assert_specific_flavor
+        assert_specific_availability_zone
+        assert_specific_security_group
+        assert_specific_cloud_volume
+        assert_specific_cloud_volume_type
+        assert_specific_cloud_subnet
+        assert_specific_floating_ip
+        assert_specific_network_acl_rule
+        assert_specific_load_balancer
+        assert_specific_load_balancer_pool
+        assert_specific_cloud_database
+        assert_specific_cloud_database_flavor
+        assert_specific_vm
+        assert_specific_vpn_gateway
+      end
+    end
   end
 
   context "targeted refresh" do
