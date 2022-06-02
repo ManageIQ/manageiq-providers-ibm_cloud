@@ -51,9 +51,9 @@ const fetchBuckets = (provider) => {
     })
 }
 
-const fetchDiskTypes = () => {
+const fetchDiskTypes = (provider) => {
     return new Promise((resolve, reject) => {
-        API.get(API_VOL_TYPES + '?expand=resources&attributes=id,name').then(({resources}) => {
+        API.get(API_VOL_TYPES + '?expand=resources&attributes=id,name,ems_id&filter[]=ems_id=' + provider).then(({resources}) => {
             let options = resources.map(({id, name}) => ({value: id, label: name}));
             resolve(options);
         })
@@ -65,8 +65,8 @@ const ImportImageForm = ({ dispatch }) => {
     const [state, setState] = useState({});
     const providers = fetchProviders('cloud');
     const storages  = fetchProviders('storage');
-    const diskTypes = fetchDiskTypes();
-    const images    = useMemo(() => fetchImages(state['src_provider_id']),  [state['src_provider_id']]);
+    const diskTypes = fetchDiskTypes(ManageIQ.record.recordId);
+    const images    = useMemo(() => fetchImages(state['src_provider_id']), [state['src_provider_id']]);
     const buckets   = useMemo(() => fetchBuckets(state['obj_storage_id']), [state['obj_storage_id']]);
 
     const initialize = (formOptions) => {
