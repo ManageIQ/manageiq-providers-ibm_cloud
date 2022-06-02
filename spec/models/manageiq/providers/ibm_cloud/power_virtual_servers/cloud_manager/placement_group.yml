@@ -1,8 +1,8 @@
 ---
 version: 4
 terraform_version: 0.13.5
-serial: 15
-lineage: f4167694-1f42-3334-126e-d2b33fc5c71b
+serial: 4
+lineage: e8b45237-aa46-81cb-2b62-457fdf8e1ff8
 outputs:
   progress:
     value: 0
@@ -20,14 +20,14 @@ resources:
     attributes:
       architecture: ppc64
       hypervisor: phyp
-      id: 589b5427-4693-4e94-a7bd-23a178ca745c
-      image_type: import
+      id: 1273f809-c1eb-4756-b233-6fa64f37b79e
+      image_type: stock
       operatingsystem: rhel
-      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
-      pi_image_name: rhel-84-07122021
-      size: 120
+      pi_cloud_instance_id: 851f82c2-034c-4c32-9764-94262d245a50
+      pi_image_name: Linux-CentOS-8-3
+      size: 250
       state: active
-      storage_pool: Tier3-Flash-2
+      storage_pool: Tier3-Flash-1
       storage_type: tier3
 - mode: data
   type: ibm_pi_network
@@ -36,18 +36,18 @@ resources:
   instances:
   - schema_version: 0
     attributes:
-      available_ip_count: 215
-      cidr: 192.168.0.0/24
-      gateway: 192.168.0.1
-      id: b2f48036-4c01-4d01-b0eb-c510d2b03cc0
+      available_ip_count: 253
+      cidr: 192.168.24.0/24
+      gateway: 192.168.24.1
+      id: e25fd85e-30f5-447c-8096-0a6f5f9d4d8c
       jumbo: false
       name: ocp-net
-      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
+      pi_cloud_instance_id: 851f82c2-034c-4c32-9764-94262d245a50
       pi_network_name: ocp-net
       type: vlan
-      used_ip_count: 37
-      used_ip_percent: 14
-      vlan_id: 452
+      used_ip_count: 0
+      used_ip_percent: 0
+      vlan_id: 450
 - mode: data
   type: ibm_pi_network
   name: public_network
@@ -55,18 +55,18 @@ resources:
   instances:
   - schema_version: 0
     attributes:
-      available_ip_count: 3
-      cidr: 192.168.154.96/29
-      gateway: 192.168.154.97
-      id: e765c07c-83e9-4e6f-b76f-4f5e3512c493
-      jumbo: false
-      name: ca-ocp-e2c9-syd04-pub-net
-      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
-      pi_network_name: ca-ocp-e2c9-syd04-pub-net
+      available_ip_count: 5
+      cidr: 192.168.167.0/29
+      gateway: 192.168.167.1
+      id: 7a3f8b17-ab14-456a-85a7-8c150cb55c9a
+      jumbo: true
+      name: public-192_168_167_0-29-VLAN_2092
+      pi_cloud_instance_id: 851f82c2-034c-4c32-9764-94262d245a50
+      pi_network_name: public-192_168_167_0-29-VLAN_2092
       type: pub-vlan
-      used_ip_count: 2
-      used_ip_percent: 40
-      vlan_id: 2008
+      used_ip_count: 0
+      used_ip_percent: 0
+      vlan_id: 2092
 - mode: managed
   type: ibm_pi_instance
   name: pvminstance
@@ -75,47 +75,46 @@ resources:
   - schema_version: 0
     attributes:
       health_status: WARNING
-      id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8/8fccb9fe-836a-43eb-a212-64e6fb871597
-      instance_id: 8fccb9fe-836a-43eb-a212-64e6fb871597
-      max_memory: 32
-      max_processors: 8
-      max_virtual_cores: 8
-      min_memory: 2
-      min_processors: 0.25
-      min_virtual_cores: 1
-      operating_system: Linux/Red Hat Enterprise Linux 4.18.0-305.7.1.el8_4.ppc68.4
-        (Ootpa), 8.4 (Ootpa)
-      os_type: rhel
+      id: 851f82c2-034c-4c32-9764-94262d245a50/639cddab-c49f-46c5-bab4-575f7c5ab2d1
+      instance_id: 639cddab-c49f-46c5-bab4-575f7c5ab2d1
+      max_memory: 0
+      max_processors: 0
+      max_virtual_cores: 0
+      min_memory: 0
+      min_processors: 0
+      min_virtual_cores: 0
+      operating_system: ''
+      os_type: ''
       pi_affinity_instance:
       pi_affinity_policy:
       pi_affinity_volume:
       pi_anti_affinity_instances:
       pi_anti_affinity_volumes:
-      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
+      pi_cloud_instance_id: 851f82c2-034c-4c32-9764-94262d245a50
       pi_health_status: WARNING
-      pi_image_id: 589b5427-4693-4e94-a7bd-23a178ca745c
+      pi_image_id: 69b66397-ede0-49e8-88b5-00b198225b4b
       pi_instance_name: miq-test-pg
       pi_key_pair_name: miq-pvs
       pi_license_repository_capacity: 0
-      pi_memory: 4
+      pi_memory: 0
       pi_migratable: false
       pi_network:
-      - external_ip: 130.198.3.98
-        ip_address: 192.168.154.98
-        mac_address: fa:4e:20:74:fa:21
-        network_id: e765c07c-83e9-4e6f-b76f-4f5e3512c493
-        network_name: ca-ocp-e2c9-syd04-pub-net
-        type: fixed
       - external_ip: ''
-        ip_address: 192.168.0.109
-        mac_address: fa:4e:20:74:fa:20
-        network_id: b2f48036-4c01-4d01-b0eb-c510d2b03cc0
+        ip_address: 192.168.24.159
+        mac_address: fa:6f:76:25:b3:20
+        network_id: e25fd85e-30f5-447c-8096-0a6f5f9d4d8c
         network_name: ocp-net
         type: fixed
+      - external_ip: 169.54.122.4
+        ip_address: 192.168.167.4
+        mac_address: fa:6f:76:25:b3:21
+        network_id: 7a3f8b17-ab14-456a-85a7-8c150cb55c9a
+        network_name: public-192_168_167_0-29-VLAN_2092
+        type: fixed
       pi_pin_policy: none
-      pi_placement_group_id: 5b2e0b8a-d437-4813-8ac7-40a93bba9efc
-      pi_proc_type: shared
-      pi_processors: 1
+      pi_placement_group_id: 6a5d1a12-27e1-42e8-9d94-405711dbb089
+      pi_proc_type: ''
+      pi_processors: 0
       pi_progress: 0
       pi_replicants: 1
       pi_replication_policy: none
@@ -129,7 +128,7 @@ resources:
       pi_user_data:
       pi_virtual_cores_assigned: 1
       pi_volume_ids:
-      - 5ca30162-05f5-447b-9778-2403437fc44c
+      - ae3a9f45-8fbe-40a4-8b58-f265bf013a06
       pin_policy: none
       status: ACTIVE
       timeouts:
@@ -147,12 +146,12 @@ resources:
   instances:
   - schema_version: 0
     attributes:
-      id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8/5b2e0b8a-d437-4813-8ac7-40a93bba9efc
+      id: 851f82c2-034c-4c32-9764-94262d245a50/6a5d1a12-27e1-42e8-9d94-405711dbb089
       members: []
-      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
+      pi_cloud_instance_id: 851f82c2-034c-4c32-9764-94262d245a50
       pi_placement_group_name: miq-placement-group
       pi_placement_group_policy: affinity
-      placement_group_id: 5b2e0b8a-d437-4813-8ac7-40a93bba9efc
+      placement_group_id: 6a5d1a12-27e1-42e8-9d94-405711dbb089
       timeouts:
     private: eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozNjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInVwZGF0ZSI6MzYwMDAwMDAwMDAwMH19
 - mode: managed
@@ -163,20 +162,20 @@ resources:
   - schema_version: 0
     attributes:
       delete_on_termination:
-      id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8/5ca30162-05f5-447b-9778-2403437fc44c
+      id: 851f82c2-034c-4c32-9764-94262d245a50/ae3a9f45-8fbe-40a4-8b58-f265bf013a06
       pi_affinity_instance:
       pi_affinity_policy:
       pi_affinity_volume:
       pi_anti_affinity_instances:
       pi_anti_affinity_volumes:
-      pi_cloud_instance_id: 888f9bf2-ab12-48c4-9dc5-8da65de951a8
+      pi_cloud_instance_id: 851f82c2-034c-4c32-9764-94262d245a50
       pi_volume_name: rdr-miq-volume-1
       pi_volume_pool: Tier3-Flash-2
       pi_volume_shareable: true
       pi_volume_size: 20
       pi_volume_type: tier3
       timeouts:
-      volume_id: 5ca30162-05f5-447b-9778-2403437fc44c
+      volume_id: ae3a9f45-8fbe-40a4-8b58-f265bf013a06
       volume_status: available
-      wwn: 6005076810810256E8000000000041A0
+      wwn: 60050768108002DAC8000000000003E6
     private: eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=

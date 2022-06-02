@@ -30,6 +30,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     pvm_instances
     networks
     sshkeys
+    placement_groups
     snapshots
   end
 
@@ -252,6 +253,17 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
           :cloud_subnet => persister_cloud_subnet
         )
       end
+    end
+  end
+
+  def placement_groups
+    collector.placement_groups.placement_groups.each do |sgrp|
+      persister.placement_groups.build(
+        :availability_zone => persister.availability_zones.lazy_find(persister.cloud_manager.uid_ems),
+        :name              => sgrp.name,
+        :policy            => sgrp.policy,
+        :ems_ref           => sgrp.id
+      )
     end
   end
 
