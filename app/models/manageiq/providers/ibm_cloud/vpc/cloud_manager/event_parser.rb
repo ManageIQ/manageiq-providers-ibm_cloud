@@ -3,6 +3,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::EventParser
     event_hash = {
       :event_type => event["action"],
       :source     => "IBMCloud-VPC",
+      :username   => event.dig("initiator", "name"),
       :ems_id     => ems_id,
       :ems_ref    => event["_id"],
       :timestamp  => event["eventTime"],
