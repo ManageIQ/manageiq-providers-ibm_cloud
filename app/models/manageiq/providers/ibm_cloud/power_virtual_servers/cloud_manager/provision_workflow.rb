@@ -189,6 +189,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     ems
   end
 
-  def dialog_name_from_automate(_message = 'get_dialog_name')
+  def dialog_name_from_automate(message = 'get_dialog_name')
+    super(message, {'platform' => 'ibm_powervs'})
   end
 end

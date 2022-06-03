@@ -1,6 +1,11 @@
 module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provision::StateMachine
   def create_destination
-    signal :prepare_volumes_and_networks
+    case request_type
+    when 'clone_to_template'
+      signal :determine_placement
+    else
+      signal :prepare_volumes_and_networks
+    end
   end
 
   def prepare_volumes_and_networks
@@ -28,5 +33,19 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     end
 
     signal :prepare_provision
+  end
+
+  def determine_placement
+    options[:destination] = 'image-catalog'
+    signal :start_clone_task
+  end
+
+  def start_clone_task
+    update_and_notify_parent(:message => "Starting Clone of #{clone_direction}")
+
+    clone_options = prepare_for_clone_task
+    log_clone_options(clone_options)
+    phase_context[:clone_task_mor] = start_clone(clone_options)
+    signal :poll_clone_complete
   end
 end
