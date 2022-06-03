@@ -10,24 +10,11 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
   def start_clone(clone_options)
     begin
       if request_type == 'clone_to_template'
-        source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
-          vm = Vm.find(get_option(:src_vm_id))
-          body = IbmCloudPower::PVMInstanceCapture.new(clone_options)
-          response = api.pcloud_pvminstances_capture_post(cloud_instance_id, vm.uid_ems, body)
-          response[:taskID]
-        end
+        make_request_clone_to_template(clone_options)
       elsif sap_image?
-        source.with_provider_connection(:service => "PCloudSAPApi") do |api|
-          body = IbmCloudPower::SAPCreate.new(clone_options)
-          response = api.pcloud_sap_post(cloud_instance_id, body)
-          response&.first&.pvm_instance_id
-        end
+        make_request_clone_sap_vm(clone_options)
       else
-        source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
-          body = IbmCloudPower::PVMInstanceCreate.new(clone_options)
-          response = api.pcloud_pvminstances_post(cloud_instance_id, body)
-          response&.first&.pvm_instance_id
-        end
+        make_request_clone(clone_options)
       end
     rescue RestClient::ExceptionWithResponse => e
       raise MiqException::MiqProvisionError, e.response.to_s
@@ -37,35 +24,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
   end
 
   def do_clone_task_check(clone_task_ref)
-    if request_type == 'clone_to_template'
-      source.with_provider_connection(:service => "PCloudTasksApi") do |api|
-        task = api.pcloud_tasks_get(phase_context[:clone_task_mor])
-        stop = (task.status != 'capturing')
-        phase_context[:cloud_api_completion_time] = Time.zone.now.utc if stop
-        return stop, task.status_detail
-      end
-    else
-      source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
-        instance = api.pcloud_pvminstances_get(cloud_instance_id, clone_task_ref)
-        instance_state = instance.status
-        stop = false
-
-        case instance_state
-        when 'BUILD'
-          status = 'The server is being provisioned.'
-        when 'ACTIVE'
-          stop = (instance.processors.to_f > 0) && (instance.memory.to_f > 0)
-          status = "The server has been provisioned.; #{stop ? 'Server description available.' : 'Waiting for server description.'}"
-        when 'ERROR'
-          raise MiqException::MiqProvisionError, _("An error occurred while provisioning the instance.")
-        else
-          status = "Unknown server state received from the cloud API: '#{instance_state}'"
-          _log.warn(status)
-        end
-
-        return stop, status
-      end
-    end
+    request_type == 'clone_to_template' ? check_task_clone_to_template : check_task_clone(clone_task_ref)
   end
 
   def customize_destination
@@ -134,5 +93,62 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     specs['networks'][0]['ipAddress'] = ip_addr if ip_addr.present?
 
     specs
+  end
+
+  def make_request_clone_to_template(clone_options)
+    source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
+      vm = Vm.find(get_option(:src_vm_id))
+      body = IbmCloudPower::PVMInstanceCapture.new(clone_options)
+      response = api.pcloud_pvminstances_capture_post(cloud_instance_id, vm.uid_ems, body)
+      response[:taskID]
+    end
+  end
+
+  def make_request_clone_sap_vm(clone_options)
+    source.with_provider_connection(:service => "PCloudSAPApi") do |api|
+      body = IbmCloudPower::SAPCreate.new(clone_options)
+      response = api.pcloud_sap_post(cloud_instance_id, body)
+      response&.first&.pvm_instance_id
+    end
+  end
+
+  def make_request_clone(clone_options)
+    source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
+      body = IbmCloudPower::PVMInstanceCreate.new(clone_options)
+      response = api.pcloud_pvminstances_post(cloud_instance_id, body)
+      response&.first&.pvm_instance_id
+    end
+  end
+
+  def check_task_clone_to_template
+    source.with_provider_connection(:service => "PCloudTasksApi") do |api|
+      task = api.pcloud_tasks_get(phase_context[:clone_task_mor])
+      stop = (task.status != 'capturing')
+      phase_context[:cloud_api_completion_time] = Time.zone.now.utc if stop
+      return stop, task.status_detail
+    end
+  end
+
+  def check_task_clone(clone_task_ref)
+    source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
+      instance = api.pcloud_pvminstances_get(cloud_instance_id, clone_task_ref)
+      instance_state = instance.status
+      stop = false
+
+      case instance_state
+      when 'BUILD'
+        status = 'The server is being provisioned.'
+      when 'ACTIVE'
+        stop = (instance.processors.to_f > 0) && (instance.memory.to_f > 0)
+        status = "The server has been provisioned.; #{stop ? 'Server description available.' : 'Waiting for server description.'}"
+      when 'ERROR'
+        raise MiqException::MiqProvisionError, _("An error occurred while provisioning the instance.")
+      else
+        status = "Unknown server state received from the cloud API: '#{instance_state}'"
+        _log.warn(status)
+      end
+
+      return stop, status
+    end
   end
 end
