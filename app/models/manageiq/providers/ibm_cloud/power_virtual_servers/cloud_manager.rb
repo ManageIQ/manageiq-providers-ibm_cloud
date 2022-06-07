@@ -54,7 +54,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   supports_not :volume_availability_zones
 
   def console_url
-    "https://cloud.ibm.com"
+    "https://cloud.ibm.com/services/power-iaas/#{CGI.escape(pcloud_crn.values.join(":"))}"
   end
 
   def image_name
