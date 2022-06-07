@@ -6,13 +6,13 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
   supports_not :snapshot_create
   supports_not :update
-  supports :attach do
-    unsupported_reason_add(:attach, _("the volume is not connected to an active Provider")) unless ext_management_system
-    unsupported_reason_add(:attach, _("cannot attach non-shareable volume that is in use.")) if status == "in-use" && !multi_attachment
+  supports :attach_volume do
+    unsupported_reason_add(:attach_volume, _("the volume is not connected to an active Provider")) unless ext_management_system
+    unsupported_reason_add(:attach_volume, _("cannot attach non-shareable volume that is in use.")) if status == "in-use" && !multi_attachment
   end
-  supports :detach do
-    unsupported_reason_add(:detach, _("the volume is not connected to an active Provider")) unless ext_management_system
-    unsupported_reason_add(:detach, _("the volume status is '%{status}' but should be 'in-use'") % {:status => status}) unless status == "in-use"
+  supports :detach_volume do
+    unsupported_reason_add(:detach_volume, _("the volume is not connected to an active Provider")) unless ext_management_system
+    unsupported_reason_add(:detach_volume, _("the volume status is '%{status}' but should be 'in-use'") % {:status => status}) unless status == "in-use"
   end
 
   def available_vms
@@ -101,6 +101,42 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
             }
           end,
         },
+        {
+          :component    => 'select',
+          :name         => 'affinityPVMInstance',
+          :id           => 'affinityPVMInstance',
+          :label        => _('Cloud Volume Type'),  
+          :validate     => [{:type => 'required'}],
+          :condition    => {
+            :when    => 'affinity_policy',
+            :pattern => '^Off$',
+          },
+          :includeEmpty => true,
+          :options      => ems.vms.map do |cvt|
+            {
+              :label => cvt.description,
+              :value => cvt.name,
+            }
+          end,
+        },
+        {
+          :component    => 'select',
+          :name         => 'antiAffinityPVMInstances',
+          :id           => 'antiAffinityPVMInstances',
+          :label        => _('Cloud Volume Type'),  
+          :validate     => [{:type => 'required'}],
+          :condition    => {
+            :when    => 'affinity_policy',
+            :pattern => '^Off$',
+          },
+          :includeEmpty => true,
+          :options      => ems.vms.map do |cvt|
+            {
+              :label => cvt.description,
+              :value => cvt.name,
+            }
+          end,
+        }
       ],
     }
   end
