@@ -103,40 +103,57 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
         },
         {
           :component    => 'select',
-          :name         => 'affinityPVMInstance',
-          :id           => 'affinityPVMInstance',
-          :label        => _('Cloud Volume Type'),  
+          :name         => 'PVMInstance',
+          :id           => 'PVMInstance',
+          :label        => _('affinity_policy'), 
           :validate     => [{:type => 'required'}],
+          :initialValue => 'Off',
+          :options      => [
+            {
+              :label => 'Off',
+              :value => 'Off',
+            },
+            {
+              :label => 'affinityPVMInstance',
+              :value => 'affinityPVMInstance',
+            },
+            {
+              :label => 'antiAffinityPVMInstances',
+              :value => 'antiAffinityPVMInstances',
+            },
+          ]
           :condition    => {
             :when    => 'affinity_policy',
             :pattern => '^Off$',
           },
           :includeEmpty => true,
-          :options      => ems.vms.map do |cvt|
+          :options      => ems.parent_manager.vms.map do |vm|
             {
-              :label => cvt.description,
-              :value => cvt.name,
+              :label => vm.name,
+              :value => vm.ems_ref,
             }
-          end,
-        },
-        {
-          :component    => 'select',
-          :name         => 'antiAffinityPVMInstances',
-          :id           => 'antiAffinityPVMInstances',
-          :label        => _('Cloud Volume Type'),  
-          :validate     => [{:type => 'required'}],
           :condition    => {
-            :when    => 'affinity_policy',
-            :pattern => '^Off$',
+          :when    => 'affinity_policy',
+          :pattern => '^affinityPVMInstance$',
           },
           :includeEmpty => true,
-          :options      => ems.vms.map do |cvt|
+          :options      => ems.parent_manager.vms.map do |vm|
             {
-              :label => cvt.description,
-              :value => cvt.name,
+              :label => vm.name,
+              :value => vm.affinity_volume_id,
+            }
+          :condition    => {
+          :when    => 'affinity_policy',
+          pattern => '^affinityPVMInstance$',
+            },
+          :includeEmpty => true,
+          :options      => ems.parent_manager.vms.map do |vm|
+            {
+              :label => vm.name,
+              :value => vm.name,
             }
           end,
-        }
+        }    
       ],
     }
   end
