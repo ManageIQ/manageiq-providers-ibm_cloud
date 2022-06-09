@@ -56,6 +56,11 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
     parse_crn(connection.default_headers["Crn"])[:location]
   end
 
+  def pcloud_crn(connection = nil)
+    connection ||= connect
+    parse_crn(connection.default_headers["Crn"])
+  end
+
   private
 
   def parse_crn(crn)
