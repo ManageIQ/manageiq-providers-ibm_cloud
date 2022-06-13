@@ -168,7 +168,7 @@
           :values_from:
             :method: :allowed_guest_access_key_pairs
           :description: Key Pair
-          :required: true
+          :required: false
           :display: :edit
           :default: 0
           :data_type: :integer
