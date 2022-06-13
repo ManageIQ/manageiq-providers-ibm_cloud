@@ -50,4 +50,32 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm::Ope
     create_notification(:vm_snapshot_failure, :error => err.to_s, :snapshot_op => "delete")
     raise MiqException::MiqVmSnapshotError, err.to_s
   end
+
+  def remote_console_acquire_ticket_queue(protocol, _userid)
+    task_opts = {
+      :action => "acquiring Instance #{name} #{protocol.to_s.upcase} remote console ticket",
+    }
+
+    queue_opts = {
+      :instance_id => id,
+      :class_name  => self.class.name,
+      :method_name => 'remote_console_acquire_ticket',
+      :priority    => MiqQueue::HIGH_PRIORITY,
+      :role        => 'ems_operations',
+      :args        => [protocol]
+    }
+
+    MiqTask.generic_action_with_callback(task_opts, queue_opts)
+  end
+
+  def remote_console_acquire_ticket(_console_type)
+    with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
+      resp = api.pcloud_pvminstances_console_post(cloud_instance_id, ems_ref)
+      raise MiqException::MiqVmError, _("url cannot be nil") if resp.nil? || resp.console_url.nil?
+
+      {:remote_url => resp.console_url, :proto => 'remote'}
+    end
+  rescue => err
+    raise MiqException::MiqVmError, err.to_s
+  end
 end

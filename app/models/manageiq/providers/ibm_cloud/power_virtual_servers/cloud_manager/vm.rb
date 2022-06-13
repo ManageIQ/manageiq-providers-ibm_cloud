@@ -25,6 +25,14 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
     unsupported_reason_add(:publish, reason) if reason
   end
 
+  supports :html5_console do
+    reason   = _("VM Console not supported because VM is not powered on") unless current_state == "on"
+    reason ||= _("VM Console not supported because VM is orphaned")       if orphaned?
+    reason ||= _("VM Console not supported because VM is archived")       if archived?
+    unsupported_reason_add(:html5_console, reason) if reason
+  end
+  supports :launch_html5_console
+
   def cloud_instance_id
     ext_management_system.uid_ems
   end
@@ -90,6 +98,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
     else
       "off"
     end
+  end
+
+  def console_supported?(type)
+    return true if type.upcase == 'VNC'
   end
 
   private
