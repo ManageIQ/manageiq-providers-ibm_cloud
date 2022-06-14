@@ -4,10 +4,10 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
   end
   let(:vm) { FactoryBot.create(:vm_ibm_cloud_power_virtual_servers, :ext_management_system => ems) }
 
-  context "is_available?" do
-    let(:power_state_on)        { "ACTIVE" }
-    let(:power_state_suspended) { "SHUTOFF" }
+  let(:power_state_on)        { "ACTIVE" }
+  let(:power_state_suspended) { "SHUTOFF" }
 
+  context "is_available?" do
     context "with :start" do
       let(:state) { :start }
       include_examples "Vm operation is available when not powered on"
@@ -36,6 +36,28 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
     context "with :reset" do
       let(:state) { :reset }
       include_examples "Vm operation is available when powered on"
+    end
+  end
+
+  context "supports VM console access?" do
+    it 'supports console access if powered on' do
+      vm.update(:raw_power_state => power_state_on)
+      expect(vm.supports?(:html5_console)).to be_truthy
+    end
+
+    it 'no console access if powered off' do
+      vm.update(:raw_power_state => power_state_suspended)
+      expect(vm.supports?(:html5_console)).to be_falsey
+    end
+
+    it 'no console access if orphaned' do
+      vm.update(:ems_id => nil)
+      expect(vm.supports?(:html5_console)).to be_falsey
+    end
+
+    it 'no console access if archived' do
+      vm.update(:ems_id => nil, :storage_id => nil)
+      expect(vm.supports?(:html5_console)).to be_falsey
     end
   end
 end
