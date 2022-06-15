@@ -117,7 +117,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
       :fields => []
     }
   end
-  
+
   def self.raw_create_volume(ext_management_system, options)
     volume = nil
     volume_params = nil
@@ -168,21 +168,22 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     _log.error("volume=[#{name}], error: #{e}")
     raise MiqException::MiqVolumeDetachError, _("Unable to detach volume: %{error_message}") % {:error_message => e.message}
   end
+
   def raw_clone_volume(options)
     options[:volume_i_ds] = [ems_ref]
     with_provider_connection(:service => 'PCloudVolumesApi') do |api|
       clone_volume_params = IbmCloudPower::VolumesCloneAsyncRequest.new(
-        :name            => options['name'],
-        :volume_i_ds     => options[:volume_i_ds]
+        :name        => options['name'],
+        :volume_i_ds => options[:volume_i_ds]
       )
-      clone_volume = api.pcloud_v2_volumes_clone_post(
+      api.pcloud_v2_volumes_clone_post(
         cloud_instance_id,
         clone_volume_params
       )
     end
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
-    #Raise Error
+    # Raise Correct Error
     raise MiqException::MiqVolumeDeleteError, e.to_s, e.backtrace
   end
 end
