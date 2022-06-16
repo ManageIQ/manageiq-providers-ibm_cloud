@@ -108,7 +108,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
 
   def params_for_clone
     {
-      :fields => []
+      :fields => [
+        {
+          :component  => 'text-field',
+          :name       => 'name',
+          :id         => 'name',
+          :label      => _('Volume Name'),
+          :isRequired => true,
+        },
+      ]
     }
   end
 
