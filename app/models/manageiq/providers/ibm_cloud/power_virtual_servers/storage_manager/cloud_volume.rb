@@ -113,8 +113,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :component  => 'text-field',
           :name       => 'name',
           :id         => 'name',
-          :label      => _('Volume Name'),
+          :label      => _('Volume Base Name'),
           :isRequired => true,
+          :helperText => _("Base name of the new cloned volume(s). Cloned Volume names will be prefixed with 'clone-' and suffixed with '-#####' (where ##### is a 5 digit random number)"),
         },
       ]
     }
@@ -191,7 +192,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     end
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
-    # Raise Correct Error
-    raise MiqException::MiqVolumeDeleteError, e.to_s, e.backtrace
+    raise MiqException::MiqVolumeCloneError, e.to_s, e.backtrace
   end
 end
