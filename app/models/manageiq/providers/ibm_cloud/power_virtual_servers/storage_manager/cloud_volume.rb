@@ -115,7 +115,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :id         => 'name',
           :label      => _('Volume Base Name'),
           :isRequired => true,
-          :helperText => _("Base name of the new cloned volume(s). Cloned Volume names will be prefixed with 'clone-' and suffixed with '-#####' (where ##### is a 5 digit random number)"),
+          :helperText => _("Base name of the new cloned volume. The cloned Volume name will be prefixed with 'clone-' and suffixed with '-#####' (where ##### is a 5 digit random number)"),
         },
       ]
     }
