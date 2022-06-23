@@ -1,5 +1,6 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudVolume < ::CloudVolume
   supports :create
+  supports :clone
   supports :delete do
     unsupported_reason_add(:delete, _("the volume is not connected to an active Provider")) unless ext_management_system
     unsupported_reason_add(:delete, _("cannot delete volume that is in use.")) if status == "in-use"
@@ -105,6 +106,21 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
     }
   end
 
+  def params_for_clone
+    {
+      :fields => [
+        {
+          :component  => 'text-field',
+          :name       => 'name',
+          :id         => 'name',
+          :label      => _('Volume Base Name'),
+          :isRequired => true,
+          :helperText => _("Base name of the new cloned volume. The cloned Volume name will be prefixed with 'clone-' and suffixed with '-#####' (where ##### is a 5 digit random number)"),
+        },
+      ]
+    }
+  end
+
   def params_for_attach
     {
       :fields => []
@@ -160,5 +176,22 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   rescue => e
     _log.error("volume=[#{name}], error: #{e}")
     raise MiqException::MiqVolumeDetachError, _("Unable to detach volume: %{error_message}") % {:error_message => e.message}
+  end
+
+  def raw_clone_volume(options)
+    options[:volume_i_ds] = [ems_ref]
+    with_provider_connection(:service => 'PCloudVolumesApi') do |api|
+      clone_volume_params = IbmCloudPower::VolumesCloneAsyncRequest.new(
+        :name        => options['name'],
+        :volume_i_ds => options[:volume_i_ds]
+      )
+      api.pcloud_v2_volumes_clone_post(
+        cloud_instance_id,
+        clone_volume_params
+      )
+    end
+  rescue => e
+    _log.error("volume=[#{name}], error: #{e}")
+    raise MiqException::MiqVolumeCloneError, e.to_s, e.backtrace
   end
 end
