@@ -60,4 +60,26 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
       expect(vm.supports?(:html5_console)).to be_falsey
     end
   end
+
+  context "supports management console access?" do
+    it 'supports console access if powered on' do
+      vm.update(:raw_power_state => power_state_on)
+      expect(vm.supports?(:native_console)).to be_truthy
+    end
+
+    it 'no console access if powered off' do
+      vm.update(:raw_power_state => power_state_suspended)
+      expect(vm.supports?(:native_console)).to be_truthy
+    end
+
+    it 'no console access if orphaned' do
+      vm.update(:ems_id => nil)
+      expect(vm.supports?(:native_console)).to be_falsey
+    end
+
+    it 'no console access if archived' do
+      vm.update(:ems_id => nil, :storage_id => nil)
+      expect(vm.supports?(:native_console)).to be_falsey
+    end
+  end
 end

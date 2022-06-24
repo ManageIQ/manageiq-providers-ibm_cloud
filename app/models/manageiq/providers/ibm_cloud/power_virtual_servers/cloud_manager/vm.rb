@@ -33,6 +33,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   end
   supports :launch_html5_console
 
+  supports :native_console do
+    reason ||= _("VM Console not supported because VM is orphaned") if orphaned?
+    reason ||= _("VM Console not supported because VM is archived") if archived?
+    unsupported_reason_add(:native_console, reason) if reason
+  end
+
   def cloud_instance_id
     ext_management_system.uid_ems
   end
@@ -102,6 +108,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
 
   def console_supported?(type)
     return true if type.upcase == 'VNC'
+  end
+
+  def console_url
+    crn = ERB::Util.url_encode(ext_management_system.pcloud_crn.values.join(":"))
+    params = URI.encode_www_form(:paneId => "manageiq", :crn => crn)
+    URI::HTTPS.build(:host => "cloud.ibm.com", :path => "/services/power-iaas/#{crn}/server/#{uid_ems}", :query => params)
   end
 
   private
