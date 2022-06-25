@@ -53,7 +53,7 @@ const fetchBuckets = (provider) => {
 
 const fetchDiskTypes = (provider) => {
     return new Promise((resolve, reject) => {
-        API.get(API_VOL_TYPES + '?expand=resources&attributes=id,name,ems_id&filter[]=ems_id=' + provider).then(({resources}) => {
+        API.get(API_PROVIDERS + '/' + provider + '/cloud_volume_types?expand=resources&attributes=id,name').then(({resources}) => {
             let options = resources.map(({id, name}) => ({value: id, label: name}));
             resolve(options);
         })
