@@ -16,10 +16,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
       else
         make_request_clone(clone_options)
       end
-    rescue RestClient::ExceptionWithResponse => e
+    rescue IbmCloudPower::ApiError => e
       raise MiqException::MiqProvisionError, e.response.to_s
     end
-  rescue RestClient::ExceptionWithResponse => e
+  rescue IbmCloudPower::ApiError => e
     raise MiqException::MiqProvisionError, e.response.to_s
   end
 
