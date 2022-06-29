@@ -19,6 +19,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase < ::CloudD
           :label        => _('Resource Group'),
           :includeEmpty => true,
           :isRequired   => true,
+          :validate     => [{:type => 'required'}],
           :options      => ems.resource_groups.map do |rg|
             {
               :label => rg.name,
@@ -33,6 +34,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase < ::CloudD
           :label        => _('Cloud Database'),
           :includeEmpty => true,
           :isRequired   => true,
+          :validate     => [{:type => 'required'}],
           :options      => ["postgresql", "edb", "mysql", "datastax", "mongodb", "elasticsearch", "redis", "etcd"].map do |db|
             {
               :label => db,
