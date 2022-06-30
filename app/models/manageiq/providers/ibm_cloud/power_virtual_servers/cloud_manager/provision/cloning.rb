@@ -67,10 +67,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
           response&.first&.pvm_instance_id
         end
       end
-    rescue RestClient::ExceptionWithResponse => e
+    rescue IbmCloudPower::ApiError => e
       raise MiqException::MiqProvisionError, e.response.to_s
     end
-  rescue RestClient::ExceptionWithResponse => e
+  rescue IbmCloudPower::ApiError => e
     raise MiqException::MiqProvisionError, e.response.to_s
   end
 
