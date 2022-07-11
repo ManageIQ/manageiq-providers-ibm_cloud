@@ -157,7 +157,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
       rescue IbmCloudIam::ApiError => err
         error_message = JSON.parse(err.response_body)["message"]
         _log.error("IAM authentication failed: #{err.code} #{error_message}")
-        raise MiqException::MiqInvalidCredentialsError, error_message
+        raise MiqException::MiqInvalidCredentialsError, "IAM authentication failed"
       end
 
       require "ibm_cloud_resource_controller"
