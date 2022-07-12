@@ -29,9 +29,9 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase do
                                                               :target           => ems.provider_region,
                                                               :resource_group   => resource_group.ems_ref,
                                                               :resource_plan_id => "databases-for-postgresql-standard")
-        cloud_database.class.raw_create_cloud_database(ems, {:name                => "test-db",
-                                                             :resource_group_name => resource_group.name,
-                                                             :database            => "postgresql"})
+        cloud_database.class.raw_create_cloud_database(ems, {"name"                => "test-db",
+                                                             "resource_group_name" => resource_group.name,
+                                                             "database"            => "postgresql"})
       end
     end
 
@@ -45,7 +45,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase do
     context '#update_cloud_database' do
       it 'updates the cloud database' do
         expect(resource_controller).to receive(:request).with(:update_resource_instance, :id => cloud_database.ems_ref, :name => "test-db-new")
-        cloud_database.update_cloud_database({:name => "test-db-new"})
+        cloud_database.update_cloud_database({"name" => "test-db-new"})
       end
     end
   end

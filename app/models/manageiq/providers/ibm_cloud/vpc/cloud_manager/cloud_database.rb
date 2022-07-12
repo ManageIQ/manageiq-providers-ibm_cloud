@@ -7,10 +7,12 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase < ::CloudD
     {
       :fields => [
         {
-          :component => 'text-field',
-          :id        => 'name',
-          :name      => 'name',
-          :label     => _('Cloud Database'),
+          :component  => 'text-field',
+          :id         => 'name',
+          :name       => 'name',
+          :isRequired => true,
+          :validate   => [{:type => 'required'}],
+          :label      => _('Cloud Database Name'),
         },
         {
           :component    => 'select',
@@ -31,7 +33,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase < ::CloudD
           :component    => 'select',
           :name         => 'database',
           :id           => 'database',
-          :label        => _('Cloud Database'),
+          :label        => _('Cloud Database Type'),
           :includeEmpty => true,
           :isRequired   => true,
           :validate     => [{:type => 'required'}],
@@ -61,12 +63,12 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase < ::CloudD
 
   def self.raw_create_cloud_database(ext_management_system, options)
     ext_management_system.with_provider_connection do |connection|
-      resource_group = ext_management_system.resource_groups.find_by!(:name => options[:resource_group_name])
+      resource_group = ext_management_system.resource_groups.find_by!(:name => options["resource_group_name"])
       connection.resource.controller.request(:create_resource_instance,
-                                             :name             => options[:name],
+                                             :name             => options["name"],
                                              :target           => ext_management_system.provider_region,
                                              :resource_group   => resource_group.ems_ref,
-                                             :resource_plan_id => "databases-for-#{options[:database]}-standard")
+                                             :resource_plan_id => "databases-for-#{options["database"]}-standard")
     end
   rescue => err
     _log.error("cloud database=[#{name}], error: #{err}")
@@ -84,7 +86,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::CloudDatabase < ::CloudD
 
   def raw_update_cloud_database(options)
     with_provider_connection do |connection|
-      connection.resource.controller.request(:update_resource_instance, :id => ems_ref, :name => options[:name])
+      connection.resource.controller.request(:update_resource_instance, :id => ems_ref, :name => options["name"])
     end
   rescue => err
     _log.error("cloud database=[#{name}], error: #{err}")
