@@ -16,7 +16,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
         make_request_clone(clone_options)
       end
   rescue IbmCloudPower::ApiError => err
-    error_message = JSON.parse(err.response_body)["description"]
+    error_message = JSON.parse(err.response_body)["description"] || err.message
     _log.error("VM start_clone error: #{error_message}")
     raise MiqException::MiqProvisionError, error_message
   end
