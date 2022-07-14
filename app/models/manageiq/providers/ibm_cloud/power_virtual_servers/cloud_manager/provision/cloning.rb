@@ -8,7 +8,6 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
   end
 
   def start_clone(clone_options)
-    begin
       if request_type == 'clone_to_template'
         make_request_clone_to_template(clone_options)
       elsif sap_image?
@@ -16,11 +15,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
       else
         make_request_clone(clone_options)
       end
-    rescue IbmCloudPower::ApiError => e
-      raise MiqException::MiqProvisionError, e.response.to_s
-    end
-  rescue IbmCloudPower::ApiError => e
-    raise MiqException::MiqProvisionError, e.response.to_s
+  rescue IbmCloudPower::ApiError => err
+    error_message = JSON.parse(err.response_body)["description"] || err.message
+    _log.error("VM start_clone error: #{error_message}")
+    raise MiqException::MiqProvisionError, error_message
   end
 
   def do_clone_task_check(clone_task_ref)
