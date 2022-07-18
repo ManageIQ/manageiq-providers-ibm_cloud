@@ -72,7 +72,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       )
 
       # saving instance disk information
-      instance.volume_i_ds.to_a.each do |vol_id|
+      instance.volume_ids.to_a.each do |vol_id|
         volume = collector.volume(vol_id)
         next if volume.nil?
 
