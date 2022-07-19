@@ -53,36 +53,18 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
           :initialValue => 'Off',
           :options      => [
             {
-              :label => 'Off',
+              :label => _('Off'),
               :value => 'Off',
             },
             {
-              :label => 'Affinity',
+              :label => _('Affinity'),
               :value => 'affinity',
             },
             {
-              :label => 'Anti-affinity',
+              :label => _('Anti-affinity'),
               :value => 'anti-affinity',
             },
           ],
-        },
-        {
-          :component    => 'select',
-          :name         => 'affinity_volume_id',
-          :id           => 'affinity_volume_id',
-          :label        => _('Affinity Volume'),
-          :validate     => [{:type => 'required'}],
-          :condition    => {
-            :when    => 'affinity_policy',
-            :pattern => 'affinity$',
-          },
-          :includeEmpty => true,
-          :options      => ems.cloud_volumes.map do |cv|
-            {
-              :value => cv.name,
-              :label => cv.name,
-            }
-          end,
         },
         {
           :component    => 'select',
@@ -104,28 +86,103 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
         },
         {
           :component    => 'select',
-          :name         => 'PVMInstance',
-          :id           => 'PVMInstance',
-          :label        => _('affinity_policy'), 
-          :validate     => [{:type => 'required'}],
-          :initialValue => 'Off',
+          :name         => 'affinity_type',
+          :id           => 'affinity_type',
+          :label        => _('Affinity Type'),
+          :includeEmpty => true,
+          :condition    => {
+            :not => [
+              {
+                :when    => 'affinity_policy',
+                :pattern => '^Off$',
+              },
+            ]
+          },
           :options      => [
             {
-              :label => 'Off',
-              :value => 'Off',
+              :label => _('Volume'),
+              :value => 'volume',
             },
             {
-              :label => 'affinityPVMInstance',
-              :value => 'affinityPVMInstance',
+              :label => _('PVM Instance'),
+              :value => 'pvm_instance',
             },
-            {
-              :label => 'antiAffinityPVMInstances',
-              :value => 'antiAffinityPVMInstances',
-            },
-          ]
+          ],
+        },
+        {
+          :component    => 'select',
+          :isSearchable => true,
+          :name         => 'affinity_volume',
+          :id           => 'affinity_volume',
+          :label        => _('Affinity Volume'),
+          :validate     => [{:type => 'required'}],
           :condition    => {
-            :when    => 'affinity_policy',
-            :pattern => '^Off$',
+            :and => [
+              {
+                :when    => 'affinity_policy',
+                :pattern => '^affinity$',
+              },
+              {
+                :when    => 'affinity_type',
+                :pattern => 'volume$',
+              },
+            ]
+          },
+          :includeEmpty => true,
+          :options      => ems.cloud_volumes.map do |cv|
+            {
+              :label => cv.name,
+              :value => cv.ems_ref,
+            }
+          end,
+        },
+        {
+          :component    => 'select',
+          :isMulti      => true,
+          :isClearable  => true,
+          :isSearchable => true,
+          :name         => 'anti_affinity_volumes',
+          :id           => 'anti_affinity_volumes',
+          :label        => _('Anti-Affinity Volume(s)'),
+          :validate     => [{:type => 'required'}],
+          :condition    => {
+            :and => [
+              {
+                :when    => 'affinity_policy',
+                :pattern => '^anti-affinity$',
+              },
+              {
+                :when    => 'affinity_type',
+                :pattern => 'volume$',
+              },
+            ]
+          },
+          :includeEmpty => true,
+          :options      => ems.cloud_volumes.map do |cv|
+            {
+              :label => cv.name,
+              :value => cv.ems_ref,
+            }
+          end,
+        },
+        {
+          :component    => 'select',
+          :isSearchable => true,
+          :name         => 'affinity_pvm_instance',
+          :id           => 'affinity_pvm_instance',
+          :label        => _('Affinity PVM Instance'),
+          :validate     => [{:type => 'required'}],
+          :condition    => {
+            :and => [
+              {
+                :when    => 'affinity_policy',
+                :pattern => '^affinity$',
+              },
+              {
+                :when    => 'affinity_type',
+                :pattern => 'pvm_instance$',
+              },
+            ]
           },
           :includeEmpty => true,
           :options      => ems.parent_manager.vms.map do |vm|
@@ -133,28 +190,37 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
               :label => vm.name,
               :value => vm.ems_ref,
             }
+          end,
+        },
+        {
+          :component    => 'select',
+          :isMulti      => true,
+          :isClearable  => true,
+          :isSearchable => true,
+          :name         => 'anti_affinity_pvm_instances',
+          :id           => 'anti_affinity_pvm_instances',
+          :label        => _('Anti-Affinity PVM Instance(s)'),
+          :validate     => [{:type => 'required'}],
           :condition    => {
-          :when    => 'affinity_policy',
-          :pattern => '^affinityPVMInstance$',
+            :and => [
+              {
+                :when    => 'affinity_policy',
+                :pattern => '^anti-affinity$',
+              },
+              {
+                :when    => 'affinity_type',
+                :pattern => 'pvm_instance$',
+              },
+            ]
           },
           :includeEmpty => true,
           :options      => ems.parent_manager.vms.map do |vm|
             {
               :label => vm.name,
-              :value => vm.affinity_volume_id,
-            }
-          :condition    => {
-          :when    => 'affinity_policy',
-          pattern => '^affinityPVMInstance$',
-            },
-          :includeEmpty => true,
-          :options      => ems.parent_manager.vms.map do |vm|
-            {
-              :label => vm.name,
-              :value => vm.name,
+              :value => vm.ems_ref,
             }
           end,
-        }    
+        },
       ],
     }
   end
@@ -183,14 +249,41 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   def self.raw_create_volume(ext_management_system, options)
     volume = nil
     volume_params = nil
+    affinity_volume = nil
+    anti_affinity_volumes = nil
+    affinity_pvm_instance = nil
+    anti_affinity_pvm_instances = nil
+
+    affinity_policy = options['affinity_policy'] == 'Off' ? nil : options['affinity_policy']
+
+    case affinity_policy
+    when 'affinity'
+      case options['affinity_type']
+      when 'volume'
+        affinity_volume = options['affinity_volume']['value']
+      when 'pvm_instance'
+        affinity_pvm_instance = options['affinity_pvm_instance']['value']
+      end
+    when 'anti-affinity'
+      case options['affinity_type']
+      when 'volume'
+        anti_affinity_volumes = options['anti_affinity_volumes'].map { |vol| vol['value'] }
+      when 'pvm_instance'
+        anti_affinity_pvm_instances = options['anti_affinity_pvm_instances'].map { |vol| vol['value'] }
+      end
+    end
+
     ext_management_system.with_provider_connection(:service => 'PCloudVolumesApi') do |api|
       volume_params = IbmCloudPower::CreateDataVolume.new(
-        'name'            => options['name'],
-        'size'            => options['size'].to_i / 1.0.gigabyte,
-        'disk_type'       => options['volume_type'],
-        'shareable'       => options['multi_attachment'],
-        'affinity_policy' => options['affinity_policy'] == 'Off' ? nil : options['affinity_policy'],
-        'affinity_volume' => options['affinity_policy'] == 'Off' ? nil : options['affinity_volume_id']
+        'name'                        => options['name'],
+        'size'                        => options['size'].to_i / 1.0.gigabyte,
+        'disk_type'                   => options['volume_type'],
+        'shareable'                   => options['multi_attachment'],
+        'affinity_policy'             => affinity_policy,
+        'affinity_volume'             => affinity_volume,
+        'anti_affinity_volumes'       => anti_affinity_volumes,
+        'affinity_pvm_instance'       => affinity_pvm_instance,
+        'anti_affinity_pvm_instances' => anti_affinity_pvm_instances
       )
 
       volume = api.pcloud_cloudinstances_volumes_post(
