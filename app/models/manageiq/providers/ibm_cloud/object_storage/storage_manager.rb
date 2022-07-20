@@ -10,7 +10,7 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
   include ManageIQ::Providers::StorageManager::ObjectMixin
 
   def self.params_for_create
-    @params_for_create ||= {
+    {
       :fields => [
         {
           :component => 'sub-form',

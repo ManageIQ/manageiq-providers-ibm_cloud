@@ -82,7 +82,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
 
   module ClassMethods
     def params_for_create
-      @params_for_create ||= {
+      {
         :fields => [
           {
             :component => 'sub-form',
