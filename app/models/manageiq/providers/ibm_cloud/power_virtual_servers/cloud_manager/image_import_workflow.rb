@@ -56,10 +56,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
     _, _, _, _, access_key, secret_key = cos.cos_creds
 
     body = {
-      :source        => 'url',
       :imageName     => options[:miq_img][:name],
       :osType        => options[:miq_img][:os],
-      :diskType      => options[:diskType],
+      :storageType   => options[:diskType],
       :imageFilename => "#{options[:session_id]}.ova",
       :region        => region,
       :bucketName    => bucket_name,
@@ -72,8 +71,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
     status = nil
 
     ems.with_provider_connection(:service => 'PCloudImagesApi') do |api|
-      response = api.pcloud_cloudinstances_images_post(ems.uid_ems, body, {})
-      context[:task_id] = response.taskref.task_id
+      response = api.pcloud_v1_cloudinstances_cosimages_post(ems.uid_ems, body, {})
+      context[:job_id] = response.id
       update!(:context => context)
 
       message = 'initiated OVA file importing from the cloud object storage'
@@ -105,27 +104,27 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImp
     status  = nil
     deliver = nil
 
-    ems.with_provider_connection(:service => 'PCloudTasksApi') do |api|
+    ems.with_provider_connection(:service => 'PCloudJobsApi') do |api|
       begin
-        response = api.pcloud_tasks_get(context[:task_id])
+        response = api.pcloud_cloudinstances_jobs_get(ems.uid_ems, context[:job_id])
       rescue IbmCloudPower::ApiError => e
         retr = context[:retry].to_i
-        raise "unable to get task status after #{max_retries} tries, see server logs" if retr >= max_retries
+        raise "unable to get job status after #{max_retries} tries, see server logs" if retr >= max_retries
 
         context[:retry] = retr + 1
 
         error_dsc = trunc_err_msg(try_extract_api_error(e))
-        message = "failed to retrieve cloud-task: '#{error_dsc}'; try #{retr + 1}/#{max_retries}"
+        message = "failed to retrieve cloud-job: '#{error_dsc}'; try #{retr + 1}/#{max_retries}"
         deliver = Time.now.utc + 1.minute
         signal = :post_execute_poll
         status = 'error'
         break
       end
 
-      case response.status
-      when 'capturing', 'downloading', 'creating', 'deleting', 'compressing', 'loading', 'started', 'uploading'
+      case response.status.state
+      when 'running'
         context[:retry] = 0
-        message = "importing image into PVS, current state is: '#{response.status}'"
+        message = "importing image into PVS, state: '#{response.status.state}' progress: '#{response.status.progress}' message: '#{response.status.message}'"
         signal = :post_execute_poll
         status = 'ok'
       when 'completed'
