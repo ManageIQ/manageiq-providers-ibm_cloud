@@ -42,7 +42,7 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
 
   module ClassMethods
     def params_for_create
-      @params_for_create ||= {
+      {
         :fields => [
           {
             :component    => "select",
