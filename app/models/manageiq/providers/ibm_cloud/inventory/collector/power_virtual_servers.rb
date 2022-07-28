@@ -100,6 +100,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
 
   def network(network_id)
     networks_api.pcloud_networks_get(cloud_instance_id, network_id)
+  rescue IbmCloudPower::ApiError => err
+    error_message = JSON.parse(err.response_body)["description"]
+    _log.debug("NetworkID '#{network_id}' not found: #{error_message}")
+    nil
   end
 
   def ports(network_id)
