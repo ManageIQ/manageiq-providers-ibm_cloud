@@ -80,6 +80,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
 
   def volume(volume_id)
     volumes_by_id[volume_id] ||= volumes_api.pcloud_cloudinstances_volumes_get(cloud_instance_id, volume_id)
+  rescue IbmCloudPower::ApiError => err
+    error_message = JSON.parse(err.response_body)["description"]
+    _log.debug("VolumeID '#{volume_id}' not found: #{error_message}")
+    nil
   end
 
   def volumes_by_id
