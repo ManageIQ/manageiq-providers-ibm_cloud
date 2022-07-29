@@ -16,7 +16,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     pvm_instances_by_id[pvm_instance_id] ||= pvm_instances_api.pcloud_pvminstances_get(cloud_instance_id, pvm_instance_id)
   rescue IbmCloudPower::ApiError => err
     error_message = JSON.parse(err.response_body)["description"]
-    _log.debug("PVMInstanceID not found: #{error_message}")
+    _log.debug("PVMInstanceID '#{pvm_instance_id}' not found: #{error_message}")
     nil
   end
 
@@ -33,14 +33,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
       images_by_id[image_id] ||= images_api.pcloud_cloudinstances_images_get(cloud_instance_id, image_id)
     rescue IbmCloudPower::ApiError => err
       error_message = JSON.parse(err.response_body)["description"]
-      _log.debug("ImageID not found: #{error_message}")
+      _log.debug("ImageID '#{image_id}' not found: #{error_message}")
     end
 
     begin
       images_by_id[image_id] ||= images_api.pcloud_cloudinstances_stockimages_get(cloud_instance_id, image_id)
     rescue IbmCloudPower::ApiError => err
       error_message = JSON.parse(err.response_body)["description"]
-      _log.debug("ImageID not found in stock catalog: #{error_message}")
+      _log.debug("ImageID '#{image_id}' not found in stock catalog: #{error_message}")
       nil
     end
   end
@@ -61,7 +61,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     placement_groups_by_id[placement_group_id] ||= placement_groups_api.pcloud_placementgroups_get(cloud_instance_id, placement_group_id)
   rescue IbmCloudPower::ApiError => err
     error_message = JSON.parse(err.response_body)["description"]
-    _log.debug("Placement group with id #{placement_group_id} does not exist: #{error_message}")
+    _log.debug("PlacementGroupID '#{placement_group_id}' not found: #{error_message}")
     nil
   end
 
@@ -80,6 +80,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
 
   def volume(volume_id)
     volumes_by_id[volume_id] ||= volumes_api.pcloud_cloudinstances_volumes_get(cloud_instance_id, volume_id)
+  rescue IbmCloudPower::ApiError => err
+    error_message = JSON.parse(err.response_body)["description"]
+    _log.debug("VolumeID '#{volume_id}' not found: #{error_message}")
+    nil
   end
 
   def volumes_by_id
@@ -96,6 +100,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
 
   def network(network_id)
     networks_api.pcloud_networks_get(cloud_instance_id, network_id)
+  rescue IbmCloudPower::ApiError => err
+    error_message = JSON.parse(err.response_body)["description"]
+    _log.debug("NetworkID '#{network_id}' not found: #{error_message}")
+    nil
   end
 
   def ports(network_id)
