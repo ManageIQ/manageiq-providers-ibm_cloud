@@ -58,7 +58,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :connection_state  => "connected",
         :raw_power_state   => instance.status,
         :uid_ems           => instance.pvm_instance_id,
-        :format            => instance.storage_type
+        :format            => instance.storage_type,
+        :placement_group   => persister.placement_groups.lazy_find(instance.placement_group)
       )
 
       # saving hardware information (CPU, Memory, etc.)
