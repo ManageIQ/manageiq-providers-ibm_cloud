@@ -19,8 +19,6 @@ const fetchProviders = (kind) => {
 
           API.get(API_PROVIDERS + '?expand=resources&attributes=id,name,type').then(({resources}) => {
               resources.forEach((provider) => {
-                  if(provider['id'] === ManageIQ.record.recordId) return;
-
                   var result = provider_classes.find(provider_class => provider_class['type'] === provider['type']);
 
                   if (typeof result !== typeof undefined && result['kind'] === kind)
@@ -60,10 +58,10 @@ const fetchDiskTypes = (provider) => {
     })
 }
 
-
 const ImportImageForm = ({ dispatch }) => {
     const [state, setState] = useState({});
     const providers = fetchProviders('cloud');
+
     const storages  = fetchProviders('storage');
     const diskTypes = fetchDiskTypes(ManageIQ.record.recordId);
     const images    = useMemo(() => fetchImages(state['src_provider_id']), [state['src_provider_id']]);
@@ -83,7 +81,7 @@ const ImportImageForm = ({ dispatch }) => {
         dispatch({ type: 'FormButtons.reset' });
     };
 
-    return (<div id="ignore_form_changes"><MiqFormRenderer initialize={initialize} schema={createSchema(providers, images, storages, buckets, diskTypes, state, setState)} showFormControls={false} onCancel={onCancel} onSubmit={onSubmit}/></div>)
+    return (<div id="ignore_form_changes"><MiqFormRenderer initialize={initialize} schema={createSchema(state, setState, providers, storages, diskTypes, images, buckets)} showFormControls={false} onCancel={onCancel} onSubmit={onSubmit}/></div>)
 };
 
 ImportImageForm.propTypes = {
