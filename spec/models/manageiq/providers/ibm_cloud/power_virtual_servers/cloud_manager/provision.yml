@@ -1,8 +1,8 @@
 ---
 version: 4
-terraform_version: 0.13.5
-serial: 22
-lineage: ace41e04-cd67-7706-e25d-514266f11694
+terraform_version: 1.2.6
+serial: 3
+lineage: 1b3ba812-0401-4983-5735-c6af93b73280
 outputs:
   progress:
     value: 0
@@ -20,15 +20,16 @@ resources:
     attributes:
       architecture: ppc64
       hypervisor: phyp
-      id: 1273f809-c1eb-4756-b233-6fa64f37b79e
+      id: a96e1fd7-7293-4d42-a4de-8934cf3a9bf3
       image_type: stock
       operatingsystem: rhel
-      pi_cloud_instance_id: 851f82c2-034c-4c32-9764-94262d245a50
+      pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
       pi_image_name: Linux-CentOS-8-3
       size: 250
       state: active
       storage_pool: Tier3-Flash-1
       storage_type: tier3
+    sensitive_attributes: []
 - mode: data
   type: ibm_pi_network
   name: power_network
@@ -36,18 +37,19 @@ resources:
   instances:
   - schema_version: 0
     attributes:
-      available_ip_count: 252
-      cidr: 192.168.24.0/24
-      gateway: 192.168.24.1
-      id: e25fd85e-30f5-447c-8096-0a6f5f9d4d8c
-      jumbo: false
-      name: ocp-net
-      pi_cloud_instance_id: 851f82c2-034c-4c32-9764-94262d245a50
-      pi_network_name: ocp-net
+      available_ip_count: 253
+      cidr: 10.1.0.0/24
+      gateway: 10.1.0.1
+      id: 83236177-2e7c-4845-b1cd-b57fe2c86e65
+      jumbo: true
+      name: miq-net
+      pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
+      pi_network_name: miq-net
       type: vlan
-      used_ip_count: 1
+      used_ip_count: 0
       used_ip_percent: 0
-      vlan_id: 450
+      vlan_id: 499
+    sensitive_attributes: []
 - mode: data
   type: ibm_pi_network
   name: public_network
@@ -55,18 +57,19 @@ resources:
   instances:
   - schema_version: 0
     attributes:
-      available_ip_count: 4
-      cidr: 192.168.167.0/29
-      gateway: 192.168.167.1
-      id: 7a3f8b17-ab14-456a-85a7-8c150cb55c9a
+      available_ip_count: 5
+      cidr: 192.168.165.88/29
+      gateway: 192.168.165.89
+      id: dfcbcdc8-f43c-4fdd-b3bf-89a74649be15
       jumbo: true
-      name: public-192_168_167_0-29-VLAN_2092
-      pi_cloud_instance_id: 851f82c2-034c-4c32-9764-94262d245a50
-      pi_network_name: public-192_168_167_0-29-VLAN_2092
+      name: public-192_168_165_88-29-VLAN_2039
+      pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
+      pi_network_name: public-192_168_165_88-29-VLAN_2039
       type: pub-vlan
-      used_ip_count: 1
-      used_ip_percent: 20
-      vlan_id: 2092
+      used_ip_count: 0
+      used_ip_percent: 0
+      vlan_id: 2039
+    sensitive_attributes: []
 - mode: managed
   type: ibm_pi_instance
   name: pvminstance
@@ -75,22 +78,22 @@ resources:
   - schema_version: 0
     attributes:
       health_status: WARNING
-      id: 851f82c2-034c-4c32-9764-94262d245a50/67424158-c5ab-49a7-9aee-8bd28cacd07e
-      instance_id: 67424158-c5ab-49a7-9aee-8bd28cacd07e
+      id: 8fa27c40-827c-4568-8813-79b398e9cd27/82352ae4-9247-462e-8918-f27104e9d164
+      instance_id: 82352ae4-9247-462e-8918-f27104e9d164
       max_memory: 32
       max_processors: 8
       max_virtual_cores: 8
       min_memory: 2
       min_processors: 0.25
       min_virtual_cores: 1
-      operating_system: 0.0.0.0.0.0
+      operating_system: null,
       os_type: rhel
       pi_affinity_instance:
       pi_affinity_policy:
       pi_affinity_volume:
       pi_anti_affinity_instances:
       pi_anti_affinity_volumes:
-      pi_cloud_instance_id: 851f82c2-034c-4c32-9764-94262d245a50
+      pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
       pi_health_status: WARNING
       pi_image_id: 69b66397-ede0-49e8-88b5-00b198225b4b
       pi_instance_name: miq-test-2
@@ -100,16 +103,16 @@ resources:
       pi_migratable: false
       pi_network:
       - external_ip: ''
-        ip_address: 192.168.24.188
-        mac_address: fa:3a:b4:7d:a0:20
-        network_id: e25fd85e-30f5-447c-8096-0a6f5f9d4d8c
-        network_name: ocp-net
+        ip_address: 10.1.0.69
+        mac_address: fa:8f:25:dc:47:20
+        network_id: 83236177-2e7c-4845-b1cd-b57fe2c86e65
+        network_name: miq-net
         type: fixed
-      - external_ip: 169.54.122.3
-        ip_address: 192.168.167.3
-        mac_address: fa:3a:b4:7d:a0:21
-        network_id: 7a3f8b17-ab14-456a-85a7-8c150cb55c9a
-        network_name: public-192_168_167_0-29-VLAN_2092
+      - external_ip: 169.54.112.220
+        ip_address: 192.168.165.92
+        mac_address: fa:8f:25:dc:47:21
+        network_id: dfcbcdc8-f43c-4fdd-b3bf-89a74649be15
+        network_name: public-192_168_165_88-29-VLAN_2039
         type: fixed
       pi_pin_policy: none
       pi_placement_group_id:
@@ -128,10 +131,11 @@ resources:
       pi_user_data:
       pi_virtual_cores_assigned: 1
       pi_volume_ids:
-      - 51b9bb0b-a264-4e97-975e-3615507178cb
+      - 8e2b3584-386b-4703-8be3-05a7e8d40248
       pin_policy: none
       status: ACTIVE
       timeouts:
+    sensitive_attributes: []
     private: eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo3MjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInVwZGF0ZSI6MzYwMDAwMDAwMDAwMH19
     dependencies:
     - data.ibm_pi_image.power_images
@@ -146,20 +150,21 @@ resources:
   - schema_version: 0
     attributes:
       delete_on_termination:
-      id: 851f82c2-034c-4c32-9764-94262d245a50/51b9bb0b-a264-4e97-975e-3615507178cb
+      id: 8fa27c40-827c-4568-8813-79b398e9cd27/8e2b3584-386b-4703-8be3-05a7e8d40248
       pi_affinity_instance:
       pi_affinity_policy:
       pi_affinity_volume:
       pi_anti_affinity_instances:
       pi_anti_affinity_volumes:
-      pi_cloud_instance_id: 851f82c2-034c-4c32-9764-94262d245a50
+      pi_cloud_instance_id: 8fa27c40-827c-4568-8813-79b398e9cd27
       pi_volume_name: rdr-miq-volume-2
       pi_volume_pool: Tier3-Flash-2
       pi_volume_shareable: true
       pi_volume_size: 20
       pi_volume_type: tier3
       timeouts:
-      volume_id: 51b9bb0b-a264-4e97-975e-3615507178cb
+      volume_id: 8e2b3584-386b-4703-8be3-05a7e8d40248
       volume_status: available
-      wwn: 60050768108002DAC8000000000003E8
+      wwn: 60050768108002DAC800000000000663
+    sensitive_attributes: []
     private: eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=
