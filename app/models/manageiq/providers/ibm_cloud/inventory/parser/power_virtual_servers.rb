@@ -133,18 +133,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :read_only    => true
       )
 
-      # saving placement_group
-      placement_group = collector.placement_group(instance.placement_group)
-      value = "#{placement_group.name}[#{placement_group.policy}]" unless placement_group.nil?
-      persister.vms_and_templates_advanced_settings.build(
-        :resource     => ps_vmi,
-        :name         => 'placement_group',
-        :display_name => _('Placement Group'),
-        :description  => _('The placement group of the server'),
-        :value        => value,
-        :read_only    => true
-      )
-
       ldesc = software_licenses_description(instance.software_licenses)
       ldesc.present? && persister.vms_and_templates_advanced_settings.build(
         :resource     => ps_vmi,
