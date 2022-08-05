@@ -179,11 +179,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   end
 
   def raw_clone_volume(options)
-    options[:volume_i_ds] = [ems_ref]
+    options[:volume_ids] = [ems_ref]
     with_provider_connection(:service => 'PCloudVolumesApi') do |api|
       clone_volume_params = IbmCloudPower::VolumesCloneAsyncRequest.new(
         :name        => options['name'],
-        :volume_i_ds => options[:volume_i_ds]
+        :volume_ids => options[:volume_ids]
       )
       api.pcloud_v2_volumes_clone_post(
         cloud_instance_id,
