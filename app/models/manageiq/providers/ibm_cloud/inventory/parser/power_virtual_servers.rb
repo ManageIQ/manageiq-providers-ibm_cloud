@@ -81,7 +81,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
           :device_name     => volume.name,
           :device_type     => volume.disk_type,
           :controller_type => "ibm",
-          :backing         => persister.cloud_volumes.find(vol_id),
+          :backing         => persister.cloud_volumes.lazy_find(vol_id),
           :location        => vol_id,
           :size            => volume.size&.gigabytes
         )
