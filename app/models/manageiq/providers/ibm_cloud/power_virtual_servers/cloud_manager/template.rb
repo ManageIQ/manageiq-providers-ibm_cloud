@@ -120,10 +120,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ImageImportWorkflow.create_job({}, extra_vars, workflow_opts, [host], credentials, :poll_interval => 5.seconds, :timeout => wrkfl_timeout)
   end
 
-  def validate_delete_image
-    validate_unsupported(_("Delete Cloud Template Operation"))
-  end
-
   private_class_method def self.set_import_auth(dst_provider_id, key, iv, encr_cos_creds)
     powervs = ExtManagementSystem.find(dst_provider_id)
     powervs.create_import_auth(key, iv, encr_cos_creds)

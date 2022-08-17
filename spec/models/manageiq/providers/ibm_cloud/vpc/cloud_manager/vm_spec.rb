@@ -11,7 +11,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm, :vcr do
     FactoryBot.create(:vm_ibm_cloud_vpc, :ext_management_system => ems)
   end
 
-  context "is_available?" do
+  context "#supports?" do
     let(:power_state_on)        { "running" }
     let(:power_state_suspended) { "stopped" }
 
