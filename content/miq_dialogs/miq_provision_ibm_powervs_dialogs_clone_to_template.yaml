@@ -1,6 +1,6 @@
 ---
 :name: miq_provision_ibm_powervs_dialogs_clone_to_template
-:description: IBM PowerVS Instance Provisioning Dialog
+:description: IBM PowerVS Instance Template Dialog
 :dialog_type: MiqProvisionWorkflow
 :content:
   :buttons:
@@ -45,16 +45,6 @@
           :data_type: :string
           :min_length: 1
           :max_length: 100
-        :number_of_vms:
-          :values_from:
-            :options:
-              :max: 1
-            :method: :allowed_number_of_vms
-          :description: Count
-          :required: false
-          :display: :hide
-          :default: 1
-          :data_type: :integer
       :display: :show
 
     :hardware:
