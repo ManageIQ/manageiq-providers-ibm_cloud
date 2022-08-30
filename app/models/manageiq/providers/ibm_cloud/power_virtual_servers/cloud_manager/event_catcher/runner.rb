@@ -22,6 +22,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventCat
   private
 
   def event_monitor_handle
-    @event_monitor_handle ||= self.class.parent::Stream.new(@ems)
+    @event_monitor_handle ||= self.class.module_parent::Stream.new(@ems)
   end
 end

@@ -21,6 +21,6 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::EventCatcher::Runner < M
   private
 
   def event_monitor_handle
-    @event_monitor_handle ||= self.class.parent::Stream.new(@ems)
+    @event_monitor_handle ||= self.class.module_parent::Stream.new(@ems)
   end
 end
