@@ -45,6 +45,11 @@
           :data_type: :string
           :min_length: 1
           :max_length: 100
+        :number_of_vms:
+          :required: true
+          :display: :hide
+          :default: 1
+          :data_type: :integer
       :display: :show
 
     :hardware:
