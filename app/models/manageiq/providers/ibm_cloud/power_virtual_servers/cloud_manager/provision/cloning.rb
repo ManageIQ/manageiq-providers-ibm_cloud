@@ -138,6 +138,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
         status = 'The server is being provisioned.'
       when 'ACTIVE'
         stop = (instance.processors.to_f > 0) && (instance.memory.to_f > 0)
+        phase_context[:cloud_api_completion_time] = Time.zone.now.utc if stop
         status = "The server has been provisioned.; #{stop ? 'Server description available.' : 'Waiting for server description.'}"
       when 'ERROR'
         raise MiqException::MiqProvisionError, _("An error occurred while provisioning the instance.")
