@@ -8,13 +8,13 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
   end
 
   def start_clone(clone_options)
-      if request_type == 'clone_to_template'
-        make_request_clone_to_template(clone_options)
-      elsif sap_image?
-        make_request_clone_sap_vm(clone_options)
-      else
-        make_request_clone(clone_options)
-      end
+    if request_type == 'clone_to_template'
+      make_request_clone_to_template(clone_options)
+    elsif sap_image?
+      make_request_clone_sap_vm(clone_options)
+    else
+      make_request_clone(clone_options)
+    end
   rescue IbmCloudPower::ApiError => err
     error_message = JSON.parse(err.response_body)["description"] || err.message
     _log.error("VM start_clone error: #{error_message}")
