@@ -22,7 +22,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
   end
 
   def do_clone_task_check(clone_task_ref)
-    request_type == 'clone_to_template' ? check_task_clone_to_template : check_task_clone(clone_task_ref)
+    request_type == 'clone_to_template' ? check_task_clone_to_template(clone_task_ref) : check_task_clone(clone_task_ref)
   end
 
   def customize_destination
@@ -118,9 +118,9 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     end
   end
 
-  def check_task_clone_to_template
+  def check_task_clone_to_template(clone_task_ref)
     source.with_provider_connection(:service => "PCloudTasksApi") do |api|
-      task = api.pcloud_tasks_get(phase_context[:clone_task_mor])
+      task = api.pcloud_tasks_get(clone_task_ref)
       stop = (task.status != 'capturing')
       phase_context[:cloud_api_completion_time] = Time.zone.now.utc if stop
       return stop, task.status_detail
