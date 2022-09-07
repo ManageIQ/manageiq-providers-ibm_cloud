@@ -42,10 +42,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
   def start_clone_task
     update_and_notify_parent(:message => "Starting Clone of #{clone_direction}")
-
     clone_options = prepare_for_clone_task
     log_clone_options(clone_options)
-    phase_context[:clone_task_mor] = start_clone(clone_options)
+    phase_context[:clone_task_ref] = start_clone(clone_options)
+    phase_context.delete(:clone_options)
     signal :poll_clone_complete
   end
 end
