@@ -8,13 +8,13 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
   end
 
   def start_clone(clone_options)
-      if request_type == 'clone_to_template'
-        make_request_clone_to_template(clone_options)
-      elsif sap_image?
-        make_request_clone_sap_vm(clone_options)
-      else
-        make_request_clone(clone_options)
-      end
+    if request_type == 'clone_to_template'
+      make_request_clone_to_template(clone_options)
+    elsif sap_image?
+      make_request_clone_sap_vm(clone_options)
+    else
+      make_request_clone(clone_options)
+    end
   rescue IbmCloudPower::ApiError => err
     error_message = JSON.parse(err.response_body)["description"] || err.message
     _log.error("VM start_clone error: #{error_message}")
@@ -22,7 +22,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
   end
 
   def do_clone_task_check(clone_task_ref)
-    request_type == 'clone_to_template' ? check_task_clone_to_template : check_task_clone(clone_task_ref)
+    request_type == 'clone_to_template' ? check_task_clone_to_template(clone_task_ref) : check_task_clone(clone_task_ref)
   end
 
   def customize_destination
@@ -118,9 +118,9 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     end
   end
 
-  def check_task_clone_to_template
+  def check_task_clone_to_template(clone_task_ref)
     source.with_provider_connection(:service => "PCloudTasksApi") do |api|
-      task = api.pcloud_tasks_get(phase_context[:clone_task_mor])
+      task = api.pcloud_tasks_get(clone_task_ref)
       stop = (task.status != 'capturing')
       phase_context[:cloud_api_completion_time] = Time.zone.now.utc if stop
       return stop, task.status_detail
@@ -138,6 +138,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
         status = 'The server is being provisioned.'
       when 'ACTIVE'
         stop = (instance.processors.to_f > 0) && (instance.memory.to_f > 0)
+        phase_context[:cloud_api_completion_time] = Time.zone.now.utc if stop
         status = "The server has been provisioned.; #{stop ? 'Server description available.' : 'Waiting for server description.'}"
       when 'ERROR'
         raise MiqException::MiqProvisionError, _("An error occurred while provisioning the instance.")
