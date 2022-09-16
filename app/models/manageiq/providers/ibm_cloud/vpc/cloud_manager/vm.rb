@@ -130,4 +130,58 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
       $ibm_cloud_log.info("VM instance #{instance.id} state is #{raw_power_state}")
     end
   end
+
+  def params_for_resize
+    {
+      :fields => [
+        {
+          :component  => 'text-field',
+          :name       => 'name',
+          :id         => 'name',
+          :label      => _('Name'),
+          :isRequired => true,
+          :validate   => [
+            {
+              :type => 'required',
+            },
+            {
+              :type    => 'pattern',
+              :pattern => '^[a-zA-Z][a-zA-Z0-9_-]*$',
+              :message => _('Must contain only alphanumeric, hyphen, and underscore characters'),
+            }
+          ],
+        },
+        {
+          :component => 'textarea',
+          :name      => 'description',
+          :id        => 'description',
+          :label     => _('Description'),
+        },
+      ],
+    }
+  end
+
+  def resize_queue(userid, options = {})
+    _log.info("in resize_queue method")
+    $log.info("in resize_queue method")
+    task_opts = {
+      :action => "Resizing vm for #{userid}",
+      :userid => userid
+    }
+
+    queue_opts = {
+      :class_name  => self.class.name,
+      :method_name => 'resize',
+      :instance_id => id,
+      :role        => 'ems_operations',
+      # :queue_name  => ext_management_system.queue_name_for_ems_operations,
+      # :zone        => ext_management_system.my_zone,
+      :args        => [options]
+    }
+    MiqTask.generic_action_with_callback(task_opts, queue_opts)
+  end
+
+  def resize(options = {})
+    raw_resize(options)
+  end 
 end
