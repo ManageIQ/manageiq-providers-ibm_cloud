@@ -2,6 +2,80 @@ import React from 'react';
 import { componentTypes, validatorTypes } from '@@ddf';
 
 
+function fieldsForAIX(state, setState, storages, buckets)
+{
+  return [
+    {
+      component: componentTypes.TEXT_FIELD,
+      name: 'aix_net_loc',
+      id: 'aix_net_loc',
+      label: __('AIX Network Location'),
+      isRequired: true,
+      validate: [{ type: validatorTypes.REQUIRED }],
+      clearOnUnmount: true,
+    },
+
+    {
+      component: componentTypes.TEXT_FIELD,
+      name: 'ssh_user',
+      id: 'ssh_user',
+      label: __('SSH Username'),
+      isRequired: true,
+      validate: [{ type: validatorTypes.REQUIRED }],
+      clearOnUnmount: true,
+    },
+
+    {
+      component: componentTypes.TEXT_FIELD,
+      type: 'password',
+      name: 'ssh_pass',
+      id: 'ssh_pass',
+      label: __('SSH Password'),
+      isRequired: true,
+      validate: [{ type: validatorTypes.REQUIRED }],
+      clearOnUnmount: true,
+    },
+
+    {
+      component: componentTypes.SELECT,
+      name: 'obj_storage_id',
+      id: 'obj_storage_id',
+      label: __('Choose cloud object storage'),
+      isRequired: true,
+      validate: [{ type: validatorTypes.REQUIRED }],
+      clearOnUnmount: true,
+      includeEmpty: true,
+      loadOptions: () => storages,
+      onChange: (value) => {
+        setState({...state, obj_storage_id: value})
+      },
+    },
+
+    {
+      component: componentTypes.SELECT,
+      name: 'bucket_id',
+      key: `obj_storage_id-${state['obj_storage_id']}`,
+      id: 'bucket_id',
+      label: __('Choose storage bucket'),
+      isRequired: true,
+      validate: [{ type: validatorTypes.REQUIRED }],
+      includeEmpty: true,
+      clearOnUnmount: true,
+      loadOptions: () => buckets,
+    },
+
+    {
+      component: componentTypes.SELECT,
+      name: 'timeout',
+      id: 'timeout',
+      label: __('Workflow max. timeout'),
+      isRequired: true,
+      initialValue: 3,
+      options: Array.from(Array(24).keys()).map((h) => {return {label: (h+1) + " hours", value: (h+1)} }),
+    },
+  ]
+}
+
 function fieldsForPVC(state, setState, providers, storages, diskTypes, images, buckets)
 {
   return [{
@@ -160,9 +234,13 @@ function default_fields(state, setState)
         label: __('Choose source provider type'),
         isRequired: true,
         includeEmpty: true,
-        options: [{ label: 'PowerVC', value: 'PowerVC' },
-        { label: 'PowerVS', value: 'PowerVS' },
-        { label: 'COS', value: 'COS' },],
+        options: [
+            { label: 'PowerVC', value: 'PowerVC' },
+            { label: 'PowerVS', value: 'PowerVS' },
+            { label: 'COS',     value: 'COS'     },
+            { label: 'IBM AIX', value: 'AIX'     },
+        ],
+
         onChange: (value) => {
           setState({state, provider_type: value})
       },
@@ -177,6 +255,8 @@ function corresp_fields(state, setState, providers, storages, diskTypes, images,
       return fieldsForPVC(state, setState, providers, storages, diskTypes, images, buckets)
     case 'COS':
       return fieldsForCOS(state, setState, storages, diskTypes, buckets)
+    case 'AIX':
+      return fieldsForAIX(state, setState, storages, buckets)
     default:
       return []
   }
