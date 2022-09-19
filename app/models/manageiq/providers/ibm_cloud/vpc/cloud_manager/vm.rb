@@ -112,22 +112,12 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     unsupported_reason_add(:resize, _('The VM is not powered off')) unless current_state == "off"
   end
 
-  def raw_resize(new_flavor)
+  def raw_resize(options)
     with_provider_object do |instance|
-      instance.resize(instance, new_flavor.name)
+      instance.resize(instance, options["flavor"])
     rescue IBMCloudSdkCore::ApiException => e
       Notification.create(:type => :vm_resize_error, :options => {:subject => instance[:name], :error => e.error})
       raise MiqException::MiqProvisionError, e.to_s
-    end
-  end
-
-  private
-
-  # Update the saved status based on the SDK returned status.
-  def sdk_update_status(instance)
-    if raw_power_state != instance.status
-      update!(:raw_power_state => instance.status) if raw_power_state != instance.status
-      $ibm_cloud_log.info("VM instance #{instance.id} state is #{raw_power_state}")
     end
   end
 
@@ -135,35 +125,35 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     {
       :fields => [
         {
-          :component  => 'text-field',
-          :name       => 'name',
-          :id         => 'name',
-          :label      => _('Name'),
+          :component  => 'select',
+          :name       => 'flavor',
+          :id         => 'flavor',
+          :label      => _('Flavor'),
           :isRequired => true,
-          :validate   => [
+          :options    => resize_form_options.map do |flavor|
             {
-              :type => 'required',
-            },
-            {
-              :type    => 'pattern',
-              :pattern => '^[a-zA-Z][a-zA-Z0-9_-]*$',
-              :message => _('Must contain only alphanumeric, hyphen, and underscore characters'),
+              :label => flavor[:name],
+              :value => flavor[:id],
             }
-          ],
-        },
-        {
-          :component => 'textarea',
-          :name      => 'description',
-          :id        => 'description',
-          :label     => _('Description'),
+          end,
         },
       ],
     }
   end
 
+  def resize_form_options
+    flavors = []
+    # include only flavors with root disks at least as big as the instance's current root disk.
+    self.ext_management_system&.flavors&.each do |ems_flavor|  
+      # include only flavors with root disks at least as big as the instance's current root disk.
+      if self.flavor.nil? || ((ems_flavor != self.flavor) && (ems_flavor.root_disk_size >= self.flavor.root_disk_size))
+        flavors << {:name => ems_flavor.name_with_details, :id => ems_flavor.name}
+      end
+    end
+    flavors
+  end
+
   def resize_queue(userid, options = {})
-    _log.info("in resize_queue method")
-    $log.info("in resize_queue method")
     task_opts = {
       :action => "Resizing vm for #{userid}",
       :userid => userid
@@ -174,14 +164,24 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
       :method_name => 'resize',
       :instance_id => id,
       :role        => 'ems_operations',
-      # :queue_name  => ext_management_system.queue_name_for_ems_operations,
-      # :zone        => ext_management_system.my_zone,
-      :args        => [options]
+      :queue_name  => ext_management_system.queue_name_for_ems_operations,
+      :zone        => ext_management_system.my_zone,
+      :args        => [options["resizeValues"]]
     }
     MiqTask.generic_action_with_callback(task_opts, queue_opts)
   end
 
-  def resize(options = {})
+  def resize(options)
     raw_resize(options)
   end 
+
+  private
+
+  # Update the saved status based on the SDK returned status.
+  def sdk_update_status(instance)
+    if raw_power_state != instance.status
+      update!(:raw_power_state => instance.status) if raw_power_state != instance.status
+      $ibm_cloud_log.info("VM instance #{instance.id} state is #{raw_power_state}")
+    end
+  end
 end
