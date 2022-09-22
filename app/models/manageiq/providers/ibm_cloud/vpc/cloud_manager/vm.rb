@@ -114,7 +114,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
 
   def raw_resize(options)
     with_provider_object do |instance|
-      instance.resize(instance, options["name"])
+      instance.resize(instance, options["flavor"])
     rescue IBMCloudSdkCore::ApiException => e
       Notification.create(:type => :vm_resize_error, :options => {:subject => instance[:name], :error => e.error})
       raise MiqException::MiqProvisionError, e.to_s
@@ -130,7 +130,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
           :id         => 'flavor',
           :label      => _('Flavor'),
           :isRequired => true,
-          :options    => resize_form_options(408).map do |flavor|
+          :options    => resize_form_options.map do |flavor|
             {
               :label => flavor[:name],
               :value => flavor[:id],
@@ -141,29 +141,16 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     }
   end
 
-  def resize_form_options(recordId)
-    # assert_privileges("instance_resize")
-
-    # @request_id = params[:id]
-    # @record = find_record_with_rbac(VmOrTemplate, recordId)
-    @record = ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm.find_by(:id => 408)
+  def resize_form_options
     flavors = []
     # include only flavors with root disks at least as big as the instance's current root disk.
-    @record.ext_management_system&.flavors&.each do |ems_flavor|
+    self.ext_management_system&.flavors&.each do |ems_flavor|  
       # include only flavors with root disks at least as big as the instance's current root disk.
-      if @record.flavor.nil? || ((ems_flavor != @record.flavor) && (ems_flavor.root_disk_size >= @record.flavor.root_disk_size))
-        flavors << {:name => ems_flavor.name_with_details, :id => ems_flavor.id}
+      if self.flavor.nil? || ((ems_flavor != self.flavor) && (ems_flavor.root_disk_size >= self.flavor.root_disk_size))
+        flavors << {:name => ems_flavor.name_with_details, :id => ems_flavor.name}
       end
     end
     flavors
-    # resize_values = {
-    #   :flavors => flavors
-    # }
-    # unless @request_id == 'new'
-    #   @req = MiqRequest.find_by(:id => @request_id)
-    #   resize_values[:flavor_id] = @req.options[:instance_type].to_i
-    # end
-    # render :json => resize_values
   end
 
   def resize_queue(userid, options = {})
@@ -179,7 +166,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
       :role        => 'ems_operations',
       :queue_name  => ext_management_system.queue_name_for_ems_operations,
       :zone        => ext_management_system.my_zone,
-      :args        => [options]
+      :args        => [options["resizeValues"]]
     }
     MiqTask.generic_action_with_callback(task_opts, queue_opts)
   end
