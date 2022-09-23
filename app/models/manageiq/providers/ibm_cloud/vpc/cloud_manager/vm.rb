@@ -110,7 +110,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
 
   supports :resize do
     unsupported_reason_add(:resize, _('The VM is not powered off')) unless current_state == "off"
-    unsupported_reason_add(:resize, _('The VM is not powered off')) unless current_state == "off"
+    unsupported_reason_add(:resize, _('The VM is not connected to a provider')) unless ext_management_system
   end
 
   def raw_resize(options)
@@ -141,7 +141,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     ext_management_system.flavors.map do |ems_flavor|
       # include only flavors with root disks at least as big as the instance's current root disk.
       next if flavor && (ems_flavor == flavor || ems_flavor.root_disk_size < flavor.root_disk_size)
-      
+
       {:label => ems_flavor.name_with_details, :value => ems_flavor.name}
     end.compact
   end
