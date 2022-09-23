@@ -130,50 +130,19 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
           :id         => 'flavor',
           :label      => _('Flavor'),
           :isRequired => true,
-          :options    => resize_form_options.map do |flavor|
-            {
-              :label => flavor[:name],
-              :value => flavor[:id],
-            }
-          end,
+          :options    => resize_form_options
         },
       ],
     }
   end
 
   def resize_form_options
-    flavors = []
-    # include only flavors with root disks at least as big as the instance's current root disk.
-    self.ext_management_system&.flavors&.each do |ems_flavor|  
+    ext_management_system.flavors.map do |ems_flavor|
       # include only flavors with root disks at least as big as the instance's current root disk.
-      if self.flavor.nil? || ((ems_flavor != self.flavor) && (ems_flavor.root_disk_size >= self.flavor.root_disk_size))
-        flavors << {:name => ems_flavor.name_with_details, :id => ems_flavor.name}
-      end
-    end
-    flavors
+      next if flavor && (ems_flavor == flavor || ems_flavor.root_disk_size < flavor.root_disk_size)
+      {:label => ems_flavor.name_with_details, :value => ems_flavor.name}
+    end.compact
   end
-
-  def resize_queue(userid, options = {})
-    task_opts = {
-      :action => "Resizing vm for #{userid}",
-      :userid => userid
-    }
-
-    queue_opts = {
-      :class_name  => self.class.name,
-      :method_name => 'resize',
-      :instance_id => id,
-      :role        => 'ems_operations',
-      :queue_name  => ext_management_system.queue_name_for_ems_operations,
-      :zone        => ext_management_system.my_zone,
-      :args        => [options["resizeValues"]]
-    }
-    MiqTask.generic_action_with_callback(task_opts, queue_opts)
-  end
-
-  def resize(options)
-    raw_resize(options)
-  end 
 
   private
 
