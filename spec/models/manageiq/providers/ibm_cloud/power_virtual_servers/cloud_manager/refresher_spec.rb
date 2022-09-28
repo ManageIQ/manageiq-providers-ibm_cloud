@@ -171,6 +171,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
       if vm.snapshots.count == 1
         expect(vm.snapshots.first).to have_attributes(
+          :type              => 'ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Snapshot',
           :name              => 'test-snapshot-1',
           :vm_or_template_id => vm.id
         )
