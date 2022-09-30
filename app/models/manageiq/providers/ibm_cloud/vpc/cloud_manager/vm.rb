@@ -126,12 +126,12 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
     {
       :fields => [
         {
-          :component    => 'text-field',
-          :name         => 'current_flavor',
-          :id           => 'current_flavor',
-          :label        => _('Current Flavor'),
-          :isDisabled   => true,
-          :value        => flavor.name_with_details
+          :component  => 'text-field',
+          :name       => 'current_flavor',
+          :id         => 'current_flavor',
+          :label      => _('Current Flavor'),
+          :isDisabled => true,
+          :value      => flavor.name_with_details
         },
         {
           :component    => 'select',
