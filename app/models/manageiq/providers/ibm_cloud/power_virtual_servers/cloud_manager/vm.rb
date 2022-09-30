@@ -107,8 +107,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
       :fields => [
         {
           :component         => 'select',
-          :name              => 'pinning',
-          :id                => 'pinning',
+          :name              => 'pin_policy',
+          :id                => 'pin_policy',
           :label             => _('Pinning'),
           :initializeOnMount => true,
           :initialValue      => form_default_values.find_by(:name => 'pin_policy').value,
@@ -130,8 +130,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
         },
         {
           :component         => 'text-field',
-          :name              => 'cores',
-          :id                => 'cores',
+          :name              => 'processors',
+          :id                => 'processors',
           :label             => _('Cores'),
           :initializeOnMount => true,
           :initialValue      => form_default_values.find_by(:name => 'entitled_processors').value,
@@ -167,8 +167,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
         },
         {
           :component         => 'radio',
-          :name              => 'coreType',
-          :id                => 'coreType',
+          :name              => 'proc_type',
+          :id                => 'proc_type',
           :label             => _('Core Type'),
           :initializeOnMount => true,
           :initialValue      => form_default_values.find_by(:name => 'processor_type').value,
