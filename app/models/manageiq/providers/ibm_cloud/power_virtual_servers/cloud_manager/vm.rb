@@ -39,6 +39,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
     unsupported_reason_add(:native_console, reason) if reason
   end
 
+  supports :resize do
+    unsupported_reason_add(:resize, _('The VM is not powered off')) unless current_state == "off"
+    unsupported_reason_add(:resize, _('The VM is not connected to a provider')) unless ext_management_system
+  end
+
   def cloud_instance_id
     ext_management_system.uid_ems
   end
@@ -95,6 +100,100 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
         },
       ],
     }
+  end
+
+  def params_for_resize
+    {
+      :fields => [
+        {
+          :component         => 'select',
+          :name              => 'pinning',
+          :id                => 'pinning',
+          :label             => _('Pinning'),
+          :initializeOnMount => true,
+          :initialValue      => form_default_values.find_by(:name => 'pin_policy').value,
+          :isRequired        => true,
+          :options           => [
+            {
+              :label => 'None',
+              :value => 'none',
+            },
+            {
+              :label => 'Hard',
+              :value => 'hard',
+            },
+            {
+              :label => 'Soft',
+              :value => 'soft',
+            },
+          ]
+        },
+        {
+          :component         => 'text-field',
+          :name              => 'cores',
+          :id                => 'cores',
+          :label             => _('Cores'),
+          :initializeOnMount => true,
+          :initialValue      => form_default_values.find_by(:name => 'entitled_processors').value,
+          :type              => 'number',
+          :min               => 0.25,
+          :max               => 6.25,
+          :step              => 0.25,
+          :isRequired        => true,
+          :validate          => [
+            {:type => 'required'},
+            {:type => 'min-number-value', :value => 0.25, :message => _('Size must be greater than or equal to .25')},
+            {:type => 'max-number-value', :value => 6.25, :message => _('Size must be lower than or equal to 6.25')}
+          ],
+        },
+        {
+          :component         => 'text-field',
+          :name              => 'memory',
+          :id                => 'memory',
+          :label             => _('Memory (GiB)'),
+          :initializeOnMount => true,
+          :initialValue      => hardware.memory_mb / 1024,
+          :type              => 'number',
+          :min               => 2,
+          :max               => 807,
+          :step              => 1,
+          :isRequired        => true,
+          :validate          => [
+            {:type => 'required'},
+            {:type => 'min-number-value', :value => 2, :message => _('Size must be greater than or equal to 2')},
+            {:type => 'max-number-value', :value => 807, :message => _('Size must be lower than or equal to 807')}
+          ],
+
+        },
+        {
+          :component         => 'radio',
+          :name              => 'coreType',
+          :id                => 'coreType',
+          :label             => _('Core Type'),
+          :initializeOnMount => true,
+          :initialValue      => form_default_values.find_by(:name => 'processor_type').value,
+          :isRequired        => true,
+          :options           => [
+            {
+              :label => 'Shared uncapped',
+              :value => 'shared',
+            },
+            {
+              :label => 'Shared capped',
+              :value => 'capped',
+            },
+            {
+              :label => 'Dedicated',
+              :value => 'dedicated',
+            },
+          ]
+        },
+      ],
+    }
+  end
+
+  def form_default_values
+    @form_default_values ||= advanced_settings
   end
 
   def self.calculate_power_state(raw_power_state)
