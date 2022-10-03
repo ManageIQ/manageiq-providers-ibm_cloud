@@ -8,9 +8,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   require_nested :PlacementGroup
   require_nested :Provision
   require_nested :ProvisionWorkflow
+  require_nested :SAPProfile
+  require_nested :Snapshot
   require_nested :Template
   require_nested :Vm
-  require_nested :SAPProfile
 
   include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
 
