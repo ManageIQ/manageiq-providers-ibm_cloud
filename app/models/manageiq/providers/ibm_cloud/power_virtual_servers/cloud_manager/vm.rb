@@ -137,13 +137,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
           :initialValue      => form_default_values.find_by(:name => 'entitled_processors').value,
           :type              => 'number',
           :min               => 0.25,
-          :max               => 6.25,
           :step              => 0.25,
           :isRequired        => true,
           :validate          => [
             {:type => 'required'},
-            {:type => 'min-number-value', :value => 0.25, :message => _('Size must be greater than or equal to .25')},
-            {:type => 'max-number-value', :value => 6.25, :message => _('Size must be lower than or equal to 6.25')}
+            {:type => 'min-number-value', :value => 0.25, :message => _("Size must be greater than or equal to .25")}
           ],
         },
         {
@@ -155,13 +153,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
           :initialValue      => hardware.memory_mb / 1024,
           :type              => 'number',
           :min               => 2,
-          :max               => 807,
           :step              => 1,
           :isRequired        => true,
           :validate          => [
             {:type => 'required'},
-            {:type => 'min-number-value', :value => 2, :message => _('Size must be greater than or equal to 2')},
-            {:type => 'max-number-value', :value => 807, :message => _('Size must be lower than or equal to 807')}
+            {:type => 'min-number-value', :value => 2, :message => _("Size must be greater than or equal to 2")}
           ],
 
         },
