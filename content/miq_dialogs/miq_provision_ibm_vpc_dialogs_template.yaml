@@ -1,5 +1,5 @@
 ---
-:name: miq_provision_vpc_dialogs
+:name: miq_provision_ibm_vpc_dialogs_template
 :description: VPC VM Provisioning Dialog
 :dialog_type: MiqProvisionWorkflow
 :content:
