@@ -12,12 +12,6 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow < ::Mi
 
   # Class methods. Do not move to sub module.
   class << self
-    # Specify the name of the provision dialog to pull from the database.
-    # @return [String] The :name field in the provision dialog.
-    def default_dialog_file
-      'miq_provision_vpc_dialogs'
-    end
-
     # Sets the model to use for Provisioning.
     # @return [ManageIQ::Providers::IbmCloud::VPC::CloudManager]
     def provider_model
