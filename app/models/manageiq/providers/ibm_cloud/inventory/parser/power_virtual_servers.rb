@@ -58,7 +58,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :connection_state  => "connected",
         :raw_power_state   => instance.status,
         :uid_ems           => instance.pvm_instance_id,
-        :format            => instance.storage_type
+        :format            => instance.storage_type,
+        :placement_group   => persister.placement_groups.lazy_find(instance.placement_group)
       )
 
       # saving hardware information (CPU, Memory, etc.)
@@ -129,18 +130,6 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :display_name => _('Pin Policy'),
         :description  => _('VM pinning policy to use [none, soft, hard]'),
         :value        => instance.pin_policy,
-        :read_only    => true
-      )
-
-      # saving placement_group
-      placement_group = collector.placement_group(instance.placement_group)
-      value = "#{placement_group.name}[#{placement_group.policy}]" unless placement_group.nil?
-      persister.vms_and_templates_advanced_settings.build(
-        :resource     => ps_vmi,
-        :name         => 'placement_group',
-        :display_name => _('Placement Group'),
-        :description  => _('The placement group of the server'),
-        :value        => value,
         :read_only    => true
       )
 
