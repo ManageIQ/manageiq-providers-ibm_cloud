@@ -69,6 +69,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
       specs['sys_type']      = get_option_last(:sys_type)
     end
 
+    specs['placement_group'] = get_option(:placement_group) unless get_option(:placement_group).nil?
     user_script_text = options[:user_script_text]
     user_script_text64 = Base64.encode64(user_script_text) unless user_script_text.nil?
     specs['user_data'] = user_script_text64 unless user_script_text64.nil?

@@ -23,6 +23,15 @@
           :data_type: :string
           :min_length: 8
           :max_length: 16
+        :placement_group:
+          :values_from:
+            :method: :allowed_placement_groups
+          :description: Placement Group
+          :required: false
+          :validation_method: :validate_placement_group
+          :display: :edit
+          :auto_select_single: false
+          :data_type: :string
         :pin_policy:
           :values:
             1: "none"
