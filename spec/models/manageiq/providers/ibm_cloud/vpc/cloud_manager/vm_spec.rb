@@ -11,6 +11,10 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm, :vcr do
     FactoryBot.create(:vm_ibm_cloud_vpc, :ext_management_system => ems)
   end
 
+  let(:flavor) do
+    FactoryBot.create(:flavor, :name => 'bx2-2x8', :ext_management_system => ems)
+  end
+
   context "#supports?" do
     let(:power_state_on)        { "running" }
     let(:power_state_suspended) { "stopped" }
@@ -33,6 +37,11 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm, :vcr do
     context "with :reset" do
       let(:state) { :reset }
       include_examples "Vm operation is available when powered on"
+    end
+
+    context "with :resize" do
+      let(:state) { :resize }
+      include_examples "Vm operation is available when not powered on"
     end
   end
 
@@ -109,6 +118,31 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm, :vcr do
     it 'deletes the virtual machine' do
       expect(parent).to receive(:request).with(:delete_instance, :id => instance.id)
       vm.raw_destroy
+    end
+  end
+
+  describe '#raw_resize' do
+    before(:each) do
+      allow(vm).to receive(:provider_object).and_return(instance)
+    end
+
+    let(:parent) do
+      vpc = double("ManageIQ::Providers::IbmCloud::CloudTools::Vpc")
+      allow(vpc).to receive(:logger).and_return(Logger.new(nil))
+      allow(vpc).to receive_messages(:cloudtools => nil, :region => nil, :version => nil, :request => nil)
+      vpc
+    end
+
+    let(:instance) do
+      instance = ManageIQ::Providers::IbmCloud::CloudTools::VpcSdk::Instance.new(:vpc => parent, :data => {})
+      allow(instance).to receive(:refresh) { instance.merge!({:id => 'mock_id', :name => 'Test instance', :status => 'stopped'}) }
+      instance.refresh
+      instance
+    end
+
+    it "initiate resize process" do
+      expect(instance).to receive(:resize).with(instance, flavor.name)
+      vm.resize({"flavor"=>flavor.name})
     end
   end
 end

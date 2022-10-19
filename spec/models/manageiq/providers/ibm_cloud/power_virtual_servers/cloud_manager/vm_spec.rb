@@ -37,6 +37,11 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
       let(:state) { :reset }
       include_examples "Vm operation is available when powered on"
     end
+
+    context "with :resize" do
+      let(:state) { :resize }
+      include_examples "Vm operation is available when not powered on"
+    end
   end
 
   context "supports VM console access?" do

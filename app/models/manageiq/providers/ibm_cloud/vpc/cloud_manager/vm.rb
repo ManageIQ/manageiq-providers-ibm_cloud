@@ -110,15 +110,49 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
 
   supports :resize do
     unsupported_reason_add(:resize, _('The VM is not powered off')) unless current_state == "off"
+    unsupported_reason_add(:resize, _('The VM is not connected to a provider')) unless ext_management_system
   end
 
-  def raw_resize(new_flavor)
+  def raw_resize(options)
     with_provider_object do |instance|
-      instance.resize(instance, new_flavor.name)
+      instance.resize(instance, options["flavor"])
     rescue IBMCloudSdkCore::ApiException => e
       Notification.create(:type => :vm_resize_error, :options => {:subject => instance[:name], :error => e.error})
       raise MiqException::MiqProvisionError, e.to_s
     end
+  end
+
+  def params_for_resize
+    {
+      :fields => [
+        {
+          :component  => 'text-field',
+          :name       => 'current_flavor',
+          :id         => 'current_flavor',
+          :label      => _('Current Flavor'),
+          :isDisabled => true,
+          :value      => flavor.name_with_details
+        },
+        {
+          :component    => 'select',
+          :name         => 'flavor',
+          :id           => 'flavor',
+          :label        => _('Choose Flavor'),
+          :isRequired   => true,
+          :includeEmpty => true,
+          :options      => resize_form_options
+        },
+      ],
+    }
+  end
+
+  def resize_form_options
+    ext_management_system.flavors.map do |ems_flavor|
+      # include only flavors with root disks at least as big as the instance's current root disk.
+      next if flavor && (ems_flavor == flavor || ems_flavor.root_disk_size < flavor.root_disk_size)
+
+      {:label => ems_flavor.name_with_details, :value => ems_flavor.name}
+    end.compact
   end
 
   private
