@@ -122,6 +122,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     Hash[cloud_volumes || {}]
   end
 
+  def allowed_placement_groups(_options = {})
+    return {} if ar_ems.nil?
+
+    ar_ems.placement_groups.to_h { |group| [group.ems_ref, "#{group.policy}: #{group.name}"] }
+  end
+
   def set_request_values(values)
     values[:new_volumes] = parse_new_volumes_fields(values)
     super
@@ -174,6 +180,21 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     end
 
     return _('IP-address field has to be either blank or a valid IPv4 address') unless valid
+  end
+
+  def validate_placement_group(_filed, _values, _dlg, _fld, value)
+    return if value.blank?
+
+    placement_group = ar_ems.placement_groups.find_by!(:ems_ref => value)
+    vms_in_placement_group = placement_group.vms
+
+    # If policy is affinity, check to make sure the new vm has the same flavor as all the members of the group
+    valid = if placement_group[:policy] == 'affinity' && vms_in_placement_group.present?
+              vms_in_placement_group.first.flavor.name == values&.dig(:sys_type, 1)
+            else
+              true
+            end
+    _('Invalid placement group - incompatible colocation policy') unless valid
   end
 
   private

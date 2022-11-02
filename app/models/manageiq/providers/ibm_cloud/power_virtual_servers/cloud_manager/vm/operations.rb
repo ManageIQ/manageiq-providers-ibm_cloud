@@ -16,6 +16,19 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm::Ope
     raise MiqException::MiqVmSnapshotError, err.to_s
   end
 
+  def raw_resize(options)
+    with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
+      body = IbmCloudPower::PVMInstanceUpdate.new("memory"     => options["memory"].to_i,
+                                                  "processors" => options["processors"].to_f,
+                                                  "proc_type"  => options["proc_type"],
+                                                  "pin_policy" => options["pin_policy"])
+      api.pcloud_pvminstances_put(cloud_instance_id, ems_ref, body)
+    end
+  rescue => err
+    create_notification(:vm_resize_error, :error => err.to_s)
+    raise MiqException::MiqVmResizeError, err.to_s
+  end
+
   def raw_revert_to_snapshot(snapshot_id)
     with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
       snapshot = Snapshot.find(snapshot_id)

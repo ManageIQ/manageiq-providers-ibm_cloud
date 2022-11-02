@@ -17,18 +17,20 @@
       :fields:
         :ip_addr:
           :description: Specify an IPv4 address (applies to first attached network)
-          :required_method: :validate_ip_address
+          :validation_method: :validate_ip_address
           :required: false
           :display: :edit
           :data_type: :string
           :min_length: 8
           :max_length: 16
         :placement_group:
+          :values_from:
+            :method: :allowed_placement_groups
           :description: Placement Group
           :required: false
-          :required_method: :validate_placement_group
+          :validation_method: :validate_placement_group
           :display: :edit
-          :default: ""
+          :auto_select_single: false
           :data_type: :string
         :pin_policy:
           :values:

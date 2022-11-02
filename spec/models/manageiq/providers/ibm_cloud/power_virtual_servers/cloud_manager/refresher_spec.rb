@@ -45,6 +45,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         assert_specific_cloud_subnet
         assert_specific_network_port
         assert_specific_cloud_volume
+        assert_specific_placement_group
         assert_volume_type_attribs
         assert_cloud_manager
       end
@@ -85,26 +86,28 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     def assert_table_counts
       expect(Flavor.count).to eq(56)
       expect(Vm.count).to eq(2)
-      expect(OperatingSystem.count).to eq(3)
-      expect(MiqTemplate.count).to eq(1)
+      expect(OperatingSystem.count).to eq(7)
+      expect(MiqTemplate.count).to eq(5)
       expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to be > 1
       expect(CloudVolume.count).to eq(4)
       expect(CloudNetwork.count).to eq(2)
       expect(CloudSubnet.count).to eq(2)
       expect(NetworkPort.count).to eq(4)
-      expect(CloudSubnetNetworkPort.count).to eq(4)
+      expect(CloudSubnetNetworkPort.count).to eq(6)
+      expect(PlacementGroup.count).to eq(2)
     end
 
     def assert_ems_counts
       expect(ems.vms.count).to eq(2)
-      expect(ems.miq_templates.count).to eq(1)
-      expect(ems.operating_systems.count).to eq(3)
+      expect(ems.miq_templates.count).to eq(5)
+      expect(ems.operating_systems.count).to eq(7)
       expect(ems.key_pairs.count).to be > 1
       expect(ems.network_manager.cloud_networks.count).to eq(2)
       expect(ems.network_manager.cloud_subnets.count).to eq(2)
       expect(ems.network_manager.network_ports.count).to eq(4)
       expect(ems.storage_manager.cloud_volumes.count).to eq(4)
       expect(ems.storage_manager.cloud_volume_types.count).to eq(2)
+      expect(ems.placement_groups.count).to eq(2)
     end
 
     def assert_cloud_manager
@@ -125,20 +128,22 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
     def assert_specific_vm
       vm = ems.vms.find_by(:ems_ref => instance_data['instance_id'])
+      placement_group = ems.placement_groups.find_by(:name => 'miq-placement-group-different')
       expect(vm).to have_attributes(
-        :uid_ems          => instance_data['instance_id'],
-        :ems_ref          => instance_data['instance_id'],
-        :location         => "unknown",
-        :name             => instance_data['pi_instance_name'],
-        :description      => "PVM Instance",
-        :vendor           => "ibm_power_vs",
-        :power_state      => "on",
-        :raw_power_state  => "ACTIVE",
-        :connection_state => "connected",
-        :type             => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm"
+        :uid_ems            => instance_data['instance_id'],
+        :ems_ref            => instance_data['instance_id'],
+        :location           => "unknown",
+        :name               => instance_data['pi_instance_name'],
+        :description        => "PVM Instance",
+        :vendor             => "ibm_power_vs",
+        :power_state        => "on",
+        :placement_group_id => placement_group.id,
+        :raw_power_state    => "ACTIVE",
+        :connection_state   => "connected",
+        :type               => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm"
       )
       expect(vm.ems_created_on).to be_a(ActiveSupport::TimeWithZone)
-      expect(vm.ems_created_on.to_s).to eql("2022-05-26 14:43:38 UTC")
+      expect(vm.ems_created_on.to_s).to eql("2022-08-10 21:37:52 UTC")
 
       expect(vm.hardware).to have_attributes(
         :cpu_sockets     => 1,
@@ -165,12 +170,9 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :value        => "none"
       )
 
-      expect(vm.advanced_settings.find { |setting| setting['name'] == 'placement_group' }).to have_attributes(
-        :value        => nil
-      )
-
       if vm.snapshots.count == 1
         expect(vm.snapshots.first).to have_attributes(
+          :type              => 'ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Snapshot',
           :name              => 'test-snapshot-1',
           :vm_or_template_id => vm.id
         )
@@ -236,7 +238,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :status      => "ACTIVE"
       )
 
-      expect(network_port.cloud_subnets.count).to eq(1)
+      expect(network_port.cloud_subnets.count).to eq(2)
     end
 
     def assert_specific_cloud_volume
@@ -245,6 +247,16 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :ems_ref     => volume_data['id'].partition('/').last,
         :name        => volume_data['pi_volume_name'],
         :volume_type => volume_data['pi_volume_type']
+      )
+    end
+
+    def assert_specific_placement_group
+      placement_group = ems.placement_groups.find_by(:ems_ref => "0bdf60d1-4d80-4044-873d-bd0acec54dce")
+      expect(placement_group).to have_attributes(
+        :name    => "miq-placement-group-different",
+        :policy  => "anti-affinity",
+        :ems_ref => "0bdf60d1-4d80-4044-873d-bd0acec54dce",
+        :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::PlacementGroup"
       )
     end
 
