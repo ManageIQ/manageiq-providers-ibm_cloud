@@ -44,6 +44,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   def pvm_instances
     collector.pvm_instances.each do |instance_reference|
       instance = collector.pvm_instance(instance_reference.pvm_instance_id)
+      flavor = instance.sap_profile ? instance.sap_profile.profile_id : instance.sys_type
 
       # saving general VMI information
       ps_vmi = persister.vms.build(
@@ -51,7 +52,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :description       => _("PVM Instance"),
         :ems_ref           => instance.pvm_instance_id,
         :ems_created_on    => instance.creation_date,
-        :flavor            => persister.flavors.lazy_find(instance.sys_type),
+        :flavor            => persister.flavors.lazy_find(flavor),
         :location          => _("unknown"),
         :name              => instance.server_name,
         :vendor            => "ibm_power_vs",
