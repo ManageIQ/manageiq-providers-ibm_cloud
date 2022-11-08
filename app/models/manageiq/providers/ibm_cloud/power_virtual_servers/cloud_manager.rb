@@ -12,6 +12,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
   require_nested :Snapshot
   require_nested :Template
   require_nested :Vm
+  require_nested :ResourcePool
 
   include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
 

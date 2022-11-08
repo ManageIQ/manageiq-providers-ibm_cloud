@@ -32,6 +32,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     sshkeys
     placement_groups
     snapshots
+    shared_processor_pools
   end
 
   def ext_management_system
@@ -60,7 +61,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :raw_power_state   => instance.status,
         :uid_ems           => instance.pvm_instance_id,
         :format            => instance.storage_type,
-        :placement_group   => persister.placement_groups.lazy_find(instance.placement_group)
+        :placement_group   => persister.placement_groups.lazy_find(instance.placement_group),
+        :resource_pool     => persister.resource_pools.lazy_find(instance.shared_processor_pool_id)
       )
 
       # saving hardware information (CPU, Memory, etc.)
@@ -330,6 +332,22 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :create_time    => snapshot.creation_date,
         :vm_or_template => persister.vms.lazy_find(snapshot.pvm_instance_id)
       )
+    end
+  end
+
+  def shared_processor_pools
+    collector.shared_processor_pools.shared_processor_pools.each do |pool|
+      params = {
+        :uid_ems            => pool.id,
+        :ems_ref            => pool.id,
+        :name               => pool.name,
+        :cpu_shares         => pool.allocated_cores,
+        :cpu_reserve        => pool.available_cores,
+        :cpu_reserve_expand => true,
+        :cpu_limit          => pool.allocated_cores + pool.available_cores,
+        :is_default         => false
+      }
+      persister.resource_pools.build(params)
     end
   end
 
