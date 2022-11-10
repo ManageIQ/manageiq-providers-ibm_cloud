@@ -42,6 +42,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   supports :resize do
     unsupported_reason_add(:resize, _('The VM is not powered off')) unless current_state == "off"
     unsupported_reason_add(:resize, _('The VM is not connected to a provider')) unless ext_management_system
+    unsupported_reason_add(:resize, _('SAP VM resize not supported')) if flavor.kind_of?(ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile)
   end
 
   def cloud_instance_id
