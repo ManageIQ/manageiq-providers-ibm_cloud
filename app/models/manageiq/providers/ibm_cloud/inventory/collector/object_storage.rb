@@ -11,7 +11,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::ObjectStorage < Manag
     (connection.list_buckets[:buckets] || []).each do |bucket|
       connection.get_bucket_location(:bucket => bucket[:name]).location_constraint
       buckets << bucket
-    rescue
+    rescue Aws::S3::Errors::NoSuchBucket
       _log.warn("bucket '#{bucket[:name]}' is not from our region '#{manager.provider_region}', skipping")
     end
 
