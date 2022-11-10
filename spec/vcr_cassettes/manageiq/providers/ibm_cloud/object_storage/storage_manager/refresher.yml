@@ -54,7 +54,7 @@ http_interactions:
   recorded_at: Mon, 03 May 2021 13:24:22 GMT
 - request:
     method: get
-    uri: https://s3.us-east.cloud-object-storage.appdomain.cloud/bucket-for-export?location
+    uri: https://bucket-for-export.s3.us-east.cloud-object-storage.appdomain.cloud/?location
     body:
       encoding: UTF-8
       string: ''
@@ -106,7 +106,7 @@ http_interactions:
   recorded_at: Mon, 03 May 2021 13:24:24 GMT
 - request:
     method: get
-    uri: https://s3.us-east.cloud-object-storage.appdomain.cloud/roks-c03jjjed0ft0tc1kd2cg-6e58?location
+    uri: https://roks-c03jjjed0ft0tc1kd2cg-6e58.s3.us-east.cloud-object-storage.appdomain.cloud/?location
     body:
       encoding: UTF-8
       string: ''
@@ -158,7 +158,7 @@ http_interactions:
   recorded_at: Mon, 03 May 2021 13:24:25 GMT
 - request:
     method: get
-    uri: https://s3.us-east.cloud-object-storage.appdomain.cloud/roks-c1mriasd0s1lkcr2a6ig-1f5b?location
+    uri: https://roks-c1mriasd0s1lkcr2a6ig-1f5b.s3.us-east.cloud-object-storage.appdomain.cloud/?location
     body:
       encoding: UTF-8
       string: ''
@@ -210,7 +210,7 @@ http_interactions:
   recorded_at: Mon, 03 May 2021 13:24:26 GMT
 - request:
     method: get
-    uri: https://s3.us-east.cloud-object-storage.appdomain.cloud/test-bucket-isgandar?location
+    uri: https://test-bucket-isgandar.s3.us-east.cloud-object-storage.appdomain.cloud/?location
     body:
       encoding: UTF-8
       string: ''
