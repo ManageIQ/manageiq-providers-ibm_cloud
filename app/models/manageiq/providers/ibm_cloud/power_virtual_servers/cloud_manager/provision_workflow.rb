@@ -128,6 +128,12 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     ar_ems.placement_groups.to_h { |group| [group.ems_ref, "#{group.policy}: #{group.name}"] }
   end
 
+  def allowed_shared_processer_pools(_options = {})
+    return {} if ar_ems.nil?
+
+    ar_ems.resource_pools.to_h { |pool| [pool.ems_ref, pool.name] }
+  end
+
   def set_request_values(values)
     values[:new_volumes] = parse_new_volumes_fields(values)
     super
@@ -195,6 +201,19 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
               true
             end
     _('Invalid placement group - incompatible colocation policy') unless valid
+  end
+
+  def validate_shared_processer_pool(_filed, _values, _dlg, _fld, value)
+    return if value.blank?
+
+    resource_pool = ar_ems.resource_pools.find_by!(:ems_ref => value)
+    vms_in_resource_pool = resource_pool.vms
+    # We don't save a processor pool machine type in the db, so there is no way to validate an empty processor pool
+    return if vms_in_resource_pool.blank?
+
+    # Shared processor pools are used and shared by a set of virtual server instances of the same machine type (host).
+    valid = vms_in_resource_pool.first.flavor.name == values&.dig(:sys_type, 1)
+    _('Invalid processor pool - incompatible machine type (host)') unless valid
   end
 
   private
