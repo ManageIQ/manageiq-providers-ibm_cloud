@@ -180,8 +180,8 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
       iam_token_api = IbmCloudIam::TokenOperationsApi.new
       token = iam_token_api.get_token_api_key("urn:ibm:params:oauth:grant-type:apikey", api_key)
     rescue IbmCloudIam::ApiError => err
-      error_message = err.message
-      _log.error("IAM authentication failed: #{err.code} #{error_message}")
+      error_message = "IAM authentication failed: #{err.code} #{err.message}"
+      _log.error(error_message)
       raise MiqException::MiqInvalidCredentialsError, error_message
     end
 
@@ -191,9 +191,10 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
 
     begin
       resource_controller_api.get_resource_instance(:id => crn).result
-    rescue IbmCloudResourceController::ApiException => err
-      _log.error("GUID resource lookup failed: #{err.code} #{err.error}")
-      raise MiqException::MiqInvalidCredentialsError, err.error
+    rescue IBMCloudSdkCore::ApiException => err
+      error_message = "CRN resource lookup failed: #{err.code} #{err.error}"
+      _log.error(error_message)
+      raise MiqException::MiqInvalidCredentialsError, error_message
     end
 
     true
