@@ -155,12 +155,20 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
 
   def self.verify_bearer(region, endpoint, access_key, secret_key)
     begin
-      raw_connect(region, endpoint, access_key, secret_key).list_buckets({}, :params => {:max_keys => 1})
+      client = raw_connect(region, endpoint, access_key, secret_key)
     rescue Aws::Errors::ServiceError, Seahorse::Client::NetworkingError => err
       error_code = err.respond_to?(:code) ? "#{err.code} " : ""
       error_message = "Access/Secret authentication failed: #{error_code}#{err.message}"
       _log.error(error_message)
       raise MiqException::MiqInvalidCredentialsError, error_message
+    end
+
+    begin
+      client.list_buckets({}, :params => {:max_keys => 1})
+    rescue Aws::S3::Errors::NotFound, Aws::Xml::Parser::ParsingError => err
+      error_message = "Unable to list COS bucket data from the endpoint: #{err.message}"
+      _log.error(error_message)
+      raise MiqException::MiqCommunicationsError, error_message
     end
 
     true
