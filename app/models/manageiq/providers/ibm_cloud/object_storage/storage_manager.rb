@@ -158,7 +158,7 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
       client = raw_connect(region, endpoint, access_key, secret_key)
     rescue Aws::Errors::ServiceError, Seahorse::Client::NetworkingError => err
       error_code = err.respond_to?(:code) ? "#{err.code} " : ""
-      error_message = "Access/Secret authentication failed: #{error_code}#{err.message}"
+      error_message = _("Access/Secret authentication failed: %{error_code}%{error_message}") % {:error_code => error_code, :error_message => err.message}
       _log.error(error_message)
       raise MiqException::MiqInvalidCredentialsError, error_message
     end
@@ -166,7 +166,7 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
     begin
       client.list_buckets({}, :params => {:max_keys => 1})
     rescue Aws::S3::Errors::NotFound, Aws::Xml::Parser::ParsingError => err
-      error_message = "Unable to list COS bucket data from the endpoint: #{err.message}"
+      error_message = _("Unable to list COS bucket data from the endpoint: %{error_message}") % {:error_message => err.message}
       _log.error(error_message)
       raise MiqException::MiqCommunicationsError, error_message
     end
@@ -180,7 +180,7 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
       iam_token_api = IbmCloudIam::TokenOperationsApi.new
       token = iam_token_api.get_token_api_key("urn:ibm:params:oauth:grant-type:apikey", api_key)
     rescue IbmCloudIam::ApiError => err
-      error_message = "IAM authentication failed: #{err.code} #{err.message}"
+      error_message = _("IAM authentication failed: %{error_code} %{error_message}") % {:error_code => err.code, :error_message => err.message}
       _log.error(error_message)
       raise MiqException::MiqInvalidCredentialsError, error_message
     end
@@ -192,7 +192,7 @@ class ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager < ManageIQ::P
     begin
       resource_controller_api.get_resource_instance(:id => crn).result
     rescue IBMCloudSdkCore::ApiException => err
-      error_message = "CRN resource lookup failed: #{err.code} #{err.error}"
+      error_message = _("CRN resource lookup failed: %{error_code} %{error_message}") % {:error_code => err.code, :error_message => err.message}
       _log.error(error_message)
       raise MiqException::MiqInvalidCredentialsError, error_message
     end
