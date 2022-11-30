@@ -7,9 +7,9 @@ class ManageIQ::Providers::IbmCloud::ContainerManager::MetricsCollectorWorker < 
     @friendly_name ||= "C&U Metrics Collector for IKS"
   end
 
-  def self.emses_in_zone
+  def self.all_ems_in_zone
     super.select do |ems|
-      ems.supports_metrics?.tap do |supported|
+      ems.supports?(:metrics).tap do |supported|
         _log.info("Skipping [#{ems.name}] since it has no metrics endpoint") unless supported
       end
     end
