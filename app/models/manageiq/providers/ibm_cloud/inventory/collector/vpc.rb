@@ -115,7 +115,16 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Provi
   end
 
   def tags_by_crn(crn)
-    vpc.cloudtools.tagging.collection(:list_tags, :attached_to => crn, :providers => ["ghost"]).to_a
+    retried = false
+    begin
+      vpc.cloudtools.tagging.collection(:list_tags, :attached_to => crn, :providers => ["ghost"]).to_a
+    rescue IBMCloudSdkCore::ApiException => err
+      raise if retried || !err.message.match?(/You must wait \d+ ms before you can make ghost-tags get api requests/)
+
+      sleep(5)
+      retried = true
+      retry
+    end
   end
 
   def database_instances
