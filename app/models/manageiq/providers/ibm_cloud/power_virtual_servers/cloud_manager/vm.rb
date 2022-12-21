@@ -116,15 +116,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
           :isRequired        => true,
           :options           => [
             {
-              :label => 'None',
+              :label => _('None'),
               :value => 'none',
             },
             {
-              :label => 'Hard',
+              :label => _('Hard'),
               :value => 'hard',
             },
             {
-              :label => 'Soft',
+              :label => _('Soft'),
               :value => 'soft',
             },
           ]
@@ -172,15 +172,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
           :isRequired        => true,
           :options           => [
             {
-              :label => 'Shared uncapped',
+              :label => _('Shared uncapped'),
               :value => 'shared',
             },
             {
-              :label => 'Shared capped',
+              :label => _('Shared capped'),
               :value => 'capped',
             },
             {
-              :label => 'Dedicated',
+              :label => _('Dedicated'),
               :value => 'dedicated',
             },
           ]
