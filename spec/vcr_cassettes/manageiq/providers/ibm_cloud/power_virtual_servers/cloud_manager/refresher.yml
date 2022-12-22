@@ -23,11 +23,11 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Transaction-Id:
-      - ZHdjOTI-27edaa6145da40fd865599ff33a99164
+      - emM0ODk-a96fdc724ef64d39afc1b95936b110b9
       X-Request-Id:
-      - f5c7da57-e2d2-447f-85b4-4879d2a79006
+      - e729cd25-cdd8-4272-afb2-0941232fa0bd
       X-Correlation-Id:
-      - ZHdjOTI-27edaa6145da40fd865599ff33a99164
+      - emM0ODk-a96fdc724ef64d39afc1b95936b110b9
       Cache-Control:
       - no-cache, no-store, must-revalidate
       Expires:
@@ -43,19 +43,19 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
       Date:
-      - Tue, 29 Nov 2022 23:03:05 GMT
+      - Thu, 22 Dec 2022 22:15:04 GMT
       Connection:
       - keep-alive
       Akamai-Grn:
-      - 0.99aa3717.1669762985.50cd50d8
+      - 0.990ec617.1671747303.5e2cfbdd
       X-Proxy-Upstream-Service-Time:
-      - '119'
+      - '1046'
     body:
       encoding: ASCII-8BIT
-      string: '{"access_token":"xxx","refresh_token":"not_supported","ims_user_id":7771420,"token_type":"Bearer","expires_in":3600,"expiration":1669766582,"scope":"ibm
+      string: '{"access_token":"IBM_CLOUD_BEARER_TOKEN","refresh_token":"not_supported","ims_user_id":7771420,"token_type":"Bearer","expires_in":3600,"expiration":1671750901,"scope":"ibm
         openid"}'
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:05 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:04 GMT
 - request:
     method: get
     uri: https://resource-controller.cloud.ibm.com/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID
@@ -64,13 +64,13 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - ibm_cloud_resource_controller-ruby-sdk-2.0.1 x86_64-pc-linux-gnu ruby-2.7.5
+      - ibm_cloud_resource_controller-ruby-sdk-2.0.1 x86_64-pc-linux-gnu ruby-3.0.4
       X-Ibmcloud-Sdk-Analytics:
       - service_name=resource_controller;service_version=V2;operation_id=get_resource_instance
       Accept:
       - application/json
       Authorization:
-      - Bearer xxx
+      - Bearer IBM_CLOUD_BEARER_TOKEN
       Connection:
       - close
   response:
@@ -81,17 +81,17 @@ http_interactions:
       Content-Type:
       - application/json
       Request-Id:
-      - 2c39d6d4-ac2b-49c5-8840-b7ba9abb8602
+      - d02fb952-9f77-4dcb-9e04-4a3c7ea067a7
       Retry-After:
       - '0'
       Strict-Transport-Security:
       - max-age=31536000;includeSubDomains
       Transaction-Id:
-      - bss-7f42bbfeb56b59cc
+      - bss-051ff8752f3d6c68
       X-Content-Type-Options:
       - nosniff
       X-Global-Transaction-Id:
-      - bss-7f42bbfeb56b59cc
+      - bss-051ff8752f3d6c68
       X-Op-Completion-Time:
       - ''
       X-Ratelimit-Limit:
@@ -101,23 +101,23 @@ http_interactions:
       X-Ratelimit-Reset:
       - '0'
       X-Request-Id:
-      - 2c39d6d4-ac2b-49c5-8840-b7ba9abb8602
+      - d02fb952-9f77-4dcb-9e04-4a3c7ea067a7
       X-Transaction-Id:
-      - bss-7f42bbfeb56b59cc
+      - bss-051ff8752f3d6c68
       X-Envoy-Upstream-Service-Time:
-      - '120'
+      - '258'
       Server:
       - istio-envoy
       Content-Length:
       - '2116'
       Expires:
-      - Tue, 29 Nov 2022 23:03:06 GMT
+      - Thu, 22 Dec 2022 22:15:04 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Tue, 29 Nov 2022 23:03:06 GMT
+      - Thu, 22 Dec 2022 22:15:04 GMT
       Connection:
       - close
     body:
@@ -128,7 +128,7 @@ http_interactions:
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:06 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:04 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/images
@@ -137,7 +137,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -164,7 +164,7 @@ http_interactions:
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:07 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:06 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/system-pools
@@ -173,7 +173,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -191,18 +191,18 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '1397'
+      - '1379'
       Strict-Transport-Security:
       - max-age=15724800; includeSubDomains
       Cf-Cache-Status:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"e980":{"capacity":{"cores":141.01,"memory":15262},"coreMemoryRatio":64,"maxAvailable":{"cores":128.26,"memory":15144},"maxCoresAvailable":{"cores":128.26,"memory":15144},"maxMemoryAvailable":{"cores":128.26,"memory":15144},"sharedCoreRatio":{"default":0.25,"max":1,"min":0.05},"systems":[{"cores":128.26,"id":1,"memory":15144}],"type":"e980"},"s922":{"capacity":{"cores":15,"memory":936},"coreMemoryRatio":64,"maxAvailable":{"cores":6.25,"memory":840},"maxCoresAvailable":{"cores":6.25,"memory":569},"maxMemoryAvailable":{"cores":5.5,"memory":840},"sharedCoreRatio":{"default":0.25,"max":1,"min":0.05},"systems":[{"cores":6.25,"id":5,"memory":569},{"cores":5.5,"id":13,"memory":840},{"cores":4.75,"id":15,"memory":752},{"cores":3.75,"id":10,"memory":488},{"cores":3.75,"id":4,"memory":597},{"cores":3.26,"id":16,"memory":558},{"cores":1.75,"id":17,"memory":617},{"cores":1.75,"id":8,"memory":402},{"cores":1.75,"id":9,"memory":394},{"cores":0.75,"id":11,"memory":771},{"cores":0.5,"id":19,"memory":390},{"cores":0.5,"id":25,"memory":367},{"cores":0.5,"id":20,"memory":397},{"cores":0.5,"id":7,"memory":285},{"cores":0.25,"id":6,"memory":99},{"cores":0.25,"id":12,"memory":224},{"cores":0.25,"id":22,"memory":255},{"cores":0,"id":14,"memory":172},{"cores":0,"id":21,"memory":264},{"cores":0,"id":18,"memory":132},{"cores":0,"id":23,"memory":338},{"cores":0,"id":24,"memory":165}],"type":"s922"}}
+      string: '{"e980":{"capacity":{"cores":141.25,"memory":15257},"coreMemoryRatio":64,"maxAvailable":{"cores":126,"memory":15107},"maxCoresAvailable":{"cores":126,"memory":15107},"maxMemoryAvailable":{"cores":126,"memory":15107},"sharedCoreRatio":{"default":0.25,"max":1,"min":0.05},"systems":[{"cores":126,"id":1,"memory":15107}],"type":"e980"},"s922":{"capacity":{"cores":15,"memory":933},"coreMemoryRatio":64,"maxAvailable":{"cores":8.25,"memory":805},"maxCoresAvailable":{"cores":8.25,"memory":693},"maxMemoryAvailable":{"cores":6,"memory":805},"sharedCoreRatio":{"default":0.25,"max":1,"min":0.05},"systems":[{"cores":8.25,"id":25,"memory":693},{"cores":7.75,"id":4,"memory":667},{"cores":7.5,"id":12,"memory":725},{"cores":7.25,"id":22,"memory":619},{"cores":6.75,"id":14,"memory":500},{"cores":6.75,"id":11,"memory":788},{"cores":6.26,"id":16,"memory":759},{"cores":6,"id":13,"memory":805},{"cores":6,"id":5,"memory":550},{"cores":6,"id":15,"memory":770},{"cores":5.5,"id":24,"memory":442},{"cores":5.25,"id":10,"memory":461},{"cores":5,"id":7,"memory":525},{"cores":5,"id":21,"memory":456},{"cores":4.5,"id":20,"memory":590},{"cores":4,"id":18,"memory":410},{"cores":4,"id":8,"memory":432},{"cores":3.51,"id":19,"memory":493},{"cores":3.25,"id":17,"memory":717},{"cores":2.75,"id":9,"memory":461},{"cores":2.5,"id":23,"memory":418},{"cores":1.25,"id":6,"memory":189}],"type":"s922"}}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:08 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:07 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID
@@ -211,7 +211,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -240,7 +240,7 @@ http_interactions:
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:11 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:10 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/sap
@@ -249,7 +249,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -276,7 +276,7 @@ http_interactions:
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:11 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:11 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/storage-capacity/storage-types
@@ -285,7 +285,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -310,11 +310,11 @@ http_interactions:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"maximumStorageAllocation":{"maxAllocationSize":299069,"storagePool":"Tier3-Flash-2","storageType":"tier3"},"storageTypesCapacity":[{"maximumStorageAllocation":{"maxAllocationSize":296447,"storagePool":"Tier1-Flash-2","storageType":"tier1"},"storagePoolsCapacity":[{"maxAllocationSize":296447,"poolName":"Tier1-Flash-2","storageType":"tier1","totalCapacity":390092},{"maxAllocationSize":296427,"poolName":"Tier1-Flash-1","storageType":"tier1","totalCapacity":390092}],"storageType":"tier1"},{"maximumStorageAllocation":{"maxAllocationSize":299069,"storagePool":"Tier3-Flash-2","storageType":"tier3"},"storagePoolsCapacity":[{"maxAllocationSize":299069,"poolName":"Tier3-Flash-2","storageType":"tier3","totalCapacity":390092},{"maxAllocationSize":268134,"poolName":"Tier3-Flash-1","storageType":"tier3","totalCapacity":390092}],"storageType":"tier3"}]}
+      string: '{"maximumStorageAllocation":{"maxAllocationSize":300164,"storagePool":"Tier3-Flash-2","storageType":"tier3"},"storageTypesCapacity":[{"maximumStorageAllocation":{"maxAllocationSize":297553,"storagePool":"Tier1-Flash-2","storageType":"tier1"},"storagePoolsCapacity":[{"maxAllocationSize":297553,"poolName":"Tier1-Flash-2","storageType":"tier1","totalCapacity":390092},{"maxAllocationSize":296662,"poolName":"Tier1-Flash-1","storageType":"tier1","totalCapacity":390092}],"storageType":"tier1"},{"maximumStorageAllocation":{"maxAllocationSize":300164,"storagePool":"Tier3-Flash-2","storageType":"tier3"},"storagePoolsCapacity":[{"maxAllocationSize":300164,"poolName":"Tier3-Flash-2","storageType":"tier3","totalCapacity":390092},{"maxAllocationSize":271574,"poolName":"Tier3-Flash-1","storageType":"tier3","totalCapacity":390092}],"storageType":"tier3"}]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:13 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:13 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes
@@ -323,7 +323,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -346,11 +346,11 @@ http_interactions:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"volumes":[{"bootVolume":false,"bootable":true,"creationDate":"2022-11-29T22:59:55.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/c5bce349-8573-426a-86fd-a0007bb8c336","lastUpdateDate":"2022-11-29T23:00:19.000Z","name":"test-instance-cabd0aa0-00018ff7-boot-0","pvmInstanceIDs":["cabd0aa0-0d21-467d-b2f1-27160d0e9a3a"],"shareable":false,"size":25,"state":"in-use","volumeID":"c5bce349-8573-426a-86fd-a0007bb8c336","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC80000000000124A"},{"bootVolume":false,"bootable":true,"creationDate":"2022-11-29T22:55:39.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/79b8b885-c538-42ea-b464-a5e10b0a3229","lastUpdateDate":"2022-11-29T22:56:02.000Z","name":"test-instance-1c8a7932-00018ff4-boot-0","pvmInstanceIDs":["1c8a7932-9db8-4e7c-9794-8ba40f1c852a"],"shareable":false,"size":25,"state":"in-use","volumeID":"79b8b885-c538-42ea-b464-a5e10b0a3229","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC800000000001249"},{"bootVolume":false,"bootable":true,"creationDate":"2022-11-29T22:50:52.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/eed8a761-6202-42a3-a5a7-60364f0e48d2","lastUpdateDate":"2022-11-29T22:51:15.000Z","name":"test-instance-bf19fb66-00018ff1-boot-0","pvmInstanceIDs":["bf19fb66-5961-48e2-aba8-fc256a6591df"],"shareable":false,"size":25,"state":"in-use","volumeID":"eed8a761-6202-42a3-a5a7-60364f0e48d2","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC800000000001248"},{"bootVolume":false,"bootable":true,"creationDate":"2022-11-29T22:47:35.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/16c8cf56-1206-4b96-b41b-15a3e5147f28","lastUpdateDate":"2022-11-29T22:47:59.000Z","name":"test-instance-93b3683d-00018fee-boot-0","pvmInstanceIDs":["93b3683d-4686-4d36-9185-2ca3b7d5bc56"],"shareable":false,"size":25,"state":"in-use","volumeID":"16c8cf56-1206-4b96-b41b-15a3e5147f28","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC800000000001247"},{"bootVolume":false,"bootable":true,"creationDate":"2022-11-29T22:37:32.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/5d26e37f-6ee1-4091-85a8-e7f0ea079bca","lastUpdateDate":"2022-11-29T22:38:34.000Z","name":"test-instance-eaad0f47-00018feb-boot-0","pvmInstanceIDs":["eaad0f47-2496-4a53-a052-97ccf69102cb"],"shareable":false,"size":25,"state":"in-use","volumeID":"5d26e37f-6ee1-4091-85a8-e7f0ea079bca","volumePool":"Tier1-Flash-2","volumeType":"Tier1-Flash-2","wwn":"60050768108101D7E80000000000B63A"},{"bootVolume":false,"bootable":true,"creationDate":"2022-11-29T20:28:08.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/65823f32-7032-41e2-990e-ad66b39e5f09","lastUpdateDate":"2022-11-29T20:29:07.000Z","name":"test-instance-44d3e605-00018fdc-boot-0","pvmInstanceIDs":["44d3e605-3ef5-43f9-94e4-cdb049964dc9"],"shareable":false,"size":25,"state":"in-use","volumeID":"65823f32-7032-41e2-990e-ad66b39e5f09","volumePool":"Tier1-Flash-2","volumeType":"Tier1-Flash-2","wwn":"60050768108101D7E80000000000B637"},{"bootVolume":false,"bootable":false,"creationDate":"2022-11-29T20:27:17.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/6e14038b-5a07-41c9-8c50-83943a294715","lastUpdateDate":"2022-11-29T20:27:18.000Z","name":"test-volume-15GB-tier1-notsharable","pvmInstanceIDs":[],"shareable":false,"size":15,"state":"available","volumeID":"6e14038b-5a07-41c9-8c50-83943a294715","volumePool":"Tier1-Flash-2","volumeType":"Tier1-Flash-2","wwn":"60050768108101D7E80000000000B636"},{"bootVolume":false,"bootable":false,"creationDate":"2022-11-29T20:27:12.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/ea24c80e-887e-415f-9814-4a4b6aab5549","lastUpdateDate":"2022-11-29T20:27:13.000Z","name":"test-volume-3GB-tier1-notsharable","pvmInstanceIDs":[],"shareable":false,"size":3,"state":"available","volumeID":"ea24c80e-887e-415f-9814-4a4b6aab5549","volumePool":"Tier1-Flash-2","volumeType":"Tier1-Flash-2","wwn":"60050768108101D7E80000000000B635"},{"bootVolume":false,"bootable":false,"creationDate":"2022-11-29T20:27:07.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/c876330e-c9a4-4b71-a464-06392d900bc8","lastUpdateDate":"2022-11-29T20:27:08.000Z","name":"test-volume-10GB-tier3-sharable","pvmInstanceIDs":[],"shareable":true,"size":10,"state":"available","volumeID":"c876330e-c9a4-4b71-a464-06392d900bc8","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC800000000001242"},{"bootVolume":false,"bootable":false,"creationDate":"2022-11-29T20:27:02.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/67ca6c7c-dfcd-414a-892c-cf1706582f3e","lastUpdateDate":"2022-11-29T20:27:03.000Z","name":"test-volume-1GB-tier3-sharable","pvmInstanceIDs":[],"shareable":true,"size":1,"state":"available","volumeID":"67ca6c7c-dfcd-414a-892c-cf1706582f3e","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC800000000001241"}]}
+      string: '{"volumes":[{"bootVolume":false,"bootable":true,"creationDate":"2022-12-22T22:12:23.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/6f701ee8-96f9-4056-a099-b37a0b6ce6fc","lastUpdateDate":"2022-12-22T22:12:45.000Z","name":"test-instance-5a15e14e-0001aa3a-boot-0","pvmInstanceIDs":["5a15e14e-6d17-4dff-aad6-3175c2d6bd0c"],"shareable":false,"size":120,"state":"in-use","volumeID":"6f701ee8-96f9-4056-a099-b37a0b6ce6fc","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC8000000000017BF"},{"bootVolume":false,"bootable":true,"creationDate":"2022-12-22T22:10:57.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/0a51a043-8049-47b0-8523-ebf4f7eb326a","lastUpdateDate":"2022-12-22T22:11:18.000Z","name":"test-instance-16ee2ce7-0001aa37-boot-0","pvmInstanceIDs":["16ee2ce7-61b7-4890-89f7-e9fec7f4f73c"],"shareable":false,"size":100,"state":"in-use","volumeID":"0a51a043-8049-47b0-8523-ebf4f7eb326a","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC8000000000017BE"},{"bootVolume":false,"bootable":true,"creationDate":"2022-12-22T22:09:02.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/2bc24e4a-2c72-468d-9081-4b7c16f78219","lastUpdateDate":"2022-12-22T22:09:25.000Z","name":"test-instance-78860da9-0001aa34-boot-0","pvmInstanceIDs":["78860da9-44bc-4c3c-b776-90981d5d18f3"],"shareable":false,"size":100,"state":"in-use","volumeID":"2bc24e4a-2c72-468d-9081-4b7c16f78219","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC8000000000017BD"},{"bootVolume":false,"bootable":true,"creationDate":"2022-12-22T22:06:52.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/6f4c2f17-ccd2-45f4-9d40-6ee1d0ad13f7","lastUpdateDate":"2022-12-22T22:07:18.000Z","name":"test-instance-0ded46e4-0001aa31-boot-0","pvmInstanceIDs":["0ded46e4-031c-4d58-9e5d-b805fac2f3dc"],"shareable":false,"size":120,"state":"in-use","volumeID":"6f4c2f17-ccd2-45f4-9d40-6ee1d0ad13f7","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC8000000000017BC"},{"bootVolume":false,"bootable":true,"creationDate":"2022-12-22T22:05:06.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/5be608aa-0f7d-40fa-b6e9-56c87a8ad338","lastUpdateDate":"2022-12-22T22:05:28.000Z","name":"test-instance-16fa8973-0001aa2e-boot-0","pvmInstanceIDs":["16fa8973-afd1-4c08-a1f4-3c4a92d366f9"],"shareable":false,"size":100,"state":"in-use","volumeID":"5be608aa-0f7d-40fa-b6e9-56c87a8ad338","volumePool":"Tier1-Flash-2","volumeType":"Tier1-Flash-2","wwn":"60050768108101D7E80000000000BD77"},{"bootVolume":false,"bootable":true,"creationDate":"2022-12-22T22:03:24.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/0f739a91-4eef-4e64-9810-4ddb7eeefefb","lastUpdateDate":"2022-12-22T22:03:47.000Z","name":"test-instance-01e8b871-0001aa2b-boot-0","pvmInstanceIDs":["01e8b871-bbad-4738-8dc7-6640a6443f8c"],"shareable":false,"size":25,"state":"in-use","volumeID":"0f739a91-4eef-4e64-9810-4ddb7eeefefb","volumePool":"Tier1-Flash-2","volumeType":"Tier1-Flash-2","wwn":"60050768108101D7E80000000000BD76"},{"bootVolume":false,"bootable":false,"creationDate":"2022-12-22T22:02:38.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/e4d705b9-d228-4ce1-a12b-d45ccc78105f","lastUpdateDate":"2022-12-22T22:02:39.000Z","name":"test-volume-15GB-tier1-notsharable","pvmInstanceIDs":[],"shareable":false,"size":15,"state":"available","volumeID":"e4d705b9-d228-4ce1-a12b-d45ccc78105f","volumePool":"Tier1-Flash-2","volumeType":"Tier1-Flash-2","wwn":"60050768108101D7E80000000000BD75"},{"bootVolume":false,"bootable":false,"creationDate":"2022-12-22T22:02:34.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/9aa18db7-7051-4f32-8176-a6445f6b5bbf","lastUpdateDate":"2022-12-22T22:02:35.000Z","name":"test-volume-3GB-tier1-notsharable","pvmInstanceIDs":[],"shareable":false,"size":3,"state":"available","volumeID":"9aa18db7-7051-4f32-8176-a6445f6b5bbf","volumePool":"Tier1-Flash-2","volumeType":"Tier1-Flash-2","wwn":"60050768108101D7E80000000000BD74"},{"bootVolume":false,"bootable":false,"creationDate":"2022-12-22T22:02:29.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/d6305cd2-a79a-4416-a0d5-d2f90281608d","lastUpdateDate":"2022-12-22T22:02:30.000Z","name":"test-volume-10GB-tier3-sharable","pvmInstanceIDs":[],"shareable":true,"size":10,"state":"available","volumeID":"d6305cd2-a79a-4416-a0d5-d2f90281608d","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC8000000000017BB"},{"bootVolume":false,"bootable":false,"creationDate":"2022-12-22T22:02:25.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/volumes/dc5833a0-2a49-4325-b50f-1d382a2b0006","lastUpdateDate":"2022-12-22T22:02:26.000Z","name":"test-volume-1GB-tier3-sharable","pvmInstanceIDs":[],"shareable":true,"size":1,"state":"available","volumeID":"dc5833a0-2a49-4325-b50f-1d382a2b0006","volumePool":"Tier3-Flash-2","volumeType":"Tier3-Flash-2","wwn":"60050768108002DAC8000000000017BA"}]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:16 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:15 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances
@@ -359,7 +359,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -382,22 +382,23 @@ http_interactions:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"pvmInstances":[{"addresses":[],"creationDate":"2022-11-29T22:59:45.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:01:17.834676","reason":"PENDING","status":"PENDING"},"hostID":8,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/cabd0aa0-0d21-467d-b2f1-27160d0e9a3a","imageID":"bb53e9a0-9d33-4a37-bd21-3bfa74bb2e11","memory":0,"networks":[],"osType":"","pinPolicy":"none","placementGroup":"a2a7071b-48ce-43b5-9814-c8aa7a406c3a","procType":"","processors":0,"pvmInstanceID":"cabd0aa0-0d21-467d-b2f1-27160d0e9a3a","serverName":"test-instance-rhcos-s922-shared-tier3","srcs":[],"status":"BUILD","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-11-29T22:59:45.000Z","virtualCores":{"assigned":2}},{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a/networks/test-network-pub-vlan","ip":"127.0.0.138","ipAddress":"127.0.0.138","macAddress":"fa:a4:36:0b:6f:21","networkName":"test-network-pub-vlan","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a/networks/test-network-vlan","ip":"127.0.0.5","ipAddress":"127.0.0.5","macAddress":"fa:a4:36:0b:6f:20","networkName":"test-network-vlan","type":"fixed","version":4}],"creationDate":"2022-11-29T22:55:29.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:01:17.834701","reason":"PENDING","status":"PENDING"},"hostID":22,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a","imageID":"bb53e9a0-9d33-4a37-bd21-3bfa74bb2e11","maxmem":32,"maxproc":6,"memory":4,"minmem":2,"minproc":0.25,"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a/networks/test-network-pub-vlan","ip":"127.0.0.138","ipAddress":"127.0.0.138","macAddress":"fa:a4:36:0b:6f:21","networkName":"test-network-pub-vlan","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a/networks/test-network-vlan","ip":"127.0.0.5","ipAddress":"127.0.0.5","macAddress":"fa:a4:36:0b:6f:20","networkName":"test-network-vlan","type":"fixed","version":4}],"operatingSystem":"127.0.0.0.0.0","osType":"aix","pinPolicy":"none","placementGroup":"e4517e72-1486-43ac-a51a-6bbac2b72036","procType":"shared","processors":0.75,"pvmInstanceID":"1c8a7932-9db8-4e7c-9794-8ba40f1c852a","serverName":"test-instance-sles-s922-shared-tier3","srcs":[[{"src":"00000000"}]],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-11-29T22:55:29.000Z","virtualCores":{"assigned":1,"max":8,"min":1}},{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/bf19fb66-5961-48e2-aba8-fc256a6591df/networks/test-network-pub-vlan-dns","ip":"127.0.0.29","ipAddress":"127.0.0.29","macAddress":"fa:7c:65:d8:46:20","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4}],"creationDate":"2022-11-29T22:50:43.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:01:17.834750","status":"WARNING"},"hostID":22,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/bf19fb66-5961-48e2-aba8-fc256a6591df","imageID":"bb53e9a0-9d33-4a37-bd21-3bfa74bb2e11","maxmem":16,"maxproc":4,"memory":2,"minmem":2,"minproc":0.25,"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/bf19fb66-5961-48e2-aba8-fc256a6591df/networks/test-network-pub-vlan-dns","ip":"127.0.0.29","ipAddress":"127.0.0.29","macAddress":"fa:7c:65:d8:46:20","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4}],"operatingSystem":"127.0.0.0.0.0","osType":"aix","pinPolicy":"none","placementGroup":"e4517e72-1486-43ac-a51a-6bbac2b72036","procType":"shared","processors":0.5,"pvmInstanceID":"bf19fb66-5961-48e2-aba8-fc256a6591df","serverName":"test-instance-rhel-s922-shared-tier3","srcs":[[{"src":"00000000","timestamp":"2022-11-29T22:54:58Z"}]],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-11-29T22:50:43.000Z","virtualCores":{"assigned":1,"max":8,"min":1}},{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/93b3683d-4686-4d36-9185-2ca3b7d5bc56/networks/test-network-pub-vlan","ip":"127.0.0.141","ipAddress":"127.0.0.141","macAddress":"fa:f0:fd:3a:07:20","networkName":"test-network-pub-vlan","type":"fixed","version":4}],"creationDate":"2022-11-29T22:47:27.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:01:17.834790","status":"WARNING"},"hostID":1,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/93b3683d-4686-4d36-9185-2ca3b7d5bc56","imageID":"bb53e9a0-9d33-4a37-bd21-3bfa74bb2e11","maxmem":32,"maxproc":8,"memory":4,"minmem":2,"minproc":1,"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/93b3683d-4686-4d36-9185-2ca3b7d5bc56/networks/test-network-pub-vlan","ip":"127.0.0.141","ipAddress":"127.0.0.141","macAddress":"fa:f0:fd:3a:07:20","networkName":"test-network-pub-vlan","type":"fixed","version":4}],"operatingSystem":"127.0.0.0.0.0","osType":"aix","pinPolicy":"hard","placementGroup":"a2a7071b-48ce-43b5-9814-c8aa7a406c3a","procType":"dedicated","processors":1,"pvmInstanceID":"93b3683d-4686-4d36-9185-2ca3b7d5bc56","serverName":"test-instance-centos-e980-dedicated-tier3","srcs":[[{"src":"00000000","timestamp":"2022-11-29T22:51:59Z"}]],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"e980","updatedDate":"2022-11-29T22:47:27.000Z","virtualCores":{"assigned":1,"max":8,"min":1}},{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/eaad0f47-2496-4a53-a052-97ccf69102cb/networks/test-network-vlan-jumbo","ip":"127.0.0.7","ipAddress":"127.0.0.7","macAddress":"fa:92:75:17:8b:20","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"creationDate":"2022-11-29T22:37:23.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:01:17.834818","status":"OK"},"hostID":22,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/eaad0f47-2496-4a53-a052-97ccf69102cb","imageID":"ae95cd83-f9af-4b80-aee4-e0ced50b105d","maxmem":16,"maxproc":2,"memory":2,"minmem":2,"minproc":0.25,"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/eaad0f47-2496-4a53-a052-97ccf69102cb/networks/test-network-vlan-jumbo","ip":"127.0.0.7","ipAddress":"127.0.0.7","macAddress":"fa:92:75:17:8b:20","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"operatingSystem":"AIX
-        7.3, 7300-00-01-2148","osType":"aix","pinPolicy":"soft","placementGroup":"e4517e72-1486-43ac-a51a-6bbac2b72036","procType":"capped","processors":0.25,"pvmInstanceID":"eaad0f47-2496-4a53-a052-97ccf69102cb","serverName":"test-instance-ibmi-s922-capped-tier1","srcs":[[{"src":"00000000","timestamp":"2022-11-29T22:42:03Z"}]],"status":"ACTIVE","storagePool":"Tier1-Flash-2","storagePoolAffinity":true,"storageType":"tier1","sysType":"s922","updatedDate":"2022-11-29T22:37:23.000Z","virtualCores":{"assigned":1,"max":5,"min":1}},{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/44d3e605-3ef5-43f9-94e4-cdb049964dc9/networks/test-network-vlan","ip":"127.0.0.16","ipAddress":"127.0.0.16","macAddress":"fa:b6:84:29:90:20","networkName":"test-network-vlan","type":"fixed","version":4}],"creationDate":"2022-11-29T20:27:57.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:01:17.834912","status":"OK"},"hostID":18,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/44d3e605-3ef5-43f9-94e4-cdb049964dc9","imageID":"ae95cd83-f9af-4b80-aee4-e0ced50b105d","maxmem":16,"maxproc":2,"memory":2,"minmem":2,"minproc":0.25,"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/44d3e605-3ef5-43f9-94e4-cdb049964dc9/networks/test-network-vlan","ip":"127.0.0.16","ipAddress":"127.0.0.16","macAddress":"fa:b6:84:29:90:20","networkName":"test-network-vlan","type":"fixed","version":4}],"operatingSystem":"AIX
-        7.3, 7300-00-01-2148","osType":"aix","pinPolicy":"none","placementGroup":"none","procType":"shared","processors":0.25,"pvmInstanceID":"44d3e605-3ef5-43f9-94e4-cdb049964dc9","serverName":"test-instance-aix-s922-shared-tier1","srcs":[[{"src":"00000000","timestamp":"2022-11-29T20:31:56Z"}]],"status":"ACTIVE","storagePool":"Tier1-Flash-2","storagePoolAffinity":true,"storageType":"tier1","sysType":"s922","updatedDate":"2022-11-29T20:27:57.000Z","virtualCores":{"assigned":1,"max":5,"min":1}}]}
+      string: '{"pvmInstances":[{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c/networks/test-network-pub-vlan-dns","ip":"127.0.0.194","ipAddress":"127.0.0.194","macAddress":"fa:8e:db:be:7a:21","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c/networks/test-network-vlan-jumbo","ip":"127.0.0.1","ipAddress":"127.0.0.1","macAddress":"fa:8e:db:be:7a:20","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"creationDate":"2022-12-22T22:12:16.000Z","diskSize":120,"health":{"lastUpdate":"2022-12-22T22:15:20.511325","reason":"PENDING","status":"PENDING"},"hostID":22,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c","imageID":"032d72bf-89f2-44a9-bbc4-ab898dd93309","memory":0,"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c/networks/test-network-pub-vlan-dns","ip":"127.0.0.194","ipAddress":"127.0.0.194","macAddress":"fa:8e:db:be:7a:21","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c/networks/test-network-vlan-jumbo","ip":"127.0.0.1","ipAddress":"127.0.0.1","macAddress":"fa:8e:db:be:7a:20","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"osType":"","pinPolicy":"none","placementGroup":"8976159e-0e2d-4702-b20c-6b091b654579","procType":"","processors":0,"pvmInstanceID":"5a15e14e-6d17-4dff-aad6-3175c2d6bd0c","serverName":"test-instance-rhcos-s922-shared-tier3","srcs":[],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-12-22T22:12:16.000Z","virtualCores":{"assigned":2}},{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c/networks/test-network-pub-vlan","ip":"127.0.0.188","ipAddress":"127.0.0.188","macAddress":"fa:06:2f:e6:86:21","networkName":"test-network-pub-vlan","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c/networks/test-network-vlan","ip":"127.0.0.91","ipAddress":"127.0.0.91","macAddress":"fa:06:2f:e6:86:20","networkName":"test-network-vlan","type":"fixed","version":4}],"creationDate":"2022-12-22T22:10:48.000Z","diskSize":100,"health":{"lastUpdate":"2022-12-22T22:15:20.511365","reason":"PENDING","status":"PENDING"},"hostID":25,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c","imageID":"8aa5f4d8-1b6a-4416-bc64-bd01c00d071a","maxmem":32,"maxproc":6,"memory":4,"minmem":2,"minproc":0.25,"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c/networks/test-network-pub-vlan","ip":"127.0.0.188","ipAddress":"127.0.0.188","macAddress":"fa:06:2f:e6:86:21","networkName":"test-network-pub-vlan","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c/networks/test-network-vlan","ip":"127.0.0.91","ipAddress":"127.0.0.91","macAddress":"fa:06:2f:e6:86:20","networkName":"test-network-vlan","type":"fixed","version":4}],"operatingSystem":"127.0.0.0.0.0","osType":"sles","pinPolicy":"none","placementGroup":"c473adae-82a6-4897-b6dd-6e746f01cb1e","procType":"shared","processors":0.75,"pvmInstanceID":"16ee2ce7-61b7-4890-89f7-e9fec7f4f73c","serverName":"test-instance-sles-s922-shared-tier3","srcs":[],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-12-22T22:10:48.000Z","virtualCores":{"assigned":1,"max":8,"min":1}},{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/78860da9-44bc-4c3c-b776-90981d5d18f3/networks/test-network-pub-vlan-dns","ip":"127.0.0.196","ipAddress":"127.0.0.196","macAddress":"fa:d8:1f:e9:c7:20","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4}],"creationDate":"2022-12-22T22:08:53.000Z","diskSize":100,"health":{"lastUpdate":"2022-12-22T22:15:20.511391","reason":"PENDING","status":"PENDING"},"hostID":25,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/78860da9-44bc-4c3c-b776-90981d5d18f3","imageID":"eea8ba65-7468-4871-8442-39ee45594f45","maxmem":16,"maxproc":4,"memory":2,"minmem":2,"minproc":0.25,"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/78860da9-44bc-4c3c-b776-90981d5d18f3/networks/test-network-pub-vlan-dns","ip":"127.0.0.196","ipAddress":"127.0.0.196","macAddress":"fa:d8:1f:e9:c7:20","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4}],"operatingSystem":"127.0.0.0.0.0","osType":"rhel","pinPolicy":"none","placementGroup":"c473adae-82a6-4897-b6dd-6e746f01cb1e","procType":"shared","processors":0.5,"pvmInstanceID":"78860da9-44bc-4c3c-b776-90981d5d18f3","serverName":"test-instance-rhel-s922-shared-tier3","srcs":[],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-12-22T22:08:53.000Z","virtualCores":{"assigned":1,"max":8,"min":1}},{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/0ded46e4-031c-4d58-9e5d-b805fac2f3dc/networks/test-network-pub-vlan","ip":"127.0.0.186","ipAddress":"127.0.0.186","macAddress":"fa:b9:9f:72:8c:20","networkName":"test-network-pub-vlan","type":"fixed","version":4}],"creationDate":"2022-12-22T22:06:44.000Z","diskSize":120,"health":{"lastUpdate":"2022-12-22T22:15:20.511414","reason":"PENDING","status":"PENDING"},"hostID":1,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/0ded46e4-031c-4d58-9e5d-b805fac2f3dc","imageID":"689a1b67-cb62-43b1-804b-aa89c75c37bd","maxmem":32,"maxproc":8,"memory":4,"minmem":2,"minproc":1,"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/0ded46e4-031c-4d58-9e5d-b805fac2f3dc/networks/test-network-pub-vlan","ip":"127.0.0.186","ipAddress":"127.0.0.186","macAddress":"fa:b9:9f:72:8c:20","networkName":"test-network-pub-vlan","type":"fixed","version":4}],"operatingSystem":"null,","osType":"rhel","pinPolicy":"hard","placementGroup":"8976159e-0e2d-4702-b20c-6b091b654579","procType":"dedicated","processors":1,"pvmInstanceID":"0ded46e4-031c-4d58-9e5d-b805fac2f3dc","serverName":"test-instance-centos-e980-dedicated-tier3","srcs":[],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"e980","updatedDate":"2022-12-22T22:06:44.000Z","virtualCores":{"assigned":1,"max":8,"min":1}},{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16fa8973-afd1-4c08-a1f4-3c4a92d366f9/networks/test-network-vlan-jumbo","ip":"127.0.0.7","ipAddress":"127.0.0.7","macAddress":"fa:33:88:7e:66:20","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"consoleLanguage":{"code":"037","language":"037
+        English"},"creationDate":"2022-12-22T22:04:58.000Z","diskSize":100,"health":{"lastUpdate":"2022-12-22T22:15:20.511453","status":"OK"},"hostID":25,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16fa8973-afd1-4c08-a1f4-3c4a92d366f9","imageID":"295161ee-5c0f-4bf4-8a1b-453fedc677dc","maxmem":16,"maxproc":2,"memory":2,"minmem":2,"minproc":0.25,"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16fa8973-afd1-4c08-a1f4-3c4a92d366f9/networks/test-network-vlan-jumbo","ip":"127.0.0.7","ipAddress":"127.0.0.7","macAddress":"fa:33:88:7e:66:20","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"operatingSystem":"V7R5M0
+        1990 0","osType":"ibmi","pinPolicy":"none","placementGroup":"c473adae-82a6-4897-b6dd-6e746f01cb1e","procType":"capped","processors":0.25,"pvmInstanceID":"16fa8973-afd1-4c08-a1f4-3c4a92d366f9","serverName":"test-instance-ibmi-s922-capped-tier1","softwareLicenses":{"ibmiCSS":false,"ibmiDBQ":false,"ibmiPHA":false,"ibmiRDS":false},"srcs":[[{"src":"A6005008","timestamp":"2022-12-22T22:13:21Z"},{"src":"03B00061","timestamp":"2022-12-22T22:13:21Z"},{"src":"FFFF0000","timestamp":"2022-12-22T22:13:21Z"},{"src":"00000000","timestamp":"2022-12-22T22:13:21Z"},{"src":"00000000","timestamp":"2022-12-22T22:13:21Z"},{"src":"50070404","timestamp":"2022-12-22T22:13:21Z"},{"src":"00000000","timestamp":"2022-12-22T22:13:21Z"},{"src":"00000000","timestamp":"2022-12-22T22:13:21Z"},{"src":"00000000","timestamp":"2022-12-22T22:13:21Z"}]],"status":"ACTIVE","storagePool":"Tier1-Flash-2","storagePoolAffinity":true,"storageType":"tier1","sysType":"s922","updatedDate":"2022-12-22T22:04:58.000Z","virtualCores":{"assigned":1,"max":4,"min":1}},{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/01e8b871-bbad-4738-8dc7-6640a6443f8c/networks/test-network-vlan","ip":"127.0.0.97","ipAddress":"127.0.0.97","macAddress":"fa:95:fb:61:b8:20","networkName":"test-network-vlan","type":"fixed","version":4}],"creationDate":"2022-12-22T22:03:13.000Z","diskSize":25,"health":{"lastUpdate":"2022-12-22T22:15:20.511520","status":"WARNING"},"hostID":25,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/01e8b871-bbad-4738-8dc7-6640a6443f8c","imageID":"ae95cd83-f9af-4b80-aee4-e0ced50b105d","maxmem":16,"maxproc":2,"memory":2,"minmem":2,"minproc":0.25,"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/01e8b871-bbad-4738-8dc7-6640a6443f8c/networks/test-network-vlan","ip":"127.0.0.97","ipAddress":"127.0.0.97","macAddress":"fa:95:fb:61:b8:20","networkName":"test-network-vlan","type":"fixed","version":4}],"operatingSystem":"AIX
+        7.3, 7300-00-01-2148","osType":"aix","pinPolicy":"none","placementGroup":"none","procType":"shared","processors":0.25,"pvmInstanceID":"01e8b871-bbad-4738-8dc7-6640a6443f8c","serverName":"test-instance-aix-s922-shared-tier1","srcs":[[{"src":"00000000","timestamp":"2022-12-22T22:06:18Z"}]],"status":"ACTIVE","storagePool":"Tier1-Flash-2","storagePoolAffinity":true,"storageType":"tier1","sysType":"s922","updatedDate":"2022-12-22T22:03:13.000Z","virtualCores":{"assigned":1,"max":5,"min":1}}]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:18 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:25 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/cabd0aa0-0d21-467d-b2f1-27160d0e9a3a
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -420,20 +421,56 @@ http_interactions:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"addresses":[{"externalIP":"127.0.0.154","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/cabd0aa0-0d21-467d-b2f1-27160d0e9a3a/networks/c1d1374a-e4db-4bc8-922d-7b4634cff93b","ip":"127.0.0.26","ipAddress":"127.0.0.26","macAddress":"fa:57:bc:db:dd:21","networkID":"c1d1374a-e4db-4bc8-922d-7b4634cff93b","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/cabd0aa0-0d21-467d-b2f1-27160d0e9a3a/networks/b92c48a3-c96c-4e0a-8dfb-c77862ec77f1","ip":"127.0.0.11","ipAddress":"127.0.0.11","macAddress":"fa:57:bc:db:dd:20","networkID":"b92c48a3-c96c-4e0a-8dfb-c77862ec77f1","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"creationDate":"2022-11-29T22:59:45.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:03:20.428640","reason":"PENDING","status":"PENDING"},"hostID":8,"imageID":"bb53e9a0-9d33-4a37-bd21-3bfa74bb2e11","memory":0,"migratable":false,"networkIDs":["c1d1374a-e4db-4bc8-922d-7b4634cff93b","b92c48a3-c96c-4e0a-8dfb-c77862ec77f1"],"networks":[{"externalIP":"127.0.0.154","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/cabd0aa0-0d21-467d-b2f1-27160d0e9a3a/networks/c1d1374a-e4db-4bc8-922d-7b4634cff93b","ip":"127.0.0.26","ipAddress":"127.0.0.26","macAddress":"fa:57:bc:db:dd:21","networkID":"c1d1374a-e4db-4bc8-922d-7b4634cff93b","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/cabd0aa0-0d21-467d-b2f1-27160d0e9a3a/networks/b92c48a3-c96c-4e0a-8dfb-c77862ec77f1","ip":"127.0.0.11","ipAddress":"127.0.0.11","macAddress":"fa:57:bc:db:dd:20","networkID":"b92c48a3-c96c-4e0a-8dfb-c77862ec77f1","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"osType":"","pinPolicy":"none","placementGroup":"a2a7071b-48ce-43b5-9814-c8aa7a406c3a","procType":"","processors":0,"pvmInstanceID":"cabd0aa0-0d21-467d-b2f1-27160d0e9a3a","serverName":"test-instance-rhcos-s922-shared-tier3","srcs":[],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-11-29T22:59:45.000Z","virtualCores":{"assigned":2},"volumeIDs":["c5bce349-8573-426a-86fd-a0007bb8c336"]}
+      string: '{"addresses":[{"externalIP":"127.0.0.66","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c/networks/f7b9bae5-208e-4cbe-a809-117324e82659","ip":"127.0.0.194","ipAddress":"127.0.0.194","macAddress":"fa:8e:db:be:7a:21","networkID":"f7b9bae5-208e-4cbe-a809-117324e82659","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c/networks/909861f2-bde0-4e46-8348-054d2f79d9d1","ip":"127.0.0.1","ipAddress":"127.0.0.1","macAddress":"fa:8e:db:be:7a:20","networkID":"909861f2-bde0-4e46-8348-054d2f79d9d1","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"creationDate":"2022-12-22T22:12:16.000Z","diskSize":120,"health":{"lastUpdate":"2022-12-22T22:15:26.326492","reason":"PENDING","status":"PENDING"},"hostID":22,"imageID":"032d72bf-89f2-44a9-bbc4-ab898dd93309","maxmem":48,"maxproc":10,"memory":6,"migratable":false,"minmem":2,"minproc":0.25,"networkIDs":["f7b9bae5-208e-4cbe-a809-117324e82659","909861f2-bde0-4e46-8348-054d2f79d9d1"],"networks":[{"externalIP":"127.0.0.66","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c/networks/f7b9bae5-208e-4cbe-a809-117324e82659","ip":"127.0.0.194","ipAddress":"127.0.0.194","macAddress":"fa:8e:db:be:7a:21","networkID":"f7b9bae5-208e-4cbe-a809-117324e82659","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c/networks/909861f2-bde0-4e46-8348-054d2f79d9d1","ip":"127.0.0.1","ipAddress":"127.0.0.1","macAddress":"fa:8e:db:be:7a:20","networkID":"909861f2-bde0-4e46-8348-054d2f79d9d1","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"operatingSystem":"127.0.0.0.0.0","osType":"rhel","pinPolicy":"none","placementGroup":"8976159e-0e2d-4702-b20c-6b091b654579","procType":"shared","processors":1.25,"pvmInstanceID":"5a15e14e-6d17-4dff-aad6-3175c2d6bd0c","serverName":"test-instance-rhcos-s922-shared-tier3","srcs":[],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-12-22T22:12:16.000Z","virtualCores":{"assigned":2,"max":16,"min":1},"volumeIDs":["6f701ee8-96f9-4056-a099-b37a0b6ce6fc"]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:23 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:28 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/images/bb53e9a0-9d33-4a37-bd21-3bfa74bb2e11
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: UTF-8
+      string: '{"addresses":[{"externalIP":"127.0.0.60","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c/networks/05f5db92-8a16-4359-91fd-c501cc60583a","ip":"127.0.0.188","ipAddress":"127.0.0.188","macAddress":"fa:06:2f:e6:86:21","networkID":"05f5db92-8a16-4359-91fd-c501cc60583a","networkName":"test-network-pub-vlan","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c/networks/b9e283a8-a7b0-4c04-b587-5dc7d784e016","ip":"127.0.0.91","ipAddress":"127.0.0.91","macAddress":"fa:06:2f:e6:86:20","networkID":"b9e283a8-a7b0-4c04-b587-5dc7d784e016","networkName":"test-network-vlan","type":"fixed","version":4}],"creationDate":"2022-12-22T22:10:48.000Z","diskSize":100,"health":{"lastUpdate":"2022-12-22T22:15:30.185113","reason":"PENDING","status":"PENDING"},"hostID":25,"imageID":"8aa5f4d8-1b6a-4416-bc64-bd01c00d071a","maxmem":32,"maxproc":6,"memory":4,"migratable":false,"minmem":2,"minproc":0.25,"networkIDs":["05f5db92-8a16-4359-91fd-c501cc60583a","b9e283a8-a7b0-4c04-b587-5dc7d784e016"],"networks":[{"externalIP":"127.0.0.60","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c/networks/05f5db92-8a16-4359-91fd-c501cc60583a","ip":"127.0.0.188","ipAddress":"127.0.0.188","macAddress":"fa:06:2f:e6:86:21","networkID":"05f5db92-8a16-4359-91fd-c501cc60583a","networkName":"test-network-pub-vlan","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c/networks/b9e283a8-a7b0-4c04-b587-5dc7d784e016","ip":"127.0.0.91","ipAddress":"127.0.0.91","macAddress":"fa:06:2f:e6:86:20","networkID":"b9e283a8-a7b0-4c04-b587-5dc7d784e016","networkName":"test-network-vlan","type":"fixed","version":4}],"operatingSystem":"127.0.0.0.0.0","osType":"sles","pinPolicy":"none","placementGroup":"c473adae-82a6-4897-b6dd-6e746f01cb1e","procType":"shared","processors":0.75,"pvmInstanceID":"16ee2ce7-61b7-4890-89f7-e9fec7f4f73c","serverName":"test-instance-sles-s922-shared-tier3","srcs":[],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-12-22T22:10:48.000Z","virtualCores":{"assigned":1,"max":8,"min":1},"volumeIDs":["0a51a043-8049-47b0-8523-ebf4f7eb326a"]}
+
+        '
+    http_version:
+  recorded_at: Thu, 22 Dec 2022 22:15:32 GMT
+- request:
+    method: get
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/images/8aa5f4d8-1b6a-4416-bc64-bd01c00d071a
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -451,64 +488,28 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '530'
+      - '560'
       Strict-Transport-Security:
       - max-age=15724800; includeSubDomains
       Cf-Cache-Status:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"creationDate":"2022-03-04T21:27:31.000Z","imageID":"bb53e9a0-9d33-4a37-bd21-3bfa74bb2e11","lastUpdateDate":"2022-03-04T21:48:25.000Z","name":"7300-00-01","servers":[],"size":25,"specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"big-endian","hypervisorType":"phyp","operatingSystem":"aix"},"state":"active","storagePool":"Tier3-Flash-2","storageType":"tier3","volumes":[{"bootable":true,"name":"Imported
-        image volume","size":25,"volumeID":"12e27f29-a56f-49d0-90b4-0e6a43601207"}]}
+      string: '{"creationDate":"2022-09-13T16:56:18.000Z","imageID":"8aa5f4d8-1b6a-4416-bc64-bd01c00d071a","lastUpdateDate":"2022-09-13T18:07:59.000Z","name":"SLES15-SP4","servers":[],"size":100,"specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","imageType":"stock-fls","operatingSystem":"sles"},"state":"active","storagePool":"Tier3-Flash-2","storageType":"tier3","volumes":[{"bootable":true,"name":"Imported
+        image volume","size":100,"volumeID":"dbcd1a8b-b6be-4ebe-a9c9-533135d6e00a"}]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:24 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:35 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/78860da9-44bc-4c3c-b776-90981d5d18f3
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"addresses":[{"externalIP":"127.0.0.10","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a/networks/e01c9308-a56c-4217-9efe-d47a1afe98ae","ip":"127.0.0.138","ipAddress":"127.0.0.138","macAddress":"fa:a4:36:0b:6f:21","networkID":"e01c9308-a56c-4217-9efe-d47a1afe98ae","networkName":"test-network-pub-vlan","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a/networks/d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f","ip":"127.0.0.5","ipAddress":"127.0.0.5","macAddress":"fa:a4:36:0b:6f:20","networkID":"d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f","networkName":"test-network-vlan","type":"fixed","version":4}],"creationDate":"2022-11-29T22:55:29.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:03:25.820514","reason":"PENDING","status":"PENDING"},"hostID":22,"imageID":"bb53e9a0-9d33-4a37-bd21-3bfa74bb2e11","maxmem":32,"maxproc":6,"memory":4,"migratable":false,"minmem":2,"minproc":0.25,"networkIDs":["e01c9308-a56c-4217-9efe-d47a1afe98ae","d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f"],"networks":[{"externalIP":"127.0.0.10","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a/networks/e01c9308-a56c-4217-9efe-d47a1afe98ae","ip":"127.0.0.138","ipAddress":"127.0.0.138","macAddress":"fa:a4:36:0b:6f:21","networkID":"e01c9308-a56c-4217-9efe-d47a1afe98ae","networkName":"test-network-pub-vlan","type":"fixed","version":4},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a/networks/d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f","ip":"127.0.0.5","ipAddress":"127.0.0.5","macAddress":"fa:a4:36:0b:6f:20","networkID":"d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f","networkName":"test-network-vlan","type":"fixed","version":4}],"operatingSystem":"127.0.0.0.0.0","osType":"aix","pinPolicy":"none","placementGroup":"e4517e72-1486-43ac-a51a-6bbac2b72036","procType":"shared","processors":0.75,"pvmInstanceID":"1c8a7932-9db8-4e7c-9794-8ba40f1c852a","serverName":"test-instance-sles-s922-shared-tier3","srcs":[[{"src":"00000000","timestamp":"2022-11-29T22:59:54Z"}]],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-11-29T22:55:29.000Z","virtualCores":{"assigned":1,"max":8,"min":1},"volumeIDs":["79b8b885-c538-42ea-b464-a5e10b0a3229"]}
-
-        '
-    http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:28 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/bf19fb66-5961-48e2-aba8-fc256a6591df
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -526,28 +527,27 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '1754'
+      - '1709'
       Strict-Transport-Security:
       - max-age=15724800; includeSubDomains
       Cf-Cache-Status:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"addresses":[{"externalIP":"127.0.0.157","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/bf19fb66-5961-48e2-aba8-fc256a6591df/networks/c1d1374a-e4db-4bc8-922d-7b4634cff93b","ip":"127.0.0.29","ipAddress":"127.0.0.29","macAddress":"fa:7c:65:d8:46:20","networkID":"c1d1374a-e4db-4bc8-922d-7b4634cff93b","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4}],"creationDate":"2022-11-29T22:50:43.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:03:29.839019","status":"WARNING"},"hostID":22,"imageID":"bb53e9a0-9d33-4a37-bd21-3bfa74bb2e11","maxmem":16,"maxproc":4,"memory":2,"migratable":false,"minmem":2,"minproc":0.25,"networkIDs":["c1d1374a-e4db-4bc8-922d-7b4634cff93b"],"networks":[{"externalIP":"127.0.0.157","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/bf19fb66-5961-48e2-aba8-fc256a6591df/networks/c1d1374a-e4db-4bc8-922d-7b4634cff93b","ip":"127.0.0.29","ipAddress":"127.0.0.29","macAddress":"fa:7c:65:d8:46:20","networkID":"c1d1374a-e4db-4bc8-922d-7b4634cff93b","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4}],"operatingSystem":"AIX
-        7.3, 7300-00-01-2148","osType":"aix","pinPolicy":"none","placementGroup":"e4517e72-1486-43ac-a51a-6bbac2b72036","procType":"shared","processors":0.5,"pvmInstanceID":"bf19fb66-5961-48e2-aba8-fc256a6591df","serverName":"test-instance-rhel-s922-shared-tier3","srcs":[[{"src":"00000000","timestamp":"2022-11-29T22:54:58Z"}]],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-11-29T22:50:43.000Z","virtualCores":{"assigned":1,"max":8,"min":1},"volumeIDs":["eed8a761-6202-42a3-a5a7-60364f0e48d2"]}
+      string: '{"addresses":[{"externalIP":"127.0.0.68","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/78860da9-44bc-4c3c-b776-90981d5d18f3/networks/f7b9bae5-208e-4cbe-a809-117324e82659","ip":"127.0.0.196","ipAddress":"127.0.0.196","macAddress":"fa:d8:1f:e9:c7:20","networkID":"f7b9bae5-208e-4cbe-a809-117324e82659","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4}],"creationDate":"2022-12-22T22:08:53.000Z","diskSize":100,"health":{"lastUpdate":"2022-12-22T22:15:36.787333","reason":"PENDING","status":"PENDING"},"hostID":25,"imageID":"eea8ba65-7468-4871-8442-39ee45594f45","maxmem":16,"maxproc":4,"memory":2,"migratable":false,"minmem":2,"minproc":0.25,"networkIDs":["f7b9bae5-208e-4cbe-a809-117324e82659"],"networks":[{"externalIP":"127.0.0.68","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/78860da9-44bc-4c3c-b776-90981d5d18f3/networks/f7b9bae5-208e-4cbe-a809-117324e82659","ip":"127.0.0.196","ipAddress":"127.0.0.196","macAddress":"fa:d8:1f:e9:c7:20","networkID":"f7b9bae5-208e-4cbe-a809-117324e82659","networkName":"test-network-pub-vlan-dns","type":"fixed","version":4}],"operatingSystem":"127.0.0.0.0.0","osType":"rhel","pinPolicy":"none","placementGroup":"c473adae-82a6-4897-b6dd-6e746f01cb1e","procType":"shared","processors":0.5,"pvmInstanceID":"78860da9-44bc-4c3c-b776-90981d5d18f3","serverName":"test-instance-rhel-s922-shared-tier3","srcs":[],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"s922","updatedDate":"2022-12-22T22:08:53.000Z","virtualCores":{"assigned":1,"max":8,"min":1},"volumeIDs":["2bc24e4a-2c72-468d-9081-4b7c16f78219"]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:31 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:39 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/93b3683d-4686-4d36-9185-2ca3b7d5bc56
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/images/eea8ba65-7468-4871-8442-39ee45594f45
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -565,28 +565,28 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '1750'
+      - '559'
       Strict-Transport-Security:
       - max-age=15724800; includeSubDomains
       Cf-Cache-Status:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"addresses":[{"externalIP":"127.0.0.13","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/93b3683d-4686-4d36-9185-2ca3b7d5bc56/networks/e01c9308-a56c-4217-9efe-d47a1afe98ae","ip":"127.0.0.141","ipAddress":"127.0.0.141","macAddress":"fa:f0:fd:3a:07:20","networkID":"e01c9308-a56c-4217-9efe-d47a1afe98ae","networkName":"test-network-pub-vlan","type":"fixed","version":4}],"creationDate":"2022-11-29T22:47:27.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:03:33.495434","status":"WARNING"},"hostID":1,"imageID":"bb53e9a0-9d33-4a37-bd21-3bfa74bb2e11","maxmem":32,"maxproc":8,"memory":4,"migratable":false,"minmem":2,"minproc":1,"networkIDs":["e01c9308-a56c-4217-9efe-d47a1afe98ae"],"networks":[{"externalIP":"127.0.0.13","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/93b3683d-4686-4d36-9185-2ca3b7d5bc56/networks/e01c9308-a56c-4217-9efe-d47a1afe98ae","ip":"127.0.0.141","ipAddress":"127.0.0.141","macAddress":"fa:f0:fd:3a:07:20","networkID":"e01c9308-a56c-4217-9efe-d47a1afe98ae","networkName":"test-network-pub-vlan","type":"fixed","version":4}],"operatingSystem":"AIX
-        7.3, 7300-00-01-2148","osType":"aix","pinPolicy":"hard","placementGroup":"a2a7071b-48ce-43b5-9814-c8aa7a406c3a","procType":"dedicated","processors":1,"pvmInstanceID":"93b3683d-4686-4d36-9185-2ca3b7d5bc56","serverName":"test-instance-centos-e980-dedicated-tier3","srcs":[[{"src":"00000000","timestamp":"2022-11-29T22:51:59Z"}]],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"e980","updatedDate":"2022-11-29T22:47:27.000Z","virtualCores":{"assigned":1,"max":8,"min":1},"volumeIDs":["16c8cf56-1206-4b96-b41b-15a3e5147f28"]}
+      string: '{"creationDate":"2022-07-21T18:32:49.000Z","imageID":"eea8ba65-7468-4871-8442-39ee45594f45","lastUpdateDate":"2022-07-21T19:15:55.000Z","name":"RHEL8-SP6","servers":[],"size":100,"specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","imageType":"stock-fls","operatingSystem":"rhel"},"state":"active","storagePool":"Tier3-Flash-2","storageType":"tier3","volumes":[{"bootable":true,"name":"Imported
+        image volume","size":100,"volumeID":"385a2645-42a9-4110-9073-f877fa2ad31f"}]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:35 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:41 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/eaad0f47-2496-4a53-a052-97ccf69102cb
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/0ded46e4-031c-4d58-9e5d-b805fac2f3dc
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -604,19 +604,173 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '1662'
+      - '1697'
       Strict-Transport-Security:
       - max-age=15724800; includeSubDomains
       Cf-Cache-Status:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/eaad0f47-2496-4a53-a052-97ccf69102cb/networks/b92c48a3-c96c-4e0a-8dfb-c77862ec77f1","ip":"127.0.0.7","ipAddress":"127.0.0.7","macAddress":"fa:92:75:17:8b:20","networkID":"b92c48a3-c96c-4e0a-8dfb-c77862ec77f1","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"creationDate":"2022-11-29T22:37:23.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:03:36.601736","status":"OK"},"hostID":22,"imageID":"ae95cd83-f9af-4b80-aee4-e0ced50b105d","maxmem":16,"maxproc":2,"memory":2,"migratable":false,"minmem":2,"minproc":0.25,"networkIDs":["b92c48a3-c96c-4e0a-8dfb-c77862ec77f1"],"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/eaad0f47-2496-4a53-a052-97ccf69102cb/networks/b92c48a3-c96c-4e0a-8dfb-c77862ec77f1","ip":"127.0.0.7","ipAddress":"127.0.0.7","macAddress":"fa:92:75:17:8b:20","networkID":"b92c48a3-c96c-4e0a-8dfb-c77862ec77f1","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"operatingSystem":"AIX
-        7.3, 7300-00-01-2148","osType":"aix","pinPolicy":"soft","placementGroup":"e4517e72-1486-43ac-a51a-6bbac2b72036","procType":"capped","processors":0.25,"pvmInstanceID":"eaad0f47-2496-4a53-a052-97ccf69102cb","serverName":"test-instance-ibmi-s922-capped-tier1","srcs":[[{"src":"00000000","timestamp":"2022-11-29T22:42:03Z"}]],"status":"ACTIVE","storagePool":"Tier1-Flash-2","storagePoolAffinity":true,"storageType":"tier1","sysType":"s922","updatedDate":"2022-11-29T22:37:23.000Z","virtualCores":{"assigned":1,"max":5,"min":1},"volumeIDs":["5d26e37f-6ee1-4091-85a8-e7f0ea079bca"]}
+      string: '{"addresses":[{"externalIP":"127.0.0.58","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/0ded46e4-031c-4d58-9e5d-b805fac2f3dc/networks/05f5db92-8a16-4359-91fd-c501cc60583a","ip":"127.0.0.186","ipAddress":"127.0.0.186","macAddress":"fa:b9:9f:72:8c:20","networkID":"05f5db92-8a16-4359-91fd-c501cc60583a","networkName":"test-network-pub-vlan","type":"fixed","version":4}],"creationDate":"2022-12-22T22:06:44.000Z","diskSize":120,"health":{"lastUpdate":"2022-12-22T22:15:42.342143","reason":"PENDING","status":"PENDING"},"hostID":1,"imageID":"689a1b67-cb62-43b1-804b-aa89c75c37bd","maxmem":32,"maxproc":8,"memory":4,"migratable":false,"minmem":2,"minproc":1,"networkIDs":["05f5db92-8a16-4359-91fd-c501cc60583a"],"networks":[{"externalIP":"127.0.0.58","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/0ded46e4-031c-4d58-9e5d-b805fac2f3dc/networks/05f5db92-8a16-4359-91fd-c501cc60583a","ip":"127.0.0.186","ipAddress":"127.0.0.186","macAddress":"fa:b9:9f:72:8c:20","networkID":"05f5db92-8a16-4359-91fd-c501cc60583a","networkName":"test-network-pub-vlan","type":"fixed","version":4}],"operatingSystem":"null,","osType":"rhel","pinPolicy":"hard","placementGroup":"8976159e-0e2d-4702-b20c-6b091b654579","procType":"dedicated","processors":1,"pvmInstanceID":"0ded46e4-031c-4d58-9e5d-b805fac2f3dc","serverName":"test-instance-centos-e980-dedicated-tier3","srcs":[],"status":"ACTIVE","storagePool":"Tier3-Flash-2","storagePoolAffinity":true,"storageType":"tier3","sysType":"e980","updatedDate":"2022-12-22T22:06:44.000Z","virtualCores":{"assigned":1,"max":8,"min":1},"volumeIDs":["6f4c2f17-ccd2-45f4-9d40-6ee1d0ad13f7"]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:38 GMT
+  recorded_at: Thu, 22 Dec 2022 22:15:44 GMT
+- request:
+    method: get
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/images/689a1b67-cb62-43b1-804b-aa89c75c37bd
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.1.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '541'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: UTF-8
+      string: '{"creationDate":"2022-03-25T19:32:19.000Z","imageID":"689a1b67-cb62-43b1-804b-aa89c75c37bd","lastUpdateDate":"2022-03-25T20:15:23.000Z","name":"CentOS-Stream-8","servers":[],"size":120,"specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","operatingSystem":"rhel"},"state":"active","storagePool":"Tier3-Flash-2","storageType":"tier3","volumes":[{"bootable":true,"name":"Imported
+        image volume","size":120,"volumeID":"00e2449f-bac1-4ccd-8e38-d90279beefc1"}]}
+
+        '
+    http_version:
+  recorded_at: Thu, 22 Dec 2022 22:15:45 GMT
+- request:
+    method: get
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/16fa8973-afd1-4c08-a1f4-3c4a92d366f9
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.1.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: UTF-8
+      string: '{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16fa8973-afd1-4c08-a1f4-3c4a92d366f9/networks/909861f2-bde0-4e46-8348-054d2f79d9d1","ip":"127.0.0.7","ipAddress":"127.0.0.7","macAddress":"fa:33:88:7e:66:20","networkID":"909861f2-bde0-4e46-8348-054d2f79d9d1","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"consoleLanguage":{"code":"037","language":"037
+        English"},"creationDate":"2022-12-22T22:04:58.000Z","diskSize":100,"health":{"lastUpdate":"2022-12-22T22:15:46.511973","status":"OK"},"hostID":25,"imageID":"295161ee-5c0f-4bf4-8a1b-453fedc677dc","maxmem":16,"maxproc":2,"memory":2,"migratable":false,"minmem":2,"minproc":0.25,"networkIDs":["909861f2-bde0-4e46-8348-054d2f79d9d1"],"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16fa8973-afd1-4c08-a1f4-3c4a92d366f9/networks/909861f2-bde0-4e46-8348-054d2f79d9d1","ip":"127.0.0.7","ipAddress":"127.0.0.7","macAddress":"fa:33:88:7e:66:20","networkID":"909861f2-bde0-4e46-8348-054d2f79d9d1","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"operatingSystem":"V7R5M0
+        1990 0","osType":"ibmi","pinPolicy":"none","placementGroup":"c473adae-82a6-4897-b6dd-6e746f01cb1e","procType":"capped","processors":0.25,"pvmInstanceID":"16fa8973-afd1-4c08-a1f4-3c4a92d366f9","serverName":"test-instance-ibmi-s922-capped-tier1","softwareLicenses":{"ibmiCSS":false,"ibmiDBQ":false,"ibmiPHA":false,"ibmiRDS":false},"srcs":[[{"src":"A6005008","timestamp":"2022-12-22T22:13:21Z"},{"src":"03B00061","timestamp":"2022-12-22T22:13:21Z"},{"src":"FFFF0000","timestamp":"2022-12-22T22:13:21Z"},{"src":"00000000","timestamp":"2022-12-22T22:13:21Z"},{"src":"00000000","timestamp":"2022-12-22T22:13:21Z"},{"src":"50070404","timestamp":"2022-12-22T22:13:21Z"},{"src":"00000000","timestamp":"2022-12-22T22:13:21Z"},{"src":"00000000","timestamp":"2022-12-22T22:13:21Z"},{"src":"00000000","timestamp":"2022-12-22T22:13:21Z"}]],"status":"ACTIVE","storagePool":"Tier1-Flash-2","storagePoolAffinity":true,"storageType":"tier1","sysType":"s922","updatedDate":"2022-12-22T22:04:58.000Z","virtualCores":{"assigned":1,"max":4,"min":1},"volumeIDs":["5be608aa-0f7d-40fa-b6e9-56c87a8ad338"]}
+
+        '
+    http_version:
+  recorded_at: Thu, 22 Dec 2022 22:15:54 GMT
+- request:
+    method: get
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/images/295161ee-5c0f-4bf4-8a1b-453fedc677dc
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.1.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '540'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: UTF-8
+      string: '{"creationDate":"2022-07-25T17:49:28.000Z","imageID":"295161ee-5c0f-4bf4-8a1b-453fedc677dc","lastUpdateDate":"2022-07-25T18:15:20.000Z","name":"IBMi-75-00-2984-1","servers":[],"size":100,"specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"big-endian","hypervisorType":"phyp","operatingSystem":"ibmi"},"state":"active","storagePool":"Tier1-Flash-2","storageType":"tier1","volumes":[{"bootable":true,"name":"Imported
+        image volume","size":100,"volumeID":"24de2f70-8066-40e9-bbec-8d51d442a675"}]}
+
+        '
+    http_version:
+  recorded_at: Thu, 22 Dec 2022 22:15:57 GMT
+- request:
+    method: get
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/01e8b871-bbad-4738-8dc7-6640a6443f8c
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.1.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1626'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: UTF-8
+      string: '{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/01e8b871-bbad-4738-8dc7-6640a6443f8c/networks/b9e283a8-a7b0-4c04-b587-5dc7d784e016","ip":"127.0.0.97","ipAddress":"127.0.0.97","macAddress":"fa:95:fb:61:b8:20","networkID":"b9e283a8-a7b0-4c04-b587-5dc7d784e016","networkName":"test-network-vlan","type":"fixed","version":4}],"creationDate":"2022-12-22T22:03:13.000Z","diskSize":25,"health":{"lastUpdate":"2022-12-22T22:15:58.209414","status":"WARNING"},"hostID":25,"imageID":"ae95cd83-f9af-4b80-aee4-e0ced50b105d","maxmem":16,"maxproc":2,"memory":2,"migratable":false,"minmem":2,"minproc":0.25,"networkIDs":["b9e283a8-a7b0-4c04-b587-5dc7d784e016"],"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/01e8b871-bbad-4738-8dc7-6640a6443f8c/networks/b9e283a8-a7b0-4c04-b587-5dc7d784e016","ip":"127.0.0.97","ipAddress":"127.0.0.97","macAddress":"fa:95:fb:61:b8:20","networkID":"b9e283a8-a7b0-4c04-b587-5dc7d784e016","networkName":"test-network-vlan","type":"fixed","version":4}],"operatingSystem":"AIX
+        7.3, 7300-00-01-2148","osType":"aix","pinPolicy":"none","placementGroup":"none","procType":"shared","processors":0.25,"pvmInstanceID":"01e8b871-bbad-4738-8dc7-6640a6443f8c","serverName":"test-instance-aix-s922-shared-tier1","srcs":[[{"src":"00000000","timestamp":"2022-12-22T22:06:18Z"}]],"status":"ACTIVE","storagePool":"Tier1-Flash-2","storagePoolAffinity":true,"storageType":"tier1","sysType":"s922","updatedDate":"2022-12-22T22:03:13.000Z","virtualCores":{"assigned":1,"max":5,"min":1},"volumeIDs":["0f739a91-4eef-4e64-9810-4ddb7eeefefb"]}
+
+        '
+    http_version:
+  recorded_at: Thu, 22 Dec 2022 22:16:00 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/images/ae95cd83-f9af-4b80-aee4-e0ced50b105d
@@ -625,7 +779,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -655,46 +809,7 @@ http_interactions:
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:40 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/44d3e605-3ef5-43f9-94e4-cdb049964dc9
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '1621'
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"addresses":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/44d3e605-3ef5-43f9-94e4-cdb049964dc9/networks/d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f","ip":"127.0.0.16","ipAddress":"127.0.0.16","macAddress":"fa:b6:84:29:90:20","networkID":"d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f","networkName":"test-network-vlan","type":"fixed","version":4}],"creationDate":"2022-11-29T20:27:57.000Z","diskSize":25,"health":{"lastUpdate":"2022-11-29T23:03:42.969521","status":"OK"},"hostID":18,"imageID":"ae95cd83-f9af-4b80-aee4-e0ced50b105d","maxmem":16,"maxproc":2,"memory":2,"migratable":false,"minmem":2,"minproc":0.25,"networkIDs":["d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f"],"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/44d3e605-3ef5-43f9-94e4-cdb049964dc9/networks/d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f","ip":"127.0.0.16","ipAddress":"127.0.0.16","macAddress":"fa:b6:84:29:90:20","networkID":"d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f","networkName":"test-network-vlan","type":"fixed","version":4}],"operatingSystem":"AIX
-        7.3, 7300-00-01-2148","osType":"aix","pinPolicy":"none","placementGroup":"none","procType":"shared","processors":0.25,"pvmInstanceID":"44d3e605-3ef5-43f9-94e4-cdb049964dc9","serverName":"test-instance-aix-s922-shared-tier1","srcs":[[{"src":"00000000","timestamp":"2022-11-29T20:31:56Z"}]],"status":"ACTIVE","storagePool":"Tier1-Flash-2","storagePoolAffinity":true,"storageType":"tier1","sysType":"s922","updatedDate":"2022-11-29T20:27:57.000Z","virtualCores":{"assigned":1,"max":5,"min":1},"volumeIDs":["65823f32-7032-41e2-990e-ad66b39e5f09"]}
-
-        '
-    http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:44 GMT
+  recorded_at: Thu, 22 Dec 2022 22:16:01 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks
@@ -703,7 +818,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -728,248 +843,20 @@ http_interactions:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/b92c48a3-c96c-4e0a-8dfb-c77862ec77f1","jumbo":true,"name":"test-network-vlan-jumbo","networkID":"b92c48a3-c96c-4e0a-8dfb-c77862ec77f1","type":"vlan","vlanID":1435},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/c1d1374a-e4db-4bc8-922d-7b4634cff93b","jumbo":false,"name":"test-network-pub-vlan-dns","networkID":"c1d1374a-e4db-4bc8-922d-7b4634cff93b","type":"pub-vlan","vlanID":2063},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f","jumbo":false,"name":"test-network-vlan","networkID":"d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f","type":"vlan","vlanID":1434},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/e01c9308-a56c-4217-9efe-d47a1afe98ae","jumbo":false,"name":"test-network-pub-vlan","networkID":"e01c9308-a56c-4217-9efe-d47a1afe98ae","type":"pub-vlan","vlanID":2013}]}
+      string: '{"networks":[{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/05f5db92-8a16-4359-91fd-c501cc60583a","jumbo":false,"name":"test-network-pub-vlan","networkID":"05f5db92-8a16-4359-91fd-c501cc60583a","type":"pub-vlan","vlanID":2019},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/909861f2-bde0-4e46-8348-054d2f79d9d1","jumbo":true,"name":"test-network-vlan-jumbo","networkID":"909861f2-bde0-4e46-8348-054d2f79d9d1","type":"vlan","vlanID":1565},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/b9e283a8-a7b0-4c04-b587-5dc7d784e016","jumbo":false,"name":"test-network-vlan","networkID":"b9e283a8-a7b0-4c04-b587-5dc7d784e016","type":"vlan","vlanID":1564},{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/f7b9bae5-208e-4cbe-a809-117324e82659","jumbo":false,"name":"test-network-pub-vlan-dns","networkID":"f7b9bae5-208e-4cbe-a809-117324e82659","type":"pub-vlan","vlanID":2020}]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:45 GMT
+  recorded_at: Thu, 22 Dec 2022 22:16:01 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/b92c48a3-c96c-4e0a-8dfb-c77862ec77f1
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/05f5db92-8a16-4359-91fd-c501cc60583a
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '419'
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"cidr":"127.0.0.0/25","dnsServers":["127.0.0.1"],"gateway":"127.0.0.16","ipAddressMetrics":{"available":123,"total":125,"used":2,"utilization":1},"ipAddressRanges":[{"endingIPAddress":"127.0.0.15","startingIPAddress":"127.0.0.1"},{"endingIPAddress":"127.0.0.126","startingIPAddress":"127.0.0.17"}],"jumbo":true,"name":"test-network-vlan-jumbo","networkID":"b92c48a3-c96c-4e0a-8dfb-c77862ec77f1","type":"vlan","vlanID":1435}
-
-        '
-    http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:45 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/b92c48a3-c96c-4e0a-8dfb-c77862ec77f1/ports
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '993'
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"ports":[{"description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/b92c48a3-c96c-4e0a-8dfb-c77862ec77f1/ports/b7bc9377-7212-4c7c-a2f4-db1979653b6a","ipAddress":"127.0.0.11","macAddress":"fa:57:bc:db:dd:20","portID":"b7bc9377-7212-4c7c-a2f4-db1979653b6a","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/cabd0aa0-0d21-467d-b2f1-27160d0e9a3a","pvmInstanceID":"cabd0aa0-0d21-467d-b2f1-27160d0e9a3a"},"status":"ACTIVE"},{"description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/b92c48a3-c96c-4e0a-8dfb-c77862ec77f1/ports/c1c9aeb4-cd6c-426a-8c4b-7534e00a0bf0","ipAddress":"127.0.0.7","macAddress":"fa:92:75:17:8b:20","portID":"c1c9aeb4-cd6c-426a-8c4b-7534e00a0bf0","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/eaad0f47-2496-4a53-a052-97ccf69102cb","pvmInstanceID":"eaad0f47-2496-4a53-a052-97ccf69102cb"},"status":"ACTIVE"}]}
-
-        '
-    http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:46 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/c1d1374a-e4db-4bc8-922d-7b4634cff93b
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '478'
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"cidr":"127.0.0.24/29","dnsServers":["127.0.0.9"],"gateway":"127.0.0.25","ipAddressMetrics":{"available":3,"total":5,"used":2,"utilization":40},"ipAddressRanges":[{"endingIPAddress":"127.0.0.30","startingIPAddress":"127.0.0.26"}],"jumbo":false,"name":"test-network-pub-vlan-dns","networkID":"c1d1374a-e4db-4bc8-922d-7b4634cff93b","publicIPAddressRanges":[{"endingIPAddress":"127.0.0.158","startingIPAddress":"127.0.0.154"}],"type":"pub-vlan","vlanID":2063}
-
-        '
-    http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:46 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/c1d1374a-e4db-4bc8-922d-7b4634cff93b/ports
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '1064'
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"ports":[{"description":"","externalIP":"127.0.0.154","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/c1d1374a-e4db-4bc8-922d-7b4634cff93b/ports/3ea3701e-92bc-431b-bb83-1883d4dbf392","ipAddress":"127.0.0.26","macAddress":"fa:57:bc:db:dd:21","portID":"3ea3701e-92bc-431b-bb83-1883d4dbf392","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/cabd0aa0-0d21-467d-b2f1-27160d0e9a3a","pvmInstanceID":"cabd0aa0-0d21-467d-b2f1-27160d0e9a3a"},"status":"ACTIVE"},{"description":"","externalIP":"127.0.0.157","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/c1d1374a-e4db-4bc8-922d-7b4634cff93b/ports/1aeefc97-0467-4de3-bafb-89741b17f322","ipAddress":"127.0.0.29","macAddress":"fa:7c:65:d8:46:20","portID":"1aeefc97-0467-4de3-bafb-89741b17f322","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/bf19fb66-5961-48e2-aba8-fc256a6591df","pvmInstanceID":"bf19fb66-5961-48e2-aba8-fc256a6591df"},"status":"ACTIVE"}]}
-
-        '
-    http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:47 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '349'
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"cidr":"127.0.0.0/24","dnsServers":["127.0.0.1"],"gateway":"127.0.0.1","ipAddressMetrics":{"available":251,"total":253,"used":2,"utilization":0},"ipAddressRanges":[{"endingIPAddress":"127.0.0.254","startingIPAddress":"127.0.0.2"}],"jumbo":false,"name":"test-network-vlan","networkID":"d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f","type":"vlan","vlanID":1434}
-
-        '
-    http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:48 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f/ports
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '993'
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"ports":[{"description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f/ports/cded5708-629d-44d2-817e-d2e5924b4df5","ipAddress":"127.0.0.5","macAddress":"fa:a4:36:0b:6f:20","portID":"cded5708-629d-44d2-817e-d2e5924b4df5","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a","pvmInstanceID":"1c8a7932-9db8-4e7c-9794-8ba40f1c852a"},"status":"ACTIVE"},{"description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/d2ddc09d-994a-41c9-a2f8-fb5d56c95a2f/ports/b7a65f8c-345c-495d-8801-369ec99d02f1","ipAddress":"127.0.0.16","macAddress":"fa:b6:84:29:90:20","portID":"b7a65f8c-345c-495d-8801-369ec99d02f1","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/44d3e605-3ef5-43f9-94e4-cdb049964dc9","pvmInstanceID":"44d3e605-3ef5-43f9-94e4-cdb049964dc9"},"status":"ACTIVE"}]}
-
-        '
-    http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:48 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/e01c9308-a56c-4217-9efe-d47a1afe98ae
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -994,20 +881,20 @@ http_interactions:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"cidr":"127.0.0.136/29","dnsServers":["127.0.0.9"],"gateway":"127.0.0.137","ipAddressMetrics":{"available":3,"total":5,"used":2,"utilization":40},"ipAddressRanges":[{"endingIPAddress":"127.0.0.142","startingIPAddress":"127.0.0.138"}],"jumbo":false,"name":"test-network-pub-vlan","networkID":"e01c9308-a56c-4217-9efe-d47a1afe98ae","publicIPAddressRanges":[{"endingIPAddress":"127.0.0.14","startingIPAddress":"127.0.0.10"}],"type":"pub-vlan","vlanID":2013}
+      string: '{"cidr":"127.0.0.184/29","dnsServers":["127.0.0.9"],"gateway":"127.0.0.185","ipAddressMetrics":{"available":3,"total":5,"used":2,"utilization":40},"ipAddressRanges":[{"endingIPAddress":"127.0.0.190","startingIPAddress":"127.0.0.186"}],"jumbo":false,"name":"test-network-pub-vlan","networkID":"05f5db92-8a16-4359-91fd-c501cc60583a","publicIPAddressRanges":[{"endingIPAddress":"127.0.0.62","startingIPAddress":"127.0.0.58"}],"type":"pub-vlan","vlanID":2019}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:49 GMT
+  recorded_at: Thu, 22 Dec 2022 22:16:02 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/e01c9308-a56c-4217-9efe-d47a1afe98ae/ports
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/05f5db92-8a16-4359-91fd-c501cc60583a/ports
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -1032,11 +919,239 @@ http_interactions:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"ports":[{"description":"","externalIP":"127.0.0.10","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/e01c9308-a56c-4217-9efe-d47a1afe98ae/ports/2f7969cb-bce6-4cee-a518-e07d9c8378d4","ipAddress":"127.0.0.138","macAddress":"fa:a4:36:0b:6f:21","portID":"2f7969cb-bce6-4cee-a518-e07d9c8378d4","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/1c8a7932-9db8-4e7c-9794-8ba40f1c852a","pvmInstanceID":"1c8a7932-9db8-4e7c-9794-8ba40f1c852a"},"status":"ACTIVE"},{"description":"","externalIP":"127.0.0.13","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/e01c9308-a56c-4217-9efe-d47a1afe98ae/ports/dac3a2a6-8f13-4230-bd76-db9594ef9410","ipAddress":"127.0.0.141","macAddress":"fa:f0:fd:3a:07:20","portID":"dac3a2a6-8f13-4230-bd76-db9594ef9410","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/93b3683d-4686-4d36-9185-2ca3b7d5bc56","pvmInstanceID":"93b3683d-4686-4d36-9185-2ca3b7d5bc56"},"status":"ACTIVE"}]}
+      string: '{"ports":[{"description":"","externalIP":"127.0.0.60","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/05f5db92-8a16-4359-91fd-c501cc60583a/ports/294bef11-67a9-445c-8de2-9e6ffa5710b9","ipAddress":"127.0.0.188","macAddress":"fa:06:2f:e6:86:21","portID":"294bef11-67a9-445c-8de2-9e6ffa5710b9","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c","pvmInstanceID":"16ee2ce7-61b7-4890-89f7-e9fec7f4f73c"},"status":"ACTIVE"},{"description":"","externalIP":"127.0.0.58","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/05f5db92-8a16-4359-91fd-c501cc60583a/ports/8ee5c745-4451-4974-ba6b-93b1aae69799","ipAddress":"127.0.0.186","macAddress":"fa:b9:9f:72:8c:20","portID":"8ee5c745-4451-4974-ba6b-93b1aae69799","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/0ded46e4-031c-4d58-9e5d-b805fac2f3dc","pvmInstanceID":"0ded46e4-031c-4d58-9e5d-b805fac2f3dc"},"status":"ACTIVE"}]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:50 GMT
+  recorded_at: Thu, 22 Dec 2022 22:16:02 GMT
+- request:
+    method: get
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/909861f2-bde0-4e46-8348-054d2f79d9d1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.1.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '419'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: UTF-8
+      string: '{"cidr":"127.0.0.0/25","dnsServers":["127.0.0.1"],"gateway":"127.0.0.16","ipAddressMetrics":{"available":123,"total":125,"used":2,"utilization":1},"ipAddressRanges":[{"endingIPAddress":"127.0.0.126","startingIPAddress":"127.0.0.17"},{"endingIPAddress":"127.0.0.15","startingIPAddress":"127.0.0.1"}],"jumbo":true,"name":"test-network-vlan-jumbo","networkID":"909861f2-bde0-4e46-8348-054d2f79d9d1","type":"vlan","vlanID":1565}
+
+        '
+    http_version:
+  recorded_at: Thu, 22 Dec 2022 22:16:03 GMT
+- request:
+    method: get
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/909861f2-bde0-4e46-8348-054d2f79d9d1/ports
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.1.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '992'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: UTF-8
+      string: '{"ports":[{"description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/909861f2-bde0-4e46-8348-054d2f79d9d1/ports/e80ebefc-d2cc-48f1-aca3-9811ac386acf","ipAddress":"127.0.0.7","macAddress":"fa:33:88:7e:66:20","portID":"e80ebefc-d2cc-48f1-aca3-9811ac386acf","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16fa8973-afd1-4c08-a1f4-3c4a92d366f9","pvmInstanceID":"16fa8973-afd1-4c08-a1f4-3c4a92d366f9"},"status":"ACTIVE"},{"description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/909861f2-bde0-4e46-8348-054d2f79d9d1/ports/667eb610-7f72-4817-b209-c87a916c0dc2","ipAddress":"127.0.0.1","macAddress":"fa:8e:db:be:7a:20","portID":"667eb610-7f72-4817-b209-c87a916c0dc2","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c","pvmInstanceID":"5a15e14e-6d17-4dff-aad6-3175c2d6bd0c"},"status":"ACTIVE"}]}
+
+        '
+    http_version:
+  recorded_at: Thu, 22 Dec 2022 22:16:03 GMT
+- request:
+    method: get
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/b9e283a8-a7b0-4c04-b587-5dc7d784e016
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.1.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '349'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: UTF-8
+      string: '{"cidr":"127.0.0.0/24","dnsServers":["127.0.0.1"],"gateway":"127.0.0.1","ipAddressMetrics":{"available":251,"total":253,"used":2,"utilization":0},"ipAddressRanges":[{"endingIPAddress":"127.0.0.254","startingIPAddress":"127.0.0.2"}],"jumbo":false,"name":"test-network-vlan","networkID":"b9e283a8-a7b0-4c04-b587-5dc7d784e016","type":"vlan","vlanID":1564}
+
+        '
+    http_version:
+  recorded_at: Thu, 22 Dec 2022 22:16:05 GMT
+- request:
+    method: get
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/b9e283a8-a7b0-4c04-b587-5dc7d784e016/ports
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.1.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '994'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: UTF-8
+      string: '{"ports":[{"description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/b9e283a8-a7b0-4c04-b587-5dc7d784e016/ports/ebdf4d5a-1800-48fa-9ee0-124cedb25e68","ipAddress":"127.0.0.91","macAddress":"fa:06:2f:e6:86:20","portID":"ebdf4d5a-1800-48fa-9ee0-124cedb25e68","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/16ee2ce7-61b7-4890-89f7-e9fec7f4f73c","pvmInstanceID":"16ee2ce7-61b7-4890-89f7-e9fec7f4f73c"},"status":"ACTIVE"},{"description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/b9e283a8-a7b0-4c04-b587-5dc7d784e016/ports/c8098c65-8de8-42df-8a6a-bd448b773939","ipAddress":"127.0.0.97","macAddress":"fa:95:fb:61:b8:20","portID":"c8098c65-8de8-42df-8a6a-bd448b773939","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/01e8b871-bbad-4738-8dc7-6640a6443f8c","pvmInstanceID":"01e8b871-bbad-4738-8dc7-6640a6443f8c"},"status":"ACTIVE"}]}
+
+        '
+    http_version:
+  recorded_at: Thu, 22 Dec 2022 22:16:05 GMT
+- request:
+    method: get
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/f7b9bae5-208e-4cbe-a809-117324e82659
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.1.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '480'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: UTF-8
+      string: '{"cidr":"127.0.0.192/29","dnsServers":["127.0.0.9"],"gateway":"127.0.0.193","ipAddressMetrics":{"available":3,"total":5,"used":2,"utilization":40},"ipAddressRanges":[{"endingIPAddress":"127.0.0.198","startingIPAddress":"127.0.0.194"}],"jumbo":false,"name":"test-network-pub-vlan-dns","networkID":"f7b9bae5-208e-4cbe-a809-117324e82659","publicIPAddressRanges":[{"endingIPAddress":"127.0.0.70","startingIPAddress":"127.0.0.66"}],"type":"pub-vlan","vlanID":2020}
+
+        '
+    http_version:
+  recorded_at: Thu, 22 Dec 2022 22:16:06 GMT
+- request:
+    method: get
+    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/networks/f7b9bae5-208e-4cbe-a809-117324e82659/ports
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/2.1.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1064'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: UTF-8
+      string: '{"ports":[{"description":"","externalIP":"127.0.0.66","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/f7b9bae5-208e-4cbe-a809-117324e82659/ports/be8be2c1-9466-4758-b351-e9b4a26f81cd","ipAddress":"127.0.0.194","macAddress":"fa:8e:db:be:7a:21","portID":"be8be2c1-9466-4758-b351-e9b4a26f81cd","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/5a15e14e-6d17-4dff-aad6-3175c2d6bd0c","pvmInstanceID":"5a15e14e-6d17-4dff-aad6-3175c2d6bd0c"},"status":"ACTIVE"},{"description":"","externalIP":"127.0.0.68","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/networks/f7b9bae5-208e-4cbe-a809-117324e82659/ports/07dfd42d-641d-443f-9f5d-c165cdf96bff","ipAddress":"127.0.0.196","macAddress":"fa:d8:1f:e9:c7:20","portID":"07dfd42d-641d-443f-9f5d-c165cdf96bff","pvmInstance":{"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/pvm-instances/78860da9-44bc-4c3c-b776-90981d5d18f3","pvmInstanceID":"78860da9-44bc-4c3c-b776-90981d5d18f3"},"status":"ACTIVE"}]}
+
+        '
+    http_version:
+  recorded_at: Thu, 22 Dec 2022 22:16:06 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/tenants/1fdf5effc3f945688c021cd0a8b45c4d
@@ -1045,7 +1160,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -1068,7 +1183,7 @@ http_interactions:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"cloudInstances":[{"capabilities":[],"cloudInstanceID":"038e679b1236442199fd67b02763e1a6","enabled":true,"href":"/pcloud/v1/cloud-instances/038e679b1236442199fd67b02763e1a6","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"4c169987-045b-4db6-a730-21ba08523275","region":"mon01"},{"capabilities":[],"cloudInstanceID":"1e2141a3a00f4ea09cb29ed55d090421","enabled":true,"href":"/pcloud/v1/cloud-instances/1e2141a3a00f4ea09cb29ed55d090421","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"97ce8888-250f-413c-9034-3131bce331f8","region":"mon01"},{"capabilities":[],"cloudInstanceID":"27bd47439b634f209fddb7bb6f0cfaee","enabled":true,"href":"/pcloud/v1/cloud-instances/27bd47439b634f209fddb7bb6f0cfaee","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"64c1046c-9f8e-4ea3-a998-73731468c6ef","region":"mon01"},{"capabilities":[],"cloudInstanceID":"323a5df0f79146fa83bc470d9d6d83b4","enabled":true,"href":"/pcloud/v1/cloud-instances/323a5df0f79146fa83bc470d9d6d83b4","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"6aaf801e-6674-454e-ab77-646c28c0aaee","region":"lon06"},{"capabilities":[],"cloudInstanceID":"367781069c3f41a2a33af29e3daf43d5","enabled":true,"href":"/pcloud/v1/cloud-instances/367781069c3f41a2a33af29e3daf43d5","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"5a2f84d3-ee77-4c16-b554-f99fbccdb419","region":"tor01"},{"capabilities":[],"cloudInstanceID":"4361d240c3b54582876849a1e0d51c48","enabled":true,"href":"/pcloud/v1/cloud-instances/4361d240c3b54582876849a1e0d51c48","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"d83592cf-c86e-47a3-a470-749d564de104","region":"tor01"},{"capabilities":[],"cloudInstanceID":"5818fde64f5d409b906226c5c0c27654","enabled":true,"href":"/pcloud/v1/cloud-instances/5818fde64f5d409b906226c5c0c27654","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"3ea904f1-67df-4ae0-960f-e13ffa469f12","region":"sao01"},{"capabilities":[],"cloudInstanceID":"5ca792d77faa47b9a43c7cbb7258828d","enabled":true,"href":"/pcloud/v1/cloud-instances/5ca792d77faa47b9a43c7cbb7258828d","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"2ecd5951-eb56-4a79-9e7a-c72765115dd0","region":"lon06"},{"capabilities":[],"cloudInstanceID":"60dd8ebe0aef4beca1efd210cd0174e4","enabled":true,"href":"/pcloud/v1/cloud-instances/60dd8ebe0aef4beca1efd210cd0174e4","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"37fda19e-c1fd-4a29-9a7c-7d16b7eac73a","region":"sao01"},{"capabilities":[],"cloudInstanceID":"616d723acd01463bbe71a293be63d88f","enabled":true,"href":"/pcloud/v1/cloud-instances/616d723acd01463bbe71a293be63d88f","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"c507194a-4bc8-4cc7-9d55-aac47c17ba06","region":"syd05"},{"capabilities":[],"cloudInstanceID":"633f13eef34344a2b1370ba98643bbf3","enabled":true,"href":"/pcloud/v1/cloud-instances/633f13eef34344a2b1370ba98643bbf3","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"df3fea77-b9b6-4d48-b29c-9b5146c055ab","region":"mon01"},{"capabilities":[],"cloudInstanceID":"64538eac23f64802850102654092ac82","enabled":true,"href":"/pcloud/v1/cloud-instances/64538eac23f64802850102654092ac82","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"851f82c2-034c-4c32-9764-94262d245a50","region":"mon01"},{"capabilities":[],"cloudInstanceID":"64c6cfbd9ddd49758a6e83afdcec83e9","enabled":true,"href":"/pcloud/v1/cloud-instances/64c6cfbd9ddd49758a6e83afdcec83e9","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"4ee5f231-5e89-44d1-ba57-69796d222853","region":"mon01"},{"capabilities":[],"cloudInstanceID":"8b77ae6ff945452d85e52447a3bfb41c","enabled":true,"href":"/pcloud/v1/cloud-instances/8b77ae6ff945452d85e52447a3bfb41c","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"d68da88c-0624-44c5-a19b-8bc2df909e90","region":"syd04"},{"capabilities":[],"cloudInstanceID":"914b05caac05408694e562586a65478b","enabled":true,"href":"/pcloud/v1/cloud-instances/914b05caac05408694e562586a65478b","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"b9db6009-30fc-4718-98cb-16ba6fd37b82","region":"mon01"},{"capabilities":[],"cloudInstanceID":"bae447da7f224b548f594a8b39e8ae5e","enabled":true,"href":"/pcloud/v1/cloud-instances/bae447da7f224b548f594a8b39e8ae5e","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"dd5eb91d-dda9-4caf-b2b3-1087f9728f25","region":"mon01"},{"capabilities":[],"cloudInstanceID":"bd9dde6d07494018b6211b5066d92d9f","enabled":true,"href":"/pcloud/v1/cloud-instances/bd9dde6d07494018b6211b5066d92d9f","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"b7f1637d-96fe-46f0-9895-ce305d6e3865","region":"mon01"},{"capabilities":[],"cloudInstanceID":"c8d0ac7c30c944f0ac3288eb8bb74aaa","enabled":true,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"IBM_CLOUD_POWERVS_INSTANCE_ID","region":"mon01"},{"capabilities":[],"cloudInstanceID":"d88366450dff4149ba5032fc7058d9ea","enabled":true,"href":"/pcloud/v1/cloud-instances/d88366450dff4149ba5032fc7058d9ea","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"2f700624-6396-4ed7-b7c1-ae1533b8717f","region":"syd04"},{"capabilities":[],"cloudInstanceID":"dd39bb389d9e4eddb3d4434d9db029aa","enabled":true,"href":"/pcloud/v1/cloud-instances/dd39bb389d9e4eddb3d4434d9db029aa","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"9e671060-3902-4eab-ab6f-10b64f354c1c","region":"mon01"},{"capabilities":[],"cloudInstanceID":"e75edc3d6b6348698960ec9a5d4e79e5","enabled":true,"href":"/pcloud/v1/cloud-instances/e75edc3d6b6348698960ec9a5d4e79e5","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"4587b311-5930-47fa-9e79-61296f714a06","region":"tok04"},{"capabilities":[],"cloudInstanceID":"e9f4c3fad00c4b20b3e4ede7133a80ba","enabled":true,"href":"/pcloud/v1/cloud-instances/e9f4c3fad00c4b20b3e4ede7133a80ba","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"d0764634-2578-4d7d-a9a6-389dc8a7dca9","region":"osa21"}],"creationDate":"2019-06-17T13:00:30.592Z","enabled":true,"sshKeys":[{"creationDate":"2021-01-19T13:24:14.835Z","name":"jwcroppe-mac","sshKey":"ssh-rsa
+      string: '{"cloudInstances":[{"capabilities":[],"cloudInstanceID":"038e679b1236442199fd67b02763e1a6","enabled":true,"href":"/pcloud/v1/cloud-instances/038e679b1236442199fd67b02763e1a6","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"4c169987-045b-4db6-a730-21ba08523275","region":"mon01"},{"capabilities":[],"cloudInstanceID":"1e2141a3a00f4ea09cb29ed55d090421","enabled":true,"href":"/pcloud/v1/cloud-instances/1e2141a3a00f4ea09cb29ed55d090421","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"97ce8888-250f-413c-9034-3131bce331f8","region":"mon01"},{"capabilities":[],"cloudInstanceID":"323a5df0f79146fa83bc470d9d6d83b4","enabled":true,"href":"/pcloud/v1/cloud-instances/323a5df0f79146fa83bc470d9d6d83b4","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"6aaf801e-6674-454e-ab77-646c28c0aaee","region":"lon06"},{"capabilities":[],"cloudInstanceID":"367781069c3f41a2a33af29e3daf43d5","enabled":true,"href":"/pcloud/v1/cloud-instances/367781069c3f41a2a33af29e3daf43d5","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"5a2f84d3-ee77-4c16-b554-f99fbccdb419","region":"tor01"},{"capabilities":[],"cloudInstanceID":"4361d240c3b54582876849a1e0d51c48","enabled":true,"href":"/pcloud/v1/cloud-instances/4361d240c3b54582876849a1e0d51c48","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"d83592cf-c86e-47a3-a470-749d564de104","region":"tor01"},{"capabilities":[],"cloudInstanceID":"5818fde64f5d409b906226c5c0c27654","enabled":true,"href":"/pcloud/v1/cloud-instances/5818fde64f5d409b906226c5c0c27654","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"3ea904f1-67df-4ae0-960f-e13ffa469f12","region":"sao01"},{"capabilities":[],"cloudInstanceID":"5ca792d77faa47b9a43c7cbb7258828d","enabled":true,"href":"/pcloud/v1/cloud-instances/5ca792d77faa47b9a43c7cbb7258828d","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"2ecd5951-eb56-4a79-9e7a-c72765115dd0","region":"lon06"},{"capabilities":[],"cloudInstanceID":"60dd8ebe0aef4beca1efd210cd0174e4","enabled":true,"href":"/pcloud/v1/cloud-instances/60dd8ebe0aef4beca1efd210cd0174e4","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"37fda19e-c1fd-4a29-9a7c-7d16b7eac73a","region":"sao01"},{"capabilities":[],"cloudInstanceID":"616d723acd01463bbe71a293be63d88f","enabled":true,"href":"/pcloud/v1/cloud-instances/616d723acd01463bbe71a293be63d88f","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"c507194a-4bc8-4cc7-9d55-aac47c17ba06","region":"syd05"},{"capabilities":[],"cloudInstanceID":"633f13eef34344a2b1370ba98643bbf3","enabled":true,"href":"/pcloud/v1/cloud-instances/633f13eef34344a2b1370ba98643bbf3","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"df3fea77-b9b6-4d48-b29c-9b5146c055ab","region":"mon01"},{"capabilities":[],"cloudInstanceID":"64538eac23f64802850102654092ac82","enabled":true,"href":"/pcloud/v1/cloud-instances/64538eac23f64802850102654092ac82","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"851f82c2-034c-4c32-9764-94262d245a50","region":"mon01"},{"capabilities":[],"cloudInstanceID":"64c6cfbd9ddd49758a6e83afdcec83e9","enabled":true,"href":"/pcloud/v1/cloud-instances/64c6cfbd9ddd49758a6e83afdcec83e9","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"4ee5f231-5e89-44d1-ba57-69796d222853","region":"mon01"},{"capabilities":[],"cloudInstanceID":"8b77ae6ff945452d85e52447a3bfb41c","enabled":true,"href":"/pcloud/v1/cloud-instances/8b77ae6ff945452d85e52447a3bfb41c","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"d68da88c-0624-44c5-a19b-8bc2df909e90","region":"syd04"},{"capabilities":[],"cloudInstanceID":"914b05caac05408694e562586a65478b","enabled":true,"href":"/pcloud/v1/cloud-instances/914b05caac05408694e562586a65478b","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"b9db6009-30fc-4718-98cb-16ba6fd37b82","region":"mon01"},{"capabilities":[],"cloudInstanceID":"bd9dde6d07494018b6211b5066d92d9f","enabled":true,"href":"/pcloud/v1/cloud-instances/bd9dde6d07494018b6211b5066d92d9f","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"b7f1637d-96fe-46f0-9895-ce305d6e3865","region":"mon01"},{"capabilities":[],"cloudInstanceID":"c8d0ac7c30c944f0ac3288eb8bb74aaa","enabled":true,"href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"IBM_CLOUD_POWERVS_INSTANCE_ID","region":"mon01"},{"capabilities":[],"cloudInstanceID":"d68aaa94c25d44b09c8f325aab92a498","enabled":true,"href":"/pcloud/v1/cloud-instances/d68aaa94c25d44b09c8f325aab92a498","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"952f1b8e-2fd3-43b6-ba7e-6e4439d258bd","region":"mon01"},{"capabilities":[],"cloudInstanceID":"d88366450dff4149ba5032fc7058d9ea","enabled":true,"href":"/pcloud/v1/cloud-instances/d88366450dff4149ba5032fc7058d9ea","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"2f700624-6396-4ed7-b7c1-ae1533b8717f","region":"syd04"},{"capabilities":[],"cloudInstanceID":"dd39bb389d9e4eddb3d4434d9db029aa","enabled":true,"href":"/pcloud/v1/cloud-instances/dd39bb389d9e4eddb3d4434d9db029aa","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"9e671060-3902-4eab-ab6f-10b64f354c1c","region":"mon01"},{"capabilities":[],"cloudInstanceID":"e75edc3d6b6348698960ec9a5d4e79e5","enabled":true,"href":"/pcloud/v1/cloud-instances/e75edc3d6b6348698960ec9a5d4e79e5","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"4587b311-5930-47fa-9e79-61296f714a06","region":"tok04"},{"capabilities":[],"cloudInstanceID":"e9f4c3fad00c4b20b3e4ede7133a80ba","enabled":true,"href":"/pcloud/v1/cloud-instances/e9f4c3fad00c4b20b3e4ede7133a80ba","initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"d0764634-2578-4d7d-a9a6-389dc8a7dca9","region":"osa21"}],"creationDate":"2019-06-17T13:00:30.592Z","enabled":true,"sshKeys":[{"creationDate":"2021-01-19T13:24:14.835Z","name":"jwcroppe-mac","sshKey":"ssh-rsa
         AAAAB3NzaC1yc2EAAAADAQABAAABAQDCv9DfTRHiHFqQMB+qNX0d9TyIP7TowEK2WWYrOLJPG7EJVyoTitXc/3Y5+/MLj28fyn52d9Ut+WZErjBMTlF30d180yVXlB2Gv6RztufC7sbSNM8w20E/DIHPVJS3E8fuIPft91T0HFH6OC+8YH/W72PSTraLFDVTq1U57338TdEexCmzFz2ABJ4Dzza1k9mHA372P1SQ8CgR9ipHXPE32Fvn2T8+3kDDhDdxpfkwxgX4p1JI9gfn2VMui8NsEhSetEQ5KuLtgNwC7S7DaOzgNsreJmWIiur9/ceCTHXZlMVS//tWcwrrvikXXn5cJhO+TJpcE88L0txiJG9KoI0/
         jwcroppe@jwcroppe-mac"},{"creationDate":"2021-02-09T15:08:56.001Z","name":"dbergami","sshKey":"ssh-rsa
         AAAAB3NzaC1yc2EAAAADAQABAAABgQCsKlWfOFVAnCW1uRExKJ91WT9B3ikdx8ZWA6cVFT3z2ApbqtA0ZnDP5odAxaIxDw7pX9UBMurNgJkAujwymG2DcWxBui+MXnlO1p8J5veGsWz6xktRmAHoY2G2MNAP877ww1QkBWkewrJf/Js018JKkOQE2Cnrb3rcpzPmgeXDfaZzAK13OhbZOv6gZGvuNcZ4Z2bMSTDEQoJ5P2tH6NONxDQSo5O98gtjp3CcxJv6Rh6Bmb3RmgF+uNOPp6fHWoeflPvg9DZCKTMj7pVGPKib7tlnKrWmgD16/Ce51YkF05YnUN/V3ti7SI9weCbgM3AUHH3EfEdP2IrpqxyLmkPA1dgiBrxX0ymy75196I2bGCuuLnxmJLYv3794PBjRo4A2Woe7tMjpb5KNajUlrOGkqWSkv2nV74LhajadPdpZc+vQ+o6su7Mma5UrhtZxoMRFFgygjf71naSjoQYFvULidUy3FD2Zhosjrlc7lH3x81zSwWdtMvSn09J2o8N6R9c=
@@ -1428,20 +1543,26 @@ http_interactions:
         AAAAB3NzaC1yc2EAAAADAQABAAACAQC4hW5cTmFKH3kxr4KhfDB5b99Mn8AmlHT05i1+Cp/hHYTkwdTxfnB8/1Ik1FTLGVn07M5cK1x/Cqce8LAcaQODZanWIZKTIN6JsekKc8bc4mMbVK1W09M0o5+42V880OeKlGl+bWPq4dSW50bTpdr0vwSgMEbBexA21hXdX1E036bfUHbJJwMDSzWNix5qQ2lW8zB0Iz3yocucjgiL8ffeVsAQ7kST4MBqpxIMfShzIggoRwDc6i73t294/oH39wmredyaAXPePTAd9kf9QC3mV2MQiZiRKGz54xP7V9mIGY3hBFh6ubJGPilQ0LjAzefaFn3sFx/cvV6HuJgrIvAlLW7rkRxRFTsHw7wFvdlDZc7bFZCMUKlGAJghkJscYYE7sFuUopdLeWw0TxymVZ88RakOdseugQwZVM/mT47qMfSoRwc4M/ezT8810xrNKHAZn3+1CjklW29mHuVVR+j0ITrT66DFUm32oj/63jaDIiVvxEitNBwSyi3FMUuSB5cy45gvgd0YArsPGFK5z4HDJgy8962v1tnWwsQv0SAsnGHsdP2vMV5fjuc4ESrEMAP2ZwOHWKLRJgy3x4TJLgorrFj8zS+sg0/nAom6d/u0knXs+Dn6+KDPe7Zr1edQSINyy7kniWEB+9/IVHj+h7lLljLf8bnzYpLbgxmHlzpsXw==
         aliza.peikes@ibm.com\n"},{"creationDate":"2022-11-16T19:41:47.547Z","name":"power-ocp-3672-mon01-keypair","sshKey":"ssh-rsa
         AAAAB3NzaC1yc2EAAAADAQABAAACAQC4hW5cTmFKH3kxr4KhfDB5b99Mn8AmlHT05i1+Cp/hHYTkwdTxfnB8/1Ik1FTLGVn07M5cK1x/Cqce8LAcaQODZanWIZKTIN6JsekKc8bc4mMbVK1W09M0o5+42V880OeKlGl+bWPq4dSW50bTpdr0vwSgMEbBexA21hXdX1E036bfUHbJJwMDSzWNix5qQ2lW8zB0Iz3yocucjgiL8ffeVsAQ7kST4MBqpxIMfShzIggoRwDc6i73t294/oH39wmredyaAXPePTAd9kf9QC3mV2MQiZiRKGz54xP7V9mIGY3hBFh6ubJGPilQ0LjAzefaFn3sFx/cvV6HuJgrIvAlLW7rkRxRFTsHw7wFvdlDZc7bFZCMUKlGAJghkJscYYE7sFuUopdLeWw0TxymVZ88RakOdseugQwZVM/mT47qMfSoRwc4M/ezT8810xrNKHAZn3+1CjklW29mHuVVR+j0ITrT66DFUm32oj/63jaDIiVvxEitNBwSyi3FMUuSB5cy45gvgd0YArsPGFK5z4HDJgy8962v1tnWwsQv0SAsnGHsdP2vMV5fjuc4ESrEMAP2ZwOHWKLRJgy3x4TJLgorrFj8zS+sg0/nAom6d/u0knXs+Dn6+KDPe7Zr1edQSINyy7kniWEB+9/IVHj+h7lLljLf8bnzYpLbgxmHlzpsXw==
-        aliza.peikes@ibm.com\n"},{"creationDate":"2022-11-18T15:44:05.491Z","name":"rdr-acm-demo-mon01-keypair","sshKey":"ssh-rsa
+        aliza.peikes@ibm.com\n"},{"creationDate":"2022-12-02T22:16:17.888Z","name":"rdr-instana-autotrace-mon01-keypair","sshKey":"ssh-rsa
+        AAAAB3NzaC1yc2EAAAADAQABAAABgQC5M/BmAkj1IW+kX6lJmua0+wo44mVP/as8TarResht3/vKaZh0k8/8jd4eujAwT59o2Xmk5QYdeYnlgzcwojgpMWu00P7TAeNQDJwSeRmbkQMnB68gXFSXyJoziyla5l1/q7Kz55wqvCQ2JccWAuC51zl+J1f+1j46cui0QWWnewduXn5hgvqFrZ18jUyiimZSIHyvKzUkM3NxijMVlbajqgm6Z7FyzKZOKK84sw2cxM39iuZsMveJt5U3ErHTmJn/tPD90Lidv2HddbGl5nWkt7vhaynj3JTSgKJqaB+TZ/lqmiNqPjjQuLs7EFFINf5d0DgP6GCZw2U73XlxAVW+DIPAizePlHVBfiZy0HEY9ZvGZvX5/kugpCjk9/CtSpCUU6N8gCoAuSZKdakMHRqufjcHTFuAHx6meHczffRFVxO1AjJV5YDWMDyJTAK7Wp3ViB/PJGAY7VqpFzrDEAKf0FZY0S2FjfYRmnr94GylgJQiSFa7Vs1tGTR8M9HdKD8=
+        jwcarman@li-a36b264c-2e6f-11b2-a85c-fdfb37238350.ibm.com\n"},{"creationDate":"2022-12-08T08:52:54.766Z","name":"rdr-acm-niharika-412-mon01-keypair","sshKey":"ssh-rsa
+        AAAAB3NzaC1yc2EAAAADAQABAAABgQC98MZwFNhuf/wcCcoQTdUEE81RsFAJG8ibKVxV2nvjlSaLj+I9Gz0k9qEAbT82RcgH2jt/1DETGZRi/+HFCCyEy9NVPtaQKdzQVUaeKpbtJztI/dxvETo4HRuGBkYA2y/Ye0sPVEjyAFT9PGClMODAwhxfcXmQyA1a/uJ9PkJ9qEgS3ESyB3uiyu4LrNYnNNG0BtSDy59PWvlaPXgWSgGpnJh5WqoYqIf/p9sF3TUotN5VwUgUlb32bfsA8UDT5bc5fA9E70SI+0DVWbDaVLrD3kkS28E04ttlMtvVLhEdof2azTVfr5NmqDDQgDaXYjHqi/NmXzHoFK8uCSLHySVTlh7p6EiTg0W852dWeNz7A5s0tCcFdVlE7OPYbC4C+W5zjI/NjPD1Jfkd6WLVyv9s6KOcrhsuZl2IyWqz+nbnNuuijWaEDoWZYAbjXSm6c3Oc+rTo8N0r9+MrF5rtbW/gHeM9UwIyvqx1FvLWNNUTJqorGDtjXStaBHB2wFIlFWE=
+        root@finales1.fyre.ibm.com\n"},{"creationDate":"2022-12-08T11:16:38.380Z","name":"rdr-acm-hub-412-mon01-keypair","sshKey":"ssh-rsa
         AAAAB3NzaC1yc2EAAAADAQABAAABgQDuIWArFe6OZrUPrkqf4rBCVMdslPJJ5wF/CLFb3WsQbDHzv4d5Iv7fE/BSGqoYIrAwujZ6gBwRr/NWJlVcPJy6UrqS4joRo+P4RIfQqUeBNiAd3K9rZvYdGCfJOKVHDO+Ww1b8DfozUTHdAWAVD8FiDNCcbBG2BjyLWNGW77hEoHKlQcpwAsyQxiwlovj5OpRNJ5rXAc0QDNlSaPyb6AcSBaaTUA6rtkhtdLFE2xn9JHYM2yuhFPWZt3unVHHw8bpWHHeQNZ1X/ZSNpD6b5c0pWMtsAm0+Be3BCrSPhYu6ZvcJp+gR7eNMDKZzM683Itht3OCqobi2OX6RAfqOcPcI7iGQcn7EmkphJOTuigYFmxPbZEELsc2iqBY5LOJr/F5RmvqdgYS8cIF6ZmvUAF+MTiw2gGzWxsq7THQpXOe5rUBlBtokLJfzRI6JSyDGDKe/0ELOfbYCBqQTyuMMAu+vpeHvUZgDuIOGEzg1CLi1FGq1WNT/crone7t+L6e5wgM=
-        acm@power\n"},{"creationDate":"2022-11-28T06:56:30.302Z","name":"rdr-acm-niharika-mon01-keypair","sshKey":"ssh-rsa
-        AAAAB3NzaC1yc2EAAAADAQABAAACAQCiHQZQhBu4qd17ZCv6aABavrlF3TSekttBHCq/ElAeZP5uss1l0rmfSdnhqBb3UhXuEJu1JwC2kTsbpdJrjzuxaQI6eODP567SC3oMT9JRALvN1vU9tqr/+sxnFh977E8Jb84mJUO7JfJMJscvjktkMAOgBkPbFfESdjJRynSVnznsXHPfvrU6Z50knLSp2r3BzIiUJbP9lhwM9wcwWho4kkhHr/SbXtBDmfq5vO+2admUcFSYhbBhge6Pu/0fIovpySxNfSLt2o76ZIsm9w4ayWu8t5Cs/DQVw0Xx24W+juYZ73tVfMb9hnS5ztfkzoSv1iuZ4nE24gxn6fYD2cYsmvgHt5453/RWslMz7R4l9UI8qlRJk3M+s0ipaojpI/xU9SXB/nY1sr6a8V1VwmB+QhDhAn0lBvKVtoCMRxHUD0WOROLozYRzP7Nsa9SJCpNYYH1HATpVXqXlc1sNSmfAWzJEdUO2iYux280EhOfrQuFAkrdZ26JjoIeSIWLAb8nhN4+BVK6zE5TxQ6m9uj8msD9xkKJeMbp+7vNl/VONxL102w9HeyUnK8y/gvd7WIqemZPfsiWP6KqTpwoElFrcTXFUW4aYlvzPOC2QrsG+D6iMEZV5Z2HzeqQoIE2tRY+Ls6Srl4DrD8B/Tm237Zhs2KEqaDU+e0AVEnaWzKG+YQ==
-        Niharika.Gurram1@ibm.com\n"},{"creationDate":"2022-11-29T20:27:29.399Z","name":"test-ssh-key-no-comment","sshKey":"ssh-rsa
-        AAAAB3NzaC1yc2EAAAADAQABAAABgQCooZYGrwhEl5kCa0Pcdh2x0Xz/rOdru94tC8QI24bRFHPUAT88TKz48UciQE6/VaMdxxb9zrvA2eIU0/Td9lQU44B1LyEDLfILdxH1mHd2wehDM78V7804jvsxTMYXgNU8NEAJM+gyJ/K0rwvCReofL4jq/y4bbSEvVE+DxTnqzry2+SRCy0tEIfrHkJv2DMiB0oY680qEkZsAMZjE2JFrK8bN88kPhDb52x12llPMvUpppT4RBU3dDnweA50sxabV4SX0XVVJncw9nKh1EsUWrI4O7N3h8i8bLoiJvmGjIEpAQxE80ftvcbpJf0hPGsIr0BR+Qc+S6nBMdgpXj5RWlYS/ekxAVPe4xQsM01gMziwiX1RrcektajR8x/D3z28u7Nv1530b3rSqTMiydyXqcKMlTItqArpZVamo3UZ2CfuYRUdcpM+fbPCRsj0GH7pRxLqYag2klUIc9hZSgxQ85Yo5da+E7QjEvwxN5zxSyMy/ekRwsgWg6nDar9BFBV0="},{"creationDate":"2022-11-29T20:27:30.022Z","name":"test-ssh-key-with-comment","sshKey":"ssh-rsa
+        acm@power\n"},{"creationDate":"2022-12-09T18:08:11.857Z","name":"rdr-acm-vijayv-oldMac-sshkey","sshKey":"ssh-rsa
+        AAAAB3NzaC1yc2EAAAADAQABAAABAQDQ+kBOvZ6jCu0i/B6TwsOTTxOffnagoz5A5s1+EcU6JM2+hnJugxbuGutNkdbu0PDIJKoFIPV1sn/ZMQi46GcWhIR5R09oysMjnR/GhqgnGSXuLFUVr4SumqsoQ+XOwg/V2MbJySQnEoXnfiRl3C2aBQc3m7aISWCq+k+793m7Ec0dTV9n2HL//51xhT00o2Ntk1QErbSm5g6PVFARkinfJnKH5l8CGUZpSyGrQSuLmtKJbXI0Km71zb8ss/9TrP8OTm6bgt2WVLJ7H055I199JXK7AJp0lQqbXjOiiS7WWYd2ajcuxClpEbhx2aBG1o7h6IPfIYZs10oDXnIbANg3
+        vijayv@Vijays-MacBook-Pro.local"},{"creationDate":"2022-12-22T07:31:55.113Z","name":"rdr-acm-bkhadars-412-mon01-keypair","sshKey":"ssh-rsa
+        AAAAB3NzaC1yc2EAAAADAQABAAACAQCojUXkPF7/iP6/U4ITQtL1DY9IlEVfkNX9PpyDthrH3BhiUPl+niTGFN2bdq+pyIBryS7FDC/97D9+mH+qnJS9knOTQchWLoJXu9H/E6dGb1yFL5h7axEqkrLtKCnF+WsrBtMoVhXUa9kg8KTAlq7beCxauq1T0Ue/+u0zRz04CJPuFEW/ZIaMcOa0syMOMPruwZBCcg1v6Q0KxEDJLnyPTXhfb+SnlN8HUBmX2f2GPRBNkcjtNfBHauzbHM8tHjsba+u7FAvB3bjIxIaMCA0uhHKTc6J6WFunHaQGX/i5+KR0km/PboB0G048RHkMe3Jgj3N7J+75vzMF+lR5E5RpEtAAPut09s7ntyXLU0FA6zHtbynIfBJr+dUzrFGQLY3fU8r6FKS7z8xLvEdnWf4+Nl2dht8M3B4BAIzeXFzcS/IaoF6yPa7SGekQD8k9CfPzwaooJYPCqNas2ZJ06ZeUk0uMIZXymv1xIT5ZDpVjFsnG3srubyN2ZpP0a/7iXYtYo+aOVKv44hSK9socmO6slX+p/ssTdFm0l1C6kUxVeJQrI4IrnLJljLfMlgFXaFRRwUaBPMTxRAFzgNcMv1trq6P3iR5AWgO3B3YVHR4qhSwuc74nOGVVyan8BTK1Jl/zFQ11h0LKPOx2Bfq8DC8hN8Qkqf+y5tZPZ9FxoNp2SQ==
+        basheerkhadarsabagari@Basheers-MacBook-Pro.local\n"},{"creationDate":"2022-12-22T22:02:48.841Z","name":"test-ssh-key-no-comment","sshKey":"ssh-rsa
+        AAAAB3NzaC1yc2EAAAADAQABAAABgQCooZYGrwhEl5kCa0Pcdh2x0Xz/rOdru94tC8QI24bRFHPUAT88TKz48UciQE6/VaMdxxb9zrvA2eIU0/Td9lQU44B1LyEDLfILdxH1mHd2wehDM78V7804jvsxTMYXgNU8NEAJM+gyJ/K0rwvCReofL4jq/y4bbSEvVE+DxTnqzry2+SRCy0tEIfrHkJv2DMiB0oY680qEkZsAMZjE2JFrK8bN88kPhDb52x12llPMvUpppT4RBU3dDnweA50sxabV4SX0XVVJncw9nKh1EsUWrI4O7N3h8i8bLoiJvmGjIEpAQxE80ftvcbpJf0hPGsIr0BR+Qc+S6nBMdgpXj5RWlYS/ekxAVPe4xQsM01gMziwiX1RrcektajR8x/D3z28u7Nv1530b3rSqTMiydyXqcKMlTItqArpZVamo3UZ2CfuYRUdcpM+fbPCRsj0GH7pRxLqYag2klUIc9hZSgxQ85Yo5da+E7QjEvwxN5zxSyMy/ekRwsgWg6nDar9BFBV0="},{"creationDate":"2022-12-22T22:02:49.360Z","name":"test-ssh-key-with-comment","sshKey":"ssh-rsa
         AAAAB3NzaC1yc2EAAAADAQABAAABgQCvyVUxkBtMlmTemse/JcMhSxI4kIK4SzpMqQaUBaon9X30x62fjOik7lnqxqg/BXWVYI15nslSI/t5IbQGPGPBzR9RplBn/dx/Yxzcfgq5U5YBkvP9yXRYdp5f51z17a5+wWKI8Dka7vrLmv62thB83pjgiTsgFvqdSx7aYC4U3GFpboYHX/tQjrEpNBHRiRTeB9Ux/O+/gzGULlR0jd4denrWpng9Nn9n+N1e+tAkkUjUY0xTnodZfjnpYO/qhWSPwCglZeP9i9KdZFLCKuGTHkWbmQ1SnehRYEnLJ9lZRkhMsYq6uW1SNzMn16bGs3T7c+RkZUzs2JxFEjBIpEkq/uVDwVyIYd6dKQMp1cC8MEHQB2G6udrcvzwOJkb9xYqcJVpp0MzWApeBPwXUYJjCaxIHwF4TciYT0tleaoyZep9of0Wnrfv0BAtmY1f9obyEuRXKBFYmFlIvXripuueCL38KlQfVgmLuhnpSxXTVeiTZ8qTCxUkrJc6DZXh/z90=
-        This is only a test!"},{"creationDate":"2022-11-29T20:27:30.406Z","name":"test-ssh-key-with-comment-line-breaks","sshKey":"ssh-rsa
+        This is only a test!"},{"creationDate":"2022-12-22T22:02:49.713Z","name":"test-ssh-key-with-comment-line-breaks","sshKey":"ssh-rsa
         AAAAB3NzaC1yc2EAAAADAQABAAABgQD06A0pk378CjUm3LR5O9BW03ZNKgQPsB0IdMzdM4pBOyiPMubmcvOvItDz0XmtRIBJxqxRZftJAq01ej2ZSq+Fk+cbGtGQngEVceaz2GnrGNLasyF0zKG5mLXkoQsm3tofRdCuLecBFPSVN31yuxeVxsNCYKunGtwNejC/GIroptuRANJYVAv3TaVl99MYHfhkJCEvomdimYWZmi4eEML9bAhqr7LBK7j6rcivcp6Z8LpIg4LUP1+jniV0dXbhycJhYaAvQtKySBwnx70LiShyy9R2P31LL8g19Dn75NK1kWNV5mRrWFdyX+GJ8lnalOyBN4irZ7T1wAnbJfd/Vfs9PtYz2iR9IFEKYaxpEgNB5FQQY3UoP5gPezfRstG0ohmJ2zYxHC6PYuYQUpgp6xhf7jEtC+WHjWtmN5/LJ74k13BVPlhrSAduYrZJ8mCS29b4gjBuIirW8nByaGh5HBToyjbxdlBqDJS0+qMeWPqwSlZGK/jTulNpmvAibX7CawM=\nYes,
         placing line breaks in SSH public\nkey comments doesn''t break anything"}],"tenantID":"1fdf5effc3f945688c021cd0a8b45c4d"}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:03:53 GMT
+  recorded_at: Thu, 22 Dec 2022 22:16:08 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/placement-groups
@@ -1450,7 +1571,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -1475,11 +1596,11 @@ http_interactions:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"placementGroups":[{"id":"a2a7071b-48ce-43b5-9814-c8aa7a406c3a","members":["cabd0aa0-0d21-467d-b2f1-27160d0e9a3a","93b3683d-4686-4d36-9185-2ca3b7d5bc56"],"name":"test-placement-group-anti-affinity","policy":"anti-affinity"},{"id":"e4517e72-1486-43ac-a51a-6bbac2b72036","members":["1c8a7932-9db8-4e7c-9794-8ba40f1c852a","bf19fb66-5961-48e2-aba8-fc256a6591df","eaad0f47-2496-4a53-a052-97ccf69102cb"],"name":"test-placement-group-affinity","policy":"affinity"}]}
+      string: '{"placementGroups":[{"id":"c473adae-82a6-4897-b6dd-6e746f01cb1e","members":["16ee2ce7-61b7-4890-89f7-e9fec7f4f73c","78860da9-44bc-4c3c-b776-90981d5d18f3","16fa8973-afd1-4c08-a1f4-3c4a92d366f9"],"name":"test-placement-group-affinity","policy":"affinity"},{"id":"8976159e-0e2d-4702-b20c-6b091b654579","members":["5a15e14e-6d17-4dff-aad6-3175c2d6bd0c","0ded46e4-031c-4d58-9e5d-b805fac2f3dc"],"name":"test-placement-group-anti-affinity","policy":"anti-affinity"}]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:04:37 GMT
+  recorded_at: Thu, 22 Dec 2022 22:16:10 GMT
 - request:
     method: get
     uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/snapshots
@@ -1488,7 +1609,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.0.0/ruby
+      - OpenAPI-Generator/2.1.0/ruby
       Content-Type:
       - application/json
       Crn:
@@ -1505,17 +1626,21 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
-      Content-Length:
-      - '17'
       Strict-Transport-Security:
       - max-age=15724800; includeSubDomains
       Cf-Cache-Status:
       - DYNAMIC
     body:
       encoding: UTF-8
-      string: '{"snapshots":[]}
+      string: '{"snapshots":[{"action":"snapshot","creationDate":"2022-12-22T22:14:10.000Z","description":"server
+        name: test-instance-aix-s922-shared-tier1","lastUpdateDate":"2022-12-22T22:14:19.000Z","name":"test-instance-aix-s922-shared-tier1-snapshot-1","percentComplete":100,"pvmInstanceID":"01e8b871-bbad-4738-8dc7-6640a6443f8c","snapshotID":"20ecccaf-bf42-473f-8d87-cfc9331515e4","status":"available","volumeSnapshots":{"0f739a91-4eef-4e64-9810-4ddb7eeefefb":"53aa5c54-9df9-49a4-821c-e55911be1d75"}},{"action":"snapshot","creationDate":"2022-12-22T22:14:32.000Z","description":"server
+        name: test-instance-rhel-s922-shared-tier3","lastUpdateDate":"2022-12-22T22:14:41.000Z","name":"test-instance-rhel-s922-shared-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"78860da9-44bc-4c3c-b776-90981d5d18f3","snapshotID":"3ada4c26-f550-4e13-bdf1-f582aaa2ffab","status":"available","volumeSnapshots":{"2bc24e4a-2c72-468d-9081-4b7c16f78219":"9398b3b2-e7d0-49a9-b84f-c8316125f273"}},{"action":"snapshot","creationDate":"2022-12-22T22:14:18.000Z","description":"server
+        name: test-instance-ibmi-s922-capped-tier1","lastUpdateDate":"2022-12-22T22:14:27.000Z","name":"test-instance-ibmi-s922-capped-tier1-snapshot-1","percentComplete":100,"pvmInstanceID":"16fa8973-afd1-4c08-a1f4-3c4a92d366f9","snapshotID":"4ae2590b-5ba2-4c47-a5b7-f11f171936c5","status":"available","volumeSnapshots":{"5be608aa-0f7d-40fa-b6e9-56c87a8ad338":"6d39675b-e05b-44cb-b603-49bdd5a90c68"}},{"action":"snapshot","creationDate":"2022-12-22T22:14:38.000Z","description":"server
+        name: test-instance-sles-s922-shared-tier3","lastUpdateDate":"2022-12-22T22:14:48.000Z","name":"test-instance-sles-s922-shared-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"16ee2ce7-61b7-4890-89f7-e9fec7f4f73c","snapshotID":"85eec912-7c2e-45a2-8fd7-c8c09bb7f8d7","status":"available","volumeSnapshots":{"0a51a043-8049-47b0-8523-ebf4f7eb326a":"743004e6-dc1f-43e3-ab1f-54a60e811400"}},{"action":"snapshot","creationDate":"2022-12-22T22:14:49.000Z","description":"server
+        name: test-instance-rhcos-s922-shared-tier3","lastUpdateDate":"2022-12-22T22:14:58.000Z","name":"test-instance-rhcos-s922-shared-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"5a15e14e-6d17-4dff-aad6-3175c2d6bd0c","snapshotID":"9c6b2e43-68fa-4ba0-bc47-d7300f880186","status":"available","volumeSnapshots":{"6f701ee8-96f9-4056-a099-b37a0b6ce6fc":"1c78ec99-7161-485d-895e-13e6e69bd3cf"}},{"action":"snapshot","creationDate":"2022-12-22T22:14:25.000Z","description":"server
+        name: test-instance-centos-e980-dedicated-tier3","lastUpdateDate":"2022-12-22T22:14:34.000Z","name":"test-instance-centos-e980-dedicated-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"0ded46e4-031c-4d58-9e5d-b805fac2f3dc","snapshotID":"f05211ee-ac41-44d1-8877-0e2399cf6650","status":"available","volumeSnapshots":{"6f4c2f17-ccd2-45f4-9d40-6ee1d0ad13f7":"7fe94cd5-ad67-4939-9ba3-a98ddee17a18"}}]}
 
         '
     http_version:
-  recorded_at: Tue, 29 Nov 2022 23:04:37 GMT
+  recorded_at: Thu, 22 Dec 2022 22:16:11 GMT
 recorded_with: VCR 5.1.0

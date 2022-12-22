@@ -130,13 +130,13 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :cpu_sockets     => 1,
         :cpu_total_cores => 1,
         :memory_mb       => 2048,
-        :cpu_type        => "ppc64",
-        :guest_os        => "unix_aix",
+        :cpu_type        => "ppc64le",
+        :guest_os        => "linux_redhat",
         :bitness         => 64
       )
 
       expect(vm.operating_system).to have_attributes(
-        :product_name => "unix_aix"
+        :product_name => "linux_redhat"
       )
 
       expect(vm.advanced_settings.find { |setting| setting['name'] == 'entitled_processors' }).to have_attributes(
@@ -151,14 +151,13 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :value        => "none"
       )
 
-      # TODO
-      # expect(vm.snapshots.first).to have_attributes(
-      #   :type              => 'ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Snapshot',
-      #   :name              => 'test-snapshot-1',
-      #   :vm_or_template_id => vm.id
-      # )
+      expect(vm.snapshots.first).to have_attributes(
+        :type              => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Snapshot",
+        :name              => "test-instance-rhel-s922-shared-tier3-snapshot-1",
+        :vm_or_template_id => vm.id
+      )
 
-      # expect(vm.snapshots.first.total_size).to be > 0
+      expect(vm.snapshots.first.total_size).to be > 0
     end
 
     def assert_specific_template
@@ -186,7 +185,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     def assert_specific_cloud_network
       # the network name is network::id + network::type
       # currently not comapring cidr as it is empty in the db
-      subnet_name = "test-network-vlan-jumbo"  # PowerVS only has subnets, but MIQ requires a parent network
+      subnet_name = "test-network-vlan-jumbo" # PowerVS only has subnets, but MIQ requires a parent network
       cloud_network = ems.network_manager.cloud_networks.find_by(:name => "#{subnet_name}-vlan")
       expect(cloud_network).to have_attributes(
         :name    => "#{subnet_name}-vlan",
@@ -210,13 +209,13 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def assert_specific_network_port
-      network_port = ems.network_manager.network_ports.find_by(:mac_address => "fa:a4:36:0b:6f:21")
+      network_port = ems.network_manager.network_ports.first
       expect(network_port).to have_attributes(
         :status      => "ACTIVE",
         :device_type => "VmOrTemplate"
       )
 
-      expect(network_port.cloud_subnets.count).to eq(2)  # TODO: Why are there two identical subnets???
+      expect(network_port.cloud_subnets.count).to eq(2) # TODO: Why are there two identical subnets?
     end
 
     def assert_specific_cloud_volume
