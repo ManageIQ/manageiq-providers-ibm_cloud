@@ -3,23 +3,6 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     expect(described_class.ems_type).to eq(:ibm_cloud_power_virtual_servers)
   end
 
-  @testname = "provision"
-
-  specs = YAML.load_file(File.join(__dir__, "#{@testname}.yml"))
-  specs['resources'].each do |key, _value|
-    case key['type']
-    when 'ibm_pi_instance'
-      let(:instance_data) { key['instances'][0]['attributes'] }
-    when 'ibm_pi_image'
-      let(:instance_image) { key['instances'][0]['attributes'] }
-    when 'ibm_pi_network'
-      let(:public_network) { key['instances'][0]['attributes'] } if key['name'] == 'public_network'
-      let(:power_network) { key['instances'][0]['attributes'] } if key['name'] == 'power_network'
-    when 'ibm_pi_volume'
-      let(:volume_data) { key['instances'][0]['attributes'] }
-    end
-  end
-
   context "#refresh" do
     let(:ems) do
       uid_ems  = Rails.application.secrets.ibm_cloud_power[:cloud_instance_id]
@@ -84,56 +67,55 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def assert_table_counts
+      expect(CloudVolume.count).to eq(10)
+      expect(CloudNetwork.count).to eq(4)
+      expect(CloudSubnet.count).to eq(4)
+      expect(CloudSubnetNetworkPort.count).to eq(12)
       expect(Flavor.count).to eq(56)
-      expect(Vm.count).to eq(2)
-      expect(OperatingSystem.count).to eq(7)
-      expect(MiqTemplate.count).to eq(5)
+      expect(MiqTemplate.count).to eq(6)
       expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to be > 1
-      expect(CloudVolume.count).to eq(4)
-      expect(CloudNetwork.count).to eq(2)
-      expect(CloudSubnet.count).to eq(2)
-      expect(NetworkPort.count).to eq(4)
-      expect(CloudSubnetNetworkPort.count).to eq(6)
+      expect(NetworkPort.count).to eq(8)
+      expect(OperatingSystem.count).to eq(12)
       expect(PlacementGroup.count).to eq(2)
+      expect(Vm.count).to eq(6)
     end
 
     def assert_ems_counts
-      expect(ems.vms.count).to eq(2)
-      expect(ems.miq_templates.count).to eq(5)
-      expect(ems.operating_systems.count).to eq(7)
       expect(ems.key_pairs.count).to be > 1
-      expect(ems.network_manager.cloud_networks.count).to eq(2)
-      expect(ems.network_manager.cloud_subnets.count).to eq(2)
-      expect(ems.network_manager.network_ports.count).to eq(4)
-      expect(ems.storage_manager.cloud_volumes.count).to eq(4)
-      expect(ems.storage_manager.cloud_volume_types.count).to eq(2)
+      expect(ems.miq_templates.count).to eq(6)
+      expect(ems.network_manager.cloud_networks.count).to eq(4)
+      expect(ems.network_manager.cloud_subnets.count).to eq(4)
+      expect(ems.network_manager.network_ports.count).to eq(8)
+      expect(ems.operating_systems.count).to eq(12)
       expect(ems.placement_groups.count).to eq(2)
+      expect(ems.storage_manager.cloud_volume_types.count).to eq(2)
+      expect(ems.storage_manager.cloud_volumes.count).to eq(10)
+      expect(ems.vms.count).to eq(6)
     end
 
     def assert_cloud_manager
-      region = Rails.application.secrets.ibm_cloud_power[:ibmcloud_region]
       expect(ems).to have_attributes(
-        :provider_region => "#{region}01"
+        :provider_region => "mon01"
       )
     end
 
     def assert_specific_flavor
-      flavor = ems.flavors.find_by(:ems_ref => "s922")
+      flavor_ems_ref = "s922"
+      flavor = ems.flavors.find_by(:ems_ref => flavor_ems_ref)
 
       expect(flavor).to have_attributes(
-        :name => "s922",
+        :name => flavor_ems_ref,
         :type => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType"
       )
     end
 
     def assert_specific_vm
-      vm = ems.vms.find_by(:ems_ref => instance_data['instance_id'])
-      placement_group = ems.placement_groups.find_by(:name => 'miq-placement-group-different')
+      instance_name = "test-instance-rhel-s922-shared-tier3"
+      vm = ems.vms.find_by(:name => instance_name)
+      placement_group = ems.placement_groups.find_by(:name => "test-placement-group-affinity")
       expect(vm).to have_attributes(
-        :uid_ems            => instance_data['instance_id'],
-        :ems_ref            => instance_data['instance_id'],
         :location           => "unknown",
-        :name               => instance_data['pi_instance_name'],
+        :name               => instance_name,
         :description        => "PVM Instance",
         :vendor             => "ibm_power_vs",
         :power_state        => "on",
@@ -143,23 +125,22 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :type               => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm"
       )
       expect(vm.ems_created_on).to be_a(ActiveSupport::TimeWithZone)
-      expect(vm.ems_created_on.to_s).to eql("2022-08-10 21:37:52 UTC")
 
       expect(vm.hardware).to have_attributes(
         :cpu_sockets     => 1,
         :cpu_total_cores => 1,
-        :memory_mb       => instance_data['pi_memory'] * 1024,
-        :cpu_type        => a_string_including(instance_image['architecture']),
-        :guest_os        => OperatingSystem.normalize_os_name(instance_image['operatingsystem'] || 'unknown'),
+        :memory_mb       => 2048,
+        :cpu_type        => "ppc64le",
+        :guest_os        => "linux_redhat",
         :bitness         => 64
       )
 
       expect(vm.operating_system).to have_attributes(
-        :product_name => OperatingSystem.normalize_os_name(instance_image['operatingsystem'] || 'unknown')
+        :product_name => "linux_redhat"
       )
 
       expect(vm.advanced_settings.find { |setting| setting['name'] == 'entitled_processors' }).to have_attributes(
-        :value        => "1.0"
+        :value        => "0.5"
       )
 
       expect(vm.advanced_settings.find { |setting| setting['name'] == 'processor_type' }).to have_attributes(
@@ -170,23 +151,21 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :value        => "none"
       )
 
-      if vm.snapshots.count == 1
-        expect(vm.snapshots.first).to have_attributes(
-          :type              => 'ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Snapshot',
-          :name              => 'test-snapshot-1',
-          :vm_or_template_id => vm.id
-        )
-        expect(vm.snapshots.first.total_size).to be > 0
-      end
+      expect(vm.snapshots.first).to have_attributes(
+        :type              => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Snapshot",
+        :name              => "test-instance-rhel-s922-shared-tier3-snapshot-1",
+        :vm_or_template_id => vm.id
+      )
+
+      expect(vm.snapshots.first.total_size).to be > 0
     end
 
     def assert_specific_template
-      template = ems.miq_templates.find_by(:ems_ref => instance_image["id"])
+      template_name = "7300-00-01"
+      template = ems.miq_templates.find_by(:name => template_name)
       expect(template).to have_attributes(
-        :uid_ems          => instance_image["id"],
-        :ems_ref          => instance_image["id"],
-        :name             => instance_image["pi_image_name"],
-        :description      => instance_image["image_type"],
+        :name             => template_name,
+        :description      => "stock",
         :vendor           => "ibm_power_vs",
         :power_state      => "never",
         :raw_power_state  => "never",
@@ -196,9 +175,9 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def assert_specific_key_pair
-      key_pair = ems.key_pairs.find_by(:name => instance_data['pi_key_pair_name'])
+      key_pair = ems.key_pairs.find_by(:name => "test-ssh-key-with-comment")
       expect(key_pair).to have_attributes(
-        :name => instance_data['pi_key_pair_name'],
+        :name => "test-ssh-key-with-comment",
         :type => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyPair"
       )
     end
@@ -206,57 +185,57 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     def assert_specific_cloud_network
       # the network name is network::id + network::type
       # currently not comapring cidr as it is empty in the db
-      netname = public_network["name"]
-      netid   = public_network["id"]
-      nettype = public_network["type"]
-      cloud_network = ems.network_manager.cloud_networks.find_by(:ems_ref => "#{netid}-#{nettype}")
+      subnet_name = "test-network-vlan-jumbo" # PowerVS only has subnets, but MIQ requires a parent network
+      cloud_network = ems.network_manager.cloud_networks.find_by(:name => "#{subnet_name}-vlan")
       expect(cloud_network).to have_attributes(
-        :name    => "#{netname}-#{nettype}",
-        :status  => 'active',
+        :name    => "#{subnet_name}-vlan",
+        :status  => "active",
         :enabled => true,
-        :type    => 'ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager::CloudNetwork'
+        :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager::CloudNetwork"
       )
     end
 
     def assert_specific_cloud_subnet
-      cloud_subnet = ems.network_manager.cloud_subnets.find_by(:ems_ref => public_network["id"])
+      subnet_name = "test-network-vlan-jumbo"
+      cloud_subnet = ems.network_manager.cloud_subnets.find_by(:name => subnet_name)
       expect(cloud_subnet.availability_zone&.ems_ref).to eq(ems.uid_ems)
       expect(cloud_subnet).to have_attributes(
-        :ems_ref          => public_network["id"],
-        :name             => public_network["name"],
+        :name             => subnet_name,
         :status           => "active",
         :network_protocol => "IPv4",
-        :extra_attributes => {:ip_version => "4", :network_type => public_network["type"]},
+        :extra_attributes => {:ip_version => "4", :network_type => "vlan"},
         :type             => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager::CloudSubnet"
       )
     end
 
     def assert_specific_network_port
-      network_data = instance_data["pi_network"].find { |obj| obj["network_name"] == public_network["name"] }
-      network_port = ems.network_manager.network_ports.find_by(:mac_address => network_data["mac_address"])
+      network_port = ems.network_manager.network_ports.first
       expect(network_port).to have_attributes(
-        :status      => "ACTIVE"
+        :status      => "ACTIVE",
+        :device_type => "VmOrTemplate"
       )
 
-      expect(network_port.cloud_subnets.count).to eq(2)
+      expect(network_port.cloud_subnets.count).to eq(2) # TODO: Why are there two identical subnets?
     end
 
     def assert_specific_cloud_volume
-      cloud_volume = ems.storage_manager.cloud_volumes.find_by(:ems_ref => instance_data["pi_volume_ids"][0])
+      cloud_volume_name = "test-volume-1GB-tier3-sharable"
+      cloud_volume = ems.storage_manager.cloud_volumes.find_by(:name => cloud_volume_name)
       expect(cloud_volume).to have_attributes(
-        :ems_ref     => volume_data['id'].partition('/').last,
-        :name        => volume_data['pi_volume_name'],
-        :volume_type => volume_data['pi_volume_type']
+        :name             => cloud_volume_name,
+        :volume_type      => "tier3",
+        :size             => 1&.gigabytes,
+        :multi_attachment => true
       )
     end
 
     def assert_specific_placement_group
-      placement_group = ems.placement_groups.find_by(:ems_ref => "0bdf60d1-4d80-4044-873d-bd0acec54dce")
+      placement_group_name = "test-placement-group-anti-affinity"
+      placement_group = ems.placement_groups.find_by(:name => placement_group_name)
       expect(placement_group).to have_attributes(
-        :name    => "miq-placement-group-different",
-        :policy  => "anti-affinity",
-        :ems_ref => "0bdf60d1-4d80-4044-873d-bd0acec54dce",
-        :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::PlacementGroup"
+        :name   => placement_group_name,
+        :policy => "anti-affinity",
+        :type   => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::PlacementGroup"
       )
     end
 
