@@ -1,4 +1,7 @@
 class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers::CloudManager::Vm
+
+  supports :capture
+
   # https://cloud.ibm.com/apidocs/vpc#get-instance
   POWER_STATES = {
     "running"    => "on",
