@@ -1,6 +1,7 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < ManageIQ::Providers::CloudManager::Vm
   include_concern 'Operations'
 
+  supports :capture
   supports :terminate
   supports :reboot_guest do
     unsupported_reason_add(:reboot_guest, _("The VM is not powered on")) unless current_state == "on"
