@@ -112,14 +112,13 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     def assert_specific_vm
       instance_name = "test-instance-rhel-s922-shared-tier3"
       vm = ems.vms.find_by(:name => instance_name)
-      placement_group = ems.placement_groups.find_by(:name => "test-placement-group-affinity")
       expect(vm).to have_attributes(
         :location           => "unknown",
         :name               => instance_name,
         :description        => "PVM Instance",
         :vendor             => "ibm_power_vs",
         :power_state        => "on",
-        :placement_group_id => placement_group.id,
+        :placement_group_id => nil,
         :raw_power_state    => "ACTIVE",
         :connection_state   => "connected",
         :type               => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm"

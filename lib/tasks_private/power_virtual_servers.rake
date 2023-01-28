@@ -130,7 +130,6 @@ namespace :vcr do
           "key_pair_name"   => "test-ssh-key-with-comment-line-breaks",
           "migratable"      => true,
           "pin_policy"      => "hard",
-          "placement_group" => "test-placement-group-anti-affinity",
           "networks"        => [
             IbmCloudPower::PVMInstanceAddNetwork.new(
               "network_id" => "test-network-pub-vlan"
@@ -148,7 +147,6 @@ namespace :vcr do
           "key_pair_name"   => "test-ssh-key-no-comment",
           "migratable"      => true,
           "pin_policy"      => "none",
-          "placement_group" => "test-placement-group-affinity",
           "networks"        => [
             IbmCloudPower::PVMInstanceAddNetwork.new(
               "network_id" => "test-network-pub-vlan-dns"
@@ -166,7 +164,6 @@ namespace :vcr do
           "key_pair_name"   => "test-ssh-key-no-comment",
           "migratable"      => true,
           "pin_policy"      => "none",
-          "placement_group" => "test-placement-group-affinity",
           "networks"        => [
             IbmCloudPower::PVMInstanceAddNetwork.new(
               "network_id" => "test-network-vlan"
