@@ -214,7 +214,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :device_type => "VmOrTemplate"
       )
 
-      expect(network_port.cloud_subnets.count).to eq(2) # TODO: Why are there two identical subnets?
+      expect(network_port.cloud_subnets.count).to eq(1)
     end
 
     def assert_specific_cloud_volume
