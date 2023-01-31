@@ -95,7 +95,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
     def assert_cloud_manager
       expect(ems).to have_attributes(
-        :provider_region => "mon01"
+        :provider_region => "us-east01"
       )
     end
 
@@ -158,6 +158,10 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       )
 
       expect(vm.snapshots.first.total_size).to be > 0
+
+      instance_name = "test-instance-rhel-s922-shared-tier3"
+      vm2 = ems.vms.find_by(:name => instance_name)
+      expect(vm2.parent_resource_pool&.name).to eq("test_pool")
     end
 
     def assert_specific_template
