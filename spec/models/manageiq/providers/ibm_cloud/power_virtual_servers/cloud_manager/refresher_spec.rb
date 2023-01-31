@@ -110,15 +110,16 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def assert_specific_vm
-      instance_name = "test-instance-rhel-s922-shared-tier3"
+      instance_name = "test-instance-ibmi-s922-capped-tier1"
       vm = ems.vms.find_by(:name => instance_name)
+      placement_group = ems.placement_groups.find_by(:name => "test-placement-group-affinity")
       expect(vm).to have_attributes(
         :location           => "unknown",
         :name               => instance_name,
         :description        => "PVM Instance",
         :vendor             => "ibm_power_vs",
         :power_state        => "on",
-        :placement_group_id => nil,
+        :placement_group_id => placement_group.id,
         :raw_power_state    => "ACTIVE",
         :connection_state   => "connected",
         :type               => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm"
@@ -129,21 +130,21 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :cpu_sockets     => 1,
         :cpu_total_cores => 1,
         :memory_mb       => 2048,
-        :cpu_type        => "ppc64le",
-        :guest_os        => "linux_redhat",
+        :cpu_type        => "ppc64",
+        :guest_os        => "ibm_i",
         :bitness         => 64
       )
 
       expect(vm.operating_system).to have_attributes(
-        :product_name => "linux_redhat"
+        :product_name => "ibm_i"
       )
 
       expect(vm.advanced_settings.find { |setting| setting['name'] == 'entitled_processors' }).to have_attributes(
-        :value        => "0.5"
+        :value        => "0.25"
       )
 
       expect(vm.advanced_settings.find { |setting| setting['name'] == 'processor_type' }).to have_attributes(
-        :value        => "shared"
+        :value        => "capped"
       )
 
       expect(vm.advanced_settings.find { |setting| setting['name'] == 'pin_policy' }).to have_attributes(
@@ -152,7 +153,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
       expect(vm.snapshots.first).to have_attributes(
         :type              => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Snapshot",
-        :name              => "test-instance-rhel-s922-shared-tier3-snapshot-1",
+        :name              => "test-instance-ibmi-s922-capped-tier1-snapshot-1",
         :vm_or_template_id => vm.id
       )
 
