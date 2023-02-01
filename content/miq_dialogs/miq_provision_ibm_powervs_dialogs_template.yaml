@@ -32,6 +32,15 @@
           :display: :edit
           :auto_select_single: false
           :data_type: :string
+        :shared_processor_pool:
+          :values_from:
+            :method: allowed_shared_processer_pools
+          :description: Shared Processor Pool
+          :required: false
+          :validation_method: :validate_shared_processer_pool
+          :display: :edit
+          :auto_select_single: false
+          :data_type: :string
         :pin_policy:
           :values:
             1: "none"
