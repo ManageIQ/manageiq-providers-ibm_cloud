@@ -134,6 +134,22 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     @provider_region ||= cloud_manager.pcloud_location(connection)
   end
 
+  def shared_processor_pools
+    @shared_processor_pools ||= shared_processor_pools_api.pcloud_sharedprocessorpools_getall(cloud_instance_id) || []
+  end
+
+  def shared_processor_pools_by_id
+    @shared_processor_pools_by_id ||= shared_processor_pools_api.pcloud_sharedprocessorpools_getall(cloud_instance_id).shared_processor_pools.index_by(&:id)
+  end
+
+  def shared_processor_pool(shared_processor_pool_id)
+    shared_processor_pools_by_id[shared_processor_pool_id] ||= shared_processor_pools_api.pcloud_sharedprocessorpools_get(cloud_instance_id, shared_processor_pool_id)
+  rescue IbmCloudPower::ApiError => err
+    error_message = JSON.parse(err.response_body)["description"]
+    _log.debug("SharedProcessorGroupID '#{shared_processor_pool_id}' not found: #{error_message}")
+    nil
+  end
+
   private
 
   def connection
@@ -194,5 +210,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
 
   def snapshots_api
     @snapshots_api ||= IbmCloudPower::PCloudSnapshotsApi.new(connection)
+  end
+
+  def shared_processor_pools_api
+    @shared_processor_pools_api ||= IbmCloudPower::PCloudSharedProcessorPoolsApi.new(connection)
   end
 end

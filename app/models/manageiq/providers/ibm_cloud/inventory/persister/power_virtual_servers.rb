@@ -28,6 +28,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::PowerVirtualServers <
     add_cloud_collection(:miq_templates)
     add_cloud_collection(:snapshots)
     add_cloud_collection(:ext_management_system)
+    add_cloud_collection(:resource_pools)
+    add_cloud_collection(:vm_resource_pools)
     add_advanced_settings
   end
 

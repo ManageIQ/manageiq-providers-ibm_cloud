@@ -19,6 +19,19 @@ namespace :vcr do
           "policy" => "anti-affinity"
         )
       ],
+      :spp_placement_groups => [
+        IbmCloudPower::SPPPlacementGroupCreate.new(
+          "name"   => "test_spppg",
+          "policy" => "affinity"
+        )
+      ],
+      :resource_pools       => [
+        IbmCloudPower::SharedProcessorPoolCreate.new(
+          "host_group"     => "s922",
+          "name"           => "test_pool",
+          "reserved_cores" => 1
+        )
+      ],
       :volumes => [
         IbmCloudPower::CreateDataVolume.new(
           "name"      => "test-volume-1GB-tier3-sharable",
@@ -130,7 +143,6 @@ namespace :vcr do
           "key_pair_name"   => "test-ssh-key-with-comment-line-breaks",
           "migratable"      => true,
           "pin_policy"      => "hard",
-          "placement_group" => "test-placement-group-anti-affinity",
           "networks"        => [
             IbmCloudPower::PVMInstanceAddNetwork.new(
               "network_id" => "test-network-pub-vlan"
@@ -138,18 +150,18 @@ namespace :vcr do
           ]
         ),
         IbmCloudPower::PVMInstanceCreate.new(
-          "server_name"     => "test-instance-rhel-s922-shared-tier3",
-          "image_id"        => "RHEL8-SP6",
-          "sys_type"        => "s922",
-          "proc_type"       => "shared",
-          "storage_type"    => "tier3",
-          "processors"      => 0.50,
-          "memory"          => 2,
-          "key_pair_name"   => "test-ssh-key-no-comment",
-          "migratable"      => true,
-          "pin_policy"      => "none",
-          "placement_group" => "test-placement-group-affinity",
-          "networks"        => [
+          "server_name"           => "test-instance-rhel-s922-shared-tier3",
+          "image_id"              => "RHEL8-SP6",
+          "sys_type"              => "s922",
+          "proc_type"             => "shared",
+          "storage_type"          => "tier3",
+          "processors"            => 0.50,
+          "memory"                => 2,
+          "key_pair_name"         => "test-ssh-key-no-comment",
+          "migratable"            => true,
+          "pin_policy"            => "none",
+          "shared_processor_pool" => "test_pool",
+          "networks"              => [
             IbmCloudPower::PVMInstanceAddNetwork.new(
               "network_id" => "test-network-pub-vlan-dns"
             )
@@ -166,7 +178,6 @@ namespace :vcr do
           "key_pair_name"   => "test-ssh-key-no-comment",
           "migratable"      => true,
           "pin_policy"      => "none",
-          "placement_group" => "test-placement-group-affinity",
           "networks"        => [
             IbmCloudPower::PVMInstanceAddNetwork.new(
               "network_id" => "test-network-vlan"
@@ -277,6 +288,53 @@ namespace :vcr do
         end
       end
 
+      ## Shared Processor Pool Placement Groups
+      spp_pgs_api = IbmCloudPower::PCloudSPPPlacementGroupsApi.new(connection)
+
+      spp_pgs = {}
+
+      spp_pgs_api.pcloud_sppplacementgroups_getall(cloud_instance_id).spp_placement_groups.each do |spppg|
+        spp_pgs[spppg.name] = spppg
+      end
+
+      resources[:spp_placement_groups].each do |placement_group|
+        if spp_pgs.include?(placement_group.name)
+          puts "SPP Placement group '#{placement_group.name}' already exists"
+        else
+          puts "Creating SPP placement group '#{placement_group.name}'"
+          created_placement_group = spp_pgs_api.pcloud_sppplacementgroups_post(
+            cloud_instance_id,
+            placement_group
+          )
+          spp_pgs[placement_group.name] = created_placement_group
+        end
+      end
+
+      ## Shared Processor Pools
+      proc_pools_api = IbmCloudPower::PCloudSharedProcessorPoolsApi.new(connection)
+
+      proc_pools = {}
+
+      proc_pools_api.pcloud_sharedprocessorpools_getall(cloud_instance_id).shared_processor_pools.each do |proc_pool|
+        proc_pools[proc_pool.name] = proc_pool
+      end
+
+      resources[:resource_pools].each do |resource_pool|
+        if proc_pools.include?(resource_pool.name)
+          puts "Shared processor pool '#{resource_pool.name}' already exists"
+        else
+          puts "Creating Shared processor pool '#{resource_pool.name}'"
+
+          resource_pool.placement_group_id = spp_pgs[resources[:spp_placement_groups].first.name].id
+
+          created_proc_pool = proc_pools_api.pcloud_sharedprocessorpools_post(
+            cloud_instance_id,
+            resource_pool
+          )
+          proc_pools[resource_pool.name] = created_proc_pool
+        end
+      end
+
       ## Volumes
       volumes_api = IbmCloudPower::PCloudVolumesApi.new(connection)
 
@@ -363,6 +421,10 @@ namespace :vcr do
 
           unless instance.placement_group.nil?
             instance.placement_group = placement_groups[instance.placement_group].id
+          end
+
+          unless instance.shared_processor_pool.nil?
+            instance.shared_processor_pool = proc_pools[instance.shared_processor_pool].id
           end
 
           created_instance = pvm_instances_api.pcloud_pvminstances_post(
