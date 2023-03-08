@@ -2,6 +2,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   include Operations
 
   supports :capture
+  # leverages the logic of native_console
+  supports(:console) { unsupported_reason(:native_console) }
+  supports :vnc_console
   supports :terminate
   supports :reboot_guest do
     _("The VM is not powered on") unless current_state == "on"
@@ -20,22 +23,21 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   supports_not :suspend
 
   supports :publish do
-    return _("Publish not supported because VM is blank")    if blank?
-    return _("Publish not supported because VM is orphaned") if orphaned?
-    return _("Publish not supported because VM is archived") if archived?
+    unsupported_reason(:action)
   end
 
   # TODO: converge these all into console and use unsupported_reason(:console) for all
   supports :html5_console do
-    return _("VM Console not supported because VM is not powered on") unless current_state == "on"
-    return _("VM Console not supported because VM is orphaned")       if orphaned?
-    return _("VM Console not supported because VM is archived")       if archived?
+    if current_state != "on"
+      _("VM Console not supported because VM is not powered on")
+    else
+      unsupported_reason(:native_console)
+    end
   end
   supports :launch_html5_console
 
   supports :native_console do
-    return _("VM Console not supported because VM is orphaned") if orphaned?
-    return _("VM Console not supported because VM is archived") if archived?
+    unsupported_reason(:action)
   end
 
   supports :resize do
@@ -199,10 +201,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
     else
       "off"
     end
-  end
-
-  def console_supported?(type)
-    return true if type.upcase == 'VNC'
   end
 
   def console_url
