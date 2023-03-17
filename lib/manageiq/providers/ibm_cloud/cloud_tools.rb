@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'logging'
 require 'ibm_vpc'
 
 require_relative 'cloud_tools/sdk'
