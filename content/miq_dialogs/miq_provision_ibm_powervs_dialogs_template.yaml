@@ -146,7 +146,6 @@
           :description: Processor
           :required: true
           :display: :edit
-          :default: 0
           :data_type: :integer
         :sys_type:
           :values_from:
@@ -154,7 +153,6 @@
           :description: Machine Type
           :required: true
           :display: :edit
-          :default: 0
           :data_type: :integer
         :storage_type:
           :values_from:
@@ -162,7 +160,6 @@
           :description: Storage Type
           :required: true
           :display: :edit
-          :default: 0
           :data_type: :integer
         :vm_memory:
           :description: Memory (GB)
