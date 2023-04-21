@@ -6,7 +6,7 @@ end
 Dir[Rails.root.join("spec/shared/**/*.rb")].sort.each { |f| require f }
 Dir[File.join(__dir__, "support/**/*.rb")].sort.each { |f| require f }
 
-require "manageiq-providers-ibm_cloud"
+require "manageiq/providers/ibm_cloud"
 
 # Iterate through the SSH keys and replace all values.
 # Being very careful with this one as fixing a data leak would be costly.
