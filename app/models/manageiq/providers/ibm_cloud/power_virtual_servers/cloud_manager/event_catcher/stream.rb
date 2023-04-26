@@ -22,7 +22,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventCat
       pcloud_events_api = ems.connect(:service => "PCloudEventsApi")
 
       retry_connection = true
-      events = pcloud_events_api.pcloud_events_getsince(@ems.uid_ems, from_time).events
+      events = pcloud_events_api.pcloud_events_getsince(@ems.uid_ems, {:from_time=>from_time}).events
 
       from_time = Time.now.utc.to_i
 
