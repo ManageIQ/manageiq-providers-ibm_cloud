@@ -7,6 +7,7 @@ import createSchema from './import-image-form.schema.js';
 const API_PROVIDERS = '/api/providers';
 const API_CLOUD_TEMPL = '/api/cloud_templates';
 const API_COS_CONT = '/api/cloud_object_store_containers';
+const API_COS_OBJ = '/api/cloud_object_store_objects';
 const API_VOL_TYPES = '/api/cloud_volume_types';
 
 
@@ -42,7 +43,16 @@ const fetchImages = (provider) => {
 
 const fetchBuckets = (provider) => {
     return new Promise((resolve, reject) => {
-        API.get(API_COS_CONT + '?expand=resources&attributes=name,ems_id&filter[]=ems_id=' + provider).then(({resources}) => {
+        API.get(API_COS_CONT + '?expand=resources&attributes=name,id&filter[]=ems_id=' + provider).then(({resources}) => {
+            let options = resources.map(({id, name}) => ({value: id, label: name}));
+            resolve(options);
+        })
+    })
+}
+
+const fetchObjects = (cloud_object_store_container_id) => {
+    return new Promise((resolve, reject) => {
+        API.get(API_COS_OBJ + '?expand=resources&attributes=name,id&filter[]=cloud_object_store_container_id='+ cloud_object_store_container_id).then(({resources}) => {
             let options = resources.map(({id, name}) => ({value: id, label: name}));
             resolve(options);
         })
@@ -66,6 +76,7 @@ const ImportImageForm = ({ dispatch }) => {
     const diskTypes = fetchDiskTypes(ManageIQ.record.recordId);
     const images    = useMemo(() => fetchImages(state['src_provider_id']), [state['src_provider_id']]);
     const buckets   = useMemo(() => fetchBuckets(state['obj_storage_id']), [state['obj_storage_id']]);
+    const objects   = useMemo(() => fetchObjects(state['obj_storage_obj_id']), [state['obj_storage_obj_id']]);
 
     const initialize = (formOptions) => {
         dispatch({ type: "FormButtons.init",        payload: { newRecord: true, pristine: true } });
@@ -81,7 +92,7 @@ const ImportImageForm = ({ dispatch }) => {
         dispatch({ type: 'FormButtons.reset' });
     };
 
-    return (<div id="ignore_form_changes"><MiqFormRenderer initialize={initialize} schema={createSchema(state, setState, providers, storages, diskTypes, images, buckets)} showFormControls={false} onCancel={onCancel} onSubmit={onSubmit}/></div>)
+    return (<div id="ignore_form_changes"><MiqFormRenderer initialize={initialize} schema={createSchema(state, setState, providers, storages, diskTypes, images, buckets, objects)} showFormControls={false} onCancel={onCancel} onSubmit={onSubmit}/></div>)
 };
 
 ImportImageForm.propTypes = {

@@ -90,13 +90,13 @@ function fieldsForPVC(state, setState, providers, storages, diskTypes, images, b
   }]
 }
 
-function fieldsForCOS(state, setState, storages, diskTypes, buckets)
+function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
 {
   return [
   {
     component: componentTypes.SELECT,
-    name: 'obj_storage_id_cos',
-    id: 'obj_storage_id_cos',
+    name: 'obj_storage_id',
+    id: 'obj_storage_id',
     label: __('Choose cloud object storage'),
     isRequired: true,
     validate: [{ type: validatorTypes.REQUIRED }],
@@ -119,6 +119,21 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets)
     includeEmpty: true,
     clearOnUnmount: true,
     loadOptions: () => buckets,
+    onChange: (value) => {
+      setState({...state, obj_storage_obj_id: value})
+    },
+  },
+
+  {
+    component: componentTypes.SELECT,
+    name: 'obj_storage_obj_id',
+    key: `obj_storage_obj_id-${state['obj_storage_obj_id']}-${state['obj_storage_obj_id']}`,
+    id: 'obj_storage_obj_id',
+    label: __('Choose image object'),
+    isRequired: true,
+    includeEmpty: true,
+    clearOnUnmount: true,
+    loadOptions: () => objects,
   },
 
   {
@@ -163,25 +178,25 @@ function default_fields(state, setState)
   ]
 }
 
-function corresp_fields(state, setState, providers, storages, diskTypes, images, buckets)
+function corresp_fields(state, setState, providers, storages, diskTypes, images, buckets, objects)
 {
   switch(state['provider_type']){
     case 'PowerVC':
       return fieldsForPVC(state, setState, providers, storages, diskTypes, images, buckets)
     case 'COS':
-      return fieldsForCOS(state, setState, storages, diskTypes, buckets)
+      return fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
     default:
       return []
   }
 }
 
 
-function createSchema(state, setState, providers, storages, diskTypes, images, buckets)
+function createSchema(state, setState, providers, storages, diskTypes, images, buckets, objects)
 {
   var our_fields = [];
 
   our_fields = our_fields.concat(default_fields(state, setState, providers))
-  our_fields = our_fields.concat(corresp_fields(state, setState, providers, storages, diskTypes, images, buckets))
+  our_fields = our_fields.concat(corresp_fields(state, setState, providers, storages, diskTypes, images, buckets, objects))
 
   return { fields: our_fields }
 };
