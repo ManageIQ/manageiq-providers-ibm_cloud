@@ -6,7 +6,7 @@ import createSchema from './import-image-form.schema.js';
 
 const API_PROVIDERS = '/api/providers';
 const API_CLOUD_TEMPL = '/api/cloud_templates';
-const API_OBJ_CONT = '/api/cloud_object_store_containers';
+const API_COS_CONT = '/api/cloud_object_store_containers';
 const API_VOL_TYPES = '/api/cloud_volume_types';
 
 
@@ -42,7 +42,7 @@ const fetchImages = (provider) => {
 
 const fetchBuckets = (provider) => {
     return new Promise((resolve, reject) => {
-        API.get(API_OBJ_CONT + '?expand=resources&attributes=name,ems_id&filter[]=ems_id=' + provider).then(({resources}) => {
+        API.get(API_COS_CONT + '?expand=resources&attributes=name,ems_id&filter[]=ems_id=' + provider).then(({resources}) => {
             let options = resources.map(({id, name}) => ({value: id, label: name}));
             resolve(options);
         })
