@@ -137,6 +137,15 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
   },
 
   {
+    component: componentTypes.TEXT_FIELD,
+    name: 'image_name',
+    id: 'image_name',
+    label: __('Custom image name'),
+    isRequired: true,
+    validate: [{ type: validatorTypes.REQUIRED }],
+  },
+
+  {
     component: componentTypes.SELECT,
     name: 'disk_type_id_cos',
     id: 'disk_type_id_cos',
