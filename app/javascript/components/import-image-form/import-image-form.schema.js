@@ -141,13 +141,6 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets)
     isRequired: true,
     initialValue: 3,
     options: Array.from(Array(24).keys()).map((h) => {return {label: (h+1) + " hours", value: (h+1)} }),
-  },
-
-  {
-    component: componentTypes.CHECKBOX,
-    name: 'keep_ova_cos',
-    id: 'keep_ova_cos',
-    label: __('Keep OVA file on completion'),
   }]
 }
 
