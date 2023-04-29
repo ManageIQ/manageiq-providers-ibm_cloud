@@ -110,9 +110,9 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
 
   {
     component: componentTypes.SELECT,
-    name: 'bucket_id_cos',
+    name: 'cos_container_id',
     key: `obj_storage_id-${state['obj_storage_id']}`,
-    id: 'bucket_id_cos',
+    id: 'cos_container_id',
     label: __('Choose storage bucket'),
     isRequired: true,
     validate: [{ type: validatorTypes.REQUIRED }],
@@ -120,17 +120,18 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
     clearOnUnmount: true,
     loadOptions: () => buckets,
     onChange: (value) => {
-      setState({...state, obj_storage_obj_id: value})
+      setState({...state, cos_container_id: value})
     },
   },
 
   {
     component: componentTypes.SELECT,
-    name: 'obj_storage_obj_id',
-    key: `obj_storage_obj_id-${state['obj_storage_obj_id']}-${state['obj_storage_obj_id']}`,
-    id: 'obj_storage_obj_id',
+    name: 'cos_obj_id',
+    key: `cos_obj_id-${state['obj_storage_id']}-${state['cos_container_id']}`,
+    id: 'cos_obj_id',
     label: __('Choose image object'),
     isRequired: true,
+    validate: [{ type: validatorTypes.REQUIRED }],
     includeEmpty: true,
     clearOnUnmount: true,
     loadOptions: () => objects,
