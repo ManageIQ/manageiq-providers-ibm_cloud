@@ -138,6 +138,17 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
   },
 
   {
+    component: componentTypes.SELECT,
+    name: 'os_type',
+    id: 'os_type',
+    label: __('Choose image OS Type'),
+    isRequired: true,
+    validate: [{ type: validatorTypes.REQUIRED }],
+    includeEmpty: true,
+    options: [{label: "AIX", value: "aix"}, {label: "IBMi", value: "ibmi"}, {label: "Red Hat Enterprise Linux (RHEL)", value: "rhel"}, {label: "SUSE Linux Enterprise Server (SLES)", value: "sles"},],
+  },
+
+  {
     component: componentTypes.TEXT_FIELD,
     name: 'image_name',
     id: 'image_name',
