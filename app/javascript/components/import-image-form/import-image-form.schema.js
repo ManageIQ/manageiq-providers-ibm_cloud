@@ -34,8 +34,8 @@ function fieldsForPVC(state, setState, providers, storages, diskTypes, images, b
 
   {
     component: componentTypes.SELECT,
-    name: 'src_provider_id',
-    id: 'src_provider_id',
+    name: 'obj_storage_id',
+    id: 'obj_storage_id',
     label: __('Choose transient storage'),
     isRequired: true,
     validate: [{ type: validatorTypes.REQUIRED }],
@@ -43,7 +43,7 @@ function fieldsForPVC(state, setState, providers, storages, diskTypes, images, b
     clearOnUnmount: true,
     loadOptions: () => storages,
     onChange: (value) => {
-      setState({...state, src_provider_id: value})
+      setState({...state, obj_storage_id: value})
     },
   },
 
