@@ -34,8 +34,8 @@ function fieldsForPVC(state, setState, providers, storages, diskTypes, images, b
 
   {
     component: componentTypes.SELECT,
-    name: 'obj_storage_id',
-    id: 'obj_storage_id',
+    name: 'cos_id',
+    id: 'cos_id',
     label: __('Choose transient storage'),
     isRequired: true,
     validate: [{ type: validatorTypes.REQUIRED }],
@@ -43,15 +43,15 @@ function fieldsForPVC(state, setState, providers, storages, diskTypes, images, b
     clearOnUnmount: true,
     loadOptions: () => storages,
     onChange: (value) => {
-      setState({...state, obj_storage_id: value})
+      setState({...state, cos_id: value})
     },
   },
 
   {
     component: componentTypes.SELECT,
-    name: 'bucket_id',
-    key: `obj_storage_id-${state['obj_storage_id']}`,
-    id: 'bucket_id',
+    name: 'cos_container_id',
+    key: `cos_id-${state['cos_id']}`,
+    id: 'cos_container_id',
     label: __('Choose storage bucket'),
     isRequired: true,
     validate: [{ type: validatorTypes.REQUIRED }],
@@ -96,6 +96,7 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
   {
     component: componentTypes.SELECT,
     name: 'src_provider_id',
+    key: `src_provider_type-${state['src_provider_type']}`,
     id: 'src_provider_id',
     label: __('Choose cloud object storage'),
     isRequired: true,
@@ -104,14 +105,14 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
     clearOnUnmount: true,
     loadOptions: () => storages,
     onChange: (value) => {
-      setState({...state, src_provider_id: value})
+      setState({...state, src_provider_id: value, cos_id: value})
     },
   },
 
   {
     component: componentTypes.SELECT,
     name: 'cos_container_id',
-    key: `cos_container_id-${state['src_provider_id']}`,
+    key: `cos_id-${state['cos_id']}`,
     id: 'cos_container_id',
     label: __('Choose storage bucket'),
     isRequired: true,
@@ -127,7 +128,7 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
   {
     component: componentTypes.SELECT,
     name: 'src_image_id',
-    key: `src_image_id-${state['src_provider_id']}-${state['cos_container_id']}`,
+    key: `cos_id-${state['cos_id']}-cos_container_id-${state['cos_container_id']}`,
     id: 'src_image_id',
     label: __('Choose image object'),
     isRequired: true,
@@ -159,8 +160,8 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
 
   {
     component: componentTypes.SELECT,
-    name: 'disk_type_id_cos',
-    id: 'disk_type_id_cos',
+    name: 'cloud_volume_type_id',
+    id: 'cloud_volume_type_id',
     label: __('Choose disk type'),
     isRequired: true,
     validate: [{ type: validatorTypes.REQUIRED }],
@@ -171,8 +172,8 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
 
   {
     component: componentTypes.SELECT,
-    name: 'timeout_cos',
-    id: 'timeout_cos',
+    name: 'timeout',
+    id: 'timeout',
     label: __('Workflow max. timeout'),
     isRequired: true,
     initialValue: 3,
