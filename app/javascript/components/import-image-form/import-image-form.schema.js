@@ -34,8 +34,8 @@ function fieldsForPVC(state, setState, providers, storages, diskTypes, images, b
 
   {
     component: componentTypes.SELECT,
-    name: 'obj_storage_id',
-    id: 'obj_storage_id',
+    name: 'src_provider_id',
+    id: 'src_provider_id',
     label: __('Choose transient storage'),
     isRequired: true,
     validate: [{ type: validatorTypes.REQUIRED }],
@@ -43,14 +43,14 @@ function fieldsForPVC(state, setState, providers, storages, diskTypes, images, b
     clearOnUnmount: true,
     loadOptions: () => storages,
     onChange: (value) => {
-      setState({...state, obj_storage_id: value})
+      setState({...state, src_provider_id: value})
     },
   },
 
   {
     component: componentTypes.SELECT,
     name: 'bucket_id',
-    key: `obj_storage_id-${state['obj_storage_id']}`,
+    key: `src_provider_id-${state['src_provider_id']}`,
     id: 'bucket_id',
     label: __('Choose storage bucket'),
     isRequired: true,
@@ -95,8 +95,8 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
   return [
   {
     component: componentTypes.SELECT,
-    name: 'obj_storage_id',
-    id: 'obj_storage_id',
+    name: 'src_provider_id',
+    id: 'src_provider_id',
     label: __('Choose cloud object storage'),
     isRequired: true,
     validate: [{ type: validatorTypes.REQUIRED }],
@@ -104,14 +104,14 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
     clearOnUnmount: true,
     loadOptions: () => storages,
     onChange: (value) => {
-      setState({...state, obj_storage_id: value})
+      setState({...state, src_provider_id: value})
     },
   },
 
   {
     component: componentTypes.SELECT,
     name: 'cos_container_id',
-    key: `obj_storage_id-${state['obj_storage_id']}`,
+    key: `cos_container_id-${state['src_provider_id']}`,
     id: 'cos_container_id',
     label: __('Choose storage bucket'),
     isRequired: true,
@@ -126,9 +126,9 @@ function fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
 
   {
     component: componentTypes.SELECT,
-    name: 'cos_obj_id',
-    key: `cos_obj_id-${state['obj_storage_id']}-${state['cos_container_id']}`,
-    id: 'cos_obj_id',
+    name: 'src_image_id',
+    key: `src_image_id-${state['src_provider_id']}-${state['cos_container_id']}`,
+    id: 'src_image_id',
     label: __('Choose image object'),
     isRequired: true,
     validate: [{ type: validatorTypes.REQUIRED }],
@@ -184,16 +184,15 @@ function default_fields(state, setState)
 {
     return [{
         component: componentTypes.SELECT,
-        name: 'provider_type',
-        id: 'provider_type',
+        name: 'src_provider_type',
+        id: 'src_provider_type',
         label: __('Choose source provider type'),
         isRequired: true,
         includeEmpty: true,
-        options: [{ label: 'PowerVC', value: 'PowerVC' },
-        { label: 'PowerVS', value: 'PowerVS' },
-        { label: 'COS', value: 'COS' },],
+        options: [{ label: 'PowerVC', value: 'ManageIQ::Providers::IbmPowerVc' },
+        { label: 'COS', value: 'ManageIQ::Providers::IbmCloud::ObjectStorage' },],
         onChange: (value) => {
-          setState({state, provider_type: value})
+          setState({state, src_provider_type: value})
       },
     },
   ]
@@ -201,10 +200,10 @@ function default_fields(state, setState)
 
 function corresp_fields(state, setState, providers, storages, diskTypes, images, buckets, objects)
 {
-  switch(state['provider_type']){
-    case 'PowerVC':
+  switch(state['src_provider_type']){
+    case 'ManageIQ::Providers::IbmPowerVc':
       return fieldsForPVC(state, setState, providers, storages, diskTypes, images, buckets)
-    case 'COS':
+    case 'ManageIQ::Providers::IbmCloud::ObjectStorage':
       return fieldsForCOS(state, setState, storages, diskTypes, buckets, objects)
     default:
       return []

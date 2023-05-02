@@ -75,7 +75,7 @@ const ImportImageForm = ({ dispatch }) => {
     const storages  = fetchProviders('storage');
     const diskTypes = fetchDiskTypes(ManageIQ.record.recordId);
     const images    = useMemo(() => fetchImages(state['src_provider_id']), [state['src_provider_id']]);
-    const buckets   = useMemo(() => fetchBuckets(state['obj_storage_id']), [state['obj_storage_id']]);
+    const buckets   = useMemo(() => fetchBuckets(state['src_provider_id']), [state['src_provider_id']]);
     const objects   = useMemo(() => fetchObjects(state['cos_container_id']), [state['cos_container_id']]);
 
     const initialize = (formOptions) => {
