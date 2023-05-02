@@ -50,7 +50,7 @@ function fieldsForPVC(state, setState, providers, storages, diskTypes, images, b
   {
     component: componentTypes.SELECT,
     name: 'bucket_id',
-    key: `src_provider_id-${state['src_provider_id']}`,
+    key: `obj_storage_id-${state['obj_storage_id']}`,
     id: 'bucket_id',
     label: __('Choose storage bucket'),
     isRequired: true,
