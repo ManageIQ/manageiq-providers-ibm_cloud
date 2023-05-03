@@ -62,8 +62,8 @@ function fieldsForPVC(state, setState, providers, storages, diskTypes, images, b
 
   {
     component: componentTypes.SELECT,
-    name: 'disk_type_id',
-    id: 'disk_type_id',
+    name: 'cloud_volume_type_id',
+    id: 'cloud_volume_type_id',
     label: __('Choose disk type'),
     isRequired: true,
     validate: [{ type: validatorTypes.REQUIRED }],
