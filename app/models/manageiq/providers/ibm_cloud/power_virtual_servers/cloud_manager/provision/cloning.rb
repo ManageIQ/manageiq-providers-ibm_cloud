@@ -29,10 +29,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     signal :post_create_destination
   end
 
-  def find_destination_in_vmdb(_ems_ref)
+  def find_destination_in_vmdb(ems_ref)
     return if phase_context[:cloud_api_completion_time].nil? || source.ext_management_system.last_refresh_date < phase_context[:cloud_api_completion_time]
 
-    source.ext_management_system&.vms_and_templates&.find_by(:ems_id => options[:src_ems_id].try(:first), :name => options[:vm_name], :template => (request_type == 'clone_to_template'))
+    source.ext_management_system&.vms_and_templates&.find_by(:ems_id => options[:src_ems_id].try(:first), :ems_ref => ems_ref, :template => (request_type == 'clone_to_template'))
   end
 
   private
