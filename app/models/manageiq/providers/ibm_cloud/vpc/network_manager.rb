@@ -9,6 +9,7 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager < ManageIQ::Providers::
   require_nested :LoadBalancerPoolMember
   require_nested :NetworkPort
   require_nested :NetworkRouter
+  require_nested :Refresher
   require_nested :SecurityGroup
 
   include ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
