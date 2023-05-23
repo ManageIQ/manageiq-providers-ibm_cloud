@@ -19,6 +19,7 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager < ManageIQ::Providers::
            :hostname,
            :default_endpoint,
            :endpoints,
+           :provider_region,
            :refresh,
            :refresh_ems,
            :to        => :parent_manager,
