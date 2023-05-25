@@ -56,7 +56,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Persister::VPC < ManageIQ::Provi
   end
 
   def add_cloud_database_flavors(extra_properties = {})
-    add_collection(cloud, :cloud_database_flavors, extra_properties) do |builder|
+    add_cloud_collection(:cloud_database_flavors, extra_properties) do |builder|
       builder.add_properties(:strategy => :local_db_find_references) if targeted?
     end
   end
