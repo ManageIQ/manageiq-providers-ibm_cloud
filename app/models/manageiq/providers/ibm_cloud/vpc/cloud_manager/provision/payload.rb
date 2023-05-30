@@ -15,7 +15,7 @@ module ManageIQ::Providers::IbmCloud::VPC::CloudManager::Provision::Payload
     payload = {
       :name                      => get_option(:vm_target_name),
       :keys                      => [{:id => get_option(:guest_access_key_pair)}],
-      :profile                   => {:name => get_option_last(:provision_type)},
+      :profile                   => {:name => get_option_last(:instance_type)},
       :image                     => {:id => vm_image[:ems_ref]},
       :zone                      => {:name => get_option_last(:placement_availability_zone)},
       :vpc                       => {:id => get_option(:cloud_network)},

@@ -2,13 +2,13 @@
 
 # Contains the elements used to populate and validate general fields.
 module ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow::General
-  # Fetch system profiles from inventory.
+  # Fetch flavors from inventory.
   # @param _options [void]
   # @return [Hash] Hash with ems_ref as key and name as value.
-  def provision_type_to_profile(_options = {})
+  def allowed_instance_types(_options = {})
     return {} if ar_ems.nil?
 
-    @provision_type_to_profile ||= index_dropdown(ar_ems.flavors)
+    @allowed_instance_types ||= index_dropdown(ar_ems.flavors)
   rescue => e
     logger(__method__).ui_exception(e)
   end

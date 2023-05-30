@@ -47,10 +47,10 @@
           :display: :edit
           :data_type: :integer
           :notes_display: :hide
-        :provision_type:
+        :instance_type:
           :description: System Profile
           :values_from:
-            :method: :provision_type_to_profile
+            :method: :allowed_instance_types
           :required: true
           :display: :edit
           :data_type: :integer
