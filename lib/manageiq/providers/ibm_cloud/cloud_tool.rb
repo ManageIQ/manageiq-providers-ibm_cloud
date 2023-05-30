@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'logging'
+require 'logger'
 require_relative 'cloud_tools'
 
 module ManageIQ

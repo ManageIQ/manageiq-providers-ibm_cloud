@@ -2,7 +2,9 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager < ManageIQ::Providers::
   include ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
   include ManageIQ::Providers::StorageManager::BlockMixin
 
+  require_nested :CloudVolume
   require_nested :CloudVolumeType
+  require_nested :Refresher
 
   delegate :authentication_check,
            :authentication_status,
@@ -17,6 +19,7 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager < ManageIQ::Providers::
            :hostname,
            :default_endpoint,
            :endpoints,
+           :provider_region,
            :refresh,
            :refresh_ems,
            :to        => :parent_manager,
