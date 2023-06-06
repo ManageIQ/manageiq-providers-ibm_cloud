@@ -29,10 +29,15 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     signal :post_create_destination
   end
 
-  def find_destination_in_vmdb(_ems_ref)
+  def find_destination_in_vmdb(ems_ref)
     return if phase_context[:cloud_api_completion_time].nil? || source.ext_management_system.last_refresh_date < phase_context[:cloud_api_completion_time]
 
-    source.ext_management_system&.vms_and_templates&.find_by(:ems_id => options[:src_ems_id].try(:first), :name => options[:vm_name], :template => (request_type == 'clone_to_template'))
+    if request_type == 'clone_to_template'
+      # ems_ref is actually a Job ID
+      source.ext_management_system&.vms_and_templates&.find_by(:name => options[:vm_name], :template => true)
+    else
+      source.ext_management_system&.vms_and_templates&.find_by(:ems_ref => ems_ref, :template => false)
+    end
   end
 
   private
@@ -99,8 +104,8 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
       vm = Vm.find(get_option(:src_vm_id))
       body = IbmCloudPower::PVMInstanceCapture.new(clone_options)
-      response = api.pcloud_pvminstances_capture_post(cloud_instance_id, vm.uid_ems, body)
-      response[:taskID]
+      response = api.pcloud_v2_pvminstances_capture_post(cloud_instance_id, vm.uid_ems, body)
+      response.id
     end
   end
 
@@ -121,11 +126,12 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
   end
 
   def check_task_clone_to_template(clone_task_ref)
-    source.with_provider_connection(:service => "PCloudTasksApi") do |api|
-      task = api.pcloud_tasks_get(clone_task_ref)
-      stop = (task.status != 'capturing')
+    source.with_provider_connection(:service => 'PCloudJobsApi') do |api|
+      job = api.pcloud_cloudinstances_jobs_get(source.ext_management_system.uid_ems, clone_task_ref)
+      stop = (job.status.state == 'completed')
       phase_context[:cloud_api_completion_time] = Time.zone.now.utc if stop
-      return stop, task.status_detail
+      status = job.status.message.nil? ? job.status.state : "#{job.status.state} Message: '#{job.status.message}'"
+      return stop, status
     end
   end
 
