@@ -37,7 +37,7 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager < ManageIQ::Providers::
   end
 
   def self.description
-    @description ||= "IBM Cloud Servers Storage".freeze
+    @description ||= "IBM Cloud VPC Storage".freeze
   end
 
   def self.hostname_required?
