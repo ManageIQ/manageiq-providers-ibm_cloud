@@ -39,6 +39,10 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow do
       expect(workflow.security_group_to_security_group).to eq({})
     end
 
+    it "#allowed_instance_types" do
+      expect(workflow.allowed_instance_types).to eq({})
+    end
+
     it "#storage_type_to_profile" do
       expect(workflow.storage_type_to_profile).to eq({})
     end
@@ -62,6 +66,14 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::ProvisionWorkflow do
 
       it "returns the key_pairs" do
         expect(workflow.guest_access_key_pairs_to_keys).to eq(kp.ems_ref => kp.name)
+      end
+    end
+
+    describe "#allowed_instance_types" do
+      let!(:flavor) { FactoryBot.create(:flavor, :ems_ref => "bx2d-2x8", :name => "bx2d-2x8", :ext_management_system => ems) }
+
+      it "returns the instance_types" do
+        expect(workflow.allowed_instance_types).to eq(flavor.id => flavor.name)
       end
     end
 
