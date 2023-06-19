@@ -47,13 +47,6 @@
           :display: :edit
           :data_type: :integer
           :notes_display: :hide
-        :instance_type:
-          :description: System Profile
-          :values_from:
-            :method: :allowed_instance_types
-          :required: true
-          :display: :edit
-          :data_type: :integer
         :vm_name:
           :description: Instance Name
           :required_method: :validate_vm_name
@@ -128,6 +121,13 @@
     :hardware:
       :description: Profile
       :fields:
+        :instance_type:
+          :description: System Profile
+          :values_from:
+            :method: :allowed_instance_types
+          :required: true
+          :display: :edit
+          :data_type: :integer
         :storage_type:
           :description: Boot Volume Profile
           :values_from:
