@@ -79,8 +79,52 @@
 
     :schedule:
       :description: Schedule
-      :fields: {}
-      :display: :hide
+      :fields:
+        :schedule_type:
+          :values:
+            schedule: Schedule
+            immediately: Immediately on Approval
+          :description: When to Provision
+          :required: false
+          :display: :edit
+          :default: immediately
+          :data_type: :string
+        :schedule_time:
+          :values_from:
+            :options:
+              :offset: 1.day
+            :method: :default_schedule_time
+          :description: Provision on
+          :required: false
+          :display: :edit
+          :data_type: :time
+        :retirement:
+          :values:
+            0: Indefinite
+            1.month: 1 Month
+            3.months: 3 Months
+            6.months: 6 Months
+          :description: Time until Retirement
+          :required: false
+          :display: :edit
+          :default: 0
+          :data_type: :integer
+        :retirement_warn:
+          :values_from:
+            :options:
+              :values:
+                1.week: 1 Week
+                2.weeks: 2 Weeks
+                30.days: 30 Days
+              :include_equals: false
+              :field: :retirement
+            :method: :values_less_then
+          :description: Retirement Warning
+          :required: true
+          :display: :edit
+          :default: 1.week
+          :data_type: :integer
+      :display: :show
 
     :purpose:
       :description: Purpose
@@ -244,8 +288,8 @@
   - :volumes
   - :network
   - :customize
+  - :schedule
 
   - :purpose     # unused
   - :requester   # unused
   - :environment # unused
-  - :schedule    # unused
