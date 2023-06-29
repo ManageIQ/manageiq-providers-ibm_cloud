@@ -82,7 +82,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
     attached_volumes = options[:cloud_volumes] || []
     attached_volumes.concat(phase_context[:new_volumes]).compact!
-    specs['volume_ids'] = attached_volumes.uniq unless attached_volumes.empty?
+    specs['volume_ids'] = attached_volumes unless attached_volumes.empty?
 
     attached_networks = case get_option(:vlan)
                         when 'None'
