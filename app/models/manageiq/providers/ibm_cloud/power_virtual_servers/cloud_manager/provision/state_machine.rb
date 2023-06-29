@@ -15,9 +15,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     if new_volumes.any?
       source.with_provider_connection(:service => "PCloudVolumesApi") do |api|
         new_volumes.each do |new_volume|
-          api.pcloud_cloudinstances_volumes_post(
+          new_volume = api.pcloud_cloudinstances_volumes_post(
             cloud_instance_id, IbmCloudPower::CreateDataVolume.new(new_volume)
           )
+          phase_context[:new_volumes] << new_volume.volume_id
         end
       end
     end
