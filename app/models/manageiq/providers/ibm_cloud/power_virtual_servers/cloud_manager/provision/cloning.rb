@@ -64,7 +64,6 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     else
       specs['server_name']   = get_option(:vm_target_name)
       specs['memory']        = get_option_last(:vm_memory).to_i
-      specs['migratable']    = get_option_last(:migratable) == 1
       specs['processors']    = get_option_last(:entitled_processors).to_f
       specs['proc_type']     = get_option_last(:instance_type)
       specs['pin_policy']    = get_option_last(:pin_policy)
