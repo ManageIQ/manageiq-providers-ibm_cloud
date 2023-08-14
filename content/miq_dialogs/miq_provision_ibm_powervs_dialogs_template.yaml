@@ -51,15 +51,6 @@
           :display: :edit
           :default: 1
           :data_type: :integer
-        :migratable:
-          :values:
-            false: 0
-            true: 1
-          :description: Migratable
-          :required: false
-          :display: :edit
-          :default: true
-          :data_type: :boolean
         :user_script:
           :description: Upload
           :required: false

@@ -106,7 +106,6 @@ namespace :vcr do
           "processors"    => 0.25,
           "memory"        => 2,
           "key_pair_name" => "test-ssh-key-no-comment",
-          "migratable"    => true,
           "pin_policy"    => "none",
           "networks"      => [
             IbmCloudPower::PVMInstanceAddNetwork.new(
@@ -123,7 +122,6 @@ namespace :vcr do
           "processors"      => 0.25,
           "memory"          => 2,
           "key_pair_name"   => "test-ssh-key-with-comment",
-          "migratable"      => false,
           "pin_policy"      => "soft",
           "placement_group" => "test-placement-group-affinity",
           "networks"        => [
@@ -141,7 +139,6 @@ namespace :vcr do
           "processors"      => 1,
           "memory"          => 4,
           "key_pair_name"   => "test-ssh-key-with-comment-line-breaks",
-          "migratable"      => true,
           "pin_policy"      => "hard",
           "networks"        => [
             IbmCloudPower::PVMInstanceAddNetwork.new(
@@ -158,7 +155,6 @@ namespace :vcr do
           "processors"            => 0.50,
           "memory"                => 2,
           "key_pair_name"         => "test-ssh-key-no-comment",
-          "migratable"            => true,
           "pin_policy"            => "none",
           "shared_processor_pool" => "test_pool",
           "networks"              => [
@@ -176,7 +172,6 @@ namespace :vcr do
           "processors"      => 0.75,
           "memory"          => 4,
           "key_pair_name"   => "test-ssh-key-no-comment",
-          "migratable"      => true,
           "pin_policy"      => "none",
           "networks"        => [
             IbmCloudPower::PVMInstanceAddNetwork.new(
@@ -196,7 +191,6 @@ namespace :vcr do
           "processors"      => 1.25,
           "memory"          => 6,
           "key_pair_name"   => "test-ssh-key-no-comment",
-          "migratable"      => true,
           "pin_policy"      => "none",
           "placement_group" => "test-placement-group-anti-affinity",
           "networks"        => [
