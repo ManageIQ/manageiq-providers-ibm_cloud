@@ -5,8 +5,8 @@ __metadata:
   version: 8
   cacheKey: 10
 
-"root-workspace-0b6124@workspace:.":
+"manageiq-providers-ibm_cloud@workspace:.":
   version: 0.0.0-use.local
-  resolution: "root-workspace-0b6124@workspace:."
+  resolution: "manageiq-providers-ibm_cloud@workspace:."
   languageName: unknown
   linkType: soft
