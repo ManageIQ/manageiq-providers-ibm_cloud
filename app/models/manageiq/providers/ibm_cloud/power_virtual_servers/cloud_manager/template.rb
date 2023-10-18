@@ -59,6 +59,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Template
     _log.error("image=[#{name}], error: #{e}")
   end
 
+  def memory_for_request(request, _flavor_id = nil)
+    flavor_obj = Flavor.find_by(:ems_id => ems_id, :name => request.options[:sys_type][1])
+    if flavor_obj.kind_of?(ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile)
+      flavor_obj.try(:memory)
+    else
+      request.get_option(:vm_memory).to_i * 1.gigabytes
+    end
+  end
+
   def number_of_cpus_for_request(request, _flavor_id = nil)
     flavor_obj = Flavor.find_by(:ems_id => ems_id, :name => request.options[:sys_type][1])
     if flavor_obj.kind_of?(ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile)
