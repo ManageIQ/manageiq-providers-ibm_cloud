@@ -31,6 +31,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         assert_specific_placement_group
         assert_volume_type_attribs
         assert_cloud_manager
+        assert_specific_resource_pool
       end
     end
 
@@ -249,6 +250,20 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         expect(vtype[:name].length).to be > 0
         expect(vtype[:description].length).to be > 0
       end
+    end
+
+    def assert_specific_resource_pool
+      resource_pool_name = "test_pool"
+      resource_pool = ems.resource_pools.find_by(:name => resource_pool_name)
+      expect(resource_pool).to have_attributes(
+        :name               => resource_pool_name,
+        :type               => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ResourcePool",
+        :cpu_shares         => 0,
+        :cpu_reserve        => 0,
+        :cpu_limit          => 1,
+        :cpu_reserve_expand => true,
+        :is_default         => false
+      )
     end
 
     def full_refresh(ems)
