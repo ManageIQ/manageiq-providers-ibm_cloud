@@ -256,13 +256,16 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       resource_pool_name = "test_pool"
       resource_pool = ems.resource_pools.find_by(:name => resource_pool_name)
       expect(resource_pool).to have_attributes(
-        :name               => resource_pool_name,
-        :type               => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ResourcePool",
-        :cpu_shares         => 0,
-        :cpu_reserve        => 0,
-        :cpu_limit          => 1,
-        :cpu_reserve_expand => true,
-        :is_default         => false
+        :name                => resource_pool_name,
+        :type                => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::ResourcePool",
+        :cpu_shares          => nil,
+        :cpu_reserve         => nil,
+        :cpu_limit           => nil,
+        :cpu_cores_available => 0.5,
+        :cpu_cores_reserve   => 1,
+        :cpu_cores_limit     => 1,
+        :cpu_reserve_expand  => true,
+        :is_default          => false
       )
     end
 
