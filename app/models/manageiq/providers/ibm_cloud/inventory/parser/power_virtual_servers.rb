@@ -338,14 +338,14 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   def shared_processor_pools
     collector.shared_processor_pools.shared_processor_pools.each do |pool|
       params = {
-        :uid_ems            => pool.id,
-        :ems_ref            => pool.id,
-        :name               => pool.name,
-        :cpu_shares         => pool.allocated_cores,
-        :cpu_reserve        => pool.available_cores,
-        :cpu_reserve_expand => true,
-        :cpu_limit          => pool.allocated_cores + pool.available_cores,
-        :is_default         => false
+        :uid_ems             => pool.id,
+        :ems_ref             => pool.id,
+        :name                => pool.name,
+        :cpu_cores_available => pool.available_cores,
+        :cpu_cores_reserve   => pool.reserved_cores,
+        :cpu_cores_limit     => pool.reserved_cores,
+        :cpu_reserve_expand  => true,
+        :is_default          => false
       }
       persister.resource_pools.build(params)
     end
