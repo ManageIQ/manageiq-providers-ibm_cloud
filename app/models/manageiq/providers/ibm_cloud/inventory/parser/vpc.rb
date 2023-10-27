@@ -182,7 +182,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::VPC < ManageIQ::Provider
   def flavors
     collector.flavors.each do |flavor|
       memory = flavor&.dig(:memory, :value)
-      disk = flavor[:disks].first&.dig(:size, :value) || 0
+      disk = flavor[:disks]&.first&.dig(:size, :value) || 0
       persister.flavors.build(
         :ems_ref         => flavor[:name],
         :name            => flavor[:name],
