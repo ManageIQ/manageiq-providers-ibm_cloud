@@ -87,7 +87,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(CloudNetwork.count).to eq(4)
       expect(CloudSubnet.count).to eq(4)
       expect(CloudSubnetNetworkPort.count).to eq(8)
-      expect(Flavor.count).to eq(56)
+      expect(Flavor.count).to eq(58)
       expect(MiqTemplate.count).to eq(6)
       expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to be > 1
       expect(NetworkPort.count).to eq(8)
