@@ -111,7 +111,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
     def assert_cloud_manager
       expect(ems).to have_attributes(
-        :provider_region => "us-east01"
+        :provider_region => "mon01"
       )
     end
 
