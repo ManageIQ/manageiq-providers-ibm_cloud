@@ -104,7 +104,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(ems.network_manager.network_ports.count).to eq(8)
       expect(ems.operating_systems.count).to eq(12)
       expect(ems.placement_groups.count).to eq(2)
-      expect(ems.storage_manager.cloud_volume_types.count).to eq(2)
+      expect(ems.storage_manager.cloud_volume_types.count).to eq(4)
       expect(ems.storage_manager.cloud_volumes.count).to eq(10)
       expect(ems.vms.count).to eq(6)
     end
