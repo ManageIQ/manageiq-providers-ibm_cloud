@@ -1,4 +1,5 @@
 describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refresher do
+  include Spec::Support::EmsRefreshHelper
   it ".ems_type" do
     expect(described_class.ems_type).to eq(:ibm_cloud_power_virtual_servers)
   end
@@ -64,6 +65,20 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         full_refresh(ems.network_manager)
         assert_table_counts
         assert_specific_flavor
+      end
+    end
+
+    context "targeted refresh of VM" do
+      before { with_vcr { ems.refresh } }
+
+      context "vm target", :target_vm => true do
+        let(:target) { ems.vms.find_by(:name => "test-instance-ibmi-s922-capped-tier1") }
+
+        it "doesn't impact other inventory" do
+          assert_inventory_not_changed do
+            with_vcr("vm_target") { EmsRefresh.refresh(target) }
+          end
+        end
       end
     end
 
