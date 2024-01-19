@@ -65,6 +65,18 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers::
     []
   end
 
+  def snapshots
+    begin
+      @snapshots ||= snapshots_api.pcloud_cloudinstances_snapshots_getall(cloud_instance_id).snapshots.select do |snapshot|
+        references(:vms).include?(snapshot.pvm_instance_id)
+      end
+    rescue IbmCloudPower::ApiError => err
+      error_message = JSON.parse(err.response_body)["description"]
+      _log.debug("Error retrieving snapshots: #{error_message}")
+      nil
+    end.compact
+  end
+
   private
 
   def parse_targets!
