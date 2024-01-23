@@ -1,4 +1,5 @@
 describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refresher do
+  include Spec::Support::EmsRefreshHelper
   it ".ems_type" do
     expect(described_class.ems_type).to eq(:ibm_cloud_power_virtual_servers)
   end
@@ -67,12 +68,26 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       end
     end
 
+    context "targeted refresh of VM" do
+      before { with_vcr { ems.refresh } }
+
+      context "vm target", :target_vm => true do
+        let(:target) { ems.vms.find_by(:name => "test-instance-ibmi-s922-capped-tier1") }
+
+        it "doesn't impact other inventory" do
+          assert_inventory_not_changed do
+            with_vcr("vm_target") { EmsRefresh.refresh(target) }
+          end
+        end
+      end
+    end
+
     def assert_table_counts
       expect(CloudVolume.count).to eq(10)
       expect(CloudNetwork.count).to eq(4)
       expect(CloudSubnet.count).to eq(4)
-      expect(CloudSubnetNetworkPort.count).to eq(12)
-      expect(Flavor.count).to eq(56)
+      expect(CloudSubnetNetworkPort.count).to eq(8)
+      expect(Flavor.count).to eq(58)
       expect(MiqTemplate.count).to eq(6)
       expect(ManageIQ::Providers::CloudManager::AuthKeyPair.count).to be > 1
       expect(NetworkPort.count).to eq(8)
@@ -89,14 +104,14 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(ems.network_manager.network_ports.count).to eq(8)
       expect(ems.operating_systems.count).to eq(12)
       expect(ems.placement_groups.count).to eq(2)
-      expect(ems.storage_manager.cloud_volume_types.count).to eq(2)
+      expect(ems.storage_manager.cloud_volume_types.count).to eq(4)
       expect(ems.storage_manager.cloud_volumes.count).to eq(10)
       expect(ems.vms.count).to eq(6)
     end
 
     def assert_cloud_manager
       expect(ems).to have_attributes(
-        :provider_region => "us-east01"
+        :provider_region => "mon01"
       )
     end
 

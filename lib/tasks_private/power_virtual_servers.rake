@@ -115,7 +115,7 @@ namespace :vcr do
         ),
         IbmCloudPower::PVMInstanceCreate.new(
           "server_name"     => "test-instance-ibmi-s922-capped-tier1",
-          "image_id"        => "IBMi-75-00-2984-1",
+          "image_id"        => "IBMi-75-02-2984-1",
           "sys_type"        => "s922",
           "proc_type"       => "capped",
           "storage_type"    => "tier1",
