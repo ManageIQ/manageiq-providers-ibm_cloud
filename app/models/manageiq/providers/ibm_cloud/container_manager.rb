@@ -252,7 +252,7 @@ class ManageIQ::Providers::IbmCloud::ContainerManager < ManageIQ::Providers::Kub
                     :name                   => "authentications.prometheus.valid",
                     :skipSubmit             => true,
                     :isRequired             => true,
-                    :validationDependencies => ['type', "metrics_selection", "authentications.bearer.auth_key"],
+                    :validationDependencies => %w[type zone_id metrics_selection authentications.bearer.auth_key],
                     :condition              => {
                       :when => "metrics_selection",
                       :is   => 'prometheus',
