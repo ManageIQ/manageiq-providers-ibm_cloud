@@ -94,6 +94,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(OperatingSystem.count).to eq(12)
       expect(PlacementGroup.count).to eq(2)
       expect(Vm.count).to eq(6)
+      expect(AdvancedSetting.count).to eq(18)
     end
 
     def assert_ems_counts
