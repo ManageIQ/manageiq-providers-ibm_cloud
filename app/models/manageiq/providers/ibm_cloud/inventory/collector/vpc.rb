@@ -1,9 +1,4 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Collector::VPC < ManageIQ::Providers::IbmCloud::Inventory::Collector
-  require_nested :CloudManager
-  require_nested :NetworkManager
-  require_nested :StorageManager
-  require_nested :TargetCollection
-
   def connection
     @connection ||= manager.connect
   end

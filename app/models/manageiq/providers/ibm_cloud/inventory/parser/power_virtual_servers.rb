@@ -1,9 +1,4 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < ManageIQ::Providers::IbmCloud::Inventory::Parser
-  require_nested :CloudManager
-  require_nested :NetworkManager
-  require_nested :StorageManager
-  require_nested :TargetCollection
-
   attr_reader :subnet_to_ext_ports
 
   OS_MIQ_NAMES_MAP = {

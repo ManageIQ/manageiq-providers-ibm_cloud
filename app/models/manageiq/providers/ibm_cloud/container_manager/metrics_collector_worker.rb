@@ -1,6 +1,4 @@
 class ManageIQ::Providers::IbmCloud::ContainerManager::MetricsCollectorWorker < ManageIQ::Providers::BaseManager::MetricsCollectorWorker
-  require_nested :Runner
-
   self.default_queue_name = "iks"
 
   def friendly_name

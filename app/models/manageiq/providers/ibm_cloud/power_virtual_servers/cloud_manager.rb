@@ -1,19 +1,4 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageIQ::Providers::CloudManager
-  require_nested :AuthKeyPair
-  require_nested :AvailabilityZone
-  require_nested :EventCatcher
-  require_nested :Flavor
-  require_nested :Refresher
-  require_nested :RefreshWorker
-  require_nested :PlacementGroup
-  require_nested :Provision
-  require_nested :ProvisionWorkflow
-  require_nested :SAPProfile
-  require_nested :Snapshot
-  require_nested :Template
-  require_nested :Vm
-  require_nested :ResourcePool
-
   include ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
 
   delegate :cloud_volumes,

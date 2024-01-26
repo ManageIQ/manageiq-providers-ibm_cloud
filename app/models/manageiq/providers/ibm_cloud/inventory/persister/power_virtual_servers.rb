@@ -1,9 +1,4 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Persister::PowerVirtualServers < ManageIQ::Providers::IbmCloud::Inventory::Persister
-  require_nested :CloudManager
-  require_nested :NetworkManager
-  require_nested :StorageManager
-  require_nested :TargetCollection
-
   def initialize_inventory_collections
     initialize_cloud_inventory_collections
     initialize_network_inventory_collections

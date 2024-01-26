@@ -1,6 +1,4 @@
 class ManageIQ::Providers::IbmCloud::Inventory::Collector::ObjectStorage < ManageIQ::Providers::IbmCloud::Inventory::Collector
-  require_nested :StorageManager
-
   BUCKET_TAB_LIMIT = 1000
 
   def buckets
