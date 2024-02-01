@@ -19,8 +19,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
            :hostname,
            :default_endpoint,
            :endpoints,
-           :key_pairs,
-           :snapshots,
+           :refresh,
+           :refresh_ems,
            :to        => :parent_manager,
            :allow_nil => true
 
