@@ -39,32 +39,88 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     it "refreshes the child network_manager" do
       2.times do
         full_refresh(ems.network_manager)
+
         ems.reload
+
         assert_table_counts
+        assert_ems_counts
         assert_specific_flavor
+        assert_specific_vm
+        assert_specific_template
+        assert_specific_key_pair
+        assert_specific_cloud_network
+        assert_specific_cloud_subnet
+        assert_specific_network_port
+        assert_specific_cloud_volume
+        assert_specific_placement_group
+        assert_volume_type_attribs
+        assert_cloud_manager
+        assert_specific_resource_pool
       end
     end
 
     it "refreshes the child storage_manager" do
       2.times do
         full_refresh(ems.storage_manager)
+
         ems.reload
+
         assert_table_counts
+        assert_ems_counts
         assert_specific_flavor
+        assert_specific_vm
+        assert_specific_template
+        assert_specific_key_pair
+        assert_specific_cloud_network
+        assert_specific_cloud_subnet
+        assert_specific_network_port
+        assert_specific_cloud_volume
+        assert_specific_placement_group
+        assert_volume_type_attribs
+        assert_cloud_manager
+        assert_specific_resource_pool
       end
     end
 
     it "refreshes the cloud manager then network manager" do
       2.times do
         full_refresh(ems)
+
         ems.reload
+
         assert_table_counts
+        assert_ems_counts
         assert_specific_flavor
+        assert_specific_vm
+        assert_specific_template
+        assert_specific_key_pair
+        assert_specific_cloud_network
+        assert_specific_cloud_subnet
+        assert_specific_network_port
+        assert_specific_cloud_volume
+        assert_specific_placement_group
+        assert_volume_type_attribs
         assert_cloud_manager
+        assert_specific_resource_pool
 
         full_refresh(ems.network_manager)
+
+        ems.reload
+
         assert_table_counts
+        assert_ems_counts
         assert_specific_flavor
+        assert_specific_vm
+        assert_specific_template
+        assert_specific_key_pair
+        assert_specific_cloud_network
+        assert_specific_cloud_subnet
+        assert_specific_network_port
+        assert_specific_cloud_volume
+        assert_specific_placement_group
+        assert_volume_type_attribs
+        assert_cloud_manager
+        assert_specific_resource_pool
       end
     end
 
@@ -76,7 +132,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
         it "doesn't impact other inventory" do
           assert_inventory_not_changed do
-            with_vcr("vm_target") { EmsRefresh.refresh(target) }
+            with_vcr("vm_target") { target.refresh }
           end
         end
       end
@@ -94,6 +150,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       expect(OperatingSystem.count).to eq(12)
       expect(PlacementGroup.count).to eq(2)
       expect(Vm.count).to eq(6)
+      expect(AdvancedSetting.count).to eq(18)
     end
 
     def assert_ems_counts
@@ -286,7 +343,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
     def full_refresh(ems)
       VCR.use_cassette(described_class.name.underscore) do
-        EmsRefresh.refresh(ems)
+        ems.refresh
       end
     end
   end
