@@ -1,20 +1,6 @@
 ManageIQ::Providers::Kubernetes::ContainerManager.include(ActsAsStiLeafClass)
 
 class ManageIQ::Providers::IbmCloud::ContainerManager < ManageIQ::Providers::Kubernetes::ContainerManager
-  require_nested :Container
-  require_nested :ContainerGroup
-  require_nested :ContainerNode
-  require_nested :ContainerTemplate
-  require_nested :EventCatcher
-  require_nested :EventParser
-  require_nested :MetricsCapture
-  require_nested :MetricsCollectorWorker
-  require_nested :Refresher
-  require_nested :RefreshWorker
-  require_nested :ServiceInstance
-  require_nested :ServiceOffering
-  require_nested :ServiceParametersSet
-
   supports :create
 
   METRICS_ROLES = %w[prometheus].freeze

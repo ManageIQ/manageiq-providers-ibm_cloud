@@ -1,7 +1,7 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provision < ::MiqProvisionCloud
-  include_concern 'Cloning'
-  include_concern 'StateMachine'
-  include_concern 'OptionsHelper'
+  include Cloning
+  include StateMachine
+  include OptionsHelper
 
   def destination_type
     case request_type

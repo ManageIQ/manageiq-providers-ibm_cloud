@@ -2,7 +2,7 @@
 
 # Provide CloudManager support for IBM CLoud VPC templates.
 class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Template < ManageIQ::Providers::CloudManager::Template
-  include_concern 'ManageIQ::Providers::IbmCloud::VPC::CloudManager::VmOrTemplateShared'
+  include ManageIQ::Providers::IbmCloud::VPC::CloudManager::VmOrTemplateShared
 
   supports :provisioning do
     if ext_management_system
