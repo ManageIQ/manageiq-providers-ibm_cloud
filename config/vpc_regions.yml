@@ -1,33 +1,41 @@
 ---
-us-south:
-  :name: us-south
-  :hostname: us-south.iaas.cloud.ibm.com
-  :description: US South (Dallas)
-us-east:
-  :name: us-east
-  :hostname: us-east.iaas.cloud.ibm.com
-  :description: US East (Washington DC)
-ca-tor:
-  :name: ca-tor
-  :hostname: ca-tor.iaas.cloud.ibm.com
-  :description: Canada (Toronto)
-eu-gb:
-  :name: eu-gb
-  :hostname: eu-gb.iaas.cloud.ibm.com
-  :description: United Kingdom (London)
-eu-de:
-  :name: eu-de
-  :hostname: eu-de.iaas.cloud.ibm.com
-  :description: EU Germany (Frankfurt)
-jp-tok:
-  :name: jp-tok
-  :hostname: jp-tok.iaas.cloud.ibm.com
-  :description: Japan (Tokyo)
-jp-osa:
-  :name: jp-osa
-  :hostname: jp-osa.iaas.cloud.ibm.com
-  :description: Japan (Osaka)
 au-syd:
   :name: au-syd
   :hostname: au-syd.iaas.cloud.ibm.com
   :description: Australia (Sydney)
+br-sao:
+  :name: br-sao
+  :hostname: br-sao.iaas.cloud.ibm.com
+  :description: Brazil (São Paulo)
+ca-tor:
+  :name: ca-tor
+  :hostname: ca-tor.iaas.cloud.ibm.com
+  :description: Canada (Toronto)
+eu-de:
+  :name: eu-de
+  :hostname: eu-de.iaas.cloud.ibm.com
+  :description: EU Germany (Frankfurt)
+eu-es:
+  :name: eu-es
+  :hostname: eu-es.iaas.cloud.ibm.com
+  :description: EU Spain (Madrid)
+eu-gb:
+  :name: eu-gb
+  :hostname: eu-gb.iaas.cloud.ibm.com
+  :description: United Kingdom (London)
+jp-osa:
+  :name: jp-osa
+  :hostname: jp-osa.iaas.cloud.ibm.com
+  :description: Japan (Osaka)
+jp-tok:
+  :name: jp-tok
+  :hostname: jp-tok.iaas.cloud.ibm.com
+  :description: Japan (Tokyo)
+us-east:
+  :name: us-east
+  :hostname: us-east.iaas.cloud.ibm.com
+  :description: US East (Washington DC)
+us-south:
+  :name: us-south
+  :hostname: us-south.iaas.cloud.ibm.com
+  :description: US South (Dallas)
