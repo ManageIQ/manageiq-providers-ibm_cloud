@@ -36,7 +36,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager < ManageI
 
   supports :catalog
   supports :create
-  supports :native_console
+  supports :management_console
   supports :provisioning
   supports_not :volume_availability_zones
 

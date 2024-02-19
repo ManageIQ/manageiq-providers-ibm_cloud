@@ -34,10 +34,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   end
   supports :launch_html5_console
 
-  supports :native_console do
+  supports :management_console do
     reason ||= _("VM Console not supported because VM is orphaned") if orphaned?
     reason ||= _("VM Console not supported because VM is archived") if archived?
-    unsupported_reason_add(:native_console, reason) if reason
+    unsupported_reason_add(:management_console, reason) if reason
   end
 
   supports :resize do
