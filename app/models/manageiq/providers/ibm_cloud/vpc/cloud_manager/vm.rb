@@ -70,7 +70,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
 
   # Show reboot in the instance menu when on.
   supports :reboot_guest do
-    unsupported_reason_add(:reboot_guest, _('The VM is not powered on')) unless current_state == 'on'
+    _('The VM is not powered on') unless current_state == 'on'
   end
 
   # Gracefully reboot the quest.
@@ -92,7 +92,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
 
   # Tell UI to show reset in UI only when VM is on.
   supports :reset do
-    unsupported_reason_add(:reset, _('The VM is not powered on')) unless current_state == "on"
+    _('The VM is not powered on') unless current_state == "on"
   end
 
   # Force the the VM to restart.
@@ -101,7 +101,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
   end
 
   supports :terminate do
-    unsupported_reason_add(:terminate, unsupported_reason(:control)) unless supports_control?
+    unsupported_reason(:control)
   end
 
   def raw_destroy
@@ -112,8 +112,8 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
   end
 
   supports :resize do
-    unsupported_reason_add(:resize, _('The VM is not powered off')) unless current_state == "off"
-    unsupported_reason_add(:resize, _('The VM is not connected to a provider')) unless ext_management_system
+    return _('The VM is not powered off') unless current_state == "off"
+    return _('The VM is not connected to a provider') unless ext_management_system
   end
 
   def raw_resize(options)

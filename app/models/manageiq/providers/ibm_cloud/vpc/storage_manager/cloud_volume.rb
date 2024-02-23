@@ -2,9 +2,9 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager::CloudVolume < ::CloudV
   supports :create
   supports :delete do
     if ext_management_system.nil?
-      unsupported_reason_add(:delete_volume, _("The Cloud Volume is not connected to an active %{table}") % {
+      _("The Cloud Volume is not connected to an active %{table}") % {
         :table => ui_lookup(:table => "ext_management_systems")
-      })
+      }
     end
   end
 

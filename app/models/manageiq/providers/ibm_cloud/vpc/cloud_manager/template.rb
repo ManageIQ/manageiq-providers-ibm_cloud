@@ -6,9 +6,9 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Template < ManageIQ::Pro
 
   supports :provisioning do
     if ext_management_system
-      unsupported_reason_add(:provisioning, ext_management_system.unsupported_reason(:provisioning)) unless ext_management_system.supports_provisioning?
+      ext_management_system.unsupported_reason(:provisioning)
     else
-      unsupported_reason_add(:provisioning, _('not connected to ems'))
+      _('not connected to ems')
     end
   end
 
