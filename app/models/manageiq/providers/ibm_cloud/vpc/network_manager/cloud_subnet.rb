@@ -4,14 +4,13 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager::CloudSubnet < ::CloudS
   supports :create
   supports :delete do
     if ext_management_system.nil?
-      unsupported_reason_add(:delete, _("The subnet is not connected to an active %{table}") % {
+      _("The subnet is not connected to an active %{table}") % {
         :table => ui_lookup(:table => "ext_management_systems")
-      })
-    end
-    if number_of(:vms) > 0
-      unsupported_reason_add(:delete, _("The subnet has an active %{table}") % {
+      }
+    elsif number_of(:vms) > 0
+      _("The subnet has an active %{table}") % {
         :table => ui_lookup(:table => "vm_cloud")
-      })
+      }
     end
   end
 

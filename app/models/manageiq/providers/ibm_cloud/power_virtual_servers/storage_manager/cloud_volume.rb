@@ -2,18 +2,18 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   supports :create
   supports :clone
   supports :delete do
-    unsupported_reason_add(:delete, _("the volume is not connected to an active Provider")) unless ext_management_system
-    unsupported_reason_add(:delete, _("cannot delete volume that is in use.")) if status == "in-use"
+    return _("the volume is not connected to an active Provider") unless ext_management_system
+    return _("cannot delete volume that is in use.") if status == "in-use"
   end
   supports_not :snapshot_create
   supports_not :update
   supports :attach do
-    unsupported_reason_add(:attach, _("the volume is not connected to an active Provider")) unless ext_management_system
-    unsupported_reason_add(:attach, _("cannot attach non-shareable volume that is in use.")) if status == "in-use" && !multi_attachment
+    return _("the volume is not connected to an active Provider") unless ext_management_system
+    return _("cannot attach non-shareable volume that is in use.") if status == "in-use" && !multi_attachment
   end
   supports :detach do
-    unsupported_reason_add(:detach, _("the volume is not connected to an active Provider")) unless ext_management_system
-    unsupported_reason_add(:detach, _("the volume status is '%{status}' but should be 'in-use'") % {:status => status}) unless status == "in-use"
+    return _("the volume is not connected to an active Provider") unless ext_management_system
+    return _("the volume status is '%{status}' but should be 'in-use'") % {:status => status} unless status == "in-use"
   end
 
   def available_vms
