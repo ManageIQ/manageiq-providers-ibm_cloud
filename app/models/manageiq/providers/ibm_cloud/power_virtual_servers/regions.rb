@@ -3,7 +3,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::Regions < ManageIQ::Pr
     private
 
     def ems_type
-      :ibm_cloud_power_virtual_servers
+      :ems_ibm_cloud_power_virtual_servers
     end
 
     def regions_yml

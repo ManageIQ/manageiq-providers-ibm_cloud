@@ -1,5 +1,7 @@
 :ems:
   :ems_ibm_cloud_power_virtual_servers:
+    :additional_regions: {}
+    :disabled_regions: []
     :event_handling:
       :event_groups:
         :addition:
