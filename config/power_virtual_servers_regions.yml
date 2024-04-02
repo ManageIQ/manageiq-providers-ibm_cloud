@@ -10,6 +10,10 @@ lon:
   :name: lon
   :description: London, United Kingdom
   :hostname: lon.power-iaas.cloud.ibm.com
+mad:
+  :name: mad
+  :description: Madrid, Spain
+  :hostname: mad.power-iaas.cloud.ibm.com
 mon:
   :name: mon
   :description: Montreal, Canada
