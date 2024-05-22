@@ -4,15 +4,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   supports :capture
   supports :terminate
   supports :reboot_guest do
-    unsupported_reason_add(:reboot_guest, _("The VM is not powered on")) unless current_state == "on"
+    _("The VM is not powered on") unless current_state == "on"
   end
   supports :reset do
-    unsupported_reason_add(:reset, _("The VM is not powered on")) unless current_state == "on"
+    _("The VM is not powered on") unless current_state == "on"
   end
   supports :snapshots
   supports :snapshot_create
   supports :revert_to_snapshot do
-    unsupported_reason_add(:revert_to_snapshot, _("Cannot revert to snapshot while VM is running")) unless current_state == "off"
+    _("Cannot revert to snapshot while VM is running") unless current_state == "off"
   end
   supports :remove_snapshot
   supports :remove_all_snapshots
@@ -20,30 +20,28 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   supports_not :suspend
 
   supports :publish do
-    reason   = _("Publish not supported because VM is blank")    if blank?
-    reason ||= _("Publish not supported because VM is orphaned") if orphaned?
-    reason ||= _("Publish not supported because VM is archived") if archived?
-    unsupported_reason_add(:publish, reason) if reason
+    return _("Publish not supported because VM is blank")    if blank?
+    return _("Publish not supported because VM is orphaned") if orphaned?
+    return _("Publish not supported because VM is archived") if archived?
   end
 
+  # TODO: converge these all into console and use unsupported_reason(:console) for all
   supports :html5_console do
-    reason   = _("VM Console not supported because VM is not powered on") unless current_state == "on"
-    reason ||= _("VM Console not supported because VM is orphaned")       if orphaned?
-    reason ||= _("VM Console not supported because VM is archived")       if archived?
-    unsupported_reason_add(:html5_console, reason) if reason
+    return _("VM Console not supported because VM is not powered on") unless current_state == "on"
+    return _("VM Console not supported because VM is orphaned")       if orphaned?
+    return _("VM Console not supported because VM is archived")       if archived?
   end
   supports :launch_html5_console
 
   supports :native_console do
-    reason ||= _("VM Console not supported because VM is orphaned") if orphaned?
-    reason ||= _("VM Console not supported because VM is archived") if archived?
-    unsupported_reason_add(:native_console, reason) if reason
+    return _("VM Console not supported because VM is orphaned") if orphaned?
+    return _("VM Console not supported because VM is archived") if archived?
   end
 
   supports :resize do
-    unsupported_reason_add(:resize, _('The VM is not powered off')) unless current_state == "off"
-    unsupported_reason_add(:resize, _('The VM is not connected to a provider')) unless ext_management_system
-    unsupported_reason_add(:resize, _('SAP VM resize not supported')) if flavor.kind_of?(ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile)
+    return _('The VM is not powered off') unless current_state == "off"
+    return _('The VM is not connected to a provider') unless ext_management_system
+    return _('SAP VM resize not supported') if flavor.kind_of?(ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile)
   end
 
   def cloud_instance_id

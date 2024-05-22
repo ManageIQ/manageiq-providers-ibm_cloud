@@ -1,9 +1,7 @@
 class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager::CloudSubnet < ::CloudSubnet
   supports :create
   supports :delete do
-    if number_of(:vms) > 0
-      unsupported_reason_add(:delete, _("The Network has active VMIs related to it"))
-    end
+    _("The Network has active VMIs related to it") if number_of(:vms) > 0
   end
 
   def self.params_for_create(_ems)

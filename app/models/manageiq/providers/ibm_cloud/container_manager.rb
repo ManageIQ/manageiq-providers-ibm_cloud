@@ -6,7 +6,7 @@ class ManageIQ::Providers::IbmCloud::ContainerManager < ManageIQ::Providers::Kub
   METRICS_ROLES = %w[prometheus].freeze
 
   supports :metrics do
-    unsupported_reason_add(:metrics, _("No metrics endpoint has been added")) unless metrics_endpoint_exists?
+    _("No metrics endpoint has been added") unless metrics_endpoint_exists?
   end
 
   def metrics_endpoint_exists?
