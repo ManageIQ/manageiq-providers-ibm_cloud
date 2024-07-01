@@ -20,28 +20,43 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   supports_not :suspend
 
   supports :publish do
-    return _("Publish not supported because VM is blank")    if blank?
-    return _("Publish not supported because VM is orphaned") if orphaned?
-    return _("Publish not supported because VM is archived") if archived?
+    if blank?
+      _("Publish not supported because VM is blank")
+    elsif orphaned?
+      _("Publish not supported because VM is orphaned")
+    elsif archived?
+      _("Publish not supported because VM is archived")
+    end
   end
 
   # TODO: converge these all into console and use unsupported_reason(:console) for all
   supports :html5_console do
-    return _("VM Console not supported because VM is not powered on") unless current_state == "on"
-    return _("VM Console not supported because VM is orphaned")       if orphaned?
-    return _("VM Console not supported because VM is archived")       if archived?
+    if current_state != "on"
+      _("VM Console not supported because VM is not powered on")
+    elsif orphaned?
+      _("VM Console not supported because VM is orphaned")
+    elsif archived?
+      _("VM Console not supported because VM is archived")
+    end
   end
   supports :launch_html5_console
 
   supports :native_console do
-    return _("VM Console not supported because VM is orphaned") if orphaned?
-    return _("VM Console not supported because VM is archived") if archived?
+    if orphaned?
+      _("VM Console not supported because VM is orphaned")
+    elsif archived?
+      _("VM Console not supported because VM is archived")
+    end
   end
 
   supports :resize do
-    return _('The VM is not powered off') unless current_state == "off"
-    return _('The VM is not connected to a provider') unless ext_management_system
-    return _('SAP VM resize not supported') if flavor.kind_of?(ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile)
+    if current_state != "off"
+      _('The VM is not powered off')
+    elsif ext_management_system.nil?
+      _('The VM is not connected to a provider')
+    elsif flavor.kind_of?(ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile)
+      _('SAP VM resize not supported')
+    end
   end
 
   def cloud_instance_id
