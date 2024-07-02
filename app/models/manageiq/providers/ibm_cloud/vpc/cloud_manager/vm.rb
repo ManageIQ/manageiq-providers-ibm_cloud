@@ -112,8 +112,11 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::Vm < ManageIQ::Providers
   end
 
   supports :resize do
-    return _('The VM is not powered off') unless current_state == "off"
-    return _('The VM is not connected to a provider') unless ext_management_system
+    if current_state != "off"
+      _('The VM is not powered off')
+    elsif ext_management_system.nil?
+      _('The VM is not connected to a provider')
+    end
   end
 
   def raw_resize(options)
