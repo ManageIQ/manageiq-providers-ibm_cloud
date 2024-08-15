@@ -2,18 +2,27 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager::CloudV
   supports :create
   supports :clone
   supports :delete do
-    return _("the volume is not connected to an active Provider") unless ext_management_system
-    return _("cannot delete volume that is in use.") if status == "in-use"
+    if ext_management_system.nil?
+      _("the volume is not connected to an active Provider")
+    elsif status == "in-use"
+      _("cannot delete volume that is in use.")
+    end
   end
   supports_not :snapshot_create
   supports_not :update
   supports :attach do
-    return _("the volume is not connected to an active Provider") unless ext_management_system
-    return _("cannot attach non-shareable volume that is in use.") if status == "in-use" && !multi_attachment
+    if ext_management_system.nil?
+      _("the volume is not connected to an active Provider")
+    elsif status == "in-use" && !multi_attachment
+      _("cannot attach non-shareable volume that is in use.")
+    end
   end
   supports :detach do
-    return _("the volume is not connected to an active Provider") unless ext_management_system
-    return _("the volume status is '%{status}' but should be 'in-use'") % {:status => status} unless status == "in-use"
+    if ext_management_system.nil?
+      _("the volume is not connected to an active Provider")
+    elsif status != "in-use"
+      _("the volume status is '%{status}' but should be 'in-use'") % {:status => status}
+    end
   end
 
   def available_vms
