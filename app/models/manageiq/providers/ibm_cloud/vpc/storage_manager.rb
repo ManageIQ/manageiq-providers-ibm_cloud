@@ -24,6 +24,10 @@ class ManageIQ::Providers::IbmCloud::VPC::StorageManager < ManageIQ::Providers::
   supports :cloud_volume
   supports :cloud_volume_create
 
+  class << self
+    delegate :refresh_ems, :to => ManageIQ::Providers::IbmCloud::VPC::CloudManager
+  end
+
   def image_name
     "ibm_cloud"
   end

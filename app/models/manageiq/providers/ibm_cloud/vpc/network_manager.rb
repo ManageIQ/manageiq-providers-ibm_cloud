@@ -23,6 +23,10 @@ class ManageIQ::Providers::IbmCloud::VPC::NetworkManager < ManageIQ::Providers::
            :to        => :parent_manager,
            :allow_nil => true
 
+  class << self
+    delegate :refresh_ems, :to => ManageIQ::Providers::IbmCloud::VPC::CloudManager
+  end
+
   def image_name
     "ibm_cloud"
   end

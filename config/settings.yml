@@ -68,11 +68,19 @@
   :ibm_vpc:
     :refresh_interval: 15.minutes
     :allow_targeted_refresh: true
+  :ibm_cloud_vpc_network:
+    :refresh_interval: 0
+  :ibm_cloud_vpc_storage:
+    :refresh_interval: 0
   :ibm_cloud_object_storage:
     :refresh_interval: 15.minutes
   :ibm_cloud_power_virtual_servers:
     :refresh_interval: 15.minutes
     :allow_targeted_refresh: true
+  :ibm_cloud_power_virtual_servers_network:
+    :refresh_interval: 0
+  :ibm_cloud_power_virtual_servers_storage:
+    :refresh_interval: 0
   :iks:
     :refresh_interval: 15.minutes
     :streaming_refresh: true
