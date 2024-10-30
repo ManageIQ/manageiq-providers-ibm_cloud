@@ -22,6 +22,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
            :to        => :parent_manager,
            :allow_nil => true
 
+  class << self
+    delegate :refresh_ems, :to => ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager
+  end
+
   def image_name
     "ibm_power_vs"
   end
