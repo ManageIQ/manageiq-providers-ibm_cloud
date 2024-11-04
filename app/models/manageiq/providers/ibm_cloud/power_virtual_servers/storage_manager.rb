@@ -26,6 +26,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::StorageManager < Manag
   supports :cloud_volume
   supports :cloud_volume_create
 
+  class << self
+    delegate :refresh_ems, :to => ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager
+  end
+
   def image_name
     "ibm_power_vs"
   end
