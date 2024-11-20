@@ -12,6 +12,7 @@ jobs:
           cache/
         key: setup-ruby-bundler-cache-v6-ubuntu-22.04-x64-ruby-3.1.6-wd-/home/runner/work/manageiq-providers-ibm_cloud/manageiq-providers-ibm_cloud-with--without--only--Gemfile.lock-1640b0617d93b069ce17fe8efbda8dd9651edd3f6aa9fa624cd97a1b4a2e505c
         restore-keys: setup-ruby-bundler-cache-v6-ubuntu-22.04-x64-ruby-3.1.6-wd-/home/runner/work/manageiq-providers-ibm_cloud/manageiq-providers-ibm_cloud-with--without--only--Gemfile.lock-
+        fail-on-cache-miss: true
     - uses: actions/upload-artifact@v4
       with:
         name: cache
