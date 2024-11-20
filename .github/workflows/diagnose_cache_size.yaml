@@ -2,6 +2,7 @@
 name: Diagnose Cache Size
 on:
   push:
+  pull_request:
 jobs:
   diagnose-cache-size:
     runs-on: ubuntu-latest
