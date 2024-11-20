@@ -1,0 +1,17 @@
+---
+name: CI
+on:
+  push:
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/cache/restore@v4
+      with:
+        path: |
+          cache/
+        key: setup-ruby-bundler-cache-v6-ubuntu-22.04-x64-ruby-3.1.6-wd-/home/runner/work/manageiq-providers-ibm_cloud/manageiq-providers-ibm_cloud-with--without--only--Gemfile.lock-1640b0617d93b069ce17fe8efbda8dd9651edd3f6aa9fa624cd97a1b4a2e505c
+    - uses: actions/upload-artifact@v4
+      with:
+        name: cache
+        path: cache/
