@@ -18,8 +18,6 @@ jobs:
     - run: |
         git --version
         echo "------------------"
-        git config --global --list
-        echo "------------------"
         git config --list
     - name: Set up system
       run: bin/before_install
