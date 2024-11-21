@@ -28,7 +28,7 @@ jobs:
         bundler-cache: true
       timeout-minutes: 30
     - run: |
-        pushd $(gem which manageiq-ui-classic)
+        pushd $(bundle show manageiq-ui-classic)
         git config --list
         popd
     - uses: actions/upload-artifact@v4
