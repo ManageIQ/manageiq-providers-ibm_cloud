@@ -55,8 +55,8 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::MetricsCapture < ManageI
     counters_by_mor = {target.ems_ref => VIM_STYLE_COUNTERS}
     counter_values_by_mor = {target.ems_ref => {}}
 
-    metrics_endpoint = ext_management_system.endpoints.find_by(:role => "metrics")
-    raise _("Missing monitoring instance id") if metrics_endpoint.nil?
+    metrics_endpoint = ext_management_system.metrics_endpoint
+    raise _("No metrics endpoint has been added") if metrics_endpoint.nil?
 
     instance_id = metrics_endpoint.options["monitoring_instance_id"]
 
