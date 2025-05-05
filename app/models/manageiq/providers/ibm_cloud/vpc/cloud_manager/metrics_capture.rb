@@ -136,7 +136,10 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::MetricsCapture < ManageI
   end
 
   def iam_access_token
-    @iam_access_token ||= IBMCloudSdkCore::IAMTokenManager.new(:apikey => ext_management_system.authentication_key("default")).access_token
+    @iam_access_token ||= begin
+      require 'ibm_cloud_sdk_core'
+      IBMCloudSdkCore::IAMTokenManager.new(:apikey => ext_management_system.authentication_key("default")).access_token
+    end
   end
 
   def store_datapoints_with_interpolation!(end_time, timestamps, datapoints, counter_key, counter_values_by_mor)
