@@ -15,7 +15,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyP
       {
         :name        => create_options['name'],
         :public_key  => create_options['public_key'],
-        :fingerprint => SSHKey.sha1_fingerprint(create_options['public_key'])
+        :fingerprint => SSHKey.sha256_fingerprint(create_options['public_key'])
       }
     end
   rescue => err
