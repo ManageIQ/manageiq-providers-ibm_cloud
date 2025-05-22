@@ -113,8 +113,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     @sshkeys ||= tenants_api.pcloud_tenants_get(pcloud_tenant_id).ssh_keys
   end
 
-  def system_pools
-    @system_pools ||= system_pools_api.pcloud_systempools_get(cloud_instance_id)
+  def datacenter
+    @datacenter ||= datacenters_api.v1_datacenters_get(pcloud_location)
   end
 
   def storage_types
@@ -163,6 +163,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     cloud_manager.pcloud_tenant_id(connection)
   end
 
+  def pcloud_location
+    cloud_manager.pcloud_location(connection)
+  end
+
   def placement_groups_api
     @placement_groups_api ||= IbmCloudPower::PCloudPlacementGroupsApi.new(connection)
   end
@@ -187,8 +191,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
     @storage_capacity_api ||= IbmCloudPower::PCloudStorageCapacityApi.new(connection)
   end
 
-  def system_pools_api
-    @system_pools_api ||= IbmCloudPower::PCloudSystemPoolsApi.new(connection)
+  def datacenters_api
+    @datacenters_api ||= IbmCloudPower::DatacentersApi.new(connection)
   end
 
   def tenants_api
