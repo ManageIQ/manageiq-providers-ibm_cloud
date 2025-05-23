@@ -1,6 +1,8 @@
 class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::CloudManager
   supports :create
-  supports :metrics
+  supports :metrics do
+    _("No metrics endpoint has been added") if metrics_endpoint.nil?
+  end
   supports :catalog
   supports :provisioning
   supports :storage_manager
@@ -52,6 +54,10 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager < ManageIQ::Providers::Cl
 
   def authentications_to_validate
     authentication_for_providers.collect(&:authentication_type)
+  end
+
+  def metrics_endpoint
+    endpoints.find_by(:role => "metrics")
   end
 
   def self.hostname_required?

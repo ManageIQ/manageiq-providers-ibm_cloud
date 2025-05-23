@@ -108,19 +108,21 @@ module ManageIQ::Providers::IbmCloud::VPC::ManagerMixin
                         {
                           :label => _('Enabled'),
                           :value => 'enable_metrics',
+                          :pivot => 'endpoints.metrics.options.monitoring_instance_id'
                         },
                       ],
                     },
                     {
-                      :component  => 'password-field',
-                      :id         => 'endpoints.metrics.options.monitoring_instance_id',
-                      :name       => 'endpoints.metrics.options.monitoring_instance_id',
-                      :label      => _('IBM Cloud Monitoring Instance GUID'),
-                      :isRequired => true,
-                      :condition  => {
+                      :component              => 'password-field',
+                      :id                     => 'endpoints.metrics.options.monitoring_instance_id',
+                      :name                   => 'endpoints.metrics.options.monitoring_instance_id',
+                      :label                  => _('IBM Cloud Monitoring Instance GUID'),
+                      :validationDependencies => %w[type zone_id metrics_selection],
+                      :isRequired             => true,
+                      :condition              => {
                         :when => "metrics_selection",
                         :is   => 'enable_metrics',
-                      },
+                      }
                     },
                   ]
                 },

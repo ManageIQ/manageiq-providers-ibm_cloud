@@ -261,7 +261,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
       persister.auth_key_pairs.build(
         :name        => tkey.name,
         :public_key  => tkey.ssh_key,
-        :fingerprint => SSHKey.sha1_fingerprint(tkey.ssh_key.split("\n").first)
+        :fingerprint => SSHKey.sha256_fingerprint(tkey.ssh_key.split("\n").first)
       )
     end
   end
