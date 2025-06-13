@@ -238,7 +238,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def assert_specific_template
-      template_name = "7300-00-01"
+      template_name = "7300-03-00"
       template = ems.miq_templates.find_by(:name => template_name)
       expect(template).to have_attributes(
         :name             => template_name,

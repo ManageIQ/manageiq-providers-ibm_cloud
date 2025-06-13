@@ -99,7 +99,7 @@ namespace :vcr do
       :instances => [
         IbmCloudPower::PVMInstanceCreate.new(
           "server_name"   => "test-instance-aix-s922-shared-tier1",
-          "image_id"      => "7300-00-01",
+          "image_id"      => "7300-03-00",
           "sys_type"      => "s922",
           "proc_type"     => "shared",
           "storage_type"  => "tier1",
@@ -115,7 +115,7 @@ namespace :vcr do
         ),
         IbmCloudPower::PVMInstanceCreate.new(
           "server_name"     => "test-instance-ibmi-s922-capped-tier1",
-          "image_id"        => "IBMi-75-02-2984-1",
+          "image_id"        => "IBMi-75-05-2984-1",
           "sys_type"        => "s922",
           "proc_type"       => "capped",
           "storage_type"    => "tier1",
@@ -132,7 +132,7 @@ namespace :vcr do
         ),
         IbmCloudPower::PVMInstanceCreate.new(
           "server_name"     => "test-instance-centos-e980-dedicated-tier3",
-          "image_id"        => "CentOS-Stream-8",
+          "image_id"        => "CentOS-Stream-9",
           "sys_type"        => "e980",
           "proc_type"       => "dedicated",
           "storage_type"    => "tier3",
@@ -148,7 +148,7 @@ namespace :vcr do
         ),
         IbmCloudPower::PVMInstanceCreate.new(
           "server_name"           => "test-instance-rhel-s922-shared-tier3",
-          "image_id"              => "RHEL8-SP6",
+          "image_id"              => "RHEL9-SP4-BYOL",
           "sys_type"              => "s922",
           "proc_type"             => "shared",
           "storage_type"          => "tier3",
@@ -165,7 +165,7 @@ namespace :vcr do
         ),
         IbmCloudPower::PVMInstanceCreate.new(
           "server_name"     => "test-instance-sles-s922-shared-tier3",
-          "image_id"        => "SLES15-SP4",
+          "image_id"        => "SLES15-SP6-BYOL",
           "sys_type"        => "s922",
           "proc_type"       => "shared",
           "storage_type"    => "tier3",
@@ -184,7 +184,7 @@ namespace :vcr do
         ),
         IbmCloudPower::PVMInstanceCreate.new(
           "server_name"     => "test-instance-rhcos-s922-shared-tier3",
-          "image_id"        => "rhcos-4.8",
+          "image_id"        => "rhcos-416",
           "sys_type"        => "s922",
           "proc_type"       => "shared",
           "storage_type"    => "tier3",
