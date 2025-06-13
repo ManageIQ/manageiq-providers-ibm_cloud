@@ -426,6 +426,7 @@ namespace :vcr do
             instance
           )[0]
 
+          sleep(60)
           pvm_instance_id = created_instance.pvm_instance_id
           until created_instance.status == "ACTIVE"
             created_instance = pvm_instances_api.pcloud_pvminstances_get(
