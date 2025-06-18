@@ -69,8 +69,8 @@ VCR.configure do |config|
   config.cassette_library_dir = File.join(ManageIQ::Providers::IbmCloud::Engine.root, 'spec/vcr_cassettes')
 
   config.before_record do |i|
-    replace_token_contents(i) if i.request.uri == "https://iam.cloud.ibm.com/identity/token"
-    vpc_sanitizer(i) if i.request.uri.match?('iaas.cloud.ibm') || i.request.uri.match?('tags.global-search-tagging')
+    replace_token_contents(i) if i.request.uri.start_with?("https://iam.cloud.ibm.com/identity/token")
+    vpc_sanitizer(i) if i.request.uri.match?('cloud.ibm') || i.request.uri.match?('tags.global-search-tagging')
   end
 
   secrets = Rails.application.secrets
