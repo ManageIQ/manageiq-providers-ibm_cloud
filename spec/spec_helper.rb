@@ -65,8 +65,8 @@ VCR.configure do |config|
   config.configure_rspec_metadata! # Auto-detects the cassette name based on the example's full description
 
   config.before_record do |i|
-    replace_token_contents(i) if i.request.uri == "https://iam.cloud.ibm.com/identity/token"
-    vpc_sanitizer(i) if i.request.uri.match?('iaas.cloud.ibm') || i.request.uri.match?('tags.global-search-tagging')
+    replace_token_contents(i) if i.request.uri.start_with?("https://iam.cloud.ibm.com/identity/token")
+    vpc_sanitizer(i) if i.request.uri.match?('cloud.ibm') || i.request.uri.match?('tags.global-search-tagging')
   end
 
   VcrSecrets.define_all_cassette_placeholders(config, :ibm_cloud_power)
