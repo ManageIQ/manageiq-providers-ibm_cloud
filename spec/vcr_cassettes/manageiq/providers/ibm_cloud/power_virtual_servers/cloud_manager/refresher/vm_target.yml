@@ -22,12 +22,10 @@ http_interactions:
     headers:
       X-Content-Type-Options:
       - nosniff
-      Transaction-Id:
-      - bXhmZmY-77039fb193cb401597e98f075c32b62a
-      X-Request-Id:
-      - 5303b21e-1445-428b-9249-2d30f0ba7d4b
+      Ibm-Cloud-Service-Name:
+      - iam-identity
       X-Correlation-Id:
-      - bXhmZmY-77039fb193cb401597e98f075c32b62a
+      - dGo0bW0-1639d4e275094f4e8507fdae06e63a23
       Cache-Control:
       - no-cache, no-store, must-revalidate
       Expires:
@@ -39,22 +37,20 @@ http_interactions:
       Content-Language:
       - en-US
       Content-Length:
-      - '1532'
+      - '1635'
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
-      Date:
-      - Thu, 18 Jan 2024 19:31:02 GMT
       Connection:
       - keep-alive
       Akamai-Grn:
-      - 0.b8f8cd17.1705606261.8547f8e
+      - 0.db17dd17.1750863764.5bb9d840
       X-Proxy-Upstream-Service-Time:
-      - '550'
+      - '327'
     body:
       encoding: ASCII-8BIT
-      string: '{"access_token":"IAMBEARERTOKEN","refresh_token":"not_supported","ims_user_id":7771420,"token_type":"Bearer","expires_in":3600,"expiration":1705609859,"scope":"ibm
+      string: '{"access_token":"ACCESS_TOKEN","refresh_token":"REFRESH_TOKEN","ims_user_id":"22222","token_type":"Bearer","expires_in":3600,"expiration":4102466400,"scope":"ibm
         openid"}'
-  recorded_at: Thu, 18 Jan 2024 19:31:02 GMT
+  recorded_at: Wed, 25 Jun 2025 15:02:44 GMT
 - request:
     method: get
     uri: https://resource-controller.cloud.ibm.com/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID
@@ -63,34 +59,31 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - ibm_cloud_resource_controller-ruby-sdk-2.0.2 x86_64-pc-linux-gnu ruby-3.1.4
+      - ibm_cloud_resource_controller-ruby-sdk-2.0.3 x86_64-pc-linux ruby-3.3.8
       X-Ibmcloud-Sdk-Analytics:
       - service_name=resource_controller;service_version=V2;operation_id=get_resource_instance
       Accept:
       - application/json
-      Authorization:
-      - Bearer IAMBEARERTOKEN
+      Authorization: Bearer xxxxxx
       Connection:
       - close
   response:
     status:
       code: 200
-      message: OK
+      message:
     headers:
       Content-Type:
       - application/json
       Request-Id:
-      - b40d3e24-5472-436c-a98d-a0185087f50c
+      - 626c-f8820bd51ed71007
       Retry-After:
       - '0'
       Strict-Transport-Security:
       - max-age=31536000;includeSubDomains
-      Transaction-Id:
-      - bss-835b50c7df234cf9
       X-Content-Type-Options:
       - nosniff
-      X-Global-Transaction-Id:
-      - bss-835b50c7df234cf9
+      X-Correlation-Id:
+      - 626c-e28cc28d2b280613
       X-Op-Completion-Time:
       - ''
       X-Ratelimit-Limit:
@@ -99,82 +92,37 @@ http_interactions:
       - '99'
       X-Ratelimit-Reset:
       - '0'
-      X-Request-Id:
-      - b40d3e24-5472-436c-a98d-a0185087f50c
-      X-Transaction-Id:
-      - bss-835b50c7df234cf9
-      X-Envoy-Upstream-Service-Time:
-      - '166'
-      Server:
-      - istio-envoy
       Content-Length:
-      - '2116'
+      - '2115'
       Expires:
-      - Thu, 18 Jan 2024 19:31:02 GMT
+      - Wed, 25 Jun 2025 15:02:45 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
-      Date:
-      - Thu, 18 Jan 2024 19:31:02 GMT
       Connection:
       - close
     body:
       encoding: UTF-8
-      string: '{"id":"crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::","guid":"IBM_CLOUD_POWERVS_INSTANCE_ID","url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID","created_at":"2022-01-04T19:19:27.00879531Z","updated_at":"2022-05-28T10:58:12.563242645Z","deleted_at":null,"created_by":"IBMid-2700063YVN","updated_by":"IBMid-2700063YVN","deleted_by":"","scheduled_reclaim_at":null,"restored_at":null,"scheduled_reclaim_by":"","restored_by":"","name":"rdr-power.control.plane.test-hcm-mon01-miq-specs","region_id":"mon01","account_id":"1fdf5effc3f945688c021cd0a8b45c4d","reseller_channel_id":"","resource_plan_id":"f165dd34-3a40-423b-9d95-e90a23f724dd","resource_group_id":"2f9167fcfa9c4e2a951c5d8fa22bd01f","resource_group_crn":"crn:v1:bluemix:public:resource-controller::a/1fdf5effc3f945688c021cd0a8b45c4d::resource-group:2f9167fcfa9c4e2a951c5d8fa22bd01f","target_crn":"crn:v1:bluemix:public:globalcatalog::::deployment:f165dd34-3a40-423b-9d95-e90a23f724dd%3Amon0159210","allow_cleanup":false,"crn":"crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::","state":"active","type":"service_instance","resource_id":"abd259f0-9990-11e8-acc8-b9f54a8f1661","dashboard_url":"https://power-iaas.cloud.ibm.com/authenticate","last_operation":{"type":"create","state":"succeeded","async":true,"description":"service
+      string: '{"id":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::","guid":"IBM_CLOUD_POWERVS_INSTANCE_ID","url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID","created_at":"2025-05-22T13:44:28.57250562Z","updated_at":"2025-05-22T13:45:11.597828983Z","deleted_at":null,"created_by":"IBMid-2700063YVN","updated_by":"","deleted_by":"","scheduled_reclaim_at":null,"restored_at":null,"scheduled_reclaim_by":"","restored_by":"","name":"rdr-power.control.plane.test-hcm-miq-specs","region_id":"us-east10","account_id":"1fdf5effc3f945688c021cd0a8b45c4d","reseller_channel_id":"","resource_plan_id":"f165dd34-3a40-423b-9d95-e90a23f724dd","resource_group_id":"2f9167fcfa9c4e2a951c5d8fa22bd01f","resource_group_crn":"crn:v1:bluemix:public:resource-controller::a/1fdf5effc3f945688c021cd0a8b45c4d::resource-group:2f9167fcfa9c4e2a951c5d8fa22bd01f","target_crn":"crn:v1:bluemix:public:globalcatalog::::deployment:f165dd34-3a40-423b-9d95-e90a23f724dd%3Aus-east1084023","allow_cleanup":false,"crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::","state":"active","type":"composite_instance","resource_id":"abd259f0-9990-11e8-acc8-b9f54a8f1661","dashboard_url":null,"last_operation":{"type":"create","state":"succeeded","async":true,"description":"service
         instance IBM_CLOUD_POWERVS_INSTANCE_ID was provisioned successfully for account
-        1fdf5effc3f945688c021cd0a8b45c4d in region mon01","cancelable":false,"poll":false},"resource_aliases_url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID/resource_aliases","resource_bindings_url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID/resource_bindings","resource_keys_url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID/resource_keys","plan_history":[{"resource_plan_id":"f165dd34-3a40-423b-9d95-e90a23f724dd","start_date":"2022-01-04T19:19:27.00879531Z","requestor_id":"IBMid-2700063YVN"}],"migrated":false,"controlled_by":"","locked":false}
+        1fdf5effc3f945688c021cd0a8b45c4d in region us-east10","cancelable":false,"poll":true},"resource_aliases_url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID/resource_aliases","resource_bindings_url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID/resource_bindings","resource_keys_url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID/resource_keys","plan_history":[{"resource_plan_id":"f165dd34-3a40-423b-9d95-e90a23f724dd","start_date":"2025-05-22T13:44:28.57250562Z","requestor_id":"IBMid-2700063YVN"}],"migrated":false,"extensions":{"resourceCRNs":true},"controlled_by":"","locked":false,"onetime_credentials":false}
 
         '
-  recorded_at: Thu, 18 Jan 2024 19:31:02 GMT
+  recorded_at: Wed, 25 Jun 2025 15:02:45 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/system-pools
+    uri: https://us-east.power-iaas.cloud.ibm.com/v1/datacenters/us-east10
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.1.1/ruby
+      - OpenAPI-Generator/3.0.0/ruby
       Content-Type:
       - application/json
       Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"e980":{"capacity":{"cores":88,"memory":12564,"totalCores":null,"totalMemory":null},"coreMemoryRatio":64,"maxAvailable":{"cores":59.5,"memory":11779,"totalCores":null,"totalMemory":null},"maxCoresAvailable":{"cores":59.5,"memory":11779,"totalCores":null,"totalMemory":null},"maxMemoryAvailable":{"cores":59.5,"memory":11779,"totalCores":null,"totalMemory":null},"sharedCoreRatio":{"default":0.25,"max":1,"min":0.05},"systems":[{"cores":59.5,"id":1,"memory":11779,"totalCores":null,"totalMemory":null}],"type":"e980"},"s922":{"capacity":{"cores":15,"memory":935,"totalCores":null,"totalMemory":null},"coreMemoryRatio":64,"maxAvailable":{"cores":14.25,"memory":902,"totalCores":null,"totalMemory":null},"maxCoresAvailable":{"cores":14.25,"memory":897,"totalCores":null,"totalMemory":null},"maxMemoryAvailable":{"cores":6,"memory":902,"totalCores":null,"totalMemory":null},"sharedCoreRatio":{"default":0.25,"max":1,"min":0.05},"systems":[{"cores":14.25,"id":14,"memory":897,"totalCores":null,"totalMemory":null},{"cores":12.3,"id":25,"memory":895,"totalCores":null,"totalMemory":null},{"cores":11.75,"id":18,"memory":884,"totalCores":null,"totalMemory":null},{"cores":10.25,"id":12,"memory":849,"totalCores":null,"totalMemory":null},{"cores":9.5,"id":11,"memory":874,"totalCores":null,"totalMemory":null},{"cores":9,"id":15,"memory":880,"totalCores":null,"totalMemory":null},{"cores":8.25,"id":9,"memory":681,"totalCores":null,"totalMemory":null},{"cores":7.5,"id":8,"memory":843,"totalCores":null,"totalMemory":null},{"cores":6,"id":17,"memory":902,"totalCores":null,"totalMemory":null},{"cores":5.75,"id":23,"memory":598,"totalCores":null,"totalMemory":null},{"cores":4.5,"id":21,"memory":738,"totalCores":null,"totalMemory":null},{"cores":4.5,"id":5,"memory":728,"totalCores":null,"totalMemory":null},{"cores":4,"id":13,"memory":822,"totalCores":null,"totalMemory":null},{"cores":3.5,"id":10,"memory":624,"totalCores":null,"totalMemory":null},{"cores":1.5,"id":20,"memory":855,"totalCores":null,"totalMemory":null},{"cores":0.26,"id":19,"memory":397,"totalCores":null,"totalMemory":null},{"cores":0.26,"id":16,"memory":485,"totalCores":null,"totalMemory":null},{"cores":0.25,"id":24,"memory":519,"totalCores":null,"totalMemory":null},{"cores":0.01,"id":6,"memory":556,"totalCores":null,"totalMemory":null},{"cores":0,"id":22,"memory":455,"totalCores":null,"totalMemory":null},{"cores":0,"id":4,"memory":533,"totalCores":null,"totalMemory":null},{"cores":0,"id":7,"memory":320,"totalCores":null,"totalMemory":null}],"type":"s922"}}
-
-        '
-  recorded_at: Thu, 18 Jan 2024 19:31:03 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.1.1/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
       Authorization: Bearer xxxxxx
       Accept:
       - application/json
@@ -188,172 +136,40 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '752'
+      - '609'
+      X-Correlation-Id:
+      - 7cd415b3-b189-465b-963d-c8bc36236ebf
       Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
       Cf-Cache-Status:
       - DYNAMIC
     body:
-      encoding: UTF-8
-      string: '{"capabilities":["cloud-connections","direct-link-transit-gateway","ibmi-software-licenses","linux","pinning","rhel-sap","sap","snapshots","volume-clone","vpn-connections","shared-processor-pools"],"cloudInstanceID":"c8d0ac7c30c944f0ac3288eb8bb74aaa","enabled":true,"initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"IBM_CLOUD_POWERVS_INSTANCE_ID","openstackID":"07389ca7-2266-4303-afd3-5babc1cebe20","pvmInstances":[],"region":"mon01","tenantID":"1fdf5effc3f945688c021cd0a8b45c4d","usage":{"instances":0,"memory":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0,"storageStandard":0}}
+      encoding: ASCII-8BIT
+      string: '{"capabilities":{"cloud-connections":false,"dedicated-hosts":true,"disaster-recovery-site":true,"metrics":true,"network-security-groups":true,"power-edge-router":true,"power-vpn-connections":false},"capabilitiesDetails":{"disasterRecovery":{"asynchronousReplication":{"enabled":true,"targetLocations":[{"region":"wdc07","status":"active"}]}},"supportedSystems":{"dedicated":["s1022","s922"],"general":["e1080","s1022","e980","s922"]}},"location":{"region":"us-east10","regionDisplayName":"Dallas
+        10","type":"data-center","url":"https://us-south.power-iaas.cloud.ibm.com"},"status":"active","type":"off-premises"}
 
         '
-  recorded_at: Thu, 18 Jan 2024 19:31:03 GMT
+  recorded_at: Wed, 25 Jun 2025 15:11:03 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/sap
+    uri: https://us-east.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.1.1/ruby
+      - OpenAPI-Generator/3.0.0/ruby
       Content-Type:
       - application/json
       Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"profiles":[{"certified":true,"cores":16,"memory":1600,"profileID":"bh1-16x1600","type":"balanced"},{"certified":true,"cores":20,"memory":2000,"profileID":"bh1-20x2000","type":"balanced"},{"certified":true,"cores":22,"memory":2200,"profileID":"bh1-22x2200","type":"balanced"},{"certified":true,"cores":25,"memory":2500,"profileID":"bh1-25x2500","type":"balanced"},{"certified":true,"cores":30,"memory":3000,"profileID":"bh1-30x3000","type":"balanced"},{"certified":true,"cores":35,"memory":3500,"profileID":"bh1-35x3500","type":"balanced"},{"certified":true,"cores":40,"memory":4000,"profileID":"bh1-40x4000","type":"balanced"},{"certified":true,"cores":50,"memory":5000,"profileID":"bh1-50x5000","type":"balanced"},{"certified":true,"cores":60,"memory":6000,"profileID":"bh1-60x6000","type":"balanced"},{"certified":true,"cores":70,"memory":7000,"profileID":"bh1-70x7000","type":"balanced"},{"certified":true,"cores":80,"memory":8000,"profileID":"bh1-80x8000","type":"balanced"},{"certified":true,"cores":100,"memory":10000,"profileID":"bh1-100x10000","type":"balanced"},{"certified":true,"cores":120,"memory":12000,"profileID":"bh1-120x12000","type":"balanced"},{"certified":true,"cores":140,"memory":14000,"profileID":"bh1-140x14000","type":"balanced"},{"certified":true,"cores":60,"memory":3000,"profileID":"ch1-60x3000","type":"compute"},{"certified":true,"cores":70,"memory":3500,"profileID":"ch1-70x3500","type":"compute"},{"certified":true,"cores":80,"memory":4000,"profileID":"ch1-80x4000","type":"compute"},{"certified":true,"cores":100,"memory":5000,"profileID":"ch1-100x5000","type":"compute"},{"certified":true,"cores":120,"memory":6000,"profileID":"ch1-120x6000","type":"compute"},{"certified":true,"cores":140,"memory":7000,"profileID":"ch1-140x7000","type":"compute"},{"certified":true,"cores":8,"memory":1440,"profileID":"mh1-8x1440","type":"memory"},{"certified":true,"cores":10,"memory":1800,"profileID":"mh1-10x1800","type":"memory"},{"certified":true,"cores":12,"memory":2160,"profileID":"mh1-12x2160","type":"memory"},{"certified":true,"cores":16,"memory":2880,"profileID":"mh1-16x2880","type":"memory"},{"certified":true,"cores":20,"memory":3600,"profileID":"mh1-20x3600","type":"memory"},{"certified":true,"cores":22,"memory":3960,"profileID":"mh1-22x3960","type":"memory"},{"certified":true,"cores":25,"memory":4500,"profileID":"mh1-25x4500","type":"memory"},{"certified":true,"cores":30,"memory":5400,"profileID":"mh1-30x5400","type":"memory"},{"certified":true,"cores":35,"memory":6300,"profileID":"mh1-35x6300","type":"memory"},{"certified":true,"cores":40,"memory":7200,"profileID":"mh1-40x7200","type":"memory"},{"certified":true,"cores":50,"memory":9000,"profileID":"mh1-50x9000","type":"memory"},{"certified":true,"cores":60,"memory":10800,"profileID":"mh1-60x10800","type":"memory"},{"certified":true,"cores":70,"memory":12600,"profileID":"mh1-70x12600","type":"memory"},{"certified":true,"cores":80,"memory":14400,"profileID":"mh1-80x14400","type":"memory"},{"certified":true,"cores":90,"memory":16200,"profileID":"mh1-90x16200","type":"memory"},{"certified":true,"cores":100,"memory":18000,"profileID":"mh1-100x18000","type":"memory"},{"certified":true,"cores":4,"memory":128,"profileID":"ush1-4x128","type":"small"},{"certified":true,"cores":4,"memory":256,"profileID":"ush1-4x256","type":"small"},{"certified":true,"cores":4,"memory":384,"profileID":"ush1-4x384","type":"small"},{"certified":true,"cores":4,"memory":512,"profileID":"ush1-4x512","type":"small"},{"certified":true,"cores":4,"memory":768,"profileID":"ush1-4x768","type":"small"},{"certified":true,"cores":4,"memory":960,"profileID":"umh-4x960","type":"ultra-memory"},{"certified":true,"cores":6,"memory":1440,"profileID":"umh-6x1440","type":"ultra-memory"},{"certified":true,"cores":8,"memory":1920,"profileID":"umh-8x1920","type":"ultra-memory"},{"certified":true,"cores":10,"memory":2400,"profileID":"umh-10x2400","type":"ultra-memory"},{"certified":true,"cores":12,"memory":2880,"profileID":"umh-12x2880","type":"ultra-memory"},{"certified":true,"cores":16,"memory":3840,"profileID":"umh-16x3840","type":"ultra-memory"},{"certified":true,"cores":20,"memory":4800,"profileID":"umh-20x4800","type":"ultra-memory"},{"certified":true,"cores":22,"memory":5280,"profileID":"umh-22x5280","type":"ultra-memory"},{"certified":true,"cores":25,"memory":6000,"profileID":"umh-25x6000","type":"ultra-memory"},{"certified":true,"cores":30,"memory":7200,"profileID":"umh-30x7200","type":"ultra-memory"},{"certified":true,"cores":35,"memory":8400,"profileID":"umh-35x8400","type":"ultra-memory"},{"certified":true,"cores":40,"memory":9600,"profileID":"umh-40x9600","type":"ultra-memory"},{"certified":true,"cores":50,"memory":12000,"profileID":"umh-50x12000","type":"ultra-memory"},{"certified":true,"cores":60,"memory":14400,"profileID":"umh-60x14400","type":"ultra-memory"},{"certified":false,"cores":1,"memory":128,"profileID":"np1-1x128","type":"non-production"}]}
-
-        '
-  recorded_at: Thu, 18 Jan 2024 19:31:03 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/storage-capacity/storage-types
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.1.1/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"maximumStorageAllocation":{"maxAllocationSize":285449,"storagePool":"General-Flash-72","storageType":"any"},"storageTypesCapacity":[{"maximumStorageAllocation":{"maxAllocationSize":285449,"storagePool":"General-Flash-72","storageType":"tier1"},"storagePoolsCapacity":[{"maxAllocationSize":280053,"poolName":"General-Flash-81","replicationEnabled":false,"storageType":"tier1","totalCapacity":390092},{"maxAllocationSize":262973,"poolName":"General-Flash-78","replicationEnabled":false,"storageType":"tier1","totalCapacity":390092},{"maxAllocationSize":282418,"poolName":"General-Flash-75","replicationEnabled":false,"storageType":"tier1","totalCapacity":390092},{"maxAllocationSize":285449,"poolName":"General-Flash-72","replicationEnabled":false,"storageType":"tier1","totalCapacity":390092}],"storageType":"tier1"},{"maximumStorageAllocation":{"maxAllocationSize":285449,"storagePool":"General-Flash-72","storageType":"tier3"},"storagePoolsCapacity":[{"maxAllocationSize":280053,"poolName":"General-Flash-81","replicationEnabled":false,"storageType":"tier3","totalCapacity":390092},{"maxAllocationSize":262973,"poolName":"General-Flash-78","replicationEnabled":false,"storageType":"tier3","totalCapacity":390092},{"maxAllocationSize":282418,"poolName":"General-Flash-75","replicationEnabled":false,"storageType":"tier3","totalCapacity":390092},{"maxAllocationSize":285449,"poolName":"General-Flash-72","replicationEnabled":false,"storageType":"tier3","totalCapacity":390092}],"storageType":"tier3"},{"maximumStorageAllocation":{"maxAllocationSize":285449,"storagePool":"General-Flash-72","storageType":"tier5k"},"storagePoolsCapacity":[{"maxAllocationSize":280053,"poolName":"General-Flash-81","replicationEnabled":false,"storageType":"tier5k","totalCapacity":390092},{"maxAllocationSize":262973,"poolName":"General-Flash-78","replicationEnabled":false,"storageType":"tier5k","totalCapacity":390092},{"maxAllocationSize":282418,"poolName":"General-Flash-75","replicationEnabled":false,"storageType":"tier5k","totalCapacity":390092},{"maxAllocationSize":285449,"poolName":"General-Flash-72","replicationEnabled":false,"storageType":"tier5k","totalCapacity":390092}],"storageType":"tier5k"},{"maximumStorageAllocation":{"maxAllocationSize":285449,"storagePool":"General-Flash-72","storageType":"tier0"},"storagePoolsCapacity":[{"maxAllocationSize":280053,"poolName":"General-Flash-81","replicationEnabled":false,"storageType":"tier0","totalCapacity":390092},{"maxAllocationSize":262973,"poolName":"General-Flash-78","replicationEnabled":false,"storageType":"tier0","totalCapacity":390092},{"maxAllocationSize":282418,"poolName":"General-Flash-75","replicationEnabled":false,"storageType":"tier0","totalCapacity":390092},{"maxAllocationSize":285449,"poolName":"General-Flash-72","replicationEnabled":false,"storageType":"tier0","totalCapacity":390092}],"storageType":"tier0"}]}
-
-        '
-  recorded_at: Thu, 18 Jan 2024 19:31:04 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/e8cf72cf-7685-4bfb-a386-66422f71820a
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.1.1/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"addresses":[{"href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/e8cf72cf-7685-4bfb-a386-66422f71820a/networks/925c13aa-9579-43a3-86e1-150131906835","ip":"127.0.0.15","ipAddress":"127.0.0.15","macAddress":"fa:d7:46:29:3f:20","networkID":"925c13aa-9579-43a3-86e1-150131906835","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"consoleLanguage":{"code":"037","language":"037
-        English"},"creationDate":"2024-01-18T18:43:09.000Z","diskSize":100,"health":{"lastUpdate":"2024-01-18T19:31:05.494688","status":"OK"},"hostID":7,"imageID":"ed8cb3ae-1a68-42c4-9c0a-fcec0c96f1c2","maxmem":16,"maxproc":2,"memory":2,"migratable":false,"minmem":2,"minproc":0.25,"networkIDs":["925c13aa-9579-43a3-86e1-150131906835"],"networks":[{"href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/e8cf72cf-7685-4bfb-a386-66422f71820a/networks/925c13aa-9579-43a3-86e1-150131906835","ip":"127.0.0.15","ipAddress":"127.0.0.15","macAddress":"fa:d7:46:29:3f:20","networkID":"925c13aa-9579-43a3-86e1-150131906835","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"operatingSystem":"V7R5M0
-        410 2","osType":"ibmi","pinPolicy":"none","placementGroup":"8334ba79-bd98-47af-ad25-6eb8a1c4c817","procType":"capped","processors":0.25,"pvmInstanceID":"e8cf72cf-7685-4bfb-a386-66422f71820a","serverName":"test-instance-ibmi-s922-capped-tier1","softwareLicenses":{"ibmiCSS":false,"ibmiDBQ":false,"ibmiPHA":false,"ibmiRDS":false},"srcs":[[{"src":"A6005008","timestamp":"2024-01-18T18:51:32Z"},{"src":"03B00061","timestamp":"2024-01-18T18:51:32Z"},{"src":"FFFF0000","timestamp":"2024-01-18T18:51:32Z"},{"src":"00000000","timestamp":"2024-01-18T18:51:32Z"},{"src":"00000000","timestamp":"2024-01-18T18:51:32Z"},{"src":"50070404","timestamp":"2024-01-18T18:51:32Z"},{"src":"00000000","timestamp":"2024-01-18T18:51:32Z"},{"src":"00000000","timestamp":"2024-01-18T18:51:32Z"},{"src":"00000000","timestamp":"2024-01-18T18:51:32Z"}]],"status":"ACTIVE","storagePool":"General-Flash-72","storagePoolAffinity":true,"storageType":"tier1","sysType":"s922","updatedDate":"2024-01-18T18:43:09.000Z","virtualCores":{"assigned":1,"max":4,"min":1},"volumeIDs":["ed84f79b-b8d1-48c3-8766-2a92ff6a879b"]}
-
-        '
-  recorded_at: Thu, 18 Jan 2024 19:31:08 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/images
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.1.1/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
-      Authorization: Bearer xxxxxx
-      Accept:
-      - application/json
-      Expect:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Content-Type:
-      - application/json
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      Cf-Cache-Status:
-      - DYNAMIC
-    body:
-      encoding: UTF-8
-      string: '{"images":[{"creationDate":"2022-11-15T22:45:40.000Z","description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/images/8de97d73-95c0-46e9-a509-0b10be36eded","imageID":"8de97d73-95c0-46e9-a509-0b10be36eded","lastUpdateDate":"2023-06-07T01:38:14.000Z","name":"7300-00-01","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"big-endian","hypervisorType":"phyp","imageType":"stock","operatingSystem":"aix"},"state":"active","storagePool":"","storageType":""},{"creationDate":"2022-11-15T22:45:06.000Z","description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/images/7da758c0-949b-4b11-a306-dc7dfc33919e","imageID":"7da758c0-949b-4b11-a306-dc7dfc33919e","lastUpdateDate":"2023-06-07T01:38:15.000Z","name":"CentOS-Stream-8","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","imageType":"stock","operatingSystem":"rhel"},"state":"active","storagePool":"","storageType":""},{"creationDate":"2024-01-18T18:41:35.000Z","description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/images/9eebf535-9b78-450e-bffd-e7cb4d3c9e94","imageID":"9eebf535-9b78-450e-bffd-e7cb4d3c9e94","lastUpdateDate":"2024-01-18T18:41:35.000Z","name":"IBMi-75-02-2984-1","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"big-endian","hypervisorType":"phyp","imageType":"stock","operatingSystem":"ibmi"},"state":"active","storagePool":"","storageType":""},{"creationDate":"2022-11-15T22:42:20.000Z","description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/images/10d7c4a5-32a7-44a9-b9e1-9a428a4da5d9","imageID":"10d7c4a5-32a7-44a9-b9e1-9a428a4da5d9","lastUpdateDate":"2023-06-07T01:38:17.000Z","name":"RHEL8-SP6","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","imageType":"stock-fls","operatingSystem":"rhel"},"state":"active","storagePool":"","storageType":""},{"creationDate":"2022-11-12T11:36:56.000Z","description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/images/a0198511-c877-4f6f-b1c3-64312fcdb92c","imageID":"a0198511-c877-4f6f-b1c3-64312fcdb92c","lastUpdateDate":"2023-06-07T01:38:19.000Z","name":"SLES15-SP4","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","imageType":"stock-fls","operatingSystem":"sles"},"state":"active","storagePool":"","storageType":""},{"creationDate":"2022-01-28T22:32:39.000Z","description":"","href":"/pcloud/v1/cloud-instances/c8d0ac7c30c944f0ac3288eb8bb74aaa/images/032d72bf-89f2-44a9-bbc4-ab898dd93309","imageID":"032d72bf-89f2-44a9-bbc4-ab898dd93309","lastUpdateDate":"2023-12-14T21:46:24.000Z","name":"rhcos-4.8","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","imageType":"import","operatingSystem":"rhel"},"state":"active","storagePool":"General-Flash-81","storageType":"tier3"}]}
-
-        '
-  recorded_at: Thu, 18 Jan 2024 19:31:09 GMT
-- request:
-    method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/images/ed8cb3ae-1a68-42c4-9c0a-fcec0c96f1c2
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - OpenAPI-Generator/2.1.1/ruby
-      Content-Type:
-      - application/json
-      Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
       Authorization: Bearer xxxxxx
       Accept:
       - application/json
@@ -367,30 +183,39 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '433'
+      - '680'
+      X-Correlation-Id:
+      - fb24f333-78cb-4c67-b048-d4ab7e5c7ca6
       Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
       Cf-Cache-Status:
       - DYNAMIC
     body:
-      encoding: UTF-8
-      string: '{"creationDate":"2023-12-12T23:02:27.000Z","imageID":"ed8cb3ae-1a68-42c4-9c0a-fcec0c96f1c2","lastUpdateDate":"2023-12-12T23:15:20.000Z","name":"IBMi-75-02-2984-1","servers":[],"size":100,"specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"big-endian","hypervisorType":"phyp","imageType":"stock","operatingSystem":"ibmi"},"state":"active","storagePool":"","storageType":"","volumes":[]}
+      encoding: ASCII-8BIT
+      string: '{"capabilities":["ibmi-software-licenses","linux","pinning","rhel-sap","sap","snapshots","volume-clone","shared-processor-pools"],"cloudInstanceID":"9089686c4d6143a4bdcc72b197c7655d","enabled":true,"initialized":false,"limits":{"instanceMemory":0,"instanceProcUnits":0,"instances":0,"memory":0,"peeringBandwidth":0,"peeringNetworks":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0},"name":"IBM_CLOUD_POWERVS_INSTANCE_ID","openstackID":"d4c477222576b7395a58a51fbee2937a","pvmInstances":[],"region":"us-east10","tenantID":"1fdf5effc3f945688c021cd0a8b45c4d","usage":{"instances":0,"memory":0,"procUnits":0,"processors":0,"storage":0,"storageSSD":0,"storageStandard":0}}
 
         '
-  recorded_at: Thu, 18 Jan 2024 19:31:10 GMT
+  recorded_at: Wed, 25 Jun 2025 15:11:03 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes
+    uri: https://us-east.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/sap
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.1.1/ruby
+      - OpenAPI-Generator/3.0.0/ruby
       Content-Type:
       - application/json
       Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
       Authorization: Bearer xxxxxx
       Accept:
       - application/json
@@ -403,39 +228,320 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
+      X-Correlation-Id:
+      - 7be367f1-4b20-4544-873f-2791246d16e7
       Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
       Cf-Cache-Status:
       - DYNAMIC
     body:
-      encoding: UTF-8
-      string: '{"volumes":[{"bootVolume":false,"bootable":true,"creationDate":"2024-01-18T19:02:29.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/7d6f53e6-4adf-4792-8b5f-07cc618dff78","ioThrottleRate":"360
-        iops","lastUpdateDate":"2024-01-18T19:13:21.000Z","name":"test-instance-d6a661a8-00030ebf-boot-0","pvmInstanceIDs":["d6a661a8-fed1-4a52-9d50-24fc9f9956b8"],"shareable":false,"size":120,"state":"in-use","volumeID":"7d6f53e6-4adf-4792-8b5f-07cc618dff78","volumePool":"General-Flash-81","volumeType":"Tier3-General-Flash-81","wwn":"60050768108002DAC800000000004AF4"},{"bootVolume":false,"bootable":true,"creationDate":"2024-01-18T18:49:45.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/ba26d663-1e76-4457-8732-9d9235df8019","ioThrottleRate":"300
-        iops","lastUpdateDate":"2024-01-18T19:00:43.000Z","name":"test-instance-54e1f646-00030ebe-boot-0","pvmInstanceIDs":["54e1f646-8ce4-4ee5-9355-e5d34166c4fd"],"shareable":false,"size":100,"state":"in-use","volumeID":"ba26d663-1e76-4457-8732-9d9235df8019","volumePool":"General-Flash-72","volumeType":"Tier3-General-Flash-72","wwn":"60050768108101DAC0000000000274C4"},{"bootVolume":false,"bootable":true,"creationDate":"2024-01-18T18:47:54.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/984498df-5554-4685-a109-821d5e39b27b","ioThrottleRate":"300
-        iops","lastUpdateDate":"2024-01-18T18:48:16.000Z","name":"test-instance-b9370d8d-00030ebb-boot-0","pvmInstanceIDs":["b9370d8d-8d73-4f0e-ad84-34f7fd52eb84"],"shareable":false,"size":100,"state":"in-use","volumeID":"984498df-5554-4685-a109-821d5e39b27b","volumePool":"General-Flash-72","volumeType":"Tier3-General-Flash-72","wwn":"60050768108101DAC0000000000274C3"},{"bootVolume":false,"bootable":true,"creationDate":"2024-01-18T18:45:07.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/cdfebbb2-d64e-41e1-9834-4f6b5d249489","ioThrottleRate":"360
-        iops","lastUpdateDate":"2024-01-18T18:45:34.000Z","name":"test-instance-1ea38460-00030eb6-boot-0","pvmInstanceIDs":["1ea38460-b3ff-4abd-802b-0289983be590"],"shareable":false,"size":120,"state":"in-use","volumeID":"cdfebbb2-d64e-41e1-9834-4f6b5d249489","volumePool":"General-Flash-72","volumeType":"Tier3-General-Flash-72","wwn":"60050768108101DAC0000000000274C2"},{"bootVolume":false,"bootable":true,"creationDate":"2024-01-18T18:43:15.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/ed84f79b-b8d1-48c3-8766-2a92ff6a879b","ioThrottleRate":"1000
-        iops","lastUpdateDate":"2024-01-18T18:43:38.000Z","name":"test-instance-e8cf72cf-00030eb4-boot-0","pvmInstanceIDs":["e8cf72cf-7685-4bfb-a386-66422f71820a"],"shareable":false,"size":100,"state":"in-use","volumeID":"ed84f79b-b8d1-48c3-8766-2a92ff6a879b","volumePool":"General-Flash-72","volumeType":"Tier1-General-Flash-72","wwn":"60050768108101DAC0000000000274C1"},{"bootVolume":false,"bootable":true,"creationDate":"2024-01-18T17:24:51.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/2e653913-14fe-4b3a-a4f3-c7396bed0862","ioThrottleRate":"250
-        iops","lastUpdateDate":"2024-01-18T17:25:13.000Z","name":"test-instance-502106d8-00030ea7-boot-0","pvmInstanceIDs":["502106d8-d969-49df-9103-184c3ab97508"],"shareable":false,"size":25,"state":"in-use","volumeID":"2e653913-14fe-4b3a-a4f3-c7396bed0862","volumePool":"General-Flash-72","volumeType":"Tier1-General-Flash-72","wwn":"60050768108101DAC0000000000274BB"},{"bootVolume":false,"bootable":false,"creationDate":"2024-01-18T17:24:13.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/21f2d430-44fd-4f5e-af43-66076e6e9af7","ioThrottleRate":"150
-        iops","lastUpdateDate":"2024-01-18T17:24:14.000Z","name":"test-volume-15GB-tier1-notsharable","pvmInstanceIDs":[],"shareable":false,"size":15,"state":"available","volumeID":"21f2d430-44fd-4f5e-af43-66076e6e9af7","volumePool":"General-Flash-72","volumeType":"Tier1-General-Flash-72","wwn":"60050768108101DAC0000000000274BA"},{"bootVolume":false,"bootable":false,"creationDate":"2024-01-18T17:24:07.000Z","diskType":"tier1","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/5bb66445-1de3-4817-8590-42b35f21f9d8","ioThrottleRate":"30
-        iops","lastUpdateDate":"2024-01-18T17:24:08.000Z","name":"test-volume-3GB-tier1-notsharable","pvmInstanceIDs":[],"shareable":false,"size":3,"state":"available","volumeID":"5bb66445-1de3-4817-8590-42b35f21f9d8","volumePool":"General-Flash-72","volumeType":"Tier1-General-Flash-72","wwn":"60050768108101DAC0000000000274B9"},{"bootVolume":false,"bootable":false,"creationDate":"2024-01-18T17:24:03.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/f302fbf6-c2f7-4df2-b80c-c3c2e8055d77","ioThrottleRate":"30
-        iops","lastUpdateDate":"2024-01-18T17:24:04.000Z","name":"test-volume-10GB-tier3-sharable","pvmInstanceIDs":[],"shareable":true,"size":10,"state":"available","volumeID":"f302fbf6-c2f7-4df2-b80c-c3c2e8055d77","volumePool":"General-Flash-72","volumeType":"Tier3-General-Flash-72","wwn":"60050768108101DAC0000000000274B8"},{"bootVolume":false,"bootable":false,"creationDate":"2024-01-18T17:23:57.000Z","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/46eef916-ea40-4aee-9e0c-df840da65867","ioThrottleRate":"3
-        iops","lastUpdateDate":"2024-01-18T17:23:58.000Z","name":"test-volume-1GB-tier3-sharable","pvmInstanceIDs":[],"shareable":true,"size":1,"state":"available","volumeID":"46eef916-ea40-4aee-9e0c-df840da65867","volumePool":"General-Flash-72","volumeType":"Tier3-General-Flash-72","wwn":"60050768108101DAC0000000000274B7"}]}
+      encoding: ASCII-8BIT
+      string: '{"profiles":[{"certified":true,"cores":16,"defaultSystem":"e980","fullSystemProfile":false,"memory":1600,"profileID":"bh1-16x1600","saps":96000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":20,"defaultSystem":"e980","fullSystemProfile":false,"memory":2000,"profileID":"bh1-20x2000","saps":120000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":22,"defaultSystem":"e980","fullSystemProfile":false,"memory":2200,"profileID":"bh1-22x2200","saps":132000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":25,"defaultSystem":"e980","fullSystemProfile":false,"memory":2500,"profileID":"bh1-25x2500","saps":150000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":30,"defaultSystem":"e980","fullSystemProfile":false,"memory":3000,"profileID":"bh1-30x3000","saps":180000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":35,"defaultSystem":"e1050","fullSystemProfile":false,"memory":3000,"profileID":"bh2-35x3000","saps":266000,"smtMode":8,"supportedSystems":["e1050"],"type":"balanced","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":35,"defaultSystem":"e980","fullSystemProfile":false,"memory":3500,"profileID":"bh1-35x3500","saps":210000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":35,"defaultSystem":"e1050","fullSystemProfile":false,"memory":3900,"profileID":"bh2-35x3900","saps":266000,"smtMode":8,"supportedSystems":["e1050"],"type":"balanced","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":40,"defaultSystem":"e980","fullSystemProfile":false,"memory":4000,"profileID":"bh1-40x4000","saps":240000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":50,"defaultSystem":"e980","fullSystemProfile":false,"memory":5000,"profileID":"bh1-50x5000","saps":300000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":60,"defaultSystem":"e980","fullSystemProfile":false,"memory":6000,"profileID":"bh1-60x6000","saps":360000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":70,"defaultSystem":"e980","fullSystemProfile":false,"memory":7000,"profileID":"bh1-70x7000","saps":420000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":80,"defaultSystem":"e980","fullSystemProfile":false,"memory":8000,"profileID":"bh1-80x8000","saps":480000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":100,"defaultSystem":"e980","fullSystemProfile":false,"memory":10000,"profileID":"bh1-100x10000","saps":600000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":120,"defaultSystem":"e980","fullSystemProfile":false,"memory":12000,"profileID":"bh1-120x12000","saps":720000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":140,"defaultSystem":"e980","fullSystemProfile":false,"memory":14000,"profileID":"bh1-140x14000","saps":840000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":["OLAP"]},{"certified":true,"cores":150,"defaultSystem":"e980","fullSystemProfile":false,"memory":15000,"profileID":"bh1-150x15000","saps":0,"smtMode":8,"supportedSystems":["e880","e980"],"type":"balanced","workloadTypes":[""]},{"certified":true,"cores":60,"defaultSystem":"e980","fullSystemProfile":false,"memory":3000,"profileID":"ch1-60x3000","saps":360000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"compute","workloadTypes":["OLAP"]},{"certified":true,"cores":70,"defaultSystem":"e980","fullSystemProfile":false,"memory":3500,"profileID":"ch1-70x3500","saps":420000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"compute","workloadTypes":["OLAP"]},{"certified":true,"cores":80,"defaultSystem":"e980","fullSystemProfile":false,"memory":4000,"profileID":"ch1-80x4000","saps":480000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"compute","workloadTypes":["OLAP"]},{"certified":true,"cores":80,"defaultSystem":"e1050","fullSystemProfile":true,"memory":6144,"profileID":"ch2-80x6144","saps":608000,"smtMode":8,"supportedSystems":["e1050"],"type":"compute","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":87,"defaultSystem":"e1050","fullSystemProfile":true,"memory":6000,"profileID":"ch2-87x6000","saps":661200,"smtMode":8,"supportedSystems":["e1050"],"type":"compute","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":87,"defaultSystem":"e1050","fullSystemProfile":true,"memory":7000,"profileID":"ch2-87x7000","saps":661200,"smtMode":8,"supportedSystems":["e1050"],"type":"compute","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":87,"defaultSystem":"e1050","fullSystemProfile":true,"memory":7600,"profileID":"ch2-87x7600","saps":661200,"smtMode":8,"supportedSystems":["e1050"],"type":"compute","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":100,"defaultSystem":"e980","fullSystemProfile":false,"memory":5000,"profileID":"ch1-100x5000","saps":600000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"compute","workloadTypes":["OLAP"]},{"certified":true,"cores":120,"defaultSystem":"e980","fullSystemProfile":false,"memory":6000,"profileID":"ch1-120x6000","saps":720000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"compute","workloadTypes":["OLAP"]},{"certified":true,"cores":140,"defaultSystem":"e980","fullSystemProfile":false,"memory":7000,"profileID":"ch1-140x7000","saps":840000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"compute","workloadTypes":["OLAP"]},{"certified":true,"cores":150,"defaultSystem":"e980","fullSystemProfile":false,"memory":7500,"profileID":"ch1-150x7500","saps":0,"smtMode":8,"supportedSystems":["e880","e980"],"type":"compute","workloadTypes":[""]},{"certified":true,"cores":8,"defaultSystem":"e980","fullSystemProfile":false,"memory":1440,"profileID":"mh1-8x1440","saps":48000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":10,"defaultSystem":"e980","fullSystemProfile":false,"memory":1800,"profileID":"mh1-10x1800","saps":60000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":12,"defaultSystem":"e980","fullSystemProfile":false,"memory":2160,"profileID":"mh1-12x2160","saps":72000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":16,"defaultSystem":"e980","fullSystemProfile":false,"memory":2880,"profileID":"mh1-16x2880","saps":96000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":20,"defaultSystem":"e980","fullSystemProfile":false,"memory":3600,"profileID":"mh1-20x3600","saps":120000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":22,"defaultSystem":"e980","fullSystemProfile":false,"memory":3960,"profileID":"mh1-22x3960","saps":132000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":25,"defaultSystem":"e980","fullSystemProfile":false,"memory":4500,"profileID":"mh1-25x4500","saps":150000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":30,"defaultSystem":"e980","fullSystemProfile":false,"memory":5400,"profileID":"mh1-30x5400","saps":180000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":35,"defaultSystem":"e980","fullSystemProfile":false,"memory":6300,"profileID":"mh1-35x6300","saps":210000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":40,"defaultSystem":"e980","fullSystemProfile":false,"memory":7200,"profileID":"mh1-40x7200","saps":240000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":50,"defaultSystem":"e980","fullSystemProfile":false,"memory":9000,"profileID":"mh1-50x9000","saps":300000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":60,"defaultSystem":"e980","fullSystemProfile":false,"memory":10800,"profileID":"mh1-60x10800","saps":360000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":70,"defaultSystem":"e980","fullSystemProfile":false,"memory":12600,"profileID":"mh1-70x12600","saps":420000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":80,"defaultSystem":"e980","fullSystemProfile":false,"memory":14400,"profileID":"mh1-80x14400","saps":480000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":["OLAP"]},{"certified":true,"cores":90,"defaultSystem":"e980","fullSystemProfile":false,"memory":16200,"profileID":"mh1-90x16200","saps":0,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":[""]},{"certified":true,"cores":100,"defaultSystem":"e980","fullSystemProfile":false,"memory":18000,"profileID":"mh1-100x18000","saps":0,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":[""]},{"certified":true,"cores":125,"defaultSystem":"e980","fullSystemProfile":false,"memory":22500,"profileID":"mh1-125x22500","saps":0,"smtMode":8,"supportedSystems":["e880","e980"],"type":"memory","workloadTypes":[""]},{"certified":true,"cores":7,"defaultSystem":"s1022","fullSystemProfile":false,"memory":256,"profileID":"sr2-7x256","saps":42000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"sap-rise","workloadTypes":["OLTP"]},{"certified":true,"cores":7,"defaultSystem":"s1022","fullSystemProfile":false,"memory":384,"profileID":"sr2-7x384","saps":42000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"sap-rise","workloadTypes":["OLTP"]},{"certified":true,"cores":12,"defaultSystem":"s1022","fullSystemProfile":false,"memory":950,"profileID":"sr2-12x950","saps":72000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":12,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1450,"profileID":"sr2-12x1450","saps":72000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":14,"defaultSystem":"s1022","fullSystemProfile":false,"memory":512,"profileID":"sr2-14x512","saps":84000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"sap-rise","workloadTypes":["OLTP"]},{"certified":true,"cores":14,"defaultSystem":"s1022","fullSystemProfile":false,"memory":740,"profileID":"sr2-14x740","saps":84000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":22,"defaultSystem":"e1080","fullSystemProfile":false,"memory":2950,"profileID":"sr2-22x2950","saps":132000,"smtMode":4,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":24,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1024,"profileID":"sr2-24x1024","saps":144000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":24,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1536,"profileID":"sr2-24x1536","saps":144000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":25,"defaultSystem":"s1022","fullSystemProfile":true,"memory":1900,"profileID":"sr2-25x1900","saps":190000,"smtMode":8,"supportedSystems":["s1022"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":35,"defaultSystem":"e1050","fullSystemProfile":false,"memory":3000,"profileID":"sr2-35x3000","saps":266000,"smtMode":8,"supportedSystems":["e1050"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":35,"defaultSystem":"e1050","fullSystemProfile":false,"memory":3900,"profileID":"sr2-35x3900","saps":266000,"smtMode":8,"supportedSystems":["e1050"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":35,"defaultSystem":"e1080","fullSystemProfile":false,"memory":4450,"profileID":"sr2-35x4450","saps":210000,"smtMode":4,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":40,"defaultSystem":"e1080","fullSystemProfile":false,"memory":3072,"profileID":"sr2-40x3072","saps":240000,"smtMode":4,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":64,"defaultSystem":"e1080","fullSystemProfile":false,"memory":6144,"profileID":"sr2-64x6144","saps":384000,"smtMode":4,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":80,"defaultSystem":"e1050","fullSystemProfile":true,"memory":6144,"profileID":"sr2-80x6144","saps":608000,"smtMode":8,"supportedSystems":["e1050"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":80,"defaultSystem":"e1080","fullSystemProfile":false,"memory":9216,"profileID":"sr2-80x9216","saps":480000,"smtMode":4,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":80,"defaultSystem":"e1080","fullSystemProfile":false,"memory":12288,"profileID":"sr2-80x12288","saps":480000,"smtMode":4,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":80,"defaultSystem":"e1080","fullSystemProfile":false,"memory":14400,"profileID":"sr2-80x14400","saps":480000,"smtMode":4,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":87,"defaultSystem":"e1050","fullSystemProfile":true,"memory":6000,"profileID":"sr2-87x6000","saps":661200,"smtMode":8,"supportedSystems":["e1050"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":87,"defaultSystem":"e1050","fullSystemProfile":true,"memory":7000,"profileID":"sr2-87x7000","saps":661200,"smtMode":8,"supportedSystems":["e1050"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":87,"defaultSystem":"e1050","fullSystemProfile":true,"memory":7600,"profileID":"sr2-87x7600","saps":661200,"smtMode":8,"supportedSystems":["e1050"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":128,"defaultSystem":"e1080","fullSystemProfile":false,"memory":16000,"profileID":"sr2-128x16000","saps":768000,"smtMode":4,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":128,"defaultSystem":"e1080","fullSystemProfile":false,"memory":18000,"profileID":"sr2-128x18000","saps":768000,"smtMode":4,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":128,"defaultSystem":"e1080","fullSystemProfile":false,"memory":20000,"profileID":"sr2-128x20000","saps":768000,"smtMode":4,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":165,"defaultSystem":"e1080","fullSystemProfile":true,"memory":22000,"profileID":"sr2-165x22000","saps":1254000,"smtMode":8,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":165,"defaultSystem":"e1080","fullSystemProfile":true,"memory":24000,"profileID":"sr2-165x24000","saps":1254000,"smtMode":8,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":165,"defaultSystem":"e1080","fullSystemProfile":true,"memory":26000,"profileID":"sr2-165x26000","saps":1254000,"smtMode":8,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":165,"defaultSystem":"e1080","fullSystemProfile":true,"memory":28000,"profileID":"sr2-165x28000","saps":1254000,"smtMode":8,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":165,"defaultSystem":"e1080","fullSystemProfile":true,"memory":30500,"profileID":"sr2-165x30500","saps":1254000,"smtMode":8,"supportedSystems":["e1080"],"type":"sap-rise","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":2,"defaultSystem":"s1022","fullSystemProfile":false,"memory":32,"profileID":"sr2-2x32","saps":15200,"smtMode":8,"supportedSystems":["s1022"],"type":"sap-rise-app","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":3,"defaultSystem":"s1022","fullSystemProfile":false,"memory":64,"profileID":"sr2-3x64","saps":22800,"smtMode":8,"supportedSystems":["s1022"],"type":"sap-rise-app","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":4,"defaultSystem":"s1022","fullSystemProfile":false,"memory":64,"profileID":"sr2-4x64","saps":30400,"smtMode":8,"supportedSystems":["s1022"],"type":"sap-rise-app","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":6,"defaultSystem":"s1022","fullSystemProfile":false,"memory":128,"profileID":"sr2-6x128","saps":45600,"smtMode":8,"supportedSystems":["s1022"],"type":"sap-rise-app","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":8,"defaultSystem":"s1022","fullSystemProfile":false,"memory":128,"profileID":"sr2-8x128","saps":60800,"smtMode":8,"supportedSystems":["s1022"],"type":"sap-rise-app","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":12,"defaultSystem":"s1022","fullSystemProfile":false,"memory":256,"profileID":"sr2-12x256","saps":91200,"smtMode":8,"supportedSystems":["s1022"],"type":"sap-rise-app","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":16,"defaultSystem":"s1022","fullSystemProfile":false,"memory":256,"profileID":"sr2-16x256","saps":121600,"smtMode":8,"supportedSystems":["s1022"],"type":"sap-rise-app","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":4,"defaultSystem":"e980","fullSystemProfile":false,"memory":128,"profileID":"ush1-4x128","saps":24000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":4,"defaultSystem":"s1022","fullSystemProfile":false,"memory":256,"profileID":"sh2-4x256","saps":24000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":4,"defaultSystem":"e980","fullSystemProfile":false,"memory":256,"profileID":"ush1-4x256","saps":24000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":4,"defaultSystem":"s1022","fullSystemProfile":false,"memory":384,"profileID":"sh2-4x384","saps":24000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":4,"defaultSystem":"e980","fullSystemProfile":false,"memory":384,"profileID":"ush1-4x384","saps":24000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":4,"defaultSystem":"s1022","fullSystemProfile":false,"memory":512,"profileID":"sh2-4x512","saps":24000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":4,"defaultSystem":"e980","fullSystemProfile":false,"memory":512,"profileID":"ush1-4x512","saps":24000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":4,"defaultSystem":"s1022","fullSystemProfile":false,"memory":768,"profileID":"sh2-4x768","saps":24000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":4,"defaultSystem":"e980","fullSystemProfile":false,"memory":768,"profileID":"ush1-4x768","saps":24000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":4,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1000,"profileID":"sh2-4x1000","saps":24000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":4,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1500,"profileID":"sh2-4x1500","saps":24000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":7,"defaultSystem":"s1022","fullSystemProfile":false,"memory":256,"profileID":"sh2-7x256","saps":42000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":7,"defaultSystem":"s1022","fullSystemProfile":false,"memory":384,"profileID":"sh2-7x384","saps":42000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":7,"defaultSystem":"s1022","fullSystemProfile":false,"memory":512,"profileID":"sh2-7x512","saps":42000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":7,"defaultSystem":"s1022","fullSystemProfile":false,"memory":768,"profileID":"sh2-7x768","saps":42000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":7,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1000,"profileID":"sh2-7x1000","saps":42000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":7,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1500,"profileID":"sh2-7x1500","saps":42000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":8,"defaultSystem":"s1022","fullSystemProfile":true,"memory":1900,"profileID":"sh2-8x1900","saps":60800,"smtMode":8,"supportedSystems":["s1022"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":12,"defaultSystem":"s1022","fullSystemProfile":false,"memory":256,"profileID":"sh2-12x256","saps":72000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":12,"defaultSystem":"s1022","fullSystemProfile":false,"memory":384,"profileID":"sh2-12x384","saps":72000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":12,"defaultSystem":"s1022","fullSystemProfile":false,"memory":512,"profileID":"sh2-12x512","saps":72000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLTP"]},{"certified":true,"cores":12,"defaultSystem":"s1022","fullSystemProfile":false,"memory":768,"profileID":"sh2-12x768","saps":72000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":12,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1000,"profileID":"sh2-12x1000","saps":72000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":12,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1500,"profileID":"sh2-12x1500","saps":72000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":16,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1000,"profileID":"sh2-16x1000","saps":96000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":16,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1500,"profileID":"sh2-16x1500","saps":96000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":16,"defaultSystem":"s1022","fullSystemProfile":true,"memory":1900,"profileID":"sh2-16x1900","saps":121600,"smtMode":8,"supportedSystems":["s1022"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":25,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1000,"profileID":"sh2-25x1000","saps":150000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":25,"defaultSystem":"s1022","fullSystemProfile":false,"memory":1500,"profileID":"sh2-25x1500","saps":150000,"smtMode":4,"supportedSystems":["s1022","e1080"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":33,"defaultSystem":"s1022","fullSystemProfile":true,"memory":1900,"profileID":"sh2-33x1900","saps":250800,"smtMode":8,"supportedSystems":["s1022"],"type":"small","workloadTypes":["OLAP/OLTP"]},{"certified":true,"cores":4,"defaultSystem":"e980","fullSystemProfile":false,"memory":960,"profileID":"umh-4x960","saps":24000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":6,"defaultSystem":"e980","fullSystemProfile":false,"memory":1440,"profileID":"umh-6x1440","saps":36000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":8,"defaultSystem":"e980","fullSystemProfile":false,"memory":1920,"profileID":"umh-8x1920","saps":48000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":10,"defaultSystem":"e980","fullSystemProfile":false,"memory":2400,"profileID":"umh-10x2400","saps":60000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":12,"defaultSystem":"e980","fullSystemProfile":false,"memory":2880,"profileID":"umh-12x2880","saps":72000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":16,"defaultSystem":"e980","fullSystemProfile":false,"memory":3840,"profileID":"umh-16x3840","saps":96000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":20,"defaultSystem":"e980","fullSystemProfile":false,"memory":4800,"profileID":"umh-20x4800","saps":120000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":22,"defaultSystem":"e980","fullSystemProfile":false,"memory":5280,"profileID":"umh-22x5280","saps":132000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":25,"defaultSystem":"e980","fullSystemProfile":false,"memory":6000,"profileID":"umh-25x6000","saps":150000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":30,"defaultSystem":"e980","fullSystemProfile":false,"memory":7200,"profileID":"umh-30x7200","saps":180000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":35,"defaultSystem":"e980","fullSystemProfile":false,"memory":8400,"profileID":"umh-35x8400","saps":210000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":40,"defaultSystem":"e980","fullSystemProfile":false,"memory":9600,"profileID":"umh-40x9600","saps":240000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":50,"defaultSystem":"e980","fullSystemProfile":false,"memory":12000,"profileID":"umh-50x12000","saps":300000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]},{"certified":true,"cores":60,"defaultSystem":"e980","fullSystemProfile":false,"memory":14400,"profileID":"umh-60x14400","saps":360000,"smtMode":8,"supportedSystems":["e880","e980"],"type":"ultra-memory","workloadTypes":["OLTP"]}]}
 
         '
-  recorded_at: Thu, 18 Jan 2024 19:31:10 GMT
+  recorded_at: Wed, 25 Jun 2025 15:11:04 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/placement-groups
+    uri: https://us-east.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/storage-capacity/storage-types
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.1.1/ruby
+      - OpenAPI-Generator/3.0.0/ruby
       Content-Type:
       - application/json
       Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      X-Correlation-Id:
+      - 6edd7963-42ba-4758-a06b-c59aec1780ba
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: ASCII-8BIT
+      string: '{"maximumStorageAllocation":{"maxAllocationSize":184751,"storagePool":"General-Flash-53","storageType":"any"},"storageTypesCapacity":[{"maximumStorageAllocation":{"maxAllocationSize":184751,"storagePool":"General-Flash-53","storageType":"tier0"},"storagePoolsCapacity":[{"maxAllocationSize":184751,"poolName":"General-Flash-53","replicationEnabled":true,"storageHost":"ius-east10_tier3_1","storageType":"tier0","totalCapacity":512000},{"maxAllocationSize":150354,"poolName":"General-Flash-59","replicationEnabled":true,"storageHost":"ius-east10_tier3_2","storageType":"tier0","totalCapacity":512000},{"maxAllocationSize":148173,"poolName":"General-Flash-56","replicationEnabled":true,"storageHost":"ius-east10_tier1_2","storageType":"tier0","totalCapacity":512000},{"maxAllocationSize":106374,"poolName":"General-Flash-50","replicationEnabled":true,"storageHost":"ius-east10_tier1_1","storageType":"tier0","totalCapacity":512000}],"storageType":"tier0"},{"maximumStorageAllocation":{"maxAllocationSize":184751,"storagePool":"General-Flash-53","storageType":"tier1"},"storagePoolsCapacity":[{"maxAllocationSize":184751,"poolName":"General-Flash-53","replicationEnabled":true,"storageHost":"ius-east10_tier3_1","storageType":"tier1","totalCapacity":512000},{"maxAllocationSize":150354,"poolName":"General-Flash-59","replicationEnabled":true,"storageHost":"ius-east10_tier3_2","storageType":"tier1","totalCapacity":512000},{"maxAllocationSize":106374,"poolName":"General-Flash-50","replicationEnabled":true,"storageHost":"ius-east10_tier1_1","storageType":"tier1","totalCapacity":512000},{"maxAllocationSize":148173,"poolName":"General-Flash-56","replicationEnabled":true,"storageHost":"ius-east10_tier1_2","storageType":"tier1","totalCapacity":512000}],"storageType":"tier1"},{"maximumStorageAllocation":{"maxAllocationSize":184751,"storagePool":"General-Flash-53","storageType":"tier3"},"storagePoolsCapacity":[{"maxAllocationSize":148173,"poolName":"General-Flash-56","replicationEnabled":true,"storageHost":"ius-east10_tier1_2","storageType":"tier3","totalCapacity":512000},{"maxAllocationSize":106374,"poolName":"General-Flash-50","replicationEnabled":true,"storageHost":"ius-east10_tier1_1","storageType":"tier3","totalCapacity":512000},{"maxAllocationSize":150354,"poolName":"General-Flash-59","replicationEnabled":true,"storageHost":"ius-east10_tier3_2","storageType":"tier3","totalCapacity":512000},{"maxAllocationSize":184751,"poolName":"General-Flash-53","replicationEnabled":true,"storageHost":"ius-east10_tier3_1","storageType":"tier3","totalCapacity":512000}],"storageType":"tier3"},{"maximumStorageAllocation":{"maxAllocationSize":184751,"storagePool":"General-Flash-53","storageType":"tier5k"},"storagePoolsCapacity":[{"maxAllocationSize":184751,"poolName":"General-Flash-53","replicationEnabled":true,"storageHost":"ius-east10_tier3_1","storageType":"tier5k","totalCapacity":512000},{"maxAllocationSize":150354,"poolName":"General-Flash-59","replicationEnabled":true,"storageHost":"ius-east10_tier3_2","storageType":"tier5k","totalCapacity":512000},{"maxAllocationSize":148173,"poolName":"General-Flash-56","replicationEnabled":true,"storageHost":"ius-east10_tier1_2","storageType":"tier5k","totalCapacity":512000},{"maxAllocationSize":106374,"poolName":"General-Flash-50","replicationEnabled":true,"storageHost":"ius-east10_tier1_1","storageType":"tier5k","totalCapacity":512000}],"storageType":"tier5k"}]}
+
+        '
+  recorded_at: Wed, 25 Jun 2025 15:11:05 GMT
+- request:
+    method: get
+    uri: https://us-east.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/04c9a30d-c8d5-46cb-849b-0f7fa5004b70
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/3.0.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      X-Correlation-Id:
+      - 0550ee98-ba31-4f2a-894b-13a736faa1eb
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: ASCII-8BIT
+      string: '{"addresses":[{"href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/04c9a30d-c8d5-46cb-849b-0f7fa5004b70/networks/75a55a9f-1038-4495-9c3f-f7c113670c2e","ip":"127.0.0.1","ipAddress":"127.0.0.1","macAddress":"fa:16:3e:a1:4d:23","networkID":"75a55a9f-1038-4495-9c3f-f7c113670c2e","networkInterfaceID":"3ba26bdf-adea-4fae-a99b-4dfbfadac1f1","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"consoleLanguage":{"code":"037","language":"037
+        English"},"creationDate":"2025-06-25T14:33:31.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:pvm-instance:04c9a30d-c8d5-46cb-849b-0f7fa5004b70","diskSize":100,"health":{"lastUpdate":"2025-06-25T15:11:07.672860","status":"OK"},"hostID":79,"imageID":"0e09362f-08dd-4fff-ae7b-c389b81ab7bd","maxmem":16,"maxproc":2,"memory":2,"migratable":false,"minmem":2,"minproc":0.25,"networkIDs":["75a55a9f-1038-4495-9c3f-f7c113670c2e"],"networks":[{"href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/pvm-instances/04c9a30d-c8d5-46cb-849b-0f7fa5004b70/networks/75a55a9f-1038-4495-9c3f-f7c113670c2e","ip":"127.0.0.1","ipAddress":"127.0.0.1","macAddress":"fa:16:3e:a1:4d:23","networkID":"75a55a9f-1038-4495-9c3f-f7c113670c2e","networkInterfaceID":"3ba26bdf-adea-4fae-a99b-4dfbfadac1f1","networkName":"test-network-vlan-jumbo","type":"fixed","version":4}],"operatingSystem":"V7R5M0
+        410 5","osType":"ibmi","pinPolicy":"soft","placementGroup":"69ac6b47-912e-4346-8804-da768f4aa789","procType":"capped","processors":0.25,"pvmInstanceID":"04c9a30d-c8d5-46cb-849b-0f7fa5004b70","serverName":"test-instance-ibmi-s922-capped-tier1","softwareLicenses":{"ibmiCSS":false,"ibmiDBQ":false,"ibmiPHA":false,"ibmiRDS":false},"srcs":[[{"src":"A6005008","timestamp":"2025-06-25T15:25:10Z"},{"src":"03B00061","timestamp":"2025-06-25T15:25:10Z"},{"src":"FFFF0000","timestamp":"2025-06-25T15:25:10Z"},{"src":"00000000","timestamp":"2025-06-25T15:25:10Z"},{"src":"00000000","timestamp":"2025-06-25T15:25:10Z"},{"src":"50070404","timestamp":"2025-06-25T15:25:10Z"},{"src":"00000000","timestamp":"2025-06-25T15:25:10Z"},{"src":"00000000","timestamp":"2025-06-25T15:25:10Z"},{"src":"00000000","timestamp":"2025-06-25T15:25:10Z"}]],"status":"ACTIVE","storagePool":"General-Flash-53","storagePoolAffinity":true,"storageType":"any","sysType":"s922","updatedDate":"2025-06-25T14:33:31.000Z","virtualCores":{"assigned":1,"max":4,"min":1},"volumeIDs":["b6a90aec-fce5-4640-9a99-140e8af2b103"]}
+
+        '
+  recorded_at: Wed, 25 Jun 2025 15:11:21 GMT
+- request:
+    method: get
+    uri: https://us-east.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/images
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/3.0.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      X-Correlation-Id:
+      - 4d119a4c-b662-4de3-b757-1324964ef06c
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: ASCII-8BIT
+      string: '{"images":[{"creationDate":"2025-06-12T13:30:49.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:image:05e43ffe-bf8e-4f4a-8dd8-2ebc747e9b33","description":"","href":"/pcloud/v1/cloud-instances/9089686c4d6143a4bdcc72b197c7655d/images/05e43ffe-bf8e-4f4a-8dd8-2ebc747e9b33","imageID":"05e43ffe-bf8e-4f4a-8dd8-2ebc747e9b33","lastUpdateDate":"2025-06-12T13:30:49.000Z","name":"7300-03-00","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"big-endian","hypervisorType":"phyp","imageType":"stock","operatingSystem":"aix"},"state":"active","storagePool":"","storageType":""},{"creationDate":"2025-06-12T13:34:00.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:image:be0864af-8dda-465f-80e0-695715fb40f0","description":"","href":"/pcloud/v1/cloud-instances/9089686c4d6143a4bdcc72b197c7655d/images/be0864af-8dda-465f-80e0-695715fb40f0","imageID":"be0864af-8dda-465f-80e0-695715fb40f0","lastUpdateDate":"2025-06-12T13:34:00.000Z","name":"CentOS-Stream-9","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","imageType":"stock","operatingSystem":"rhel"},"state":"active","storagePool":"","storageType":""},{"creationDate":"2025-06-12T13:32:01.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:image:198a2763-0f16-4026-bc5d-77a3f6b8b5bc","description":"","href":"/pcloud/v1/cloud-instances/9089686c4d6143a4bdcc72b197c7655d/images/198a2763-0f16-4026-bc5d-77a3f6b8b5bc","imageID":"198a2763-0f16-4026-bc5d-77a3f6b8b5bc","lastUpdateDate":"2025-06-12T13:32:01.000Z","name":"IBMi-75-05-2984-1","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"big-endian","hypervisorType":"phyp","imageType":"stock","operatingSystem":"ibmi"},"state":"active","storagePool":"","storageType":""},{"creationDate":"2025-06-12T13:36:54.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:image:4c7f350e-218b-42c3-b11f-2e6eca8599d2","description":"","href":"/pcloud/v1/cloud-instances/9089686c4d6143a4bdcc72b197c7655d/images/4c7f350e-218b-42c3-b11f-2e6eca8599d2","imageID":"4c7f350e-218b-42c3-b11f-2e6eca8599d2","lastUpdateDate":"2025-06-12T13:36:54.000Z","name":"RHEL9-SP4-BYOL","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","imageType":"stock","operatingSystem":"rhel"},"state":"active","storagePool":"","storageType":""},{"creationDate":"2025-06-12T13:38:02.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:image:e3c7a731-aa96-493c-8390-1911269de574","description":"","href":"/pcloud/v1/cloud-instances/9089686c4d6143a4bdcc72b197c7655d/images/e3c7a731-aa96-493c-8390-1911269de574","imageID":"e3c7a731-aa96-493c-8390-1911269de574","lastUpdateDate":"2025-06-12T13:38:02.000Z","name":"SLES15-SP6-BYOL","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","imageType":"stock","operatingSystem":"sles"},"state":"active","storagePool":"","storageType":""},{"creationDate":"2025-06-12T19:27:42.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:image:e6b94e6c-8c6a-4a05-9718-afef367b4af9","description":"","href":"/pcloud/v1/cloud-instances/9089686c4d6143a4bdcc72b197c7655d/images/e6b94e6c-8c6a-4a05-9718-afef367b4af9","imageID":"e6b94e6c-8c6a-4a05-9718-afef367b4af9","lastUpdateDate":"2025-06-12T19:29:23.000Z","name":"rhcos-416","specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"little-endian","hypervisorType":"phyp","imageType":"import","operatingSystem":"rhel"},"state":"active","storagePool":"General-Flash-53","storageType":"tier1"}]}
+
+        '
+  recorded_at: Wed, 25 Jun 2025 15:11:23 GMT
+- request:
+    method: get
+    uri: https://us-east.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/images/0e09362f-08dd-4fff-ae7b-c389b81ab7bd
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/3.0.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '107'
+      X-Correlation-Id:
+      - e4a04434-c0b8-47e5-87d0-1eb099bd06ed
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: ASCII-8BIT
+      string: '{"description":"image does not exist. ID: 0e09362f-08dd-4fff-ae7b-c389b81ab7bd","error":"image
+        not found"}
+
+        '
+  recorded_at: Wed, 25 Jun 2025 15:11:27 GMT
+- request:
+    method: get
+    uri: https://us-east.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/stock-images/0e09362f-08dd-4fff-ae7b-c389b81ab7bd
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/3.0.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '588'
+      X-Correlation-Id:
+      - a4803eea-6c9d-44bc-90cc-ce274cde7f81
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: ASCII-8BIT
+      string: '{"creationDate":"2025-03-21T00:49:56.000Z","imageID":"0e09362f-08dd-4fff-ae7b-c389b81ab7bd","lastUpdateDate":"2025-04-18T21:42:07.000Z","maxImageVolumeSize":100,"name":"IBMi-75-05-2984-1","servers":[],"size":100,"specifications":{"architecture":"ppc64","containerFormat":"bare","diskFormat":"raw","endianness":"big-endian","hypervisorType":"phyp","imageType":"stock","operatingSystem":"ibmi"},"state":"active","storagePool":"General-Flash-53","storageType":"tier3","volumes":[{"bootable":true,"name":"Imported
+        image volume","size":100,"volumeID":"9e260cc3-9425-4f9e-b1a8-08181d96d604"}]}
+
+        '
+  recorded_at: Wed, 25 Jun 2025 15:11:39 GMT
+- request:
+    method: get
+    uri: https://us-east.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/3.0.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      X-Correlation-Id:
+      - 43426491-7ebb-4968-96b3-7eb7f31c06a0
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
+      Cf-Cache-Status:
+      - DYNAMIC
+    body:
+      encoding: ASCII-8BIT
+      string: '{"volumes":[{"auxiliary":false,"bootable":true,"creationDate":"2025-06-25T14:44:07.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:volume:55eeb86d-80d4-4ef2-9267-0075bac0378d","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/55eeb86d-80d4-4ef2-9267-0075bac0378d","ioThrottleRate":"360
+        iops","lastUpdateDate":"2025-06-25T14:44:25.000Z","name":"test-instance-9317b826-0002edc3-boot-0","pvmInstanceIDs":["9317b826-3660-4cf9-aa93-6d42a4643ba9"],"replicationEnabled":false,"replicationStatus":"not-capable","shareable":false,"size":120,"state":"in-use","volumeID":"55eeb86d-80d4-4ef2-9267-0075bac0378d","volumePool":"General-Flash-53","volumeType":"Tier3-General-Flash-53","wwn":"6005076813810212980000000000A9C4"},{"auxiliary":false,"bootable":true,"creationDate":"2025-06-25T14:41:27.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:volume:2b3477a2-5e5c-46fc-8906-bc2ef9166c37","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/2b3477a2-5e5c-46fc-8906-bc2ef9166c37","ioThrottleRate":"300
+        iops","lastUpdateDate":"2025-06-25T14:42:00.000Z","name":"test-instance-c717671d-0002edc0-boot-0","pvmInstanceIDs":["c717671d-baae-4955-879f-0588ef5171bb"],"replicationEnabled":false,"replicationStatus":"not-capable","shareable":false,"size":100,"state":"in-use","volumeID":"2b3477a2-5e5c-46fc-8906-bc2ef9166c37","volumePool":"General-Flash-53","volumeType":"Tier3-General-Flash-53","wwn":"6005076813810212980000000000A9C3"},{"auxiliary":false,"bootable":true,"creationDate":"2025-06-25T14:39:01.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:volume:ab68a4b6-921e-4149-a6d3-70c281349fcf","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/ab68a4b6-921e-4149-a6d3-70c281349fcf","ioThrottleRate":"300
+        iops","lastUpdateDate":"2025-06-25T14:39:25.000Z","name":"test-instance-43a0b59a-0002edba-boot-0","pvmInstanceIDs":["43a0b59a-f4d7-4150-8fb8-72b4e5452d02"],"replicationEnabled":false,"replicationStatus":"not-capable","shareable":false,"size":100,"state":"in-use","volumeID":"ab68a4b6-921e-4149-a6d3-70c281349fcf","volumePool":"General-Flash-53","volumeType":"Tier3-General-Flash-53","wwn":"6005076813810212980000000000A9BE"},{"auxiliary":false,"bootable":true,"creationDate":"2025-06-25T14:36:25.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:volume:4fdf9382-aa4c-435e-9352-de392a6ef278","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/4fdf9382-aa4c-435e-9352-de392a6ef278","ioThrottleRate":"360
+        iops","lastUpdateDate":"2025-06-25T14:36:57.000Z","name":"test-instance-c19f7546-0002edb7-boot-0","pvmInstanceIDs":["c19f7546-323e-4e0b-bf97-5ad8668f0529"],"replicationEnabled":false,"replicationStatus":"not-capable","shareable":false,"size":120,"state":"in-use","volumeID":"4fdf9382-aa4c-435e-9352-de392a6ef278","volumePool":"General-Flash-53","volumeType":"Tier3-General-Flash-53","wwn":"6005076813810212980000000000A9BC"},{"auxiliary":false,"bootable":true,"creationDate":"2025-06-25T14:33:58.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:volume:b6a90aec-fce5-4640-9a99-140e8af2b103","diskType":"tier1","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/b6a90aec-fce5-4640-9a99-140e8af2b103","ioThrottleRate":"1000
+        iops","lastUpdateDate":"2025-06-25T14:34:24.000Z","name":"test-instance-04c9a30d-0002edb4-boot-0","pvmInstanceIDs":["04c9a30d-c8d5-46cb-849b-0f7fa5004b70"],"replicationEnabled":false,"replicationStatus":"not-capable","shareable":false,"size":100,"state":"in-use","volumeID":"b6a90aec-fce5-4640-9a99-140e8af2b103","volumePool":"General-Flash-53","volumeType":"Tier1-General-Flash-53","wwn":"6005076813810212980000000000A9BB"},{"auxiliary":false,"bootable":true,"creationDate":"2025-06-25T14:29:52.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:volume:1f455cf4-c82c-4e1b-b84b-f1e86082aadf","diskType":"tier1","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/1f455cf4-c82c-4e1b-b84b-f1e86082aadf","ioThrottleRate":"200
+        iops","lastUpdateDate":"2025-06-25T14:30:23.000Z","name":"test-instance-5d8393c6-0002edb1-boot-0","pvmInstanceIDs":["5d8393c6-b50c-4de4-98f0-a04222e9fbdc"],"replicationEnabled":false,"replicationStatus":"not-capable","shareable":false,"size":20,"state":"in-use","volumeID":"1f455cf4-c82c-4e1b-b84b-f1e86082aadf","volumePool":"General-Flash-53","volumeType":"Tier1-General-Flash-53","wwn":"6005076813810212980000000000A9BA"},{"auxiliary":false,"bootable":false,"creationDate":"2025-06-25T14:27:46.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:volume:b5da6f68-de2e-4594-a615-4f3625f33e3c","diskType":"tier1","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/b5da6f68-de2e-4594-a615-4f3625f33e3c","ioThrottleRate":"150
+        iops","lastUpdateDate":"2025-06-25T14:27:51.000Z","name":"test-volume-15GB-tier1-notsharable","pvmInstanceIDs":[],"replicationEnabled":false,"replicationStatus":"not-capable","shareable":false,"size":15,"state":"available","volumeID":"b5da6f68-de2e-4594-a615-4f3625f33e3c","volumePool":"General-Flash-53","volumeType":"Tier1-General-Flash-53","wwn":"6005076813810212980000000000A9B8"},{"auxiliary":false,"bootable":false,"creationDate":"2025-06-25T14:27:39.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:volume:1e279407-e554-491d-8ed3-a5094ce86ac0","diskType":"tier1","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/1e279407-e554-491d-8ed3-a5094ce86ac0","ioThrottleRate":"30
+        iops","lastUpdateDate":"2025-06-25T14:27:42.000Z","name":"test-volume-3GB-tier1-notsharable","pvmInstanceIDs":[],"replicationEnabled":false,"replicationStatus":"not-capable","shareable":false,"size":3,"state":"available","volumeID":"1e279407-e554-491d-8ed3-a5094ce86ac0","volumePool":"General-Flash-53","volumeType":"Tier1-General-Flash-53","wwn":"6005076813810212980000000000A9B7"},{"auxiliary":false,"bootable":false,"creationDate":"2025-06-25T14:27:32.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:volume:5d1d628d-95ab-4513-81e0-b95b784a7062","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/5d1d628d-95ab-4513-81e0-b95b784a7062","ioThrottleRate":"30
+        iops","lastUpdateDate":"2025-06-25T14:27:34.000Z","name":"test-volume-10GB-tier3-sharable","pvmInstanceIDs":[],"replicationEnabled":false,"replicationStatus":"not-capable","shareable":true,"size":10,"state":"available","volumeID":"5d1d628d-95ab-4513-81e0-b95b784a7062","volumePool":"General-Flash-53","volumeType":"Tier3-General-Flash-53","wwn":"6005076813810212980000000000A9B6"},{"auxiliary":false,"bootable":false,"creationDate":"2025-06-25T14:27:24.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:volume:2ce11d4a-2c94-4742-bff4-0e802cf348f8","diskType":"tier3","href":"/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/volumes/2ce11d4a-2c94-4742-bff4-0e802cf348f8","ioThrottleRate":"3
+        iops","lastUpdateDate":"2025-06-25T14:27:26.000Z","name":"test-volume-1GB-tier3-sharable","pvmInstanceIDs":[],"replicationEnabled":false,"replicationStatus":"not-capable","shareable":true,"size":1,"state":"available","volumeID":"2ce11d4a-2c94-4742-bff4-0e802cf348f8","volumePool":"General-Flash-53","volumeType":"Tier3-General-Flash-53","wwn":"6005076813810212980000000000A9B5"}]}
+
+        '
+  recorded_at: Wed, 25 Jun 2025 15:11:42 GMT
+- request:
+    method: get
+    uri: https://us-east.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/placement-groups
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/3.0.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
       Authorization: Bearer xxxxxx
       Accept:
       - application/json
@@ -450,29 +556,38 @@ http_interactions:
       - application/json
       Content-Length:
       - '344'
+      X-Correlation-Id:
+      - 279d118d-20d9-4fbc-97e0-3e6c983f5417
       Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
       Cf-Cache-Status:
       - DYNAMIC
     body:
-      encoding: UTF-8
-      string: '{"placementGroups":[{"id":"8334ba79-bd98-47af-ad25-6eb8a1c4c817","members":["e8cf72cf-7685-4bfb-a386-66422f71820a"],"name":"test-placement-group-affinity","policy":"affinity"},{"id":"f99c2fc5-73ba-4387-9736-61dc51f53471","members":["d6a661a8-fed1-4a52-9d50-24fc9f9956b8"],"name":"test-placement-group-anti-affinity","policy":"anti-affinity"}]}
+      encoding: ASCII-8BIT
+      string: '{"placementGroups":[{"id":"69ac6b47-912e-4346-8804-da768f4aa789","members":["04c9a30d-c8d5-46cb-849b-0f7fa5004b70"],"name":"test-placement-group-affinity","policy":"affinity"},{"id":"b52c11cb-b6bf-45a0-a376-242f4217ca6f","members":["9317b826-3660-4cf9-aa93-6d42a4643ba9"],"name":"test-placement-group-anti-affinity","policy":"anti-affinity"}]}
 
         '
-  recorded_at: Thu, 18 Jan 2024 19:31:10 GMT
+  recorded_at: Wed, 25 Jun 2025 15:11:43 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/snapshots
+    uri: https://us-east.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/snapshots
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.1.1/ruby
+      - OpenAPI-Generator/3.0.0/ruby
       Content-Type:
       - application/json
       Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
       Authorization: Bearer xxxxxx
       Accept:
       - application/json
@@ -485,35 +600,44 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
+      X-Correlation-Id:
+      - f29a6511-3813-4df9-b03e-0b695f478e4d
       Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
       Cf-Cache-Status:
       - DYNAMIC
     body:
-      encoding: UTF-8
-      string: '{"snapshots":[{"action":"snapshot","creationDate":"2024-01-18T19:14:39.000Z","description":"server
-        name: test-instance-ibmi-s922-capped-tier1","lastUpdateDate":"2024-01-18T19:14:49.000Z","name":"test-instance-ibmi-s922-capped-tier1-snapshot-1","percentComplete":100,"pvmInstanceID":"e8cf72cf-7685-4bfb-a386-66422f71820a","snapshotID":"0e536300-ad93-40f3-92f9-f5153785d2ac","status":"available","volumeSnapshots":{"ed84f79b-b8d1-48c3-8766-2a92ff6a879b":"2ad97524-7d8e-48dc-ace4-f66c544e2775"}},{"action":"snapshot","creationDate":"2024-01-18T19:14:53.000Z","description":"server
-        name: test-instance-sles-s922-shared-tier3","lastUpdateDate":"2024-01-18T19:15:02.000Z","name":"test-instance-sles-s922-shared-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"54e1f646-8ce4-4ee5-9355-e5d34166c4fd","snapshotID":"2d3fa834-5212-4ea4-ac2a-d28a244041c2","status":"available","volumeSnapshots":{"ba26d663-1e76-4457-8732-9d9235df8019":"5c7be867-f103-4a83-87af-53ffa26b07be"}},{"action":"snapshot","creationDate":"2024-01-18T19:14:57.000Z","description":"server
-        name: test-instance-rhcos-s922-shared-tier3","lastUpdateDate":"2024-01-18T19:15:05.000Z","name":"test-instance-rhcos-s922-shared-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"d6a661a8-fed1-4a52-9d50-24fc9f9956b8","snapshotID":"9c6127c6-b71d-417d-8238-e4642cf3df83","status":"available","volumeSnapshots":{"7d6f53e6-4adf-4792-8b5f-07cc618dff78":"7fabb55d-38e4-40c0-bd0c-ba44e706135e"}},{"action":"snapshot","creationDate":"2024-01-18T19:14:44.000Z","description":"server
-        name: test-instance-centos-e980-dedicated-tier3","lastUpdateDate":"2024-01-18T19:14:53.000Z","name":"test-instance-centos-e980-dedicated-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"1ea38460-b3ff-4abd-802b-0289983be590","snapshotID":"9f192329-1470-4532-b609-16b56914fad0","status":"available","volumeSnapshots":{"cdfebbb2-d64e-41e1-9834-4f6b5d249489":"563ac449-f811-4ff7-bd91-adb026c82562"}},{"action":"snapshot","creationDate":"2024-01-18T19:14:48.000Z","description":"server
-        name: test-instance-rhel-s922-shared-tier3","lastUpdateDate":"2024-01-18T19:14:58.000Z","name":"test-instance-rhel-s922-shared-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"b9370d8d-8d73-4f0e-ad84-34f7fd52eb84","snapshotID":"d5332d55-9d8f-4745-b26e-203387b59d55","status":"available","volumeSnapshots":{"984498df-5554-4685-a109-821d5e39b27b":"ccc567e7-63db-4441-ab3c-a206e41ff9b3"}},{"action":"snapshot","creationDate":"2024-01-18T19:14:35.000Z","description":"server
-        name: test-instance-aix-s922-shared-tier1","lastUpdateDate":"2024-01-18T19:14:44.000Z","name":"test-instance-aix-s922-shared-tier1-snapshot-1","percentComplete":100,"pvmInstanceID":"502106d8-d969-49df-9103-184c3ab97508","snapshotID":"e47f1ab4-22eb-4262-9b8c-b670afcbf6ef","status":"available","volumeSnapshots":{"2e653913-14fe-4b3a-a4f3-c7396bed0862":"0d6df030-deb6-4fe4-8247-42a61d7c4cad"}}]}
+      encoding: ASCII-8BIT
+      string: '{"snapshots":[{"action":"snapshot","creationDate":"2025-06-25T14:46:56.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:snapshot:0385f05f-b922-45f6-a9df-d6e8b6bd9111","description":"server
+        name: test-instance-rhcos-s922-shared-tier3","lastUpdateDate":"2025-06-25T14:47:04.000Z","name":"test-instance-rhcos-s922-shared-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"9317b826-3660-4cf9-aa93-6d42a4643ba9","snapshotID":"0385f05f-b922-45f6-a9df-d6e8b6bd9111","status":"available","volumeSnapshots":{"55eeb86d-80d4-4ef2-9267-0075bac0378d":"992f34ab-4503-4ec2-82a8-acbb69e751dc"}},{"action":"snapshot","creationDate":"2025-06-25T14:46:38.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:snapshot:05247445-494e-4ac7-b1d6-1818a1c4f6e2","description":"server
+        name: test-instance-rhel-s922-shared-tier3","lastUpdateDate":"2025-06-25T14:46:50.000Z","name":"test-instance-rhel-s922-shared-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"43a0b59a-f4d7-4150-8fb8-72b4e5452d02","snapshotID":"05247445-494e-4ac7-b1d6-1818a1c4f6e2","status":"available","volumeSnapshots":{"ab68a4b6-921e-4149-a6d3-70c281349fcf":"8a55602d-8bfa-4c5f-bbce-bacb7579de26"}},{"action":"snapshot","creationDate":"2025-06-25T14:46:12.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:snapshot:071468b4-41e8-443a-b589-c789ea31eee2","description":"server
+        name: test-instance-aix-s922-shared-tier1","lastUpdateDate":"2025-06-25T14:46:20.000Z","name":"test-instance-aix-s922-shared-tier1-snapshot-1","percentComplete":100,"pvmInstanceID":"5d8393c6-b50c-4de4-98f0-a04222e9fbdc","snapshotID":"071468b4-41e8-443a-b589-c789ea31eee2","status":"available","volumeSnapshots":{"1f455cf4-c82c-4e1b-b84b-f1e86082aadf":"d0b96d4d-8459-4348-81cf-0354a1d17265"}},{"action":"snapshot","creationDate":"2025-06-25T14:46:29.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:snapshot:71bec2d4-6c61-4fbe-afd9-13a8c1f2c8fb","description":"server
+        name: test-instance-centos-e980-dedicated-tier3","lastUpdateDate":"2025-06-25T14:46:37.000Z","name":"test-instance-centos-e980-dedicated-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"c19f7546-323e-4e0b-bf97-5ad8668f0529","snapshotID":"71bec2d4-6c61-4fbe-afd9-13a8c1f2c8fb","status":"available","volumeSnapshots":{"4fdf9382-aa4c-435e-9352-de392a6ef278":"d9aa27fb-fdc0-454a-bc54-53a1fda20fb4"}},{"action":"snapshot","creationDate":"2025-06-25T14:46:47.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:snapshot:bd5bcb88-d639-44f3-8aad-250b243288a1","description":"server
+        name: test-instance-sles-s922-shared-tier3","lastUpdateDate":"2025-06-25T14:47:00.000Z","name":"test-instance-sles-s922-shared-tier3-snapshot-1","percentComplete":100,"pvmInstanceID":"c717671d-baae-4955-879f-0588ef5171bb","snapshotID":"bd5bcb88-d639-44f3-8aad-250b243288a1","status":"available","volumeSnapshots":{"2b3477a2-5e5c-46fc-8906-bc2ef9166c37":"bd49d8f0-e5dd-4001-9132-5e22c9be06a7"}},{"action":"snapshot","creationDate":"2025-06-25T14:46:20.000Z","crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:snapshot:f5bc67a9-ed33-4ea0-92ee-881be8b90eb2","description":"server
+        name: test-instance-ibmi-s922-capped-tier1","lastUpdateDate":"2025-06-25T14:46:28.000Z","name":"test-instance-ibmi-s922-capped-tier1-snapshot-1","percentComplete":100,"pvmInstanceID":"04c9a30d-c8d5-46cb-849b-0f7fa5004b70","snapshotID":"f5bc67a9-ed33-4ea0-92ee-881be8b90eb2","status":"available","volumeSnapshots":{"b6a90aec-fce5-4640-9a99-140e8af2b103":"7baaad1a-d2f3-4dbb-816a-5bee06d0f559"}}]}
 
         '
-  recorded_at: Thu, 18 Jan 2024 19:31:11 GMT
+  recorded_at: Wed, 25 Jun 2025 15:11:44 GMT
 - request:
     method: get
-    uri: https://mon.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/shared-processor-pools
+    uri: https://us-east.power-iaas.cloud.ibm.com/pcloud/v1/cloud-instances/IBM_CLOUD_POWERVS_INSTANCE_ID/shared-processor-pools
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - OpenAPI-Generator/2.1.1/ruby
+      - OpenAPI-Generator/3.0.0/ruby
       Content-Type:
       - application/json
       Crn:
-      - 'crn:v1:bluemix:public:power-iaas:mon01:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
       Authorization: Bearer xxxxxx
       Accept:
       - application/json
@@ -527,16 +651,25 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '384'
+      - '563'
+      X-Correlation-Id:
+      - 651f4234-a3a6-4ec2-8134-231459d02bce
       Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
+      - max-age=31536000; includeSubDomains
+      X-Debug-Num:
+      - '221'
+      X-Debug-Downstream:
+      - crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::|
+        -> private.us-south.power-iaas.cloud.ibm.com
+      X-Debug-Host-Header:
+      - private.us-south.power-iaas.cloud.ibm.com
       Cf-Cache-Status:
       - DYNAMIC
     body:
-      encoding: UTF-8
-      string: '{"sharedProcessorPools":[{"allocatedCores":0.5,"availableCores":0.5,"hostGroup":"s922","hostID":6,"id":"85029156-8753-4d06-9a56-d13e3bd4c27d","name":"test_pool","reservedCores":1,"sharedProcessorPoolPlacementGroups":[{"id":"bb252e11-c5f9-43fb-9801-2218058fe030","name":"test_spppg","policy":"affinity"}],"status":"active","statusDetail":"shared
+      encoding: ASCII-8BIT
+      string: '{"sharedProcessorPools":[{"allocatedCores":0.5,"availableCores":0.5,"crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:shared-processor-pool:85ba15e6-bbc0-469b-90b7-697876167cfc","hostGroup":"s922","hostID":58,"id":"85ba15e6-bbc0-469b-90b7-697876167cfc","name":"test_pool","reservedCores":1,"sharedProcessorPoolPlacementGroups":[{"id":"6101a596-8553-4792-8ce5-920c58bc929f","name":"test_spppg","policy":"affinity"}],"status":"active","statusDetail":"shared
         processor pool test_pool is active"}]}
 
         '
-  recorded_at: Thu, 18 Jan 2024 19:31:12 GMT
-recorded_with: VCR 6.2.0
+  recorded_at: Wed, 25 Jun 2025 15:11:47 GMT
+recorded_with: VCR 6.3.1
