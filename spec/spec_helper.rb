@@ -25,7 +25,7 @@ end
 # Replace the contents of the token before writing to file.
 def replace_token_contents(interaction)
   data = JSON.parse(interaction.response.body, :symbolize_names => true)
-  data.merge!({:refresh_token => 'REFRESH_TOKEN', :ims_user_id => '22222', :expiration => Date.new(2100, 1, 1).to_time.to_i})
+  data.merge!({:access_token => 'ACCESS_TOKEN', :refresh_token => 'REFRESH_TOKEN', :ims_user_id => '22222', :expiration => Date.new(2100, 1, 1).to_time.to_i})
   interaction.response.body = data.to_json.force_encoding('ASCII-8BIT')
 
   transient_headers = %w[].freeze
@@ -69,8 +69,8 @@ VCR.configure do |config|
   config.cassette_library_dir = File.join(ManageIQ::Providers::IbmCloud::Engine.root, 'spec/vcr_cassettes')
 
   config.before_record do |i|
-    replace_token_contents(i) if i.request.uri == "https://iam.cloud.ibm.com/identity/token"
-    vpc_sanitizer(i) if i.request.uri.match?('iaas.cloud.ibm') || i.request.uri.match?('tags.global-search-tagging')
+    replace_token_contents(i) if i.request.uri.start_with?("https://iam.cloud.ibm.com/identity/token")
+    vpc_sanitizer(i) if i.request.uri.match?('cloud.ibm') || i.request.uri.match?('tags.global-search-tagging')
   end
 
   secrets = Rails.application.secrets
