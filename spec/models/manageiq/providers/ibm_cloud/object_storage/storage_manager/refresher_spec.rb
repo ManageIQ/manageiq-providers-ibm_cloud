@@ -5,9 +5,9 @@ describe ManageIQ::Providers::IbmCloud::ObjectStorage::StorageManager::Refresher
   context "#refresh" do
     let(:ems) do
       uid_ems    = "960f1ca0-8a54-402b-9747-f980a84bd312"
-      auth_key   = Rails.application.secrets.ibm_cloud_object_storage[:api_key]
-      access_key = Rails.application.secrets.ibm_cloud_object_storage[:access_key]
-      secret_key = Rails.application.secrets.ibm_cloud_object_storage[:secret_key]
+      auth_key   = VcrSecrets.ibm_cloud_object_storage.api_key
+      access_key = VcrSecrets.ibm_cloud_object_storage.access_key
+      secret_key = VcrSecrets.ibm_cloud_object_storage.secret_key
 
       FactoryBot.create(
         :ems_ibm_cloud_object_storage_storage,

@@ -37,11 +37,11 @@ FactoryBot.define do
 
   factory :ems_ibm_cloud_iks_with_vcr_authentication, :parent => :ems_ibm_cloud_iks do
     after(:create) do |ems|
-      api_key = Rails.application.secrets.iks[:api_key]
+      api_key = VcrSecrets.iks.api_key
 
       ems.default_endpoint.update!(
-        :hostname          => Rails.application.secrets.iks[:hostname],
-        :port              => Rails.application.secrets.iks[:port],
+        :hostname          => VcrSecrets.iks.hostname,
+        :port              => VcrSecrets.iks.port,
         :security_protocol => "ssl-without-validation"
       )
 

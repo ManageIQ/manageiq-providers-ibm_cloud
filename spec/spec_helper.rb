@@ -59,28 +59,18 @@ def header_sanitizer(response_header, transient_headers)
 end
 
 VCR.configure do |config|
-  # config.debug_logger = $stdout # Keep for debugging tests.
-
-  # Configure VCR to use rspec metadata.
-  config.hook_into(:webmock)
-  config.configure_rspec_metadata!
-
   config.ignore_hosts('codeclimate.com') if ENV['CI']
   config.cassette_library_dir = File.join(ManageIQ::Providers::IbmCloud::Engine.root, 'spec/vcr_cassettes')
+  config.hook_into(:webmock)
+  config.configure_rspec_metadata! # Auto-detects the cassette name based on the example's full description
 
   config.before_record do |i|
     replace_token_contents(i) if i.request.uri == "https://iam.cloud.ibm.com/identity/token"
     vpc_sanitizer(i) if i.request.uri.match?('iaas.cloud.ibm') || i.request.uri.match?('tags.global-search-tagging')
   end
 
-  secrets = Rails.application.secrets
-  secrets.ibm_cloud_power.each_key do |secret|
-    config.define_cassette_placeholder(secrets.ibm_cloud_power_defaults[secret]) { secrets.ibm_cloud_power[secret] }
-  end
-  secrets.ibm_cloud_vpc.each_key do |secret|
-    config.define_cassette_placeholder(secrets.ibm_cloud_vpc_defaults[secret]) { secrets.ibm_cloud_vpc[secret] }
-  end
-  secrets.iks.each_key do |secret|
-    config.define_cassette_placeholder(secrets.iks_defaults[secret]) { secrets.iks[secret] }
-  end
+  VcrSecrets.define_all_cassette_placeholders(config, :ibm_cloud_power)
+  VcrSecrets.define_all_cassette_placeholders(config, :ibm_cloud_vpc)
+  VcrSecrets.define_all_cassette_placeholders(config, :ibm_cloud_object_storage)
+  VcrSecrets.define_all_cassette_placeholders(config, :iks)
 end
