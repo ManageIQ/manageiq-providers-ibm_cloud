@@ -6,8 +6,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
 
   context "#refresh" do
     let(:ems) do
-      uid_ems  = Rails.application.secrets.ibm_cloud_power[:cloud_instance_id]
-      auth_key = Rails.application.secrets.ibm_cloud_power[:api_key]
+      uid_ems  = VcrSecrets.ibm_cloud_power.cloud_instance_id
+      auth_key = VcrSecrets.ibm_cloud_power.api_key
 
       FactoryBot.create(:ems_ibm_cloud_power_virtual_servers_cloud, :uid_ems => uid_ems).tap do |ems|
         ems.authentications << FactoryBot.create(:authentication, :auth_key => auth_key)

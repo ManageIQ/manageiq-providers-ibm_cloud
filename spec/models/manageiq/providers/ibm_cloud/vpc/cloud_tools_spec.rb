@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe ManageIQ::Providers::IbmCloud::CloudTools::Authentication, :vcr do
-  let(:api_key) { Rails.application.secrets.ibm_cloud_vpc[:api_key] }
+  let(:api_key) { VcrSecrets.ibm_cloud_vpc.api_key }
 
   # @param has_expired_time [Boolean] Include expire_time in returned hash.
   # @param backdate_expired_time [Boolean] Set the expire_time to sometime in the past.
@@ -140,7 +140,7 @@ describe ManageIQ::Providers::IbmCloud::CloudTools::Authentication, :vcr do
 end
 
 describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
-  let(:api_key) { Rails.application.secrets.ibm_cloud_vpc[:api_key] }
+  let(:api_key) { VcrSecrets.ibm_cloud_vpc.api_key }
   let(:region) { 'us-east' }
   let(:vpc) { ManageIQ::Providers::IbmCloud::CloudTool.new(:api_key => api_key).vpc(:region => region) }
 
