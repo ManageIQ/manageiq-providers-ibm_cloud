@@ -4,7 +4,7 @@ describe ManageIQ::Providers::IbmCloud::VPC::CloudManager::Refresher do
   include Spec::Support::EmsRefreshHelper
 
   let(:ems) do
-    api_key = Rails.application.secrets.ibm_cloud_vpc[:api_key]
+    api_key = VcrSecrets.ibm_cloud_vpc.api_key
     FactoryBot.create(:ems_ibm_cloud_vpc, :provider_region => "ca-tor").tap do |ems|
       ems.authentications << FactoryBot.create(:authentication, :auth_key => api_key)
     end

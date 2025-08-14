@@ -25,7 +25,7 @@ end
 # Replace the contents of the token before writing to file.
 def replace_token_contents(interaction)
   data = JSON.parse(interaction.response.body, :symbolize_names => true)
-  data.merge!({:refresh_token => 'REFRESH_TOKEN', :ims_user_id => '22222', :expiration => Date.new(2100, 1, 1).to_time.to_i})
+  data.merge!({:access_token => 'ACCESS_TOKEN', :refresh_token => 'REFRESH_TOKEN', :ims_user_id => '22222', :expiration => Date.new(2100, 1, 1).to_time.to_i})
   interaction.response.body = data.to_json.force_encoding('ASCII-8BIT')
 
   transient_headers = %w[].freeze
@@ -59,28 +59,18 @@ def header_sanitizer(response_header, transient_headers)
 end
 
 VCR.configure do |config|
-  # config.debug_logger = $stdout # Keep for debugging tests.
-
-  # Configure VCR to use rspec metadata.
-  config.hook_into(:webmock)
-  config.configure_rspec_metadata!
-
   config.ignore_hosts('codeclimate.com') if ENV['CI']
   config.cassette_library_dir = File.join(ManageIQ::Providers::IbmCloud::Engine.root, 'spec/vcr_cassettes')
+  config.hook_into(:webmock)
+  config.configure_rspec_metadata! # Auto-detects the cassette name based on the example's full description
 
   config.before_record do |i|
-    replace_token_contents(i) if i.request.uri == "https://iam.cloud.ibm.com/identity/token"
-    vpc_sanitizer(i) if i.request.uri.match?('iaas.cloud.ibm') || i.request.uri.match?('tags.global-search-tagging')
+    replace_token_contents(i) if i.request.uri.start_with?("https://iam.cloud.ibm.com/identity/token")
+    vpc_sanitizer(i) if i.request.uri.match?('cloud.ibm') || i.request.uri.match?('tags.global-search-tagging')
   end
 
-  secrets = Rails.application.secrets
-  secrets.ibm_cloud_power.each_key do |secret|
-    config.define_cassette_placeholder(secrets.ibm_cloud_power_defaults[secret]) { secrets.ibm_cloud_power[secret] }
-  end
-  secrets.ibm_cloud_vpc.each_key do |secret|
-    config.define_cassette_placeholder(secrets.ibm_cloud_vpc_defaults[secret]) { secrets.ibm_cloud_vpc[secret] }
-  end
-  secrets.iks.each_key do |secret|
-    config.define_cassette_placeholder(secrets.iks_defaults[secret]) { secrets.iks[secret] }
-  end
+  VcrSecrets.define_all_cassette_placeholders(config, :ibm_cloud_power)
+  VcrSecrets.define_all_cassette_placeholders(config, :ibm_cloud_vpc)
+  VcrSecrets.define_all_cassette_placeholders(config, :ibm_cloud_object_storage)
+  VcrSecrets.define_all_cassette_placeholders(config, :iks)
 end

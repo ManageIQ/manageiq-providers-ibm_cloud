@@ -267,11 +267,11 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
   end
 
   def flavors
-    collector.system_pools.each_value do |value|
+    collector.datacenter.capabilities_details.supported_systems.general.each do |system_type|
       persister.flavors.build(
         :type    => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SystemType",
-        :ems_ref => value.type,
-        :name    => value.type
+        :ems_ref => system_type,
+        :name    => system_type
       )
     end
     if collector.cloud_instance.capabilities.include?('sap')
