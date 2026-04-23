@@ -1,0 +1,113 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://iam.cloud.ibm.com/identity/token#apikey
+    body:
+      encoding: UTF-8
+      string: apikey=IBM_CLOUD_POWERVS_API_KEY&grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/1.0.2/ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      Ibm-Cloud-Service-Name:
+      - iam-identity
+      X-Correlation-Id:
+      - bmxyMjg-5a6dbf6c6db64c8296bfe11c3c5ddd2f
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json
+      Content-Language:
+      - en-US
+      Content-Length:
+      - '1635'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Connection:
+      - keep-alive
+      Akamai-Grn:
+      - 0.513b2f17.1750866320.3934c864
+      X-Proxy-Upstream-Service-Time:
+      - '202'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"access_token":"ACCESS_TOKEN","refresh_token":"REFRESH_TOKEN","ims_user_id":"22222","token_type":"Bearer","expires_in":3600,"expiration":4102466400,"scope":"ibm
+        openid"}'
+  recorded_at: Wed, 25 Jun 2025 15:45:21 GMT
+- request:
+    method: get
+    uri: https://resource-controller.cloud.ibm.com/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      User-Agent:
+      - ibm_cloud_resource_controller-ruby-sdk-2.0.3 x86_64-pc-linux ruby-3.3.8
+      X-Ibmcloud-Sdk-Analytics:
+      - service_name=resource_controller;service_version=V2;operation_id=get_resource_instance
+      Accept:
+      - application/json
+      Authorization: Bearer xxxxxx
+      Connection:
+      - close
+  response:
+    status:
+      code: 34
+      message:
+    headers:
+      Content-Type:
+      - application/json
+      Request-Id:
+      - 626c-622024f7315815cd
+      Retry-After:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000;includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Correlation-Id:
+      - 626c-2f331719ac16f91e
+      X-Op-Completion-Time:
+      - ''
+      X-Ratelimit-Limit:
+      - '100'
+      X-Ratelimit-Remaining:
+      - '99'
+      X-Ratelimit-Reset:
+      - '0'
+      Content-Length:
+      - '2115'
+      Expires:
+      - Wed, 25 Jun 2025 15:45:21 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"id":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::","guid":"IBM_CLOUD_POWERVS_INSTANCE_ID","url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID","created_at":"2025-05-22T13:44:28.57250562Z","updated_at":"2025-05-22T13:45:11.597828983Z","deleted_at":null,"created_by":"IBMid-2700063YVN","updated_by":"","deleted_by":"","scheduled_reclaim_at":null,"restored_at":null,"scheduled_reclaim_by":"","restored_by":"","name":"rdr-power.control.plane.test-hcm-miq-specs","region_id":"us-east10","account_id":"1fdf5effc3f945688c021cd0a8b45c4d","reseller_channel_id":"","resource_plan_id":"f165dd34-3a40-423b-9d95-e90a23f724dd","resource_group_id":"2f9167fcfa9c4e2a951c5d8fa22bd01f","resource_group_crn":"crn:v1:bluemix:public:resource-controller::a/1fdf5effc3f945688c021cd0a8b45c4d::resource-group:2f9167fcfa9c4e2a951c5d8fa22bd01f","target_crn":"crn:v1:bluemix:public:globalcatalog::::deployment:f165dd34-3a40-423b-9d95-e90a23f724dd%3Aus-east1084023","allow_cleanup":false,"crn":"crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::","state":"active","type":"composite_instance","resource_id":"abd259f0-9990-11e8-acc8-b9f54a8f1661","dashboard_url":null,"last_operation":{"type":"create","state":"succeeded","async":true,"description":"service
+        instance IBM_CLOUD_POWERVS_INSTANCE_ID was provisioned successfully for account
+        1fdf5effc3f945688c021cd0a8b45c4d in region us-east10","cancelable":false,"poll":true},"resource_aliases_url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID/resource_aliases","resource_bindings_url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID/resource_bindings","resource_keys_url":"/v2/resource_instances/IBM_CLOUD_POWERVS_INSTANCE_ID/resource_keys","plan_history":[{"resource_plan_id":"f165dd34-3a40-423b-9d95-e90a23f724dd","start_date":"2025-05-22T13:44:28.57250562Z","requestor_id":"IBMid-2700063YVN"}],"migrated":false,"extensions":{"resourceCRNs":true},"controlled_by":"","locked":false,"onetime_credentials":false}
+
+        '
+  recorded_at: Wed, 25 Jun 2025 15:45:21 GMT
+recorded_with: VCR 6.3.1
