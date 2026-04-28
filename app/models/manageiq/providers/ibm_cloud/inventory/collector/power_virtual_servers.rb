@@ -41,7 +41,13 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   end
 
   def images_by_id
-    @images_by_id ||= images_api.pcloud_cloudinstances_images_getall(cloud_instance_id).images.index_by(&:image_id)
+    @images_by_id ||= begin
+      custom_images = images_api.pcloud_cloudinstances_images_getall(cloud_instance_id).images
+      stock_images = images_api.pcloud_cloudinstances_stockimages_getall(cloud_instance_id).images
+      # Filter out custom images where imageType contains 'stock'
+      filtered_custom_images = custom_images.reject { |image| image.specifications&.image_type&.include?('stock') }
+      (filtered_custom_images + stock_images).index_by(&:image_id)
+    end
   end
 
   def images
