@@ -16,6 +16,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   end
   supports :remove_snapshot
   supports :remove_all_snapshots
+  supports :rename
 
   supports_not :suspend
 

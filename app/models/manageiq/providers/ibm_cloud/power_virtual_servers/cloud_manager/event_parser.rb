@@ -21,6 +21,8 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
       parse_vm_event!(event, event_hash)
     when /^volume/
       parse_volume_event!(event, event_hash)
+    when /^snapshot/
+      parse_snapshot_event!(event, event_hash)
     end
 
     event_hash
@@ -70,6 +72,11 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventPa
   def self.parse_volume_event!(_event, event_hash)
     # The PCloudEvent API doesn't provide adequate metadata to parse at this
     # time. Adding this methods as a placeholder for future updates.
+    event_hash
+  end
+
+  def self.parse_snapshot_event!(_event, event_hash)
+    # Snapshot events don't include VM metadata, so we just return the event_hash
     event_hash
   end
 end
