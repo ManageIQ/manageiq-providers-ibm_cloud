@@ -1,6 +1,4 @@
-import React from 'react';
 import { componentTypes, validatorTypes } from '@@ddf';
-
 
 function fieldsForPVC(state, setState, providers, storages, diskTypes, images, buckets)
 {
