@@ -86,11 +86,6 @@ const ImportImageForm = ({ dispatch }) => {
 
 ImportImageForm.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    closefunc: PropTypes.func.isRequired
-};
-
-ImportImageForm.defaultProps = {
-    closefunc: () => { ManageIQ.redux.store.dispatch({ type: 'FormButtons.reset' }) }
 };
 
 export default connect()(ImportImageForm);
