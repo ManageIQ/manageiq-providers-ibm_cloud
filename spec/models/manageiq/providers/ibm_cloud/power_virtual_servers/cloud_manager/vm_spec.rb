@@ -42,6 +42,28 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
       let(:state) { :resize }
       include_examples "Vm operation is available when not powered on"
     end
+
+    context "with :remove_snapshot" do
+      it "is not supported when the VM has no snapshots" do
+        expect(vm.supports?(:remove_snapshot)).to be_falsey
+      end
+
+      it "is supported when the VM has at least one snapshot" do
+        FactoryBot.create(:snapshot, :vm_or_template => vm)
+        expect(vm.supports?(:remove_snapshot)).to be_truthy
+      end
+    end
+
+    context "with :remove_all_snapshots" do
+      it "is not supported when the VM has no snapshots" do
+        expect(vm.supports?(:remove_all_snapshots)).to be_falsey
+      end
+
+      it "is supported when the VM has at least one snapshot" do
+        FactoryBot.create(:snapshot, :vm_or_template => vm)
+        expect(vm.supports?(:remove_all_snapshots)).to be_truthy
+      end
+    end
   end
 
   context "supports VM console access?" do
