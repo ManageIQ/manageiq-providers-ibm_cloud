@@ -64,6 +64,15 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm::Ope
     raise MiqException::MiqVmSnapshotError, err.to_s
   end
 
+  def raw_rename(new_name)
+    with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
+      body = IbmCloudPower::PVMInstanceUpdate.new("server_name" => new_name)
+      api.pcloud_pvminstances_put(cloud_instance_id, ems_ref, body)
+    end
+  rescue => err
+    raise MiqException::MiqVmError, "Unable to rename VM: #{err}"
+  end
+
   def remote_console_acquire_ticket_queue(protocol, _userid)
     task_opts = {
       :action => "acquiring Instance #{name} #{protocol.to_s.upcase} remote console ticket",

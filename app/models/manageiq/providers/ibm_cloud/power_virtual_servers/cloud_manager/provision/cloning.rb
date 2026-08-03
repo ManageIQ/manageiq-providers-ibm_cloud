@@ -156,5 +156,13 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
       return stop, status
     end
+  rescue IbmCloudPower::ApiError => err
+    # Handle HTTP 500 errors during VM initialization (e.g., BDM attachment in progress)
+    if err.code.to_i == 500 && err.response_body.to_s.include?("in process of bdm attachment")
+      _log.info("VM is still initializing (attaching block devices), will retry")
+      return false, "VM initializing, attaching storage..."
+    else
+      raise
+    end
   end
 end

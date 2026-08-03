@@ -10,16 +10,19 @@
           - network.create
           - pvm-instance.create
           - volume.create
+          - snapshot.create
         :update:
           :critical:
           - network.update
           - pvm-instance.update
           - volume.update
+          - snapshot.update
         :deletion:
           :critical:
           - network.delete
           - pvm-instance.delete
           - volume.delete
+          - snapshot.delete
         :power:
           :critical:
           - pvm-instance.stop

@@ -40,6 +40,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventTar
       )
     when /^volume/
       targets << ems_event.ext_management_system.storage_manager
+    when /^snapshot/
+      targets << ems_event.ext_management_system
     end
 
     targets
