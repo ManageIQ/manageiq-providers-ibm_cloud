@@ -176,7 +176,7 @@ describe ManageIQ::Providers::IbmCloud::CloudTool, :vcr do
   # Test that the tagging client can get tags.
   it 'can get a Tagging client' do
     cloud_tool = described_class.new(:api_key => api_key)
-    expect(cloud_tool.tagging.client).to be_a(IbmCloudGlobalTagging::GlobalTaggingV1)
+    expect(cloud_tool.tagging.client).to be_a(IbmCloudGlobalTagging::TagsApi)
     tags = cloud_tool.tagging.request(:list_tags, :limit => 1)
     expect(tags).to be_a(Hash)
     expect(tags[:items]).to be_a(Array)
