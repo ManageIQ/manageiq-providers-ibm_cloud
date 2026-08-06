@@ -14,9 +14,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   supports :revert_to_snapshot do
     _("Cannot revert to snapshot while VM is running") unless current_state == "off"
   end
-  supports :remove_snapshot
-  supports :remove_all_snapshots
-
   supports_not :suspend
 
   supports :publish do
