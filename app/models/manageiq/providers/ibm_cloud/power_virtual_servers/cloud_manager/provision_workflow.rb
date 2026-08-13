@@ -135,7 +135,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
   end
 
   def set_request_values(values)
-    values[:new_volumes] = parse_new_volumes_fields(values)
+    values[:new_volumes]    = parse_new_volumes_fields(values)
+
+    # Power VS creates all replicas in a single API call (replicants field).
+    # Store the real count under :replicants so the provision task can pass it
+    # to the SDK, then clamp :number_of_vms to 1 so core only creates one task.
+    number_of_vms           = get_value(values[:number_of_vms]).to_i
+    values[:replicants]     = number_of_vms
+    values[:number_of_vms]  = [1, "1"]
+
     super
   end
 
