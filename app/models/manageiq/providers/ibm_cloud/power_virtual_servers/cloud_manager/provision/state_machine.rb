@@ -31,14 +31,9 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
       manager = source.ext_management_system
 
       if manager.allow_targeted_refresh?
-        ids.each do |id|
-          target = InventoryRefresh::Target.new(
-            :manager     => manager,
-            :association => :vms,
-            :manager_ref => {:ems_ref => id}
-          )
-          EmsRefresh.queue_refresh(target)
-        end
+        target_collection = InventoryRefresh::TargetCollection.new(:manager => manager)
+        ids.each { |id| target_collection.add_target(:association => :vms, :manager_ref => {:ems_ref => id}) }
+        EmsRefresh.queue_refresh(target_collection)
       else
         EmsRefresh.queue_refresh(manager)
       end
