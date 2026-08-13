@@ -169,13 +169,14 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
       phase_context[:cloud_api_completion_time] = Time.zone.now.utc if all_done
 
-      if building.any?
-        status = "#{building.length} of #{ids.length} instance(s) still provisioning."
-      elsif all_done
-        status = "All #{ids.length} instance(s) provisioned and active."
-      else
-        status = "#{active.length} of #{ids.length} instance(s) active, waiting for full description."
-      end
+      status = if building.any?
+                "#{building.length} of #{ids.length} instance(s) still provisioning."
+               elsif all_done
+                "All #{ids.length} instance(s) provisioned and active."
+               else
+                _log.warn("Unknown server state received from the cloud API: '#{instance_state}'")
+                "#{active.length} of #{ids.length} instance(s) active, waiting for full description."
+               end
 
       return all_done, status
     end
