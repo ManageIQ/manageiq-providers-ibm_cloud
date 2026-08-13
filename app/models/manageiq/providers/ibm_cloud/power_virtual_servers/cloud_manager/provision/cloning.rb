@@ -130,8 +130,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
       body = IbmCloudPower::PVMInstanceCreate.new(clone_options)
       response = api.pcloud_pvminstances_post(cloud_instance_id, body)
-      ids = response&.map(&:pvm_instance_id)&.compact
-      ids.length == 1 ? ids.first : ids
+      response&.map(&:pvm_instance_id)&.compact
     end
   end
 
