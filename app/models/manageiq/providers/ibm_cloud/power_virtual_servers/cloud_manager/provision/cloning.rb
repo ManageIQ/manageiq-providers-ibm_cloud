@@ -73,8 +73,13 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
       specs['sys_type']      = get_option_last(:sys_type)
     end
 
-    specs['placement_group'] = get_option(:placement_group) unless get_option(:placement_group).nil?
-    specs['shared_processor_pool'] = get_option(:shared_processor_pool) unless get_option(:shared_processor_pool).nil?
+    if get_option_last(:number_of_vms).to_i > 1
+      policy = get_option(:replicant_affinity_policy)
+      specs['placementGroupPolicy'] = policy if policy.present? && policy != 'none'
+    else
+      specs['placement_group'] = get_option(:placement_group) unless get_option(:placement_group).nil?
+      specs['shared_processor_pool'] = get_option(:shared_processor_pool) unless get_option(:shared_processor_pool).nil?
+    end
     user_script_text = options[:user_script_text]
     user_script_text64 = Base64.encode64(user_script_text) unless user_script_text.nil?
     specs['user_data'] = user_script_text64 unless user_script_text64.nil?

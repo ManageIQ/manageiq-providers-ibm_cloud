@@ -216,6 +216,20 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     _('Invalid processor pool - incompatible machine type (host)') unless valid
   end
 
+  def update_field_visibility
+    multi_vm = get_value(@values[:number_of_vms]).to_i > 1
+
+    if multi_vm
+      show_fields(:hide,   [:placement_group, :shared_processor_pool])
+      show_fields(:edit,   [:replicant_affinity_policy])
+    else
+      show_fields(:edit,   [:placement_group, :shared_processor_pool])
+      show_fields(:hide,   [:replicant_affinity_policy])
+    end
+
+    super
+  end
+
   private
 
   def ar_ems
