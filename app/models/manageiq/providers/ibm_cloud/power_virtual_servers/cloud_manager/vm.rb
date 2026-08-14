@@ -67,7 +67,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
     pcloud_pvminstances_action_post("start")
     update!(:raw_power_state => "ACTIVE")
   end
- 
+
   def raw_stop
     pcloud_pvminstances_action_post("immediate-shutdown")
     update!(:raw_power_state => "SHUTOFF")
