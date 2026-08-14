@@ -20,7 +20,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
 
     context "with :shutdown_guest" do
       let(:state) { :shutdown_guest }
-      include_examples "Vm operation is not available"
+      include_examples "Vm operation is available when powered on"
     end
 
     context "with :standby_guest" do
