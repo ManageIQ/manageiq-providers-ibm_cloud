@@ -9,6 +9,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   supports :reset do
     _("The VM is not powered on") unless current_state == "on"
   end
+  supports :shutdown_guest do
+    _("The VM is not powered on") unless current_state == "on"
+  end
   supports :snapshots
   supports :snapshot_create
   supports :revert_to_snapshot do
@@ -66,6 +69,11 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   end
 
   def raw_stop
+    pcloud_pvminstances_action_post("immediate-shutdown")
+    update!(:raw_power_state => "SHUTOFF")
+  end
+
+  def raw_shutdown_guest
     pcloud_pvminstances_action_post("stop")
     update!(:raw_power_state => "SHUTOFF")
   end
