@@ -41,6 +41,16 @@
           :display: :edit
           :auto_select_single: false
           :data_type: :string
+        :colocation_policy:
+          :values:
+            none: None
+            affinity: Affinity (same host)
+            anti-affinity: Anti-affinity (different hosts)
+          :description: Colocation Policy
+          :required: false
+          :display: :hide
+          :default: none
+          :data_type: :string
         :pin_policy:
           :values:
             1: "none"
