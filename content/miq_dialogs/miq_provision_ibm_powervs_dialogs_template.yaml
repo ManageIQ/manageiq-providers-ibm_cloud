@@ -41,7 +41,7 @@
           :display: :edit
           :auto_select_single: false
           :data_type: :string
-        :replicant_affinity_policy:
+        :colocation_policy:
           :values:
             none: None
             affinity: Affinity (same host)

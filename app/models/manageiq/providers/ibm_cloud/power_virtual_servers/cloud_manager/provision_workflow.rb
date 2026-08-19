@@ -229,10 +229,10 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
 
     if multi_vm
       show_fields(:hide,   [:placement_group, :shared_processor_pool])
-      show_fields(:edit,   [:replicant_affinity_policy])
+      show_fields(:edit,   [:colocation_policy])
     else
       show_fields(:edit,   [:placement_group, :shared_processor_pool])
-      show_fields(:hide,   [:replicant_affinity_policy])
+      show_fields(:hide,   [:colocation_policy])
     end
 
     super

@@ -79,7 +79,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     # replicants and replicant_affinity_policy(defaults to none) fields are relevant
     if replicants > 1
       specs['replicants'] = replicants
-      policy = get_option(:replicant_affinity_policy)
+      policy = get_option(:colocation_policy)
       specs['replicant_affinity_policy'] = policy if policy.present? && policy != 'none'
     else
       specs['placement_group'] = get_option(:placement_group) unless get_option(:placement_group).nil?
@@ -130,7 +130,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
     source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
       body = IbmCloudPower::PVMInstanceCreate.new(clone_options)
       response = api.pcloud_pvminstances_post(cloud_instance_id, body)
-      response&.map(&:pvm_instance_id)&.compact
+      response&.filter_map(&:pvm_instance_id)
     end
   end
 
@@ -149,15 +149,13 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
 
     source.with_provider_connection(:service => "PCloudPVMInstancesApi") do |api|
       statuses = ids.map do |id|
-        begin
-          instance = api.pcloud_pvminstances_get(cloud_instance_id, id)
-          [id, instance.status, instance.processors.to_f, instance.memory.to_f]
-        rescue IbmCloudPower::ApiError => e
-          # The instance may not be queryable immediately after creation (transient
-          # 500s are common in the first few seconds).  Treat it as still building.
-          _log.warn("Transient error polling instance #{id}: #{e.message}. Will retry.")
-          [id, 'BUILD', 0, 0]
-        end
+        instance = api.pcloud_pvminstances_get(cloud_instance_id, id)
+        [id, instance.status, instance.processors.to_f, instance.memory.to_f]
+      rescue IbmCloudPower::ApiError => e
+        # The instance may not be queryable immediately after creation (transient
+        # 500s are common in the first few seconds).  Treat it as still building.
+        _log.warn("Transient error polling instance #{id}: #{e.message}. Will retry.")
+        [id, 'BUILD', 0, 0]
       end
 
       errored = statuses.select { |_, state, _, _| state == 'ERROR' }
@@ -174,7 +172,6 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
                elsif all_done
                  "All #{ids.length} instance(s) provisioned and active."
                else
-                 _log.warn("Unknown server state received from the cloud API: '#{instance_state}'")
                  "#{active.length} of #{ids.length} instance(s) active, waiting for full description."
                end
 
