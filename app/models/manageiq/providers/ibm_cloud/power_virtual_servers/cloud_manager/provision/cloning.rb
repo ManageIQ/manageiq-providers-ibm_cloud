@@ -73,6 +73,10 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
       specs['key_pair_name']           = chosen_key_pair unless chosen_key_pair == 'None'
       specs['storage_type']            = get_option_last(:storage_type)
       specs['sys_type']                = get_option_last(:sys_type)
+      # Pre-created volumes may be placed in any storage pool by PowerVS.
+      # Disabling storage pool affinity allows the VM to attach volumes from
+      # different pools, preventing "all volumes are not in the same storage pool" errors.
+      specs['storage_pool_affinity'] = false
     end
     # When the count of VMs is more than 1, treat it as a multi-VM provision request with replicas
     # placement_group and shared_processor_pool fields are no longer relevant
@@ -176,6 +180,38 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
                end
 
       return all_done, status
+    end
+  rescue IbmCloudPower::ApiError => err
+    # Handle HTTP 500 errors during VM initialization (e.g., BDM attachment in progress)
+    if err.code.to_i == 500 && err.response_body.to_s.include?("in process of bdm attachment")
+      _log.info("VM is still initializing (attaching block devices), will retry")
+      return false, "VM initializing, attaching storage..."
+    else
+      raise
+    end
+  end
+
+  def create_and_attach_affinity_volumes(vm_ems_ref, vm_instance_name)
+    new_volumes = options[:new_volumes] || []
+    return if new_volumes.empty?
+
+    phase_context[:new_volumes] ||= []
+
+    source.with_provider_connection(:service => "PCloudVolumesApi") do |api|
+      new_volumes.each do |new_volume|
+        volume_params = new_volume.merge(
+          :affinity_policy       => "affinity",
+          :affinity_pvm_instance => vm_instance_name
+        )
+
+        created_volume = api.pcloud_cloudinstances_volumes_post(
+          cloud_instance_id,
+          IbmCloudPower::CreateDataVolume.new(volume_params)
+        )
+
+        phase_context[:new_volumes] << created_volume.volume_id
+        api.pcloud_pvminstances_volumes_post(cloud_instance_id, vm_ems_ref, created_volume.volume_id)
+      end
     end
   end
 end
