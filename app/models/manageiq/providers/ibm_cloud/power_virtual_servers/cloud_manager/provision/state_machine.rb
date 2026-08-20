@@ -57,7 +57,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
           # Pattern: "<user-base><NNN>" e.g. "datavol001", "datavol002"
           # The counter combines vol-index and pass to stay unique across
           # multiple VMs in the same provisioning request.
-          seq = format("%03d", (pass.to_i - 1) * new_volumes.size + idx + 1)
+          seq = "%03d" % ((pass.to_i - 1) * new_volumes.size + idx + 1)
           volume_payload = new_volume.merge(:name => "#{new_volume[:name]}#{seq}")
           created_volume = api.pcloud_cloudinstances_volumes_post(
             cloud_instance_id, IbmCloudPower::CreateDataVolume.new(volume_payload)
