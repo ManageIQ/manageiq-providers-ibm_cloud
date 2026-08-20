@@ -150,7 +150,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::ManagerMixin
       end
 
       require "ibm_cloud_iam"
-      iam_token_api = IbmCloudIam::TokenOperationsApi.new
+      iam_token_api = IbmCloudIam::TokenRetrievalApi.new
 
       begin
         token = iam_token_api.get_token_api_key("urn:ibm:params:oauth:grant-type:apikey", api_key)
