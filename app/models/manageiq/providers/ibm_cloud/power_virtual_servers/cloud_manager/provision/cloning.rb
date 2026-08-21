@@ -209,8 +209,14 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisi
           IbmCloudPower::CreateDataVolume.new(volume_params)
         )
 
-        phase_context[:new_volumes] << created_volume.volume_id
-        api.pcloud_pvminstances_volumes_post(cloud_instance_id, vm_ems_ref, created_volume.volume_id)
+        begin
+          api.pcloud_pvminstances_volumes_post(cloud_instance_id, vm_ems_ref, created_volume.volume_id)
+          phase_context[:new_volumes] << created_volume.volume_id
+        rescue IbmCloudPower::ApiError
+          _log.warn("Failed to attach volume #{created_volume.volume_id} to #{vm_ems_ref}, deleting orphaned volume")
+          api.pcloud_cloudinstances_volumes_delete(cloud_instance_id, created_volume.volume_id)
+          raise
+        end
       end
     end
   end
