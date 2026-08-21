@@ -97,6 +97,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provi
               :shareable => false
             },
             {
+              :name      => "vol",
               :size      => 2,
               :disk_type => "tier1",
               :shareable => false
@@ -112,6 +113,41 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provi
               :size      => 0,
               :disk_type => "tier1",
               :shareable => true
+            }
+          ]
+        )
+    end
+
+    it "#parse_new_volumes_fields defaults name to 'vol' when blank or missing" do
+      values = {
+        :storage_type => [1, "tier3"],
+        :name_1       => "",
+        :size_1       => "10",
+        :name_2       => nil,
+        :size_2       => "20",
+        :name_3       => "mydata",
+        :size_3       => "30"
+      }
+      expect(workflow.parse_new_volumes_fields(values))
+        .to match_array(
+          [
+            {
+              :name      => "vol",
+              :size      => 10,
+              :disk_type => "tier3",
+              :shareable => false
+            },
+            {
+              :name      => "vol",
+              :size      => 20,
+              :disk_type => "tier3",
+              :shareable => false
+            },
+            {
+              :name      => "mydata",
+              :size      => 30,
+              :disk_type => "tier3",
+              :shareable => false
             }
           ]
         )

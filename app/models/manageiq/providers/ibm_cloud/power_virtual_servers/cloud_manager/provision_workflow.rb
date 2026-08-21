@@ -160,9 +160,13 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Provisio
     end
 
     new_volumes.drop(1).map! do |new_volume|
-      new_volume[:size] = new_volume[:size].to_i
+      new_volume[:size]      = new_volume[:size].to_i
       new_volume[:shareable] = [nil, 'null'].exclude?(new_volume[:shareable])
       new_volume[:disk_type] = storage_type
+      # Normalise the base name; the zero-padded sequential suffix (e.g. "001")
+      # is appended later in prepare_volumes_and_networks to produce names like
+      # "datavol001", "datavol002".
+      new_volume[:name] = new_volume[:name].presence || "vol"
       new_volume
     end
   end
