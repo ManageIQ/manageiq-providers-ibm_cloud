@@ -56,8 +56,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::MetricsC
   def perf_collect_metrics(interval_name, start_time = nil, end_time = nil)
     # IBM Cloud does not publish a Ruby SDK for the Monitoring Data API (/api/data).
     # The existing ibm_cloud_sdk_core / ibm_cloud_iam SDKs cover IAM and resource
-    # management only, so we use rest-client for the metrics query directly.
-    require 'rest-client'
+    # management only, so we use Faraday for the metrics query directly.
+    require 'faraday'
 
     raise _("No EMS defined") if ext_management_system.nil?
 
@@ -77,16 +77,15 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::MetricsC
     instance_id = metrics_endpoint.options["monitoring_instance_id"]
     region      = monitoring_region
 
-    response = RestClient::Request.execute(
-      :method  => :post,
-      :url     => "https://#{region}.monitoring.cloud.ibm.com/api/data",
-      :headers => {
-        'Content-Type'  => 'application/json',
-        'Authorization' => "Bearer #{iam_access_token}",
-        'IBMInstanceID' => instance_id,
-      },
-      :payload => JSON.generate(build_metrics_query(target.name, sample_window))
-    )
+    post_body    = JSON.generate(build_metrics_query(target.name, sample_window))
+    post_headers = {
+      "Content-Type"  => "application/json",
+      "Authorization" => "Bearer #{iam_access_token}",
+      "IBMInstanceID" => instance_id
+    }
+
+    response = Faraday.post("https://#{region}.monitoring.cloud.ibm.com/api/data", post_body, post_headers)
+    raise Faraday::ClientError, response unless response.success?
 
     data    = JSON.parse(response.body)
     dataset = consolidate_data(data["data"])
@@ -97,7 +96,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::MetricsC
     store_datapoints_with_interpolation!(end_time.to_i, dataset[:timestamps], dataset[:disk_usage_rate_average],    "disk_usage_rate_average",    counter_values_by_mor[target.ems_ref])
 
     return counters_by_mor, counter_values_by_mor
-  rescue RestClient::ExceptionWithResponse => err
+  rescue Faraday::Error => err
     log_header = "[#{interval_name}] for: [#{target.class.name}], [#{target.id}], [#{target.name}]"
     _log.error("#{log_header} Unhandled exception during perf data collection: [#{err}], class: [#{err.class}]")
     _log.log_backtrace(err)

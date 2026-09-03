@@ -41,7 +41,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::MetricsCapture < ManageI
   }.freeze
 
   def perf_collect_metrics(interval_name, start_time = nil, end_time = nil)
-    require 'rest-client'
+    require 'faraday'
 
     raise _("No EMS defined") if ext_management_system.nil?
 
@@ -60,16 +60,17 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::MetricsCapture < ManageI
 
     instance_id = metrics_endpoint.options["monitoring_instance_id"]
 
-    response = RestClient::Request.execute(
-      :method  => :post,
-      :url     => "https://#{ext_management_system.provider_region}.monitoring.cloud.ibm.com/api/data",
-      :headers => {
-        'Content-Type'  => 'application/json',
-        'Authorization' => "Bearer #{iam_access_token}",
-        'IBMInstanceID' => instance_id
-      },
-      :payload => JSON.generate(get_metrics_query(target.name, sample_window))
-    )
+    post_body    = JSON.generate(get_metrics_query(target.name, sample_window))
+    post_headers = {
+      "Content-Type"  => "application/json",
+      "Authorization" => "Bearer #{iam_access_token}",
+      "IBMInstanceID" => instance_id
+    }
+
+    response = Faraday.post("https://#{ext_management_system.provider_region}.monitoring.cloud.ibm.com/api/data", post_body, post_headers)
+
+    raise Faraday::ClientError, response unless response.success?
+
     data = JSON.parse(response.body)
     dataset = consolidate_data(data["data"])
 
@@ -79,7 +80,7 @@ class ManageIQ::Providers::IbmCloud::VPC::CloudManager::MetricsCapture < ManageI
     store_datapoints_with_interpolation!(end_time.to_i, dataset[:timestamps], dataset[:disk_usage_rate_average], "disk_usage_rate_average", counter_values_by_mor[target.ems_ref])
 
     return counters_by_mor, counter_values_by_mor
-  rescue RestClient::ExceptionWithResponse => err
+  rescue Faraday::Error => err
     log_header = "[#{interval_name}] for: [#{target.class.name}], [#{target.id}], [#{target.name}]"
     _log.error("#{log_header} Unhandled exception during perf data collection: [#{err}], class: [#{err.class}]")
     _log.log_backtrace(err)
