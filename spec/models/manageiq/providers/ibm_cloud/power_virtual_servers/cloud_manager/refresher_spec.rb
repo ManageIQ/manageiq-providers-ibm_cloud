@@ -195,6 +195,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
         :placement_group_id => placement_group.id,
         :raw_power_state    => "ACTIVE",
         :connection_state   => "connected",
+        :health_state       => "ok",
+        :health_details     => nil,
         :type               => "ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm"
       )
       expect(vm.ems_created_on).to be_a(ActiveSupport::TimeWithZone)
