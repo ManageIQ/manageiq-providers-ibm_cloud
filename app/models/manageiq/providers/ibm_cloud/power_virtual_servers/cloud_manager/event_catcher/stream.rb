@@ -17,18 +17,13 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::EventCat
 
   def poll
     from_time = Time.now.utc.to_i
-
     loop do
       pcloud_events_api = ems.connect(:service => "PCloudEventsApi")
-
       retry_connection = true
-      events = pcloud_events_api.pcloud_events_getsince(@ems.uid_ems, {:from_time=>from_time}).events
-
+      events = pcloud_events_api.pcloud_events_getsince(@ems.uid_ems, {:from_time => from_time}).events
       from_time = Time.now.utc.to_i
-
-      sleep(poll_sleep)
-
       events.each { |event| yield event.to_hash }
+      sleep(poll_sleep)
       break if stop_polling
     rescue IbmCloudPower::ApiError => e
       raise unless e.code == 403 && retry_connection
