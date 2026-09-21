@@ -122,6 +122,7 @@
         :poll: 15.seconds
       :event_catcher_ibm_cloud_iks:
         :poll: 15.seconds
+        :rails_worker: false
       :event_catcher_prometheus:
         :poll: 20.seconds
     :queue_worker_base:
