@@ -54,6 +54,8 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :vendor            => "ibm_power_vs",
         :connection_state  => "connected",
         :raw_power_state   => instance.status,
+        :health_state      => parse_health_state(instance),
+        :health_details    => instance.health&.reason,
         :uid_ems           => instance.pvm_instance_id,
         :format            => instance.storage_type,
         :placement_group   => persister.placement_groups.lazy_find(instance.placement_group),
@@ -362,5 +364,10 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
     ldesc << "IBMi Cloud Storage Solution (ibmiDBQ), " if software_licenses.ibmi_dbq
     ldesc.chomp!(", ")
     ldesc
+  end
+
+  def parse_health_state(instance)
+    state = instance.health&.status&.downcase
+    VmOrTemplate::HEALTH_STATES.key?(state) ? state : "unknown"
   end
 end
