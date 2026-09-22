@@ -51,9 +51,7 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   end
 
   supports :resize do
-    if current_state != "off"
-      _('The VM is not powered off')
-    elsif ext_management_system.nil?
+    if ext_management_system.nil?
       _('The VM is not connected to a provider')
     elsif flavor.kind_of?(ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::SAPProfile)
       _('SAP VM resize not supported')
