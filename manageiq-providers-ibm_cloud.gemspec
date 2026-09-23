@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "ibm_cloud_global_tagging", "~> 0.2"
   spec.add_dependency "ibm_vpc", "~> 0.6", ">= 0.6.1"
   spec.add_dependency "prometheus-api-client", "~> 0.6"
-  spec.add_dependency "rest-client", "~> 2.1"
+  spec.add_dependency "faraday", "~> 2.0"
   spec.add_dependency "sshkey", "~> 1.9"
 
   spec.add_development_dependency "manageiq-style"
