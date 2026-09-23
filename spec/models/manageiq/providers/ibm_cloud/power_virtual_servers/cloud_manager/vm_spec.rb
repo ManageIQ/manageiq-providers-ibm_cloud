@@ -75,6 +75,19 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
       end
     end
 
+    context "with :rename_snapshot" do
+      before { EvmSpecHelper.local_miq_server }
+
+      it "is not supported when the VM has no snapshots" do
+        expect(vm.supports?(:rename_snapshot)).to be_falsey
+      end
+
+      it "is supported when the VM has at least one snapshot" do
+        FactoryBot.create(:snapshot, :vm_or_template => vm)
+        expect(vm.supports?(:rename_snapshot)).to be_truthy
+      end
+    end
+
     context "with :remove_all_snapshots" do
       before { EvmSpecHelper.local_miq_server }
 
