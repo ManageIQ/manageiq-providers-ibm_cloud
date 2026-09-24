@@ -18,10 +18,12 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm::Ope
 
   def raw_resize(options)
     with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
-      body = IbmCloudPower::PVMInstanceUpdate.new("memory"     => options["memory"].to_i,
-                                                  "processors" => options["processors"].to_f,
-                                                  "proc_type"  => options["proc_type"],
-                                                  "pin_policy" => options["pin_policy"])
+      pvm_instance = api.pcloud_pvminstances_get(cloud_instance_id, ems_ref)
+      body = IbmCloudPower::PVMInstanceUpdate.new("memory"                => options["memory"].to_i,
+                                                  "processors"            => options["processors"].to_f,
+                                                  "proc_type"             => options["proc_type"],
+                                                  "pin_policy"            => options["pin_policy"],
+                                                  "storage_pool_affinity" => pvm_instance.storage_pool_affinity)
       api.pcloud_pvminstances_put(cloud_instance_id, ems_ref, body)
     end
   rescue => err
