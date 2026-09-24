@@ -120,4 +120,29 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
       expect(vm.supports?(:native_console)).to be_falsey
     end
   end
+
+  context "#raw_resize" do
+    let(:pvm_instance)  { double("IbmCloudPower::PVMInstance", :storage_pool_affinity => true) }
+    let(:update_body)   { double("IbmCloudPower::PVMInstanceUpdate") }
+    let(:api)           { double("IbmCloudPower::PCloudPVMInstancesApi") }
+    let(:pvm_update_class) { class_double("IbmCloudPower::PVMInstanceUpdate").as_stubbed_const }
+
+    before do
+      pvm_update_class
+      allow(vm).to receive(:with_provider_connection).with(:service => 'PCloudPVMInstancesApi').and_yield(api)
+      allow(api).to receive(:pcloud_pvminstances_get).and_return(pvm_instance)
+      allow(api).to receive(:pcloud_pvminstances_put)
+      allow(pvm_update_class).to receive(:new).and_return(update_body)
+    end
+
+    it "fetches the current instance before updating" do
+      expect(api).to receive(:pcloud_pvminstances_get)
+      vm.raw_resize("memory" => "4", "processors" => "0.5", "proc_type" => "shared", "pin_policy" => "none")
+    end
+
+    it "includes storage_pool_affinity from the fetched instance in the update" do
+      expect(pvm_update_class).to receive(:new).with(hash_including("storage_pool_affinity" => true)).and_return(update_body)
+      vm.raw_resize("memory" => "4", "processors" => "0.5", "proc_type" => "shared", "pin_policy" => "none")
+    end
+  end
 end
