@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "ibm_cloud_iam", "~> 1.0"
+  spec.add_dependency "ibm_cloud_iam", "~> 2.0"
   spec.add_dependency "ibm_cloud_power", "~> 3.0"
   spec.add_dependency "ibm_cloud_resource_controller", "~> 2.0", ">= 2.0.2"
   spec.add_dependency "ibm-cloud-sdk", "~> 0.1"
