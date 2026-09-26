@@ -49,22 +49,6 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::NetworkManager < Manag
   end
 
   def create_cloud_subnet(options)
-    raw_create_cloud_subnet(self, options)
-  end
-
-  def self.raw_create_cloud_subnet(ext_management_system, options)
-    cloud_instance_id = ext_management_system.parent_manager.uid_ems
-
-    ext_management_system.with_provider_connection(:service => 'PCloudNetworksApi') do |api|
-      network = IbmCloudPower::NetworkCreate.new(
-        :type        => options[:type] || 'pub-vlan',
-        :name        => options[:name],
-        :cidr        => options[:cidr],
-        :gateway     => options[:gateway_ip],
-        :dns_servers => options[:dns_nameservers]
-      )
-
-      api.pcloud_networks_post(cloud_instance_id, network)
-    end
+    CloudSubnet.raw_create_cloud_subnet(self, options)
   end
 end
