@@ -93,4 +93,15 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm::Ope
   rescue => err
     raise MiqException::MiqVmError, err.to_s
   end
+
+  def raw_rename(new_name)
+    with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
+      pvm_instance = api.pcloud_pvminstances_get(cloud_instance_id, ems_ref)
+      body = IbmCloudPower::PVMInstanceUpdate.new("server_name"           => new_name,
+                                                  "storage_pool_affinity" => pvm_instance.storage_pool_affinity)
+      api.pcloud_pvminstances_put(cloud_instance_id, ems_ref, body)
+    end
+  rescue => err
+    raise MiqException::MiqVmError, "Unable to rename VM: #{err}"
+  end
 end
