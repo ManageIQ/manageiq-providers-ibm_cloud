@@ -50,6 +50,18 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
       end
     end
 
+    context "with :rename" do
+      it "when powered on" do
+        vm.update(:raw_power_state => power_state_on)
+        expect(vm.supports?(:rename)).to be_truthy
+      end
+
+      it "when not powered on" do
+        vm.update(:raw_power_state => power_state_suspended)
+        expect(vm.supports?(:rename)).to be_truthy
+      end
+    end
+
     context "with :remove_snapshot" do
       before { EvmSpecHelper.local_miq_server }
 
@@ -96,6 +108,18 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
     it 'no console access if archived' do
       vm.update(:ems_id => nil, :storage_id => nil)
       expect(vm.supports?(:html5_console)).to be_falsey
+    end
+  end
+
+  context "#raw_rename" do
+    let(:api)          { double("connection", :pcloud_pvminstances_get => double(:storage_pool_affinity => true), :pcloud_pvminstances_put => nil) }
+    let(:update_class) { class_double("IbmCloudPower::PVMInstanceUpdate").as_stubbed_const }
+
+    before { allow(vm).to receive(:with_provider_connection).and_yield(api) }
+
+    it "sends the new name and preserves storage_pool_affinity" do
+      expect(update_class).to receive(:new).with("server_name" => "new-vm-name", "storage_pool_affinity" => true).and_return(double)
+      vm.raw_rename("new-vm-name")
     end
   end
 
