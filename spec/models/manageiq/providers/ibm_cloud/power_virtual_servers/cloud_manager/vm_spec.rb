@@ -182,4 +182,46 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm do
       vm.raw_resize("memory" => "4", "processors" => "0.5", "proc_type" => "shared", "pin_policy" => "none")
     end
   end
+
+  context "#raw_rename_snapshot" do
+    before { EvmSpecHelper.local_miq_server }
+    let(:snapshot) do
+      FactoryBot.create(
+        :snapshot,
+        :vm_or_template => vm,
+        :uid_ems        => "snap-123"
+      )
+    end
+
+    let(:api) { double("IbmCloudPower::PCloudSnapshotsApi") }
+    let(:update_body) { double("IbmCloudPower::SnapshotUpdate") }
+    let(:snapshot_update_class) do
+      class_double("IbmCloudPower::SnapshotUpdate").as_stubbed_const
+    end
+
+    before do
+      snapshot_update_class
+
+      allow(vm).to receive(:with_provider_connection)
+        .with(:service => 'PCloudSnapshotsApi')
+        .and_yield(api)
+
+      allow(snapshot_update_class).to receive(:new).and_return(update_body)
+
+      allow(api).to receive(:pcloud_cloudinstances_snapshots_put)
+    end
+
+    it "updates the snapshot name" do
+      expect(snapshot_update_class)
+        .to receive(:new)
+        .with(:name => "new-name")
+        .and_return(update_body)
+
+      expect(api)
+        .to receive(:pcloud_cloudinstances_snapshots_put)
+        .with(vm.cloud_instance_id, snapshot.uid_ems, update_body)
+
+      vm.raw_rename_snapshot(snapshot.id, "new-name")
+    end
+  end
 end
