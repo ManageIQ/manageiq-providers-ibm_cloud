@@ -10,7 +10,7 @@ RSpec.describe 'container event catcher worker inline gems' do
     gems   = source.scan(/gem ['"]([^'"]+)['"],\s+['"]([^'"]+)['"]/).to_h
 
     gems.each do |name, requirement|
-      locked = lockfile.specs.find { |spec| spec.name == name }
+      locked = lockfile.specs.detect { |spec| spec.name == name }
       next unless locked
 
       expect(Gem::Requirement.new(requirement).satisfied_by?(locked.version)).to(

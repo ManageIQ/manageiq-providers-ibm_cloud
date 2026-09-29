@@ -1,10 +1,10 @@
 namespace :release do
   desc "Release a new project version"
-  task :release do
+  task :release => :environment do
     require 'pathname'
 
-    version = ENV["RELEASE_VERSION"]
-    if version.nil? || version.empty?
+    version = ENV.fetch("RELEASE_VERSION", nil)
+    if version.blank?
       warn "ERROR: You must set the env var RELEASE_VERSION to the proper value."
       exit 1
     end
@@ -53,11 +53,11 @@ namespace :release do
   end
 
   desc "Tasks to run on a new branch when a new branch is created"
-  task :new_branch do
+  task :new_branch => :environment do
     require 'pathname'
 
-    branch = ENV["RELEASE_BRANCH"]
-    if branch.nil? || branch.empty?
+    branch = ENV.fetch("RELEASE_BRANCH", nil)
+    if branch.blank?
       warn "ERROR: You must set the env var RELEASE_BRANCH to the proper value."
       exit 1
     end

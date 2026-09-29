@@ -5,7 +5,7 @@ class ManageIQ::Providers::IbmCloud::ContainerManager::EventCatcher::Runner < Ma
 
   def worker_cmdline
     ManageIQ::Providers::IbmCloud::Engine.root
-      .join("workers/container_event_catcher/worker")
-      .to_s
+                                         .join("workers/container_event_catcher/worker")
+                                         .to_s
   end
 end
