@@ -1,8 +1,5 @@
-k8s_dir = Gem.loaded_specs['manageiq-providers-kubernetes']&.gem_dir ||
-          File.expand_path('../../../manageiq-providers-kubernetes', __dir__)
-require "#{k8s_dir}/lib/manageiq/providers/kubernetes/workers/event_catcher_base"
-require "#{k8s_dir}/workers/event_catcher/event_parser"
-
+require 'manageiq/providers/kubernetes/workers/event_catcher_base'
+require 'manageiq/providers/kubernetes/workers/event_parser'
 require 'ibm_cloud_iam'
 
 class EventCatcher < KubernetesEventCatcherBase
@@ -15,7 +12,7 @@ class EventCatcher < KubernetesEventCatcherBase
     grant_type    = 'urn:ibm:params:oauth:grant-type:apikey'
     header_params = {
       'Content-Type'  => 'application/x-www-form-urlencoded',
-      'Authorization' => 'Basic a3ViZTprdWJl',
+      'Authorization' => 'Basic a3ViZTprdWJl', # Base64 encoded 'kube:kube' client credentials for IBM Cloud IAM
       'cache-control' => 'no-cache'
     }
     response      = iam_token_api.get_token_api_key(grant_type, authentication['auth_key'], {:header_params => header_params})

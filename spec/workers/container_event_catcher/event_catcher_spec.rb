@@ -1,7 +1,3 @@
-require 'kubeclient'
-require 'recursive-open-struct'
-require 'ibm_cloud_iam'
-
 require_relative '../../../workers/container_event_catcher/event_catcher'
 
 RSpec.describe EventCatcher do
