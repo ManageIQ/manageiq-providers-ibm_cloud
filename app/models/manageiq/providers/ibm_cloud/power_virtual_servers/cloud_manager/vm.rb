@@ -16,6 +16,9 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm < Man
   supports :snapshots
   supports :snapshot_create
   supports :rename
+  supports :rename_snapshot do
+    _("No snapshots available for this VM") if snapshots.size <= 0
+  end
   supports :revert_to_snapshot do
     _("Cannot revert to snapshot while VM is running") unless current_state == "off"
   end
