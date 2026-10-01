@@ -24,7 +24,7 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm::Ope
       )
       api.pcloud_cloudinstances_snapshots_put(cloud_instance_id, snapshot.uid_ems, req)
     end
-  rescue => err
+  rescue StandardError => err
     create_notification(:vm_snapshot_failure, :error => err.to_s, :snapshot_op => "rename")
     raise MiqException::MiqVmSnapshotError, err.to_s
   end
