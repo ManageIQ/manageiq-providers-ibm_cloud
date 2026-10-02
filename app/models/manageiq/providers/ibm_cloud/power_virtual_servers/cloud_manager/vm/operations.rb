@@ -16,6 +16,19 @@ module ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Vm::Ope
     raise MiqException::MiqVmSnapshotError, err.to_s
   end
 
+  def raw_rename_snapshot(snapshot_id, new_name)
+    with_provider_connection(:service => 'PCloudSnapshotsApi') do |api|
+      snapshot = Snapshot.find(snapshot_id)
+      req = IbmCloudPower::SnapshotUpdate.new(
+        :name => new_name
+      )
+      api.pcloud_cloudinstances_snapshots_put(cloud_instance_id, snapshot.uid_ems, req)
+    end
+  rescue StandardError => err
+    create_notification(:vm_snapshot_failure, :error => err.to_s, :snapshot_op => "rename")
+    raise MiqException::MiqVmSnapshotError, err.to_s
+  end
+
   def raw_resize(options)
     with_provider_connection(:service => 'PCloudPVMInstancesApi') do |api|
       pvm_instance = api.pcloud_pvminstances_get(cloud_instance_id, ems_ref)
