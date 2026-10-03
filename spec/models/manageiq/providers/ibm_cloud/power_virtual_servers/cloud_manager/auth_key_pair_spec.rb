@@ -7,5 +7,9 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthK
     it 'supports create' do
       expect(ems.class_by_ems("AuthKeyPair").supports?(:create)).to be_truthy
     end
+
+    it 'supports delete' do
+      expect(ems.class_by_ems("AuthKeyPair").supports?(:delete)).to be_truthy
+    end
   end
 end
