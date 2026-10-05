@@ -125,7 +125,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     context "targeted refresh of VM" do
-      before { full_refresh(ems) }
+      before { with_vcr { ems.refresh } }
 
       context "vm target", :target_vm => true do
         let(:target) { ems.vms.find_by(:name => "test-instance-ibmi-s922-capped-tier1") }
@@ -344,7 +344,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     end
 
     def full_refresh(ems)
-      VCR.use_cassette(described_class.name.underscore, :allow_unused_http_interactions => true) do
+      VCR.use_cassette(described_class.name.underscore) do
         ems.refresh
       end
     end

@@ -5,16 +5,18 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyP
   def self.raw_create_key_pair(ext_management_system, create_options)
     require "sshkey"
     ext_management_system.with_provider_connection(:service => "SSHKeysApi") do |api|
+      public_key = create_options['public_key'].to_s.strip.split("\n").join(" ")
+
       body = IbmCloudPower::CreateWorkspaceSSHKey.new(
         :name    => create_options['name'],
-        :ssh_key => create_options['public_key']
+        :ssh_key => public_key
       )
 
       api.v1_sshkeys_post(body)
       {
         :name        => create_options['name'],
-        :public_key  => create_options['public_key'],
-        :fingerprint => SSHKey.sha256_fingerprint(create_options['public_key'])
+        :public_key  => public_key,
+        :fingerprint => SSHKey.sha256_fingerprint(public_key)
       }
     end
   rescue => err
