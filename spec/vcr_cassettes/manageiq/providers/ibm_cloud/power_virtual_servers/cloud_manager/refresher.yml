@@ -2262,4 +2262,37 @@ http_interactions:
 
         '
   recorded_at: Wed, 25 Jun 2025 14:59:53 GMT
+- request:
+    method: get
+    uri: https://us-east.power-iaas.cloud.ibm.com/v1/ssh-keys
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - OpenAPI-Generator/3.0.0/ruby
+      Content-Type:
+      - application/json
+      Crn:
+      - 'crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID::'
+      Authorization: Bearer xxxxxx
+      Accept:
+      - application/json
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json
+      X-Correlation-Id:
+      - aabbccdd-1234-5678-abcd-ef0123456789
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"sshKeys":[{"creationDate":"2025-06-25T14:28:32.494Z","id":"test-ssh-key-no-comment","name":"test-ssh-key-no-comment","primaryWorkspace":true,"sshKey":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCooZYGrwhEl5kCa0Pcdh2x0Xz/rOdru94tC8QI24bRFHPUAT88TKz48UciQE6/VaMdxxb9zrvA2eIU0/Td9lQU44B1LyEDLfILdxH1mHd2wehDM78V7804jvsxTMYXgNU8NEAJM+gyJ/K0rwvCReofL4jq/y4bbSEvVE+DxTnqzry2+SRCy0tEIfrHkJv2DMiB0oY680qEkZsAMZjE2JFrK8bN88kPhDb52x12llPMvUpppT4RBU3dDnweA50sxabV4SX0XVVJncw9nKh1EsUWrI4O7N3h8i8bLoiJvmGjIEpAQxE80ftvcbpJf0hPGsIr0BR+Qc+S6nBMdgpXj5RWlYS/ekxAVPe4xQsM01gMziwiX1RrcektajR8x/D3z28u7Nv1530b3rSqTMiydyXqcKMlTItqArpZVamo3UZ2CfuYRUdcpM+fbPCRsj0GH7pRxLqYag2klUIc9hZSgxQ85Yo5da+E7QjEvwxN5zxSyMy/ekRwsgWg6nDar9BFBV0=","visibility":"workspace"},{"creationDate":"2025-06-25T14:28:32.920Z","id":"test-ssh-key-with-comment","name":"test-ssh-key-with-comment","primaryWorkspace":true,"sshKey":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCvyVUxkBtMlmTemse/JcMhSxI4kIK4SzpMqQaUBaon9X30x62fjOik7lnqxqg/BXWVYI15nslSI/t5IbQGPGPBzR9RplBn/dx/Yxzcfgq5U5YBkvP9yXRYdp5f51z17a5+wWKI8Dka7vrLmv62thB83pjgiTsgFvqdSx7aYC4U3GFpboYHX/tQjrEpNBHRiRTeB9Ux/O+/gzGULlR0jd4denrWpng9Nn9n+N1e+tAkkUjUY0xTnodZfjnpYO/qhWSPwCglZeP9i9KdZFLCKuGTHkWbmQ1SnehRYEnLJ9lZRkhMsYq6uW1SNzMn16bGs3T7c+RkZUzs2JxFEjBIpEkq/uVDwVyIYd6dKQMp1cC8MEHQB2G6udrcvzwOJkb9xYqcJVpp0MzWApeBPwXUYJjCaxIHwF4TciYT0tleaoyZep9of0Wnrfv0BAtmY1f9obyEuRXKBFYmFlIvXripuueCL38KlQfVgmLuhnpSxXTVeiTZ8qTCxUkrJc6DZXh/z90= This is only a test!","visibility":"workspace"},{"creationDate":"2025-06-25T14:28:33.365Z","id":"test-ssh-key-with-comment-line-breaks","name":"test-ssh-key-with-comment-line-breaks","primaryWorkspace":true,"sshKey":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD06A0pk378CjUm3LR5O9BW03ZNKgQPsB0IdMzdM4pBOyiPMubmcvOvItDz0XmtRIBJxqxRZftJAq01ej2ZSq+Fk+cbGtGQngEVceaz2GnrGNLasyF0zKG5mLXkoQsm3tofRdCuLecBFPSVN31yuxeVxsNCYKunGtwNejC/GIroptuRANJYVAv3TaVl99MYHfhkJCEvomdimYWZmi4eEML9bAhqr7LBK7j6rcivcp6Z8LpIg4LUP1+jniV0dXbhycJhYaAvQtKySBwnx70LiShyy9R2P31LL8g19Dn75NK1kWNV5mRrWFdyX+GJ8lnalOyBN4irZ7T1wAnbJfd/Vfs9PtYz2iR9IFEKYaxpEgNB5FQQY3UoP5gPezfRstG0ohmJ2zYxHC6PYuYQUpgp6xhf7jEtC+WHjWtmN5/LJ74k13BVPlhrSAduYrZJ8mCS29b4gjBuIirW8nByaGh5HBToyjbxdlBqDJS0+qMeWPqwSlZGK/jTulNpmvAibX7CawM= Yes, placing line breaks in SSH public key comments doesn''t break anything","visibility":"workspace"}]}'
+  recorded_at: Wed, 25 Jun 2025 14:59:54 GMT
 recorded_with: VCR 6.3.1
