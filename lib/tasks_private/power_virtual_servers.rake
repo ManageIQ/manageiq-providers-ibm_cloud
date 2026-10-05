@@ -557,11 +557,7 @@ namespace :vcr do
         next unless ssh_key_names.include?(ssh_key.name)
 
         puts "Deleting SSH Key '#{ssh_key.name}'"
-        tenants_ssh_keys_api.pcloud_tenants_sshkeys_delete(
-          tenant_id,
-          ssh_key.name
-        )
-      ssh_keys_api.v1_sshkeys_delete(ssh_key.name)
+        ssh_keys_api.v1_sshkeys_delete(ssh_key.name)
       end
     end
 
