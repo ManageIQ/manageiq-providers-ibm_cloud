@@ -4,18 +4,19 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyP
 
   def self.raw_create_key_pair(ext_management_system, create_options)
     require "sshkey"
-    ext_management_system.with_provider_connection(:service => "PCloudTenantsSSHKeysApi") do |api|
-      tenant_id = ext_management_system.pcloud_tenant_id(api.api_client)
-      ssh_key   = IbmCloudPower::SSHKey.new(
+    ext_management_system.with_provider_connection(:service => "SSHKeysApi") do |api|
+      public_key = create_options['public_key'].to_s.strip.split("\n").join(" ")
+
+      body = IbmCloudPower::CreateWorkspaceSSHKey.new(
         :name    => create_options['name'],
-        :ssh_key => create_options['public_key']
+        :ssh_key => public_key
       )
 
-      api.pcloud_tenants_sshkeys_post(tenant_id, ssh_key)
+      api.v1_sshkeys_post(body)
       {
         :name        => create_options['name'],
-        :public_key  => create_options['public_key'],
-        :fingerprint => SSHKey.sha256_fingerprint(create_options['public_key'])
+        :public_key  => public_key,
+        :fingerprint => SSHKey.sha256_fingerprint(public_key)
       }
     end
   rescue => err
@@ -25,8 +26,8 @@ class ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::AuthKeyP
   end
 
   def raw_delete_key_pair
-    resource.with_provider_connection(:service => "PCloudTenantsSSHKeysApi") do |api|
-      api.pcloud_tenants_sshkeys_delete(resource.tenant_id, name)
+    resource.with_provider_connection(:service => "SSHKeysApi") do |api|
+      api.v1_sshkeys_delete(name)
     end
   rescue => err
     _log.log_backtrace(err)

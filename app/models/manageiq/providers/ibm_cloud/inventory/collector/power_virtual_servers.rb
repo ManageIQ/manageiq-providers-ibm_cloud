@@ -110,7 +110,7 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
   end
 
   def sshkeys
-    @sshkeys ||= tenants_api.pcloud_tenants_get(pcloud_tenant_id).ssh_keys
+    @sshkeys ||= ssh_keys_api.v1_sshkeys_getall.ssh_keys
   end
 
   def datacenter
@@ -213,5 +213,9 @@ class ManageIQ::Providers::IbmCloud::Inventory::Collector::PowerVirtualServers <
 
   def shared_processor_pools_api
     @shared_processor_pools_api ||= IbmCloudPower::PCloudSharedProcessorPoolsApi.new(connection)
+  end
+
+  def ssh_keys_api
+    @ssh_keys_api ||= IbmCloudPower::SSHKeysApi.new(connection)
   end
 end

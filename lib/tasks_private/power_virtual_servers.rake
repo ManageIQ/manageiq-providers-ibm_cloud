@@ -374,11 +374,11 @@ namespace :vcr do
       end
 
       ## SSH Keys
-      tenants_ssh_keys_api = IbmCloudPower::PCloudTenantsSSHKeysApi.new(connection)
+      ssh_keys_api = IbmCloudPower::SSHKeysApi.new(connection)
 
       ssh_keys = {}
 
-      tenants_ssh_keys_api.pcloud_tenants_sshkeys_getall(tenant_id).ssh_keys.each do |ssh_key|
+      ssh_keys_api.v1_sshkeys_getall.ssh_keys.each do |ssh_key|
         ssh_keys[ssh_key.name] = ssh_key
       end
 
@@ -387,10 +387,7 @@ namespace :vcr do
           puts "SSH Key '#{ssh_key.name}' already exists"
         else
           puts "Creating SSH Key '#{ssh_key.name}'"
-          created_ssh_key = tenants_ssh_keys_api.pcloud_tenants_sshkeys_post(
-            tenant_id,
-            ssh_key
-          )
+          created_ssh_key = ssh_keys_api.v1_sshkeys_post(ssh_key)
           ssh_keys[ssh_key.name] = created_ssh_key
         end
       end
@@ -555,15 +552,12 @@ namespace :vcr do
 
       ## SSH Keys
       ssh_key_names = resources[:ssh_keys].map(&:name)
-      tenants_ssh_keys_api = IbmCloudPower::PCloudTenantsSSHKeysApi.new(connection)
-      tenants_ssh_keys_api.pcloud_tenants_sshkeys_getall(tenant_id).ssh_keys.each do |ssh_key|
+      ssh_keys_api = IbmCloudPower::SSHKeysApi.new(connection)
+      ssh_keys_api.v1_sshkeys_getall.ssh_keys.each do |ssh_key|
         next unless ssh_key_names.include?(ssh_key.name)
 
         puts "Deleting SSH Key '#{ssh_key.name}'"
-        tenants_ssh_keys_api.pcloud_tenants_sshkeys_delete(
-          tenant_id,
-          ssh_key.name
-        )
+        ssh_keys_api.v1_sshkeys_delete(ssh_key.name)
       end
     end
 
