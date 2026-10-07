@@ -4,8 +4,6 @@ class ManageIQ::Providers::IbmCloud::ContainerManager::EventCatcher::Runner < Ma
   private
 
   def worker_cmdline
-    ManageIQ::Providers::IbmCloud::Engine.root
-      .join("workers/container_event_catcher/worker")
-      .to_s
+    ManageIQ::Providers::IbmCloud::Engine.root.join("workers/manageiq/providers/ibm_cloud/container_manager/event_catcher/worker").to_s
   end
 end

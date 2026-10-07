@@ -1,8 +1,4 @@
-require 'kubeclient'
-require 'recursive-open-struct'
-require 'ibm_cloud_iam'
-
-require_relative '../../../workers/container_event_catcher/event_catcher'
+require_relative '../../../workers/manageiq/providers/ibm_cloud/container_manager/event_catcher/event_catcher'
 
 RSpec.describe EventCatcher do
   let(:ems)            { {'id' => 1, 'uid_ems' => 'my-iks-cluster', 'type' => 'ManageIQ::Providers::IbmCloud::ContainerManager', 'ems_type' => 'iks'} }
