@@ -1,6 +1,6 @@
 require_relative '../../../workers/manageiq/providers/ibm_cloud/container_manager/event_catcher/event_catcher'
 
-RSpec.describe EventCatcher do
+RSpec.describe ManageIQ::Providers::IbmCloud::Workers::ContainerManager::EventCatcher do
   let(:ems)            { {'id' => 1, 'uid_ems' => 'my-iks-cluster', 'type' => 'ManageIQ::Providers::IbmCloud::ContainerManager', 'ems_type' => 'iks'} }
   let(:endpoint)       { {'hostname' => 'iks.example.com', 'port' => 443, 'security_protocol' => 'ssl-with-validation'} }
   let(:authentication) { {'authtype' => 'bearer', 'auth_key' => 'my-iam-api-key'} }

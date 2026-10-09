@@ -2,25 +2,35 @@ require 'manageiq/providers/kubernetes/workers/event_catcher_base'
 require 'manageiq/providers/kubernetes/workers/event_parser'
 require 'ibm_cloud_iam'
 
-class EventCatcher < ManageIQ::Providers::Kubernetes::Workers::EventCatcherBase
-  attr_reader :token_expiry
+module ManageIQ
+  module Providers
+    module IbmCloud
+      module Workers
+        module ContainerManager
+          class EventCatcher < ManageIQ::Providers::Kubernetes::Workers::EventCatcherBase
+            attr_reader :token_expiry
 
-  private
+            private
 
-  def auth_options
-    iam_token_api = IbmCloudIam::TokenOperationsApi.new
-    grant_type    = 'urn:ibm:params:oauth:grant-type:apikey'
-    header_params = {
-      'Content-Type'  => 'application/x-www-form-urlencoded',
-      'Authorization' => 'Basic a3ViZTprdWJl', # Base64 encoded 'kube:kube' client credentials for IBM Cloud IAM
-      'cache-control' => 'no-cache'
-    }
-    response      = iam_token_api.get_token_api_key(grant_type, authentication['auth_key'], {:header_params => header_params})
-    @token_expiry = response.expiration ? Time.at(response.expiration).utc : nil
-    {:bearer_token => response.id_token}
-  end
+            def auth_options
+              iam_token_api = IbmCloudIam::TokenOperationsApi.new
+              grant_type    = 'urn:ibm:params:oauth:grant-type:apikey'
+              header_params = {
+                'Content-Type'  => 'application/x-www-form-urlencoded',
+                'Authorization' => 'Basic a3ViZTprdWJl', # Base64 encoded 'kube:kube' client credentials for IBM Cloud IAM
+                'cache-control' => 'no-cache'
+              }
+              response      = iam_token_api.get_token_api_key(grant_type, authentication['auth_key'], {:header_params => header_params})
+              @token_expiry = response.expiration ? Time.at(response.expiration).utc : nil
+              {:bearer_token => response.id_token}
+            end
 
-  def log_prefix
-    'MIQ(ManageIQ::Providers::IbmCloud::ContainerManager::EventCatcher)'
+            def log_prefix
+              'MIQ(ManageIQ::Providers::IbmCloud::ContainerManager::EventCatcher)'
+            end
+          end
+        end
+      end
+    end
   end
 end
