@@ -259,12 +259,15 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
 
   def sshkeys
     require "sshkey"
+
     collector.sshkeys.each do |tkey|
       persister.auth_key_pairs.build(
         :name        => tkey.name,
         :public_key  => tkey.ssh_key,
         :fingerprint => SSHKey.sha256_fingerprint(tkey.ssh_key.split("\n").first)
       )
+    rescue SSHKey::PublicKeyError => err
+      _log.warn("Failed to process SSH key '#{tkey.name}': #{err.message}")
     end
   end
 
