@@ -142,6 +142,96 @@ class ManageIQ::Providers::IbmCloud::Inventory::Parser::PowerVirtualServers < Ma
         :value        => ldesc,
         :read_only    => true
       )
+
+      # saving effective processor compatibility mode
+      persister.vms_and_templates_advanced_settings.build(
+        :resource     => ps_vmi,
+        :name         => 'effective_processor_compatibility_mode',
+        :display_name => _('Effective Processor Compatibility Mode'),
+        :description  => _('The effective processor compatibility mode of the VM'),
+        :value        => instance.effective_processor_compatibility_mode,
+        :read_only    => true
+      )
+
+      # saving preferred processor compatibility mode
+      persister.vms_and_templates_advanced_settings.build(
+        :resource     => ps_vmi,
+        :name         => 'preferred_processor_compatibility_mode',
+        :display_name => _('Preferred Processor Compatibility Mode'),
+        :description  => _('The preferred processor compatibility mode of the VM'),
+        :value        => instance.preferred_processor_compatibility_mode,
+        :read_only    => true
+      )
+
+      # saving max memory
+      persister.vms_and_templates_advanced_settings.build(
+        :resource     => ps_vmi,
+        :name         => 'max_mem',
+        :display_name => _('Maximum Memory (GiB)'),
+        :description  => _('Maximum amount of memory that can be allocated (in GiB)'),
+        :value        => instance.maxmem,
+        :read_only    => true
+      )
+
+      # saving max processors
+      persister.vms_and_templates_advanced_settings.build(
+        :resource     => ps_vmi,
+        :name         => 'max_proc',
+        :display_name => _('Maximum Processors'),
+        :description  => _('Maximum number of processors that can be allocated'),
+        :value        => instance.maxproc,
+        :read_only    => true
+      )
+
+      # saving min memory
+      persister.vms_and_templates_advanced_settings.build(
+        :resource     => ps_vmi,
+        :name         => 'min_mem',
+        :display_name => _('Minimum Memory (GiB)'),
+        :description  => _('Minimum amount of memory that can be allocated (in GiB)'),
+        :value        => instance.minmem,
+        :read_only    => true
+      )
+
+      # saving min processors
+      persister.vms_and_templates_advanced_settings.build(
+        :resource     => ps_vmi,
+        :name         => 'min_proc',
+        :display_name => _('Minimum Processors'),
+        :description  => _('Minimum number of processors that can be allocated'),
+        :value        => instance.minproc,
+        :read_only    => true
+      )
+
+      # saving migratable
+      persister.vms_and_templates_advanced_settings.build(
+        :resource     => ps_vmi,
+        :name         => 'migratable',
+        :display_name => _('Migratable'),
+        :description  => _('Whether the instance can be migrated [true, false]'),
+        :value        => instance.migratable.to_s,
+        :read_only    => true
+      )
+
+      # saving storage pool
+      persister.vms_and_templates_advanced_settings.build(
+        :resource     => ps_vmi,
+        :name         => 'storage_pool',
+        :display_name => _('Storage Pool'),
+        :description  => _('Storage pool where the server is deployed'),
+        :value        => instance.storage_pool,
+        :read_only    => true
+      )
+
+      # saving storage pool affinity
+      persister.vms_and_templates_advanced_settings.build(
+        :resource     => ps_vmi,
+        :name         => 'storage_pool_affinity',
+        :display_name => _('Storage Pool Affinity'),
+        :description  => _('Indicates if all volumes must reside in the same storage pool [true, false]'),
+        :value        => instance.storage_pool_affinity.to_s,
+        :read_only    => true
+      )
     end
   end
 
