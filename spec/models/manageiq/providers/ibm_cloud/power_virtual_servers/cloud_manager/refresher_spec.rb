@@ -186,6 +186,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       instance_name = "test-instance-ibmi-s922-capped-tier1"
       vm = ems.vms.find_by(:name => instance_name)
       placement_group = ems.placement_groups.find_by(:name => "test-placement-group-affinity")
+      expect(vm.uid_ems).to start_with("crn:")
       expect(vm).to have_attributes(
         :location           => "unknown",
         :name               => instance_name,
@@ -242,6 +243,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     def assert_specific_template
       template_name = "7300-03-00"
       template = ems.miq_templates.find_by(:name => template_name)
+      expect(template.uid_ems).to start_with("crn:")
       expect(template).to have_attributes(
         :name             => template_name,
         :description      => "stock",
@@ -266,6 +268,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       # currently not comapring cidr as it is empty in the db
       subnet_name = "test-network-vlan-jumbo" # PowerVS only has subnets, but MIQ requires a parent network
       cloud_network = ems.network_manager.cloud_networks.find_by(:name => "#{subnet_name}-vlan")
+      expect(cloud_network.uid_ems).to start_with("crn:")
       expect(cloud_network).to have_attributes(
         :name    => "#{subnet_name}-vlan",
         :status  => "active",
@@ -300,6 +303,7 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
     def assert_specific_cloud_volume
       cloud_volume_name = "test-volume-1GB-tier3-sharable"
       cloud_volume = ems.storage_manager.cloud_volumes.find_by(:name => cloud_volume_name)
+      expect(cloud_volume.uid_ems).to start_with("crn:")
       expect(cloud_volume).to have_attributes(
         :name             => cloud_volume_name,
         :volume_type      => "tier3",
