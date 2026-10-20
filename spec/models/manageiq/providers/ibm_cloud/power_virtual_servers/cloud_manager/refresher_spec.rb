@@ -187,6 +187,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       vm = ems.vms.find_by(:name => instance_name)
       placement_group = ems.placement_groups.find_by(:name => "test-placement-group-affinity")
       expect(vm).to have_attributes(
+        :ems_ref            => "04c9a30d-c8d5-46cb-849b-0f7fa5004b70",
+        :uid_ems            => "crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:pvm-instance:04c9a30d-c8d5-46cb-849b-0f7fa5004b70",
         :location           => "unknown",
         :name               => instance_name,
         :description        => "PVM Instance",
@@ -243,6 +245,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       template_name = "7300-03-00"
       template = ems.miq_templates.find_by(:name => template_name)
       expect(template).to have_attributes(
+        :ems_ref          => "05e43ffe-bf8e-4f4a-8dd8-2ebc747e9b33",
+        :uid_ems          => "crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:image:05e43ffe-bf8e-4f4a-8dd8-2ebc747e9b33",
         :name             => template_name,
         :description      => "stock",
         :vendor           => "ibm_power_vs",
@@ -267,6 +271,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       subnet_name = "test-network-vlan-jumbo" # PowerVS only has subnets, but MIQ requires a parent network
       cloud_network = ems.network_manager.cloud_networks.find_by(:name => "#{subnet_name}-vlan")
       expect(cloud_network).to have_attributes(
+        :ems_ref => "75a55a9f-1038-4495-9c3f-f7c113670c2e-vlan",
+        :uid_ems => "crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:network:75a55a9f-1038-4495-9c3f-f7c113670c2e",
         :name    => "#{subnet_name}-vlan",
         :status  => "active",
         :enabled => true,
@@ -301,6 +307,8 @@ describe ManageIQ::Providers::IbmCloud::PowerVirtualServers::CloudManager::Refre
       cloud_volume_name = "test-volume-1GB-tier3-sharable"
       cloud_volume = ems.storage_manager.cloud_volumes.find_by(:name => cloud_volume_name)
       expect(cloud_volume).to have_attributes(
+        :ems_ref          => "2ce11d4a-2c94-4742-bff4-0e802cf348f8",
+        :uid_ems          => "crn:v1:bluemix:public:power-iaas:us-east10:a/1fdf5effc3f945688c021cd0a8b45c4d:IBM_CLOUD_POWERVS_INSTANCE_ID:volume:2ce11d4a-2c94-4742-bff4-0e802cf348f8",
         :name             => cloud_volume_name,
         :volume_type      => "tier3",
         :size             => 1&.gigabytes,
