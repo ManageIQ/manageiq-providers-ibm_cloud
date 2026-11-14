@@ -35,7 +35,7 @@ class ManageIQ::Providers::IbmCloud::ContainerManager < ManageIQ::Providers::Kub
 
   def self.kubernetes_auth_options(options)
     {
-      :bearer_token => get_token(options[:api_key]).id_token
+      :bearer_token => get_token(options[:api_key]).access_token
     }
   end
 
@@ -77,7 +77,7 @@ class ManageIQ::Providers::IbmCloud::ContainerManager < ManageIQ::Providers::Kub
   def self.get_token(api_key)
     require 'ibm_cloud_iam'
 
-    iam_token_api = IbmCloudIam::TokenOperationsApi.new
+    iam_token_api = IbmCloudIam::TokenRetrievalApi.new
     grant_type = 'urn:ibm:params:oauth:grant-type:apikey'
     header_params = {
       'Content-Type'  => 'application/x-www-form-urlencoded',
