@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "manageiq-providers-kubernetes", "~> 0.1"
-  spec.add_dependency "ibm_cloud_iam", "~> 1.0"
+  spec.add_dependency "ibm_cloud_iam", "~> 2.0"
   spec.add_dependency "ibm_cloud_power", "~> 3.0"
   spec.add_dependency "ibm_cloud_resource_controller", "~> 2.1"
   spec.add_dependency "ibm-cloud-sdk", "~> 0.1"
