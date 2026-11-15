@@ -103,11 +103,12 @@
         :vm_name:
           :description: Instance Name
           :required_method: :validate_vm_name
+          :required_regex: !ruby/regexp /^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$/
           :required: true
           :display: :edit
           :data_type: :string
           :min_length: 1
-          :max_length: 30
+          :max_length: 63
         :number_of_vms:
           :values:
             1: 1
