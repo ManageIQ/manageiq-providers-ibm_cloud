@@ -1,0 +1,4 @@
+- secret_values:
+  # Some SDK tests require a valid JWT payload, this is a fake one used in a number of VCR tests
+  # It decodes to {"alg":"RS256","typ":"JWT"}, then {"sub":"fake","iat":1619034158,"exp":4102462800}, signed with fakesignature
+  - eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ

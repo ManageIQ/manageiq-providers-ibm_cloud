@@ -50,7 +50,7 @@ http_interactions:
       - '102'
     body:
       encoding: ASCII-8BIT
-      string: '{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjM4ODE4NTY3LCJleHAiOjE2Mzg4MjIxNjd9.ZmFrZXNpZ25hdHVyZQ","refresh_token":"not_supported","ims_user_id":9122046,"token_type":"Bearer","expires_in":3600,"expiration":1638822167,"scope":"ibm
+      string: '{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ","refresh_token":"not_supported","ims_user_id":9122046,"token_type":"Bearer","expires_in":3600,"expiration":4102462800,"scope":"ibm
         openid"}'
     http_version:
   recorded_at: Mon, 06 Dec 2021 19:22:50 GMT
@@ -68,7 +68,7 @@ http_interactions:
       Content-Type:
       - application/json
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjM4ODE4NTY3LCJleHAiOjE2Mzg4MjIxNjd9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Ibminstanceid:
       - 238fa410-548f-4d71-af83-8d8bcd91a122
       Content-Length:

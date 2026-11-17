@@ -52,7 +52,7 @@ http_interactions:
       - '743'
     body:
       encoding: ASCII-8BIT
-      string: '{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc0ODIxLCJleHAiOjE2MzE0Nzg0MjF9.ZmFrZXNpZ25hdHVyZQ","id_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc0ODIxLCJleHAiOjE2MzE0Nzg0MjF9.ZmFrZXNpZ25hdHVyZQ","refresh_token":"REFRESH_TOKEN","ims_user_id":9122046,"token_type":"Bearer","expires_in":3600,"expiration":1631478421,"refresh_token_expiration":1634066821,"scope":"ibm
+      string: '{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ","id_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ","refresh_token":"REFRESH_TOKEN","ims_user_id":9122046,"token_type":"Bearer","expires_in":3600,"expiration":4102462800,"refresh_token_expiration":1634066821,"scope":"ibm
         openid containers-kubernetes"}'
     http_version:
   recorded_at: Sun, 12 Sep 2021 19:27:04 GMT
@@ -68,7 +68,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc1NDU1LCJleHAiOjE2MzE0NzkwNTV9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -106,7 +106,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc1NDU1LCJleHAiOjE2MzE0NzkwNTV9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -199,7 +199,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc1NDU1LCJleHAiOjE2MzE0NzkwNTV9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -238,7 +238,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc1NDU1LCJleHAiOjE2MzE0NzkwNTV9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -277,7 +277,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc1NDU1LCJleHAiOjE2MzE0NzkwNTV9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -316,7 +316,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc1NDU1LCJleHAiOjE2MzE0NzkwNTV9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -355,7 +355,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc1NDU1LCJleHAiOjE2MzE0NzkwNTV9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -394,7 +394,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc1NDU1LCJleHAiOjE2MzE0NzkwNTV9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -433,7 +433,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc1NDU1LCJleHAiOjE2MzE0NzkwNTV9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -641,7 +641,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc1NDU1LCJleHAiOjE2MzE0NzkwNTV9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -680,7 +680,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin20 x86_64) ruby/2.7.3p183
       Authorization:
-      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjMxNDc1NDU1LCJleHAiOjE2MzE0NzkwNTV9.ZmFrZXNpZ25hdHVyZQ
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
