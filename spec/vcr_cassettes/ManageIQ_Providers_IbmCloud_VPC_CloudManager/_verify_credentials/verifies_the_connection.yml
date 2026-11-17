@@ -48,7 +48,7 @@ http_interactions:
       - sessioncookie="2023709ba75c16e9"; Path=/; HttpOnly
     body:
       encoding: ASCII-8BIT
-      string: '{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM1NDg2LCJleHAiOjE2MTkwMzkwODZ9.ZmFrZXNpZ25hdHVyZQ","refresh_token":"REFRESH_TOKEN","ims_user_id":"22222","token_type":"Bearer","expires_in":3600,"expiration":4102462800,"scope":"ibm
+      string: '{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYWtlIiwiaWF0IjoxNjE5MDM0MTU4LCJleHAiOjQxMDI0NjI4MDB9.ZmFrZXNpZ25hdHVyZQ","refresh_token":"REFRESH_TOKEN","ims_user_id":"22222","token_type":"Bearer","expires_in":3600,"expiration":4102462800,"scope":"ibm
         openid"}'
     http_version:
   recorded_at: Wed, 21 Apr 2021 20:04:49 GMT
