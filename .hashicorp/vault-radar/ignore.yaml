@@ -1,3 +1,5 @@
+- paths:
+  - .yarn/releases/*.cjs
 - secret_values:
   # Some SDK tests require a valid JWT payload, this is a fake one used in a number of VCR tests
   # It decodes to {"alg":"RS256","typ":"JWT"}, then {"sub":"fake","iat":1619034158,"exp":4102462800}, signed with fakesignature
